@@ -7,7 +7,7 @@ interface CoreRuleTabProps {
 
 export default function CoreRuleTab({ coreRule, trapName }: CoreRuleTabProps) {
   return (
-    <div className="flex flex-col items-center py-8 px-4 text-center">
+    <div className="flex flex-col items-center px-4 py-8 text-center">
       <div className="mb-6 mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-pmp-surface">
         <svg
           viewBox="0 0 24 24"
@@ -25,7 +25,7 @@ export default function CoreRuleTab({ coreRule, trapName }: CoreRuleTabProps) {
 
       <div className="mb-3 font-body text-caption font-bold uppercase tracking-widest text-ash-text">CORE RULE</div>
 
-      <div className="font-display text-[24px] md:text-[32px] tracking-[-0.02em] leading-snug text-midnight-ink font-bold max-w-[400px]">
+      <div className="mx-auto max-w-[400px] font-display text-[24px] font-bold leading-snug tracking-[-0.02em] text-midnight-ink md:text-[32px]">
         {coreRule}
       </div>
 

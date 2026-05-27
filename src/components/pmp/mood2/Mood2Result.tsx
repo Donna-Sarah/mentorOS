@@ -104,7 +104,7 @@ export default function Mood2Result({
   const signalSegments = displaySignal.split(' → ').filter(Boolean)
 
   return (
-    <section className="mx-auto max-w-[640px] px-4 py-6">
+    <section className="mx-auto max-w-[640px] px-4 py-6 md:px-6">
       <div className="mb-4 flex items-center justify-between gap-3">
         <div className="rounded-md bg-pmp-surface px-3 py-1 font-body text-body-sm font-bold text-pmp-accent">
           🔍 Mood 2

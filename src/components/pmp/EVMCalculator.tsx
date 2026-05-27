@@ -122,7 +122,7 @@ export default function EVMCalculator() {
   ]
 
   return (
-    <div className="mx-auto max-w-[640px] px-4 py-8">
+    <div className="px-4 py-8 md:px-6">
       <h2 className="mb-2 font-display text-heading-sm font-bold text-midnight-ink">📊 EVM Calculator</h2>
       <p className="mb-6 font-body text-body-sm text-slate-text">
         Nhập 4 giá trị để tính tất cả EVM metrics.

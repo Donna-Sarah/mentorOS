@@ -177,7 +177,7 @@ export default function PMPClient() {
     }
 
     return (
-      <div className="mx-auto max-w-[640px] px-4 py-8">
+      <div className="mx-auto max-w-[640px] px-4 py-8 md:px-6">
         <p className="mb-4 font-body text-body text-slate-text">Đang tải...</p>
         <button
           type="button"

@@ -71,7 +71,7 @@ export default function AnswerPicker({
   }
 
   return (
-    <section className="mx-auto max-w-[640px] px-4 py-8">
+    <section className="mx-auto max-w-[640px] px-4 py-8 md:px-6">
       <div className="mb-4 flex items-center justify-between gap-3">
         <Button variant="ghost" size="sm" onClick={onBack}>
           ← Đổi chế độ
@@ -134,7 +134,7 @@ export default function AnswerPicker({
               type="button"
               onClick={() => toggleAnswer(key)}
               className={[
-                'flex w-full min-h-touch items-start gap-3 rounded-md border-2 p-3 text-left transition-all',
+                'flex w-full min-h-touch items-start gap-3 rounded-md border-2 px-4 py-3 text-left transition-all',
                 selected ? 'border-pmp-primary bg-pmp-surface' : 'border-soft-gray hover:border-pmp-primary/50',
               ].join(' ')}
             >

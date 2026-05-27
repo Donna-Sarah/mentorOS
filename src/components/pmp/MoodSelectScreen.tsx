@@ -22,7 +22,7 @@ export default function MoodSelectScreen({
   const [tooltipTerm, setTooltipTerm] = useState<{ term: string; idx: number } | null>(null)
 
   return (
-    <section className="mx-auto max-w-[640px] px-4 py-8">
+    <section className="mx-auto max-w-[640px] px-4 py-8 md:px-6">
       <Button variant="ghost" size="sm" onClick={onBack}>
         ← Câu hỏi khác
       </Button>

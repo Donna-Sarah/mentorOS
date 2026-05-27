@@ -55,9 +55,24 @@ export default function GlossaryPanel({ onClose, scrollToIndex = null }: Glossar
   }, [scrollToIndex])
 
   return (
-    <div className="fixed inset-0 z-modal flex flex-col bg-white-canvas">
-      <header className="sticky top-0 z-10 flex items-center justify-between border-b border-soft-gray bg-white-canvas px-4 py-3">
-        <h2 className="font-display text-heading-sm font-bold text-midnight-ink">📖 Glossary</h2>
+    <>
+      <div
+        className="fixed inset-0 z-modal bg-obsidian/40"
+        onClick={onClose}
+        aria-hidden
+      />
+      <div className="pointer-events-none fixed inset-0 z-modal flex items-stretch md:items-start md:justify-center md:p-8">
+        <div
+          className="relative flex h-full w-full flex-col overflow-hidden bg-white-canvas pointer-events-auto md:h-[calc(100vh-64px)] md:max-w-[720px] md:rounded-md md:shadow-modal"
+          onClick={(e) => e.stopPropagation()}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="glossary-panel-title"
+        >
+      <header className="sticky top-0 z-10 flex items-center justify-between border-b border-soft-gray bg-white-canvas px-4 py-4 md:px-6">
+        <h2 id="glossary-panel-title" className="font-display text-[22px] font-bold text-midnight-ink">
+          📖 Glossary
+        </h2>
         <button
           type="button"
           onClick={onClose}
@@ -75,7 +90,7 @@ export default function GlossaryPanel({ onClose, scrollToIndex = null }: Glossar
         </button>
       </header>
 
-      <div className="border-b border-soft-gray px-4 py-3">
+      <div className="border-b border-soft-gray px-4 py-3 md:px-6">
         <input
           type="search"
           value={search}
@@ -86,9 +101,11 @@ export default function GlossaryPanel({ onClose, scrollToIndex = null }: Glossar
         />
       </div>
 
-      <p className="px-4 py-2 font-body text-caption text-ash-text">{filtered.length} thuật ngữ</p>
+      <p className="px-4 py-2 font-body text-caption text-ash-text md:px-6">
+        {filtered.length} thuật ngữ
+      </p>
 
-      <div className="scroll-container flex-1 space-y-2 overflow-y-auto px-4 pb-8">
+      <div className="scroll-container flex-1 space-y-2 overflow-y-auto px-4 pb-8 md:px-6">
         {filtered.map(({ entry, originalIndex }) => {
           const expanded = expandedIndex === originalIndex
           const detailHalves = entry.detail.split('\n\n').filter(Boolean)
@@ -101,26 +118,30 @@ export default function GlossaryPanel({ onClose, scrollToIndex = null }: Glossar
                 entryRefs.current[originalIndex] = el
               }}
               className={cn(
-                'overflow-hidden rounded-md border border-soft-gray',
-                expanded && 'shadow-card',
+                'overflow-hidden rounded-md border bg-white-canvas',
+                expanded ? 'border-pmp-primary/30 shadow-card' : 'border-soft-gray',
               )}
             >
               <button
                 type="button"
                 onClick={() => setExpandedIndex(expanded ? null : originalIndex)}
-                className="flex min-h-touch w-full items-center justify-between p-4 text-left transition-colors hover:bg-pmp-surface/30"
+                className="flex min-h-touch w-full items-center justify-between px-4 py-3 text-left transition-colors hover:bg-pmp-surface/20"
               >
                 <div className="min-w-0 flex-1 pr-3">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="font-body text-body-sm font-bold text-midnight-ink">
-                      {entry.pair[0]}
-                    </span>
-                    <span className="font-body text-caption text-ash-text">vs</span>
-                    <span className="font-body text-body-sm font-bold text-midnight-ink">
-                      {entry.pair[1]}
-                    </span>
+                  <div className="flex flex-col gap-0.5">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-body text-[15px] font-bold text-midnight-ink">
+                        {entry.pair[0]}
+                      </span>
+                      <span className="mx-1 font-body text-caption text-ash-text">vs</span>
+                      <span className="font-body text-[15px] font-bold text-midnight-ink">
+                        {entry.pair[1]}
+                      </span>
+                    </div>
+                    <p className="mt-0.5 font-body text-[13px] leading-snug text-slate-text">
+                      {entry.diff}
+                    </p>
                   </div>
-                  <p className="mt-0.5 font-body text-caption text-slate-text">{entry.diff}</p>
                 </div>
                 <svg
                   width="16"
@@ -141,28 +162,28 @@ export default function GlossaryPanel({ onClose, scrollToIndex = null }: Glossar
               </button>
 
               {expanded && (
-                <div className="space-y-3 border-t border-soft-gray px-4 pb-4">
-                  <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-                    <div className="rounded-md bg-pmp-surface/50 p-3">
-                      <div className="mb-1 font-body text-caption font-bold uppercase tracking-widest text-pmp-primary">
+                <div className="space-y-4 border-t border-soft-gray px-4 pb-5 pt-4 md:px-6">
+                  <div className="grid grid-cols-1 gap-3">
+                    <div className="rounded-md bg-pmp-surface/60 p-3">
+                      <div className="mb-2 font-body text-caption font-bold uppercase tracking-widest text-pmp-primary">
                         {entry.pair[0]}
                       </div>
-                      <p className="font-body text-body-sm text-midnight-ink">{firstHalf}</p>
+                      <p className="font-body text-[14px] leading-relaxed text-midnight-ink">{firstHalf}</p>
                     </div>
-                    <div className="rounded-md bg-soft-gray/20 p-3">
-                      <div className="mb-1 font-body text-caption font-bold uppercase tracking-widest text-pmp-primary">
+                    <div className="rounded-md bg-soft-gray/30 p-3">
+                      <div className="mb-2 font-body text-caption font-bold uppercase tracking-widest text-slate-text">
                         {entry.pair[1]}
                       </div>
-                      <p className="font-body text-body-sm text-midnight-ink">{secondHalf}</p>
+                      <p className="font-body text-[14px] leading-relaxed text-midnight-ink">{secondHalf}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-2 rounded-md bg-amber-glow p-3">
+                  <div className="flex items-start gap-3 rounded-md bg-amber-glow p-3">
                     <WarningIcon />
-                    <p className="font-body text-body-sm text-slate-text">{entry.trap}</p>
+                    <p className="font-body text-[13px] leading-relaxed text-slate-text">{entry.trap}</p>
                   </div>
 
-                  <p className="rounded-md border border-soft-gray bg-white-canvas p-3 font-body text-body-sm text-slate-text italic">
+                  <p className="rounded-md border border-soft-gray bg-white-canvas p-3 font-body text-[13px] leading-relaxed text-slate-text italic">
                     {entry.example}
                   </p>
                 </div>
@@ -171,6 +192,8 @@ export default function GlossaryPanel({ onClose, scrollToIndex = null }: Glossar
           )
         })}
       </div>
-    </div>
+        </div>
+      </div>
+    </>
   )
 }

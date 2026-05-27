@@ -58,7 +58,7 @@ function SampleItem({ sample, onPick }: { sample: SampleQuestion; onPick: () => 
     <button
       type="button"
       onClick={onPick}
-      className="flex w-full min-h-touch items-start gap-3 rounded-md border border-soft-gray p-3 text-left transition-colors hover:border-pmp-primary hover:bg-pmp-surface/50"
+      className="flex w-full min-h-touch items-start gap-3 rounded-md border border-soft-gray px-4 py-3 text-left transition-colors hover:border-pmp-primary hover:bg-pmp-surface/50"
     >
       <span className="shrink-0 rounded-sm bg-pmp-surface px-2 py-0.5 font-body text-caption font-bold uppercase tracking-widest text-pmp-accent">
         {sample.tag}
@@ -101,7 +101,7 @@ export default function InputScreen({ onConfirm }: InputScreenProps) {
   const canConfirmUpload = !!uploadedQuestion?.text?.trim()
 
   return (
-    <section className="mx-auto max-w-[640px] px-4 py-8">
+    <section className="mx-auto max-w-[640px] px-4 py-8 md:px-6">
       <div className="inline-flex items-center gap-1.5 rounded-full bg-pmp-surface px-3 py-1 font-body text-caption font-bold uppercase tracking-widest text-pmp-accent">
         PMP Thinking Coach
       </div>
@@ -113,7 +113,7 @@ export default function InputScreen({ onConfirm }: InputScreenProps) {
         Chọn câu mẫu, tải ảnh lên hoặc dán text để bắt đầu.
       </p>
 
-      <div className="mt-6 flex gap-2 rounded-md bg-soft-gray/30 p-1">
+      <div className="mt-6 flex gap-1 rounded-md bg-soft-gray/30 p-1">
         {([
           { key: 'random', label: '🎲 Câu mẫu' },
           { key: 'upload', label: '📷 Tải ảnh' },

@@ -32,7 +32,7 @@ export default function TrapTab({ trap }: TrapTabProps) {
           <div className="font-body text-body-sm text-slate-text italic">{trap.why_feels_right}</div>
         </div>
 
-        <div className="mt-2 flex flex-wrap gap-3">
+        <div className="mt-2 flex flex-wrap gap-2">
           <div className="inline-flex items-center gap-1.5 rounded-sm border border-soft-gray bg-white-canvas px-2 py-1 text-caption font-body text-slate-text">
             📌 {trap.domain}
           </div>

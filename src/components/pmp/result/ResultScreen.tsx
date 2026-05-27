@@ -36,7 +36,7 @@ export default function ResultScreen({
   const [tooltipTerm, setTooltipTerm] = useState<{ term: string; idx: number } | null>(null)
 
   return (
-    <section className="mx-auto max-w-[640px] px-4 py-6">
+    <section className="mx-auto max-w-[640px] px-4 py-6 md:px-6">
       <div className="mb-4 flex items-center justify-between gap-3">
         <div className="rounded-md bg-pmp-surface px-3 py-1 font-body text-body-sm font-bold text-pmp-accent">
           🧠 Mood 1
@@ -55,7 +55,7 @@ export default function ResultScreen({
       </div>
 
       <div className="mb-4">
-        <div className="scroll-hidden mb-4 flex gap-1 overflow-x-auto border-b border-soft-gray pb-1">
+        <div className="scroll-hidden mb-4 flex gap-1 overflow-x-auto border-b border-soft-gray px-0 pb-1">
           {([
             { key: 'verdict', label: 'Kết quả' },
             { key: 'anatomy', label: 'Giải phẫu' },
@@ -70,7 +70,7 @@ export default function ResultScreen({
                 type="button"
                 onClick={() => setActiveTab(tab.key)}
                 className={[
-                  'min-h-touch whitespace-nowrap px-4 py-2 font-body text-body-sm font-semibold transition-colors',
+                  'min-h-touch whitespace-nowrap px-3 py-2 font-body text-body-sm font-semibold transition-colors',
                   'border-b-2',
                   active
                     ? 'border-pmp-primary text-pmp-primary -mb-px'
