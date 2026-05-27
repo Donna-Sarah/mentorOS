@@ -1,0 +1,406 @@
+# mentorOS — Cursor Rules
+# These rules apply to every prompt in this project. Never override them.
+# Design system: Coda-inspired (tokens from coda.io) + mentorOS brand layer
+
+---
+
+## Project identity
+
+This is mentorOS — an AI-native professional cognition operating system.
+Repo: mentoros
+Stack: Next.js 14 App Router, TypeScript strict, Tailwind CSS, Supabase, Claude API
+Deployment: Vercel
+
+---
+
+## Folder structure rules
+
+- All source code lives in src/
+- Routes live in src/app/
+- Components live in src/components/
+- Shared logic lives in src/lib/
+- Custom hooks live in src/hooks/
+- Types live in src/types/
+- Never put components inside app/ route folders
+- Never put business logic inside page.tsx files — extract to hooks or lib/
+
+---
+
+## TypeScript rules
+
+- Always use strict TypeScript. No `any` unless explicitly justified with a comment.
+- Always type component props with an interface, not inline.
+- Always type function return values explicitly for non-trivial functions.
+- Use `type` for unions and utility types, `interface` for object shapes.
+- Never use `// @ts-ignore` — fix the type error properly.
+- All API route handlers must type their request body and response.
+
+---
+
+## Component rules
+
+- Default: Server Components. Only add 'use client' when the component needs:
+  - useState, useEffect, useRef, or other React hooks
+  - Browser APIs (localStorage, window, etc.)
+  - Event handlers that require client state
+  - Third-party libraries that require client context
+- Never add 'use client' to a component just because it is a page.
+- If a Server Component needs one interactive piece, extract that piece into a small Client Component.
+- Component file names: PascalCase (e.g. ProductCard.tsx)
+- One component per file. Never export multiple components from one file.
+
+---
+
+## i18n rules
+
+- NEVER hardcode Vietnamese or English strings in JSX.
+- ALL visible UI text must come from src/lib/i18n/vi.ts or src/lib/i18n/en.ts.
+- Use the useLanguage() hook and the t() accessor in every Client Component that renders text.
+- When adding a new UI string: add it to BOTH vi.ts and en.ts at the same time.
+- i18n keys use snake_case, nested by section: nav.home, home.hero_title, products.pmp.tagline
+
+---
+
+## ============================================================
+## DESIGN SYSTEM
+## Source: coda.io design tokens (extracted via refero.design)
+## + mentorOS brand identity files (logos, color palettes, brand sheets)
+## ============================================================
+
+## Design philosophy (Coda-inspired)
+
+The mentorOS shell follows Coda visual language:
+- Crisp white canvas with warm amber-glow sections for hero and footer
+- Strong Montserrat 700 display headlines with tight negative letter-spacing
+- Inter for all body, navigation, and UI text
+- Obsidian (#000000) for primary CTAs — not blue
+- Monochrome base palette with product-specific color accents only on product elements
+- Generous spacing — Coda uses 113px between sections
+- Cards use subtle shadow, NOT heavy borders
+- Buttons are always 8px border-radius — never pill, never sharp
+
+## Color rules
+
+### Shell and layout colors — use these for all non-product UI:
+
+Page background:        bg-white-canvas       #ffffff
+Hero and footer warm:   bg-amber-glow         #fff6ec
+Primary text:           text-midnight-ink     #212121
+Muted body text:        text-slate-text       #666666
+Helper text:            text-ash-text         #8e8e8e
+Subtle borders:         border-soft-gray      #e0e0e0
+Primary CTA bg:         bg-obsidian           #000000
+CTA text:               text-white-canvas     #ffffff
+Secondary btn text:     text-warm-gray        #444444
+Accent highlight:       text-sunset-orange    #ee5a29  (use sparingly)
+
+### Product accent colors — ONLY on product cards and module UI:
+
+PMP Thinking Coach:
+  Primary   #2563EB   text-pmp-primary
+  Accent    #7C3AED   text-pmp / text-pmp-accent
+  Surface   #EEF2FF   bg-pmp-surface
+  Gradient  bg-gradient-pmp  (135deg #2563EB to #7C3AED)
+
+AskBetter:
+  Primary   #2563EB   text-askbetter-primary
+  Accent    #06B6D4   text-askbetter-accent
+  Surface   #EFF6FF   bg-askbetter-surface
+  Gradient  bg-gradient-askbetter  (135deg #2563EB to #06B6D4)
+
+NextUp:
+  Primary   #06B6D4   text-nextup
+  Purple    #6366F1   text-nextup-purple
+  Surface   #ECFEFF   bg-nextup-surface
+  Gradient  bg-gradient-nextup  (135deg #2563EB to #06B6D4)
+
+BidMentor:
+  Primary   #10B981   text-bidmentor
+  Blue      #2563EB   text-bidmentor-primary
+  Surface   #ECFDF5   bg-bidmentor-surface
+  Gradient  bg-gradient-bidmentor  (135deg #2563EB to #10B981)
+
+### Do NOT:
+- Use blue as the primary CTA color on the shell — use bg-obsidian (black)
+- Use product colors in navbar, footer, or page backgrounds
+- Hardcode hex values in JSX — always use Tailwind classes or CSS variables
+
+## Typography rules
+
+Font families:
+- font-display (Montserrat 700)       ALL major headings, hero titles, product names
+- font-body (Inter 400/600/700)       ALL body, nav, buttons, badges, UI labels
+- font-serif (Playfair Display 300)   Optional elegant subheadings — use sparingly
+
+Type scale:
+
+text-display      72px   Montserrat 700   tracking-[-0.045px]   Hero headline only
+text-heading-lg   52px   Montserrat 700   tracking-[-0.035px]   Major section titles
+text-heading      38px   Montserrat 700   tracking-[-0.025px]   Section headings
+text-heading-sm   22px   Inter 600        tracking-[-0.03px]    Card titles
+text-subheading   20px   Inter 600        tracking-[-0.01px]    Feature labels
+text-body         16px   Inter 400        tracking-[0.01px]     Body paragraphs
+text-body-sm      14px   Inter 400        tracking-[0.01px]     Secondary text
+text-caption      10px   Inter 700        uppercase             Labels, tags
+
+ALWAYS apply the correct letter-spacing for display and heading sizes.
+
+## Spacing rules
+
+Base unit: 4px. Always use multiples.
+
+Section vertical padding:   py-[113px] on desktop, py-60 on mobile
+Card padding:               p-16
+Element gap:                gap-8
+
+## Border radius rules — STRICT
+
+Cards:            8px    rounded-md
+Buttons:          8px    rounded-md
+Icon containers:  44px   rounded-pill
+Badges and tags:  4px    rounded-sm
+Full circle:      9999px rounded-full
+
+NEVER use rounded-lg (12px), rounded-xl, rounded-2xl, or rounded-full for cards or buttons.
+The Coda standard is strictly 8px for all interactive containers.
+
+## Shadow rules — use ONLY these custom tokens:
+
+Feature cards:      shadow-card     rgba(0,0,0,0.06) 0px 12px 24px -5px, rgba(0,0,0,0.06) 0px 5px 10px -6px
+Modals overlays:    shadow-modal    rgba(0,0,0,0.06) 0px 18px 36px -6px, rgba(0,0,0,0.06) 0px 6px 12px -6px
+Ghost btn focus:    shadow-subtle   rgb(33,33,33) 0px 0px 0px 1.5px inset
+Soft border card:   shadow-subtle-2 rgb(224,224,224) 0px 0px 0px 1.5px inset
+Decorative block:   shadow-block    rgb(0,0,0) 8px 8px 0px 0px
+
+NEVER use Tailwind default shadow, shadow-sm, shadow-md, shadow-lg, shadow-xl.
+
+## Button rules
+
+Primary CTA (shell):
+  bg-obsidian text-white-canvas font-semibold text-body-sm rounded-md px-20 py-12
+  Hover: opacity-90
+  Never use blue or purple as primary CTA on the shell
+
+Ghost secondary:
+  bg-transparent text-midnight-ink border border-midnight-ink font-semibold text-body-sm rounded-md px-12 py-8
+  Hover: bg-midnight-ink/5
+
+Product CTA (inside product cards only):
+  Use product gradient: bg-gradient-pmp text-white rounded-md
+
+## Surface and section rules
+
+Three levels:
+1. bg-white-canvas         default page background
+2. bg-amber-glow           hero, footer, accent blocks
+3. bg-white-canvas shadow-card   elevated cards
+
+Use amber-glow sparingly: hero and/or footer only, max 2 sections per page.
+
+---
+
+## Supabase rules
+
+- Never import Supabase client directly in components. Use hooks.
+- browser: src/lib/supabase/client.ts
+- server:  src/lib/supabase/server.ts
+- Never expose SUPABASE_SERVICE_ROLE_KEY to the client.
+- RLS always enabled. All column names snake_case.
+- TypeScript types for DB rows in src/types/database.ts.
+
+---
+
+## API routes rules
+
+- All API routes in src/app/api/
+- Always validate request body before processing.
+- Never put API keys in client-side code.
+- AI provider always called server-side only.
+- Rate limiting: add TODO comments, implement later.
+
+---
+
+## AI provider rules
+
+- Primary: Claude (claude-sonnet-4-20250514)
+- All AI calls through src/lib/ai/provider.ts
+- Never call Anthropic SDK or OpenAI SDK directly from components.
+- Always call through /api/ai route from client components.
+- System prompts in src/lib/ai/prompts/ — one file per module.
+
+---
+
+## Auth rules
+
+- Supabase Auth with Google OAuth.
+- Use useAuth() hook from src/hooks/useAuth.ts.
+- Protected routes redirect to /login if no session.
+- User data in public.users table synced from auth.users via trigger.
+
+---
+
+## Error handling rules
+
+- Every async function must have try/catch.
+- API routes return { data, error } shape.
+- Client-side: show user-friendly messages using i18n common.error.
+- Never expose raw errors or stack traces to users.
+
+---
+
+## Naming conventions
+
+- Files: kebab-case for non-components
+- Components: PascalCase
+- Hooks: camelCase starting with use
+- Constants: SCREAMING_SNAKE_CASE
+- DB tables: snake_case plural
+- DB columns: snake_case
+
+---
+
+## What NOT to do
+
+- Do NOT use any UI component library (no shadcn, no Radix, no MUI)
+- Do NOT add new dependencies without being asked
+- Do NOT build features not in the current prompt
+- Do NOT use Tailwind default shadow classes
+- Do NOT use rounded-lg or larger for buttons and cards — strictly rounded-md (8px)
+- Do NOT use blue CTAs on the shell — obsidian (black) only
+- Do NOT use product colors outside product cards and modules
+- Do NOT add gamification, streaks, or social features
+- Do NOT build a heavy dashboard
+- Do NOT merge BidMentor into this repo
+- Do NOT add analytics code yet — add TODO comments
+- Do NOT add real payment processing — QR manual only
+
+---
+
+## Code quality
+
+- After completing any prompt: npx tsc --noEmit && npm run lint
+- Fix all TypeScript and ESLint errors before considering a prompt done.
+- Every new component must be usable — no empty shells.
+- Placeholder means a polished-looking page, not a bare div.
+
+---
+
+## ============================================================
+## MOBILE-FIRST RULES — MANDATORY
+## iOS Safari + Android Chrome. Both equal priority.
+## ============================================================
+
+## General mobile rules
+
+- Write mobile styles FIRST, then add md: prefix for desktop overrides.
+- Never write desktop styles first then try to override for mobile.
+- Test mentally at 375px (iPhone SE) before writing any layout.
+- Every section, card, and container must look correct at 375px width.
+
+## Touch targets
+
+- Every button, link, and interactive element: min-height h-touch (44px), min-width min-w-touch (44px).
+- Use the nav-link class for navbar links to maintain 44px tap area even if visually smaller.
+- Never use small close buttons or icon-only buttons under 44px.
+- Add padding around small icons to expand tap area if needed.
+
+## Typography on mobile
+
+- Use mobile font sizes as default (no prefix), desktop sizes with md: prefix.
+- Pattern for hero headline:
+    text-display md:text-md-display font-display font-bold
+- Pattern for section heading:
+    text-heading md:text-md-heading font-display font-bold
+- Pattern for card title:
+    text-heading-sm md:text-md-heading-sm font-body font-semibold
+- Pattern for body text:
+    text-body md:text-md-body font-body
+- NEVER use a fixed large size like text-6xl or text-7xl — use the custom scale.
+
+## Spacing on mobile
+
+- Page horizontal padding: px-16 (mobile) px-24 (md:)
+- Section vertical gap: py-60 (mobile) md:py-113
+- Card padding: p-16 always
+- Stack elements vertically on mobile using flex-col, switch to flex-row on md:
+
+## Navbar — hamburger top-right
+
+- Mobile navbar height: h-navbar-mobile (56px)
+- Desktop navbar height: md:h-navbar-desktop (64px)
+- Fixed position, z-navbar (z-30)
+- Include padding-top for iOS safe area: pt-[env(safe-area-inset-top)]
+- Mobile: show mentorOS wordmark left + hamburger icon button right (44x44 tap area)
+- Hamburger opens a RIGHT-SIDE DRAWER (not dropdown, not full screen)
+- Drawer width: min(320px, 85vw)
+- Drawer has overlay behind it (z-overlay = z-40), drawer itself z-drawer (z-50)
+- When drawer opens: add class menu-open to body to lock scroll
+- Drawer slides in from right with CSS transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)
+- Close drawer on: overlay click, close button tap, nav link tap, Escape key
+- Desktop: show full nav links inline, hide hamburger
+
+## iOS-specific requirements
+
+- Input font-size MUST be 16px minimum — prevents iOS auto-zoom on focus.
+  Always: text-base or style={{ fontSize: '16px' }} on all input/textarea/select.
+- Use min-h-screen (100dvh) not 100vh — handles iOS address bar correctly.
+- Add -webkit-tap-highlight-color: transparent to interactive elements (already in globals.css).
+- Use -webkit-overflow-scrolling: touch on scroll containers.
+- Safe area insets for notch (already in globals.css):
+    pt-[env(safe-area-inset-top)]
+    pb-[env(safe-area-inset-bottom)]
+
+## Android-specific requirements
+
+- Test that touch ripple/feedback is disabled (we use CSS transitions instead).
+- Ensure font rendering is sharp — -webkit-font-smoothing: antialiased is set globally.
+- Status bar color controlled via PWA manifest theme_color: #0B1220.
+
+## Grid and layout patterns on mobile
+
+Homepage product cards:
+- Mobile: grid-cols-1 (single column, full width)
+- md: grid-cols-2 (two columns)
+
+Feature lists / icon+text rows:
+- Mobile: flex-col gap-24
+- md: flex-row gap-32
+
+Hero section:
+- Mobile: text-center, CTA buttons stack vertically (flex-col gap-12)
+- md: text-left or text-center (keep center for homepage), CTA buttons in a row
+
+## Scroll behavior
+
+- Use scroll-container class on any overflow-y-auto container for iOS momentum scrolling.
+- Use scroll-hidden class to hide scrollbars on horizontal scroll lists.
+- Never use overflow: hidden on body unless menu is open.
+
+## Image handling on mobile
+
+- Always use next/image with proper width and height props.
+- Use sizes prop: sizes="(max-width: 768px) 100vw, 50vw"
+- Never use fixed pixel widths on images — always responsive.
+
+## PWA rules
+
+- manifest.json is at /public/manifest.json — already created.
+- Icons needed in /public/icons/: 72, 96, 128, 144, 152, 192, 384, 512px PNGs.
+- Add to root layout <head>:
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0B1220" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="mentorOS" />
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+- Do NOT add a service worker yet — add TODO comment for Phase 5.
+
+## What NOT to do on mobile
+
+- Do NOT use hover-only interactions — always have tap/active states too.
+- Do NOT use fixed pixel widths on containers — always use percentages or max-width.
+- Do NOT use tiny close buttons under 44px.
+- Do NOT put important content behind horizontal scroll without clear affordance.
+- Do NOT use backdrop-filter blur heavily — causes performance issues on Android.
+- Do NOT animate large elements on mobile — keep animations subtle (fade, small translate).
+- Do NOT use 100vh — use 100dvh or min-h-screen from Tailwind (already configured).
