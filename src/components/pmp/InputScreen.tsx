@@ -53,7 +53,7 @@ function parseExtractedText(text: string): PMPQuestion {
   return { text: questionText, options, source: 'uploaded' }
 }
 
-function SampleItem({ sample, index, onPick }: { sample: SampleQuestion; index: number; onPick: () => void }) {
+function SampleItem({ sample, onPick }: { sample: SampleQuestion; onPick: () => void }) {
   return (
     <button
       type="button"
@@ -153,7 +153,6 @@ export default function InputScreen({ onConfirm }: InputScreenProps) {
                 <SampleItem
                   key={`${sample.tag}-${i}`}
                   sample={sample}
-                  index={i}
                   onPick={() => {
                     const q: PMPQuestion = {
                       text: sample.question,

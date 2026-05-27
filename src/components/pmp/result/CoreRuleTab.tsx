@@ -1,7 +1,5 @@
 'use client'
 
-import type { Mood1Result } from '@/types/pmp'
-
 interface CoreRuleTabProps {
   coreRule: string
   trapName: string
