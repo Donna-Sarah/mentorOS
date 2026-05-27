@@ -38,6 +38,7 @@ export default function Mood2Picker({ question, onSubmit, onBack }: Mood2PickerP
   const [selected, setSelected] = useState<string | null>(null)
   const [elapsedSeconds, setElapsedSeconds] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [optionsReady, setOptionsReady] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -45,6 +46,7 @@ export default function Mood2Picker({ question, onSubmit, onBack }: Mood2PickerP
     async function fetchOptions() {
       setSubPhase('loading')
       setLoadError(null)
+      setOptionsReady(false)
 
       try {
         const res = await fetch('/api/pmp/analyze', {
@@ -66,6 +68,7 @@ export default function Mood2Picker({ question, onSubmit, onBack }: Mood2PickerP
         }
 
         setAiResult(json.data)
+        setOptionsReady(true)
         setSubPhase('picking')
       } catch {
         if (!cancelled) {
@@ -99,7 +102,7 @@ export default function Mood2Picker({ question, onSubmit, onBack }: Mood2PickerP
 
       <TimerBar
         benchmark={25}
-        isActive={!isSubmitting}
+        isActive={optionsReady && !isSubmitting}
         onTick={(s) => setElapsedSeconds(s)}
       />
 

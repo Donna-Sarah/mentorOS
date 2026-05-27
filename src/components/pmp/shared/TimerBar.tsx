@@ -39,16 +39,23 @@ function formatElapsed(seconds: number): string {
 export default function TimerBar({ benchmark, isActive, onTick }: TimerBarProps) {
   const [seconds, setSeconds] = useState(0)
   const onTickRef = useRef(onTick)
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   onTickRef.current = onTick
 
   useEffect(() => {
-    if (!isActive) return
+    if (!isActive) {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+      return
+    }
 
     setSeconds(0)
     onTickRef.current?.(0)
 
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setSeconds((prev) => {
         const next = prev + 1
         onTickRef.current?.(next)
@@ -56,7 +63,12 @@ export default function TimerBar({ benchmark, isActive, onTick }: TimerBarProps)
       })
     }, 1000)
 
-    return () => clearInterval(interval)
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+    }
   }, [isActive])
 
   const { color, message } = getTimerState(seconds, benchmark)
