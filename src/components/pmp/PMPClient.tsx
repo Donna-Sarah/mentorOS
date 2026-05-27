@@ -8,6 +8,7 @@ import EVMCalculator from './EVMCalculator'
 import PMPHeader from './PMPHeader'
 import { ResultScreen } from './result'
 import { Mood2Picker, Mood2Result as Mood2ResultScreen } from './mood2'
+import AnalyzingScreen from './AnalyzingScreen'
 
 type PMPPhase = 'input' | 'mood_select' | 'answer' | 'result'
 
@@ -75,6 +76,10 @@ export default function PMPClient() {
   }
 
   function renderPhase() {
+    if (isAnalyzing) {
+      return <AnalyzingScreen mood={selectedMood} />
+    }
+
     if (phase === 'input') {
       return (
         <InputScreen
@@ -181,7 +186,6 @@ export default function PMPClient() {
         >
           ← Câu hỏi mới
         </button>
-        {isAnalyzing && <p className="mt-3 font-body text-body-sm text-ash-text">Đang phân tích...</p>}
       </div>
     )
   }
