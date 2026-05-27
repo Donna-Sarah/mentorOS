@@ -1,5 +1,5 @@
-import { PMPComingSoonClient } from '@/components/pmp/PMPComingSoonClient'
 import type { Metadata } from 'next'
+import { PMPClient } from '@/components/pmp'
 
 export const metadata: Metadata = {
   title: 'PMP Thinking Coach — mentorOS',
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 }
 
 export default function PMPPage() {
-  return <PMPComingSoonClient />
+  return <PMPClient />
 }

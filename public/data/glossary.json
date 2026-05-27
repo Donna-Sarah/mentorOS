@@ -1,0 +1,462 @@
+[
+  {
+    "pair": [
+      "Risk",
+      "Issue"
+    ],
+    "diff": "Chưa xảy ra vs Đã xảy ra",
+    "trap": "Dùng mitigation strategy cho issue đã xảy ra — sai vì issue không còn probability để mitigate.",
+    "detail": "Risk: còn trong tương lai, có probability < 100%, dùng Risk Response Plan.\n\nIssue: đã xảy ra rồi, probability = 100%, dùng Issue Log + Corrective Action.",
+    "example": "'A risk that has now occurred' = Issue → workaround/corrective action, không phải mitigation."
+  },
+  {
+    "pair": [
+      "Quality Assurance",
+      "Quality Control"
+    ],
+    "diff": "Audit process vs Inspect product",
+    "trap": "Nhầm QA = kiểm tra chất lượng sản phẩm. Thực ra QA = audit xem process có đúng không.",
+    "detail": "Quality Assurance (QA): kiểm tra quy trình — proactive, phòng ngừa lỗi trước khi xảy ra.\n\nQuality Control (QC): kiểm tra sản phẩm đầu ra — reactive, phát hiện lỗi sau khi đã làm.",
+    "example": "Audit testing procedures = QA. Inspect a deliverable for defects = QC."
+  },
+  {
+    "pair": [
+      "Validate Scope",
+      "Control Scope"
+    ],
+    "diff": "Customer acceptance vs Change management",
+    "trap": "Nhầm 2 process — Validate liên quan customer sign-off, Control liên quan PM và change requests.",
+    "detail": "Validate Scope: khách hàng chính thức chấp nhận deliverable — customer sign-off.\n\nControl Scope: PM theo dõi và ngăn chặn scope changes không được approve.",
+    "example": "Customer signs off on completed feature = Validate Scope. Preventing unauthorized changes = Control Scope."
+  },
+  {
+    "pair": [
+      "Sprint Review",
+      "Sprint Retrospective"
+    ],
+    "diff": "Inspect product vs Inspect process",
+    "trap": "Nhầm Retrospective là nơi demo sản phẩm. Retro là nội bộ team, không có khách hàng.",
+    "detail": "Sprint Review: team demo sản phẩm cho stakeholders — inspect WHAT was built, có sự tham gia của khách hàng/PO.\n\nSprint Retrospective: team tự đánh giá quy trình làm việc — inspect HOW they worked, chỉ nội bộ team.",
+    "example": "Demo to stakeholders = Review. Team discusses what went wrong internally = Retrospective."
+  },
+  {
+    "pair": [
+      "Mitigation",
+      "Contingency"
+    ],
+    "diff": "Giảm probability/impact vs Plan khi risk xảy ra",
+    "trap": "Dùng mitigation khi risk đã xảy ra — lúc này chỉ còn contingency hoặc workaround.",
+    "detail": "Mitigation: hành động TRƯỚC để giảm probability hoặc impact của risk — risk vẫn chưa xảy ra.\n\nContingency: kế hoạch sẵn sàng THỰC HIỆN KHI risk đã xảy ra — triggered by risk event.",
+    "example": "'Risk has occurred' → implement contingency plan, not mitigation."
+  },
+  {
+    "pair": [
+      "Mitigation",
+      "Avoidance"
+    ],
+    "diff": "Giảm thiểu vs Loại bỏ hoàn toàn",
+    "trap": "Nhầm 'phòng ngừa' là mitigation — có thể là avoidance nếu loại bỏ hoàn toàn risk.",
+    "detail": "Mitigation: giảm probability hoặc impact — risk vẫn còn tồn tại, chỉ ít nguy hiểm hơn.\n\nAvoidance: thay đổi project plan để loại bỏ hoàn toàn risk — risk không còn tồn tại nữa.",
+    "example": "Changing vendor to eliminate supply risk = Avoidance. Adding buffer time = Mitigation."
+  },
+  {
+    "pair": [
+      "Lead",
+      "Lag"
+    ],
+    "diff": "Overlap activities vs Delay giữa activities",
+    "trap": "Nhầm Lead = dẫn đầu dự án — trong scheduling, Lead = bắt đầu sớm hơn (overlap).",
+    "detail": "Lead: hoạt động sau bắt đầu SỚM HƠN dự kiến — overlap giữa 2 activities, rút ngắn thời gian.\n\nLag: delay bắt buộc giữa 2 hoạt động — waiting time không thể tránh (VD: bê tông cần đông cứng).",
+    "example": "Concrete cures 3 days before painting = Lag. Starting design before requirements done = Lead."
+  },
+  {
+    "pair": [
+      "SPI",
+      "CPI"
+    ],
+    "diff": "Schedule performance vs Cost performance",
+    "trap": "Nhầm SPI liên quan chi phí hoặc ngược lại. S = Schedule, C = Cost.",
+    "detail": "SPI = EV/PV: đo hiệu suất tiến độ. SPI > 1 = ahead of schedule, SPI < 1 = behind schedule.\n\nCPI = EV/AC: đo hiệu suất chi phí. CPI > 1 = under budget, CPI < 1 = over budget.",
+    "example": "CPI = 0.8 → mỗi $1 chi ra chỉ tạo $0.8 giá trị. SPI = 0.75 → chỉ hoàn thành 75% kế hoạch."
+  },
+  {
+    "pair": [
+      "EAC",
+      "ETC"
+    ],
+    "diff": "Estimate at Completion vs Estimate to Complete",
+    "trap": "Nhầm EAC = chi phí còn lại. EAC là TỔNG từ đầu đến cuối, không phải phần còn lại.",
+    "detail": "EAC (Estimate at Completion): tổng chi phí ước tính khi dự án hoàn thành — nhìn từ đầu đến cuối.\n\nETC (Estimate to Complete): chi phí còn lại cần để hoàn thành phần còn lại. ETC = EAC - AC.",
+    "example": "'How much will the whole project cost?' = EAC. 'How much more do we need?' = ETC."
+  },
+  {
+    "pair": [
+      "Velocity",
+      "Capacity"
+    ],
+    "diff": "Output thực tế vs Khả năng lý thuyết",
+    "trap": "Dùng capacity để plan sprint thay vì velocity — dễ overcommit vì capacity không tính interruptions, meetings.",
+    "detail": "Velocity: story points team thực sự hoàn thành trong sprint — đo thực tế, dùng để plan sprint.\n\nCapacity: khả năng lý thuyết tối đa dựa trên số người × giờ làm việc — không tính interruptions.",
+    "example": "5 members × 8hrs = 40 person-days capacity. But historical velocity = 32 points."
+  },
+  {
+    "pair": [
+      "Definition of Done",
+      "Acceptance Criteria"
+    ],
+    "diff": "Team standard vs Customer requirement",
+    "trap": "Nhầm DoD = Acceptance Criteria. DoD là team tự set, AC là customer/PO set.",
+    "detail": "Definition of Done (DoD): tiêu chuẩn nội bộ team tự đặt ra — 'hoàn thành' nghĩa là gì (code reviewed, tested, deployed).\n\nAcceptance Criteria: điều kiện do khách hàng hoặc Product Owner đặt ra để accept user story/feature.",
+    "example": "'All code must be unit tested' = DoD. 'User can log in with email' = Acceptance Criteria."
+  },
+  {
+    "pair": [
+      "Risk Appetite",
+      "Risk Threshold"
+    ],
+    "diff": "Mức chấp nhận vs Điểm kích hoạt response",
+    "trap": "Nhầm 2 khái niệm — Appetite là mức chấp nhận định tính, Threshold là điểm kích hoạt định lượng.",
+    "detail": "Risk Appetite: mức risk tổ chức sẵn sàng chấp nhận — định tính, chiến lược, VD: 'chúng tôi risk-averse'.\n\nRisk Threshold: điểm cụ thể định lượng mà nếu vượt qua phải có response — VD: 'variance > 10% thì escalate'.",
+    "example": "'We accept up to 10% variance before escalating' = Threshold. 'We are risk-averse' = low Appetite."
+  },
+  {
+    "pair": [
+      "Scope Creep",
+      "Gold Plating"
+    ],
+    "diff": "Thay đổi không kiểm soát vs Thêm tự ý",
+    "trap": "Nhầm Gold Plating là tốt vì 'thêm giá trị' — PMI coi đây là vi phạm vì không qua approved change.",
+    "detail": "Scope Creep: stakeholder thêm requirements ngoài scope không qua Change Request — không được kiểm soát từ bên ngoài.\n\nGold Plating: team tự thêm features vượt yêu cầu không qua CR — chủ động từ bên trong team.",
+    "example": "Team adds extra features without CR = Gold Plating. Customer keeps adding requests = Scope Creep."
+  },
+  {
+    "pair": [
+      "Project Charter",
+      "Project Management Plan"
+    ],
+    "diff": "Authorization vs Execution guide",
+    "trap": "Nhầm Charter là kế hoạch dự án. Charter chỉ nói 'dự án được phép làm', không nói làm như thế nào.",
+    "detail": "Project Charter: tài liệu ủy quyền do sponsor cấp, trao quyền cho PM — output của Initiating, nói 'được phép làm'.\n\nProject Management Plan (PMP): kế hoạch chi tiết cách thực hiện dự án — output của Planning, nói 'làm như thế nào'.",
+    "example": "'Sponsor authorized the project' = Charter. 'How will changes be managed?' = PMP."
+  },
+  {
+    "pair": [
+      "Lessons Learned",
+      "After-Action Review"
+    ],
+    "diff": "PMI term vs Informal term",
+    "trap": "Dùng After-Action Review trong PMP exam — PMI chỉ dùng Lessons Learned.",
+    "detail": "Lessons Learned: thuật ngữ chính thức của PMI, được document và lưu vào Organizational Process Assets — dùng trong PMP exam.\n\nAfter-Action Review (AAR): thuật ngữ military/informal — không phải PMI standard, không dùng trong PMP exam.",
+    "example": "In PMP context, always use 'Lessons Learned' not 'post-mortem' or 'after-action review'."
+  },
+  {
+    "pair": [
+      "Stakeholder Register",
+      "Stakeholder Engagement Plan"
+    ],
+    "diff": "Who they are vs How to engage",
+    "trap": "Nhầm Register = đủ để manage stakeholders. Register chỉ identify, Plan mới là cách action.",
+    "detail": "Stakeholder Register: danh sách stakeholders với roles, interests, influence level — xác định AI là stakeholder.\n\nStakeholder Engagement Plan: kế hoạch cụ thể cách engage từng stakeholder — communication strategies, frequency.",
+    "example": "'List all stakeholders and their power/interest' = Register. 'How to keep Sponsor informed' = Engagement Plan."
+  },
+  {
+    "pair": [
+      "WBS",
+      "Activity List"
+    ],
+    "diff": "Deliverables vs Tasks",
+    "trap": "Nhầm WBS = task list. WBS là deliverable-oriented, không phải activity-oriented.",
+    "detail": "WBS (Work Breakdown Structure): phân rã project thành deliverables và work packages — WHAT will be delivered.\n\nActivity List: danh sách tasks cụ thể để tạo ra deliverables — HOW deliverables are made, chi tiết hơn WBS.",
+    "example": "'Chapter 3 Document' = WBS work package. 'Write introduction, review, revise' = Activities."
+  },
+  {
+    "pair": [
+      "Critical Path",
+      "Critical Chain"
+    ],
+    "diff": "Resource-unaware vs Resource-aware schedule",
+    "trap": "Nhầm Critical Path tự động xét resource constraints — CPM không xét resources.",
+    "detail": "Critical Path Method (CPM): chuỗi activities dài nhất xác định project duration — không tính resource constraints.\n\nCritical Chain: CPM + resource leveling + buffers — thực tế hơn khi nhiều activities dùng chung resource.",
+    "example": "Two critical activities need same resource simultaneously: Critical Chain adjusts, Critical Path does not."
+  },
+  {
+    "pair": [
+      "Servant Leader",
+      "Directive Leader"
+    ],
+    "diff": "Enable team vs Command team",
+    "trap": "Nghĩ PM luôn phải directive để kiểm soát — PMI ưu tiên servant leadership trong hầu hết tình huống.",
+    "detail": "Servant Leader: PM phục vụ team, remove blockers, facilitate, empower — PMI Agile/hybrid mindset, ưu tiên hàng đầu.\n\nDirective Leader: PM ra lệnh, kiểm soát chi tiết — phù hợp crisis hoặc team mới chưa có kinh nghiệm.",
+    "example": "'PM focuses on removing impediments for the team' = Servant Leadership."
+  },
+  {
+    "pair": [
+      "Coaching",
+      "Mentoring"
+    ],
+    "diff": "Skill-specific vs Career-broad",
+    "trap": "Nhầm Coaching và Mentoring là một — Coaching cụ thể ngắn hạn, Mentoring rộng dài hạn.",
+    "detail": "Coaching: hướng dẫn cụ thể về skill hoặc tình huống — ngắn hạn, task-focused, giải quyết vấn đề cụ thể.\n\nMentoring: định hướng career rộng hơn, chia sẻ kinh nghiệm — dài hạn, relationship-based, phát triển tổng thể.",
+    "example": "Helping team member with Agile ceremonies = Coaching. Guiding PM career path = Mentoring."
+  },
+  {
+    "pair": [
+      "Confront/Problem Solve",
+      "Compromise"
+    ],
+    "diff": "Win-win vs Give-and-take",
+    "trap": "Nghĩ Compromise là tốt vì 'công bằng' — PMI ưu tiên Problem Solving vì giải quyết được root cause.",
+    "detail": "Confront/Problem Solve: đối mặt trực tiếp với conflict, tìm giải pháp win-win cho cả 2 bên — PMI ưu tiên số 1.\n\nCompromise: cả 2 bên nhượng bộ một phần để đạt thỏa thuận — PMI gọi là lose-lose nhỏ, không giải quyết root cause.",
+    "example": "Both parties give up something = Compromise. Finding solution satisfying both fully = Confront."
+  },
+  {
+    "pair": [
+      "Product Owner",
+      "Project Manager"
+    ],
+    "diff": "Product vision vs Project delivery",
+    "trap": "Nhầm Product Owner (PO) và Project Manager (PM) có cùng authority trong Agile — PO quyết định WHAT được build, PM quyết định HOW và WHEN deliver.",
+    "detail": "Product Owner (PO): chịu trách nhiệm product vision, ưu tiên backlog, đại diện cho customer value — role Agile, không phải PM.\n\nProject Manager (PM): chịu trách nhiệm delivery, quản lý resources, risks, schedule và stakeholders — role chính thức của người điều phối dự án.",
+    "example": "'Sắp xếp thứ tự ưu tiên backlog theo business value' → trách nhiệm của Product Owner.\n'Quản lý rủi ro và tiến độ dự án' → trách nhiệm của Project Manager."
+  },
+  {
+    "pair": [
+      "Technical Debt",
+      "Defect"
+    ],
+    "diff": "Accumulated shortcuts vs Specific bug",
+    "trap": "Nhầm Technical Debt = nhiều bugs. Debt là architectural shortcuts, không phải bugs.",
+    "detail": "Technical Debt: chi phí tương lai phải trả vì chọn giải pháp nhanh/đơn giản hơn — systemic, architectural issue.\n\nDefect: lỗi cụ thể trong code hoặc deliverable tại một thời điểm — point-in-time issue, có thể fix ngay.",
+    "example": "'We will refactor later' shortcuts = Technical Debt. 'Login button broken' = Defect."
+  },
+  {
+    "pair": [
+      "Benchmark",
+      "Baseline"
+    ],
+    "diff": "External comparison vs Internal reference",
+    "trap": "Nhầm Baseline = benchmark. Baseline là internal reference point của chính dự án.",
+    "detail": "Benchmark: so sánh với external industry standards hoặc best practices — nhìn ra bên ngoài tổ chức.\n\nBaseline: điểm tham chiếu nội bộ đã được approve (schedule/cost/scope baseline) — nhìn vào chính dự án.",
+    "example": "'Industry average cost per feature = $X' = Benchmark. 'Approved project budget = $Y' = Cost Baseline."
+  },
+  {
+    "pair": [
+      "Push Communication",
+      "Pull Communication"
+    ],
+    "diff": "One-way broadcast vs On-demand access",
+    "trap": "Nhầm Push = tốt hơn vì chủ động — PMI chọn communication type dựa trên audience size và information type.",
+    "detail": "Push: gửi thông tin chủ động đến recipient — sender kiểm soát timing. VD: email, report, newsletter.\n\nPull: thông tin lưu trữ sẵn, recipient tự access khi cần — VD: SharePoint, intranet, document repository.",
+    "example": "Sending weekly status report = Push. Posting documents on SharePoint = Pull."
+  },
+  {
+    "pair": [
+      "Risk Acceptance",
+      "Risk Avoidance"
+    ],
+    "diff": "Tolerate risk vs Eliminate risk",
+    "trap": "Nhầm Acceptance = làm ngơ. Active Acceptance vẫn có contingency plan sẵn sàng.",
+    "detail": "Risk Acceptance: chấp nhận risk, passive (không action) hoặc active (set contingency reserve sẵn sàng).\n\nRisk Avoidance: thay đổi project plan để risk không còn tồn tại — loại bỏ hoàn toàn, không chỉ giảm thiểu.",
+    "example": "Setting contingency reserve for potential overrun = Active Acceptance. Changing scope to eliminate risk = Avoidance."
+  },
+  {
+    "pair": [
+      "Sprint Planning",
+      "Release Planning"
+    ],
+    "diff": "1 sprint vs Multiple sprints",
+    "trap": "Nhầm Sprint Planning phải cover toàn bộ release — Sprint Planning chỉ cho sprint sắp tới.",
+    "detail": "Sprint Planning: lên kế hoạch CHO 1 SPRINT cụ thể — what stories to pull, how to deliver trong 1-4 tuần.\n\nRelease Planning: lên kế hoạch cho NHIỀU SPRINT để deliver một release/milestone — nhìn xa hơn, 3-6 tháng.",
+    "example": "'What will we deliver in 3 months?' = Release Planning. 'What stories go into Sprint 5?' = Sprint Planning."
+  },
+  {
+    "pair": [
+      "Corrective Action",
+      "Preventive Action"
+    ],
+    "diff": "Fix existing deviation vs Prevent future deviation",
+    "trap": "Nhầm cả 2 là 'fix problems' — Corrective fixes current, Preventive stops future.",
+    "detail": "Corrective Action: hành động để đưa performance về đúng plan SAU KHI deviation đã xảy ra — fix hiện tại.\n\nPreventive Action: hành động để ngăn deviation xảy ra TRƯỚC KHI nó xảy ra — phòng ngừa tương lai.",
+    "example": "CPI dropped → adjust spending now = Corrective. Seeing risk pattern → add controls = Preventive."
+  },
+  {
+    "pair": [
+      "Change Request",
+      "Corrective Action"
+    ],
+    "diff": "Formal CCB process vs Immediate response",
+    "trap": "Nghĩ mọi change đều cần Change Request — Corrective Action trong phạm vi approved plan không cần CR.",
+    "detail": "Change Request: quy trình chính thức để thay đổi scope/schedule/cost — phải qua Change Control Board (CCB) approve.\n\nCorrective Action: hành động ngay để đưa project về đúng plan — không cần CCB nếu trong phạm vi approved plan.",
+    "example": "Re-allocating budget within contingency = Corrective Action. Adding new feature = Change Request."
+  },
+  {
+    "pair": [
+      "Progressive Elaboration",
+      "Iteration"
+    ],
+    "diff": "Detail added over time vs Repeated cycles",
+    "trap": "Nhầm Progressive Elaboration = Agile iteration. PE là Predictive concept, không phải Agile.",
+    "detail": "Progressive Elaboration: dần dần chi tiết hóa plan khi có thêm thông tin — áp dụng trong Predictive/Waterfall.\n\nIteration: lặp lại cycles ngắn để build, review và improve — đặc trưng của Agile, mỗi cycle deliver value.",
+    "example": "Refining WBS as details become clearer = Progressive Elaboration. Running 2-week sprints = Iteration."
+  },
+  {
+    "pair": [
+      "Variance Analysis",
+      "Trend Analysis"
+    ],
+    "diff": "Current deviation vs Future prediction",
+    "trap": "Nhầm cả 2 đều nhìn về tương lai — Variance là nhìn hiện tại, Trend mới nhìn tương lai.",
+    "detail": "Variance Analysis: so sánh actual vs planned tại thời điểm hiện tại — đo lường WHAT happened so với kế hoạch.\n\nTrend Analysis: phân tích data theo thời gian để dự báo — WHAT WILL happen nếu tiếp tục theo chiều hướng hiện tại.",
+    "example": "CPI declining 3 sprints → future risk = Trend. This sprint CPI = 0.8 vs planned 1.0 = Variance."
+  },
+  {
+    "pair": [
+      "BAC / PV / EV / AC",
+      "EVM Basics"
+    ],
+    "diff": "4 số liệu cơ bản của Earned Value",
+    "trap": "Nhầm PV = Planned Value với budget tổng dự án (BAC). PV là budget cho phần đã lên kế hoạch đến thời điểm hiện tại.",
+    "detail": "BAC (Budget at Completion): tổng ngân sách toàn dự án.\nPV (Planned Value): ngân sách kế hoạch đến hiện tại.\nEV (Earned Value): giá trị thực tế đã hoàn thành.\n\nAC (Actual Cost): chi phí thực tế đã chi đến hiện tại.\nBAC là tổng, PV/EV/AC là các điểm đo tại thời điểm cụ thể.",
+    "example": "Project BAC=$100k, 50% planned done → PV=$50k. Team actually completed 40% → EV=$40k. Spent $55k → AC=$55k."
+  },
+  {
+    "pair": [
+      "Contingency Reserve",
+      "Management Reserve"
+    ],
+    "diff": "Known unknowns vs Unknown unknowns",
+    "trap": "Nhầm cả 2 đều do PM quản lý — Management Reserve do sponsor/senior management kiểm soát, PM không tự dùng được.",
+    "detail": "Contingency Reserve: dự phòng cho risk đã identify (known unknowns) — nằm trong cost baseline, PM được dùng.\n\nManagement Reserve: dự phòng cho sự kiện bất ngờ chưa biết (unknown unknowns) — ngoài cost baseline, cần approval từ sponsor.",
+    "example": "Identified risk materializes → use Contingency Reserve. Unexpected earthquake damages site → request Management Reserve."
+  },
+  {
+    "pair": [
+      "OPA",
+      "EEF"
+    ],
+    "diff": "Internal assets vs External constraints",
+    "trap": "Nhầm OPA và EEF — OPA là tài sản tổ chức có thể chỉnh sửa, EEF là môi trường bên ngoài PM không kiểm soát được.",
+    "detail": "OPA (Organizational Process Assets): templates, policies, lessons learned của tổ chức — PM có thể dùng và cập nhật.\n\nEEF (Enterprise Environmental Factors): văn hóa tổ chức, luật pháp, market conditions — PM phải tuân thủ, không thay đổi được.",
+    "example": "Company's project template = OPA. Government regulations the project must comply with = EEF."
+  },
+  {
+    "pair": [
+      "Workaround",
+      "Contingency Plan"
+    ],
+    "diff": "Unplanned response vs Pre-planned response",
+    "trap": "Nhầm workaround = contingency plan. Workaround là ứng phó tức thời khi risk xảy ra MÀ CHƯA CÓ plan trước.",
+    "detail": "Workaround: giải pháp tức thời cho risk/issue CHƯA được plan trước — reactive, improvised khi bị bất ngờ.\n\nContingency Plan: kế hoạch đã chuẩn bị sẵn từ trước cho risk đã identified — proactive, trigger khi risk xảy ra.",
+    "example": "Identified risk with response plan → implement Contingency Plan. Surprise issue with no plan → develop Workaround."
+  },
+  {
+    "pair": [
+      "Confront/Problem Solve",
+      "Smoothing/Accommodating"
+    ],
+    "diff": "Best PMI approach vs Temporary fix",
+    "trap": "Nhầm Smoothing là tốt vì 'giữ hòa khí' — PMI coi đây là approach kém nhất vì không giải quyết được gốc rễ.",
+    "detail": "Confront/Problem Solve: đối mặt trực tiếp, tìm win-win — PMI ưu tiên số 1 vì giải quyết được root cause.\n\nSmoothing/Accommodating: nhấn mạnh điểm chung, giảm nhẹ bất đồng — chỉ tạm thời, vấn đề vẫn còn đó.",
+    "example": "Facilitating a meeting to find a solution both parties accept = Confront. Saying 'let's not fight about this' = Smoothing."
+  },
+  {
+    "pair": [
+      "Forcing",
+      "Withdrawing"
+    ],
+    "diff": "Win-lose vs Lose-lose",
+    "trap": "Nhầm Withdrawing = neutral. PMI coi Withdrawing là approach kém nhất vì hoàn toàn không giải quyết conflict.",
+    "detail": "Forcing: áp đặt quan điểm của mình, bỏ qua quan điểm người khác — win-lose, có thể dùng trong emergency.\n\nWithdrawing: tránh né conflict hoàn toàn — lose-lose, PMI coi đây là approach kém nhất vì không giải quyết gì.",
+    "example": "Manager dictates the solution = Forcing. Ignoring the conflict hoping it resolves itself = Withdrawing."
+  },
+  {
+    "pair": [
+      "Burndown Chart",
+      "Burnup Chart"
+    ],
+    "diff": "Work remaining vs Work completed",
+    "trap": "Nhầm 2 chart đều dùng như nhau — Burnup tốt hơn để thấy scope changes vì hiển thị cả total scope lẫn completed.",
+    "detail": "Burndown Chart: hiển thị lượng work CÒN LẠI — đường đi xuống khi team hoàn thành work trong sprint.\n\nBurnup Chart: hiển thị lượng work ĐÃ HOÀN THÀNH + total scope — 2 đường, thấy rõ scope changes.",
+    "example": "Sprint going well → Burndown line drops. Scope added mid-sprint → visible gap in Burnup chart."
+  },
+  {
+    "pair": [
+      "Kanban",
+      "Scrum"
+    ],
+    "diff": "Continuous flow vs Time-boxed sprints",
+    "trap": "Nhầm Kanban và Scrum đều là Agile nên giống nhau — Kanban không có sprints, roles cố định, hay velocity.",
+    "detail": "Kanban: continuous flow, limit WIP (Work in Progress), không có sprints cố định, không có prescribed roles.\n\nScrum: time-boxed sprints (1-4 tuần), roles cố định (Product Owner, Scrum Master, Dev Team), velocity tracking.",
+    "example": "Support team handling ongoing requests = Kanban. Development team building features in 2-week sprints = Scrum."
+  },
+  {
+    "pair": [
+      "User Story",
+      "Use Case"
+    ],
+    "diff": "User value vs System behavior",
+    "trap": "Nhầm User Story = Use Case. User Story là informal, value-focused. Use Case là formal, system behavior-focused.",
+    "detail": "User Story: 'As a [user], I want [feature] so that [benefit]' — ngắn gọn, informal, tập trung vào business value.\n\nUse Case: mô tả chi tiết cách system và actor tương tác — formal, technical, thường dùng trong Predictive/Waterfall.",
+    "example": "'As a customer, I want to reset my password' = User Story. Detailed login flow diagram = Use Case."
+  },
+  {
+    "pair": [
+      "Business Case",
+      "Benefits Realization Plan"
+    ],
+    "diff": "Why the project vs How to capture value",
+    "trap": "Nhầm Business Case là đủ để justify project suốt vòng đời — Benefits Realization Plan mới là kế hoạch đo lường giá trị sau khi deliver.",
+    "detail": "Business Case: document justify tại sao nên làm dự án, phân tích cost-benefit — tạo ra ở Initiating.\n\nBenefits Realization Plan: kế hoạch theo dõi và đo lường business benefits SAU khi project hoàn thành — post-delivery.",
+    "example": "'This project will increase revenue by 20%' = Business Case. 'We will measure revenue increase quarterly after go-live' = Benefits Realization Plan."
+  },
+  {
+    "pair": [
+      "Project Sponsor",
+      "Steering Committee"
+    ],
+    "diff": "Single champion vs Governance body",
+    "trap": "Nhầm Steering Committee = nhiều sponsors. SC là governance body ra quyết định chiến lược, Sponsor là người chịu trách nhiệm chính cho dự án.",
+    "detail": "Project Sponsor: individual chịu trách nhiệm dự án, cung cấp resources và authorization, advocate cho project.\n\nSteering Committee: nhóm senior stakeholders ra quyết định chiến lược, giải quyết escalations, approve major changes.",
+    "example": "Approving the project budget = Sponsor. Resolving conflict between departments = Steering Committee."
+  },
+  {
+    "pair": [
+      "Emotional Intelligence",
+      "Interpersonal Skills"
+    ],
+    "diff": "Self-awareness component vs Broader skill set",
+    "trap": "Nhầm EI chỉ là 'biết cảm xúc người khác' — EI bao gồm cả self-awareness (biết cảm xúc mình) và self-management.",
+    "detail": "Emotional Intelligence (EI): khả năng nhận biết và quản lý cảm xúc bản thân và người khác — gồm self-awareness, self-management, social awareness.\n\nInterpersonal Skills: rộng hơn EI — bao gồm EI + communication + negotiation + leadership + conflict management.",
+    "example": "PM notices they feel frustrated and pauses before responding = EI (self-management). PM facilitating stakeholder meeting effectively = Interpersonal Skills."
+  },
+  {
+    "pair": [
+      "Active Listening",
+      "Effective Communication"
+    ],
+    "diff": "Receive & understand vs Send & receive",
+    "trap": "Nhầm Active Listening = im lặng nghe. Active Listening bao gồm paraphrase, clarify, feedback để confirm hiểu đúng.",
+    "detail": "Active Listening: tập trung hoàn toàn, hiểu, phản hồi để confirm — paraphrase, clarify, ghi nhớ những gì được nói.\n\nEffective Communication: 2 chiều đầy đủ — sender encode → transmit → receiver decode → feedback để confirm hiểu đúng.",
+    "example": "'So what I hear you saying is...' = Active Listening. Choosing right channel and confirming message received = Effective Communication."
+  },
+  {
+    "pair": [
+      "TCPI",
+      "CPI"
+    ],
+    "diff": "Future performance needed vs Current performance",
+    "trap": "Nhầm TCPI và CPI đều đo hiệu suất hiện tại — TCPI là performance CẦN ĐẠT ĐƯỢC trong tương lai để hoàn thành đúng ngân sách.",
+    "detail": "TCPI (To-Complete Performance Index) = (BAC-EV)/(EAC-AC): performance CẦN ĐẠT ĐƯỢC cho phần còn lại để finish on budget.\n\nCPI (Cost Performance Index) = EV/AC: đo hiệu suất chi phí HIỆN TẠI — là kết quả thực tế đang có.",
+    "example": "CPI = 0.8 (đang vượt chi). TCPI = 1.3 (cần hiệu quả 30% tốt hơn hiện tại để finish on budget)."
+  },
+  {
+    "pair": [
+      "VAC",
+      "CV"
+    ],
+    "diff": "Final budget variance vs Current cost variance",
+    "trap": "Nhầm VAC và CV đều là cost variance — CV là variance HIỆN TẠI, VAC là variance dự báo KHI HOÀN THÀNH.",
+    "detail": "VAC (Variance at Completion) = BAC - EAC: dự báo project sẽ over/under budget bao nhiêu KHI HOÀN THÀNH — nhìn về cuối dự án.\n\nCV (Cost Variance) = EV - AC: variance chi phí TẠI THỜI ĐIỂM HIỆN TẠI — đo lường ngay bây giờ.",
+    "example": "CV = -$10k (currently over budget by $10k). VAC = -$25k (forecasted to be $25k over budget at completion)."
+  }
+]

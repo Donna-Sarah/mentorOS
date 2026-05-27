@@ -1,0 +1,644 @@
+[
+  {
+    "tag": "👥 People · Agile · Escalation Reflex",
+    "domain": "Agile",
+    "approach": "Escalation Reflex",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "During project execution, a senior developer informs you that a team member has been consistently arriving late and missing stand-up meetings. The team's velocity has dropped 20% over the last two sprints. What should the project manager do FIRST?",
+    "options": {
+      "A": "Discuss the situation directly with the underperforming team member to understand root cause",
+      "B": "Escalate the issue to the team member's functional manager immediately",
+      "C": "Address the issue during the next sprint retrospective with the whole team",
+      "D": "Document the behavior and issue a formal warning through HR"
+    },
+    "full_text": "During project execution, a senior developer informs you that a team member has been consistently arriving late and missing stand-up meetings. The team's velocity has dropped 20% over the last two sprints. What should the project manager do FIRST?\nA. Discuss the situation directly with the underperforming team member to understand root cause\nB. Escalate the issue to the team member's functional manager immediately\nC. Address the issue during the next sprint retrospective with the whole team\nD. Document the behavior and issue a formal warning through HR"
+  },
+  {
+    "tag": "👥 People · Agile · Conflict Avoidance",
+    "domain": "Agile",
+    "approach": "Conflict Avoidance",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "Two senior developers on your Agile team have been in open conflict for three sprints. The Scrum Master reports that the tension is affecting daily stand-ups and sprint reviews. As the project manager, what should you do FIRST?",
+    "options": {
+      "A": "Remove one of the developers from the team to resolve the conflict",
+      "B": "Meet with both developers together to facilitate a direct resolution",
+      "C": "Escalate the conflict to the HR department for formal mediation",
+      "D": "Ignore the conflict and let the team self-organize to resolve it"
+    },
+    "full_text": "Two senior developers on your Agile team have been in open conflict for three sprints. The Scrum Master reports that the tension is affecting daily stand-ups and sprint reviews. As the project manager, what should you do FIRST?\nA. Remove one of the developers from the team to resolve the conflict\nB. Meet with both developers together to facilitate a direct resolution\nC. Escalate the conflict to the HR department for formal mediation\nD. Ignore the conflict and let the team self-organize to resolve it"
+  },
+  {
+    "tag": "👥 People · Agile · Servant Leadership",
+    "domain": "Agile",
+    "approach": "Servant Leadership",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project manager is leading an Agile team that consistently delivers below their committed velocity. Team members say they feel micromanaged and are unable to make decisions independently. What should the project manager do NEXT?",
+    "options": {
+      "A": "Increase oversight by attending all team meetings and tracking individual tasks daily",
+      "B": "Step back and allow the team to self-organize while remaining available as a servant leader",
+      "C": "Replace underperforming team members to improve velocity",
+      "D": "Ask the sponsor to set stricter deadlines to motivate the team"
+    },
+    "full_text": "A project manager is leading an Agile team that consistently delivers below their committed velocity. Team members say they feel micromanaged and are unable to make decisions independently. What should the project manager do NEXT?\nA. Increase oversight by attending all team meetings and tracking individual tasks daily\nB. Step back and allow the team to self-organize while remaining available as a servant leader\nC. Replace underperforming team members to improve velocity\nD. Ask the sponsor to set stricter deadlines to motivate the team"
+  },
+  {
+    "tag": "👥 People · Predictive · Authority Bias",
+    "domain": "Predictive",
+    "approach": "Authority Bias",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "During project execution, the project sponsor requests that the project manager add a significant new feature to the project scope. No change request has been submitted. What should the project manager do FIRST?",
+    "options": {
+      "A": "Add the feature immediately since the sponsor has authority to request changes",
+      "B": "Inform the sponsor that a formal change request must be submitted and evaluated",
+      "C": "Deny the request since the project plan is already approved",
+      "D": "Consult with the project team to see if the feature can be added without impacting schedule"
+    },
+    "full_text": "During project execution, the project sponsor requests that the project manager add a significant new feature to the project scope. No change request has been submitted. What should the project manager do FIRST?\nA. Add the feature immediately since the sponsor has authority to request changes\nB. Inform the sponsor that a formal change request must be submitted and evaluated\nC. Deny the request since the project plan is already approved\nD. Consult with the project team to see if the feature can be added without impacting schedule"
+  },
+  {
+    "tag": "👥 People · Predictive · Stakeholder Engagement",
+    "domain": "Predictive",
+    "approach": "Stakeholder Engagement",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A key stakeholder consistently misses project status meetings and has not reviewed any deliverables for the past month. The project is approaching a critical milestone requiring stakeholder sign-off. What should the project manager do FIRST?",
+    "options": {
+      "A": "Proceed to the next milestone without the stakeholder's sign-off to avoid delays",
+      "B": "Escalate the issue to senior management to force the stakeholder to engage",
+      "C": "Proactively reach out to the stakeholder to understand their concerns and re-engage them",
+      "D": "Send formal written notice that the project will be delayed due to their unavailability"
+    },
+    "full_text": "A key stakeholder consistently misses project status meetings and has not reviewed any deliverables for the past month. The project is approaching a critical milestone requiring stakeholder sign-off. What should the project manager do FIRST?\nA. Proceed to the next milestone without the stakeholder's sign-off to avoid delays\nB. Escalate the issue to senior management to force the stakeholder to engage\nC. Proactively reach out to the stakeholder to understand their concerns and re-engage them\nD. Send formal written notice that the project will be delayed due to their unavailability"
+  },
+  {
+    "tag": "⚙️ Process · Risk · Terminology Trap",
+    "domain": "Risk",
+    "approach": "Terminology Trap",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project manager receives a report that a previously identified risk has now occurred and is causing schedule delays. The risk response plan includes a mitigation strategy. What should the project manager do FIRST?",
+    "options": {
+      "A": "Implement the mitigation strategy from the risk register",
+      "B": "Create a workaround and update the issue log",
+      "C": "Escalate to the sponsor since the risk has materialized",
+      "D": "Call an emergency team meeting to reassess all project risks"
+    },
+    "full_text": "A project manager receives a report that a previously identified risk has now occurred and is causing schedule delays. The risk response plan includes a mitigation strategy. What should the project manager do FIRST?\nA. Implement the mitigation strategy from the risk register\nB. Create a workaround and update the issue log\nC. Escalate to the sponsor since the risk has materialized\nD. Call an emergency team meeting to reassess all project risks"
+  },
+  {
+    "tag": "⚙️ Process · Risk · Mitigation vs Contingency",
+    "domain": "Risk",
+    "approach": "Mitigation vs Contingency",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "During risk planning, a project manager identifies a risk that could delay a critical deliverable by two weeks. The team proposes two options: reducing the probability of the risk occurring, or preparing a response plan in case the risk occurs. Which risk response strategies are being proposed?",
+    "options": {
+      "A": "Avoidance and Acceptance",
+      "B": "Mitigation and Contingency Reserve",
+      "C": "Transfer and Exploit",
+      "D": "Enhance and Share"
+    },
+    "full_text": "During risk planning, a project manager identifies a risk that could delay a critical deliverable by two weeks. The team proposes two options: reducing the probability of the risk occurring, or preparing a response plan in case the risk occurs. Which risk response strategies are being proposed?\nA. Avoidance and Acceptance\nB. Mitigation and Contingency Reserve\nC. Transfer and Exploit\nD. Enhance and Share"
+  },
+  {
+    "tag": "⚙️ Process · Risk · Risk vs Issue",
+    "domain": "Risk",
+    "approach": "Risk vs Issue",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project manager is reviewing the risk register and notices that one item was identified three months ago as a risk but has now materialized. A team member suggests updating the mitigation strategy. What is the MOST appropriate action?",
+    "options": {
+      "A": "Update the mitigation strategy as suggested by the team member",
+      "B": "Move the item from the risk register to the issue log and implement a corrective action",
+      "C": "Close the risk since it has already occurred and can no longer be managed",
+      "D": "Escalate the issue to the risk management office for reassessment"
+    },
+    "full_text": "A project manager is reviewing the risk register and notices that one item was identified three months ago as a risk but has now materialized. A team member suggests updating the mitigation strategy. What is the MOST appropriate action?\nA. Update the mitigation strategy as suggested by the team member\nB. Move the item from the risk register to the issue log and implement a corrective action\nC. Close the risk since it has already occurred and can no longer be managed\nD. Escalate the issue to the risk management office for reassessment"
+  },
+  {
+    "tag": "⚙️ Process · Change · Scope Creep",
+    "domain": "Change",
+    "approach": "Scope Creep",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project team member informs the project manager that they added a small but useful feature to the product without a formal change request because they thought it would delight the customer. What should the project manager do FIRST?",
+    "options": {
+      "A": "Thank the team member for the initiative and document the feature as completed",
+      "B": "Raise a change request retroactively and assess the impact on scope, schedule, and cost",
+      "C": "Remove the feature immediately as it was not part of the approved scope",
+      "D": "Inform the customer about the additional feature and ask if they want it kept"
+    },
+    "full_text": "A project team member informs the project manager that they added a small but useful feature to the product without a formal change request because they thought it would delight the customer. What should the project manager do FIRST?\nA. Thank the team member for the initiative and document the feature as completed\nB. Raise a change request retroactively and assess the impact on scope, schedule, and cost\nC. Remove the feature immediately as it was not part of the approved scope\nD. Inform the customer about the additional feature and ask if they want it kept"
+  },
+  {
+    "tag": "⚙️ Process · Change · Gold Plating",
+    "domain": "Change",
+    "approach": "Gold Plating",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "During project execution, a developer suggests adding extra functionality beyond what was requested by the customer, believing it will increase customer satisfaction. The additions would not impact the schedule or budget. What should the project manager do?",
+    "options": {
+      "A": "Allow the additions since they do not impact schedule or budget",
+      "B": "Reject the additions and remind the team that delivering exactly what was agreed is the PM standard",
+      "C": "Consult the customer first and raise a change request if the customer approves",
+      "D": "Escalate to the sponsor to decide whether the additions are appropriate"
+    },
+    "full_text": "During project execution, a developer suggests adding extra functionality beyond what was requested by the customer, believing it will increase customer satisfaction. The additions would not impact the schedule or budget. What should the project manager do?\nA. Allow the additions since they do not impact schedule or budget\nB. Reject the additions and remind the team that delivering exactly what was agreed is the PM standard\nC. Consult the customer first and raise a change request if the customer approves\nD. Escalate to the sponsor to decide whether the additions are appropriate"
+  },
+  {
+    "tag": "📊 Process · EVM · Action Bias",
+    "domain": "EVM",
+    "approach": "Action Bias",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project manager reviews the latest performance report and finds CPI = 0.8 and SPI = 0.75. The project sponsor asks what the project manager should do NEXT to address the situation.",
+    "options": {
+      "A": "Crash the schedule by adding more resources immediately",
+      "B": "Conduct a root cause analysis to understand why cost and schedule performance are both unfavorable",
+      "C": "Re-baseline the project schedule and budget",
+      "D": "Issue a change request to reduce project scope"
+    },
+    "full_text": "A project manager reviews the latest performance report and finds CPI = 0.8 and SPI = 0.75. The project sponsor asks what the project manager should do NEXT to address the situation.\nA. Crash the schedule by adding more resources immediately\nB. Conduct a root cause analysis to understand why cost and schedule performance are both unfavorable\nC. Re-baseline the project schedule and budget\nD. Issue a change request to reduce project scope"
+  },
+  {
+    "tag": "📊 Process · EVM · Formula Application",
+    "domain": "EVM",
+    "approach": "Formula Application",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project has a Budget at Completion (BAC) of $500,000. The Earned Value (EV) is $200,000, Actual Cost (AC) is $250,000, and Planned Value (PV) is $220,000. The project sponsor asks for the Estimate at Completion (EAC) assuming current cost performance continues. What should the project manager report?",
+    "options": {
+      "A": "$500,000",
+      "B": "$550,000",
+      "C": "$625,000",
+      "D": "$450,000"
+    },
+    "full_text": "A project has a Budget at Completion (BAC) of $500,000. The Earned Value (EV) is $200,000, Actual Cost (AC) is $250,000, and Planned Value (PV) is $220,000. The project sponsor asks for the Estimate at Completion (EAC) assuming current cost performance continues. What should the project manager report?\nA. $500,000\nB. $550,000\nC. $625,000\nD. $450,000"
+  },
+  {
+    "tag": "🏢 Business Env · Benefits Realization",
+    "domain": "Benefits Realization",
+    "approach": "",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project has been completed on time and within budget, and all deliverables have been accepted by the customer. However, three months after project closure, the sponsor reports that the expected business benefits have not been realized. Who is MOST responsible for ensuring benefits realization?",
+    "options": {
+      "A": "The project manager, since they delivered the project",
+      "B": "The project sponsor, who owns the business case and benefits realization plan",
+      "C": "The customer, who accepted the deliverables",
+      "D": "The PMO, which oversees all projects in the organization"
+    },
+    "full_text": "A project has been completed on time and within budget, and all deliverables have been accepted by the customer. However, three months after project closure, the sponsor reports that the expected business benefits have not been realized. Who is MOST responsible for ensuring benefits realization?\nA. The project manager, since they delivered the project\nB. The project sponsor, who owns the business case and benefits realization plan\nC. The customer, who accepted the deliverables\nD. The PMO, which oversees all projects in the organization"
+  },
+  {
+    "tag": "🏢 Business Env · Strategic Alignment",
+    "domain": "Strategic Alignment",
+    "approach": "",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "Midway through a project, the organization announces a major strategic shift that makes the project's original objectives no longer aligned with corporate strategy. The project is 60% complete. What should the project manager do FIRST?",
+    "options": {
+      "A": "Continue the project since it is already 60% complete and stopping would waste investment",
+      "B": "Immediately halt the project and reallocate all resources",
+      "C": "Assess the impact of the strategic change on the project and escalate findings to the sponsor",
+      "D": "Renegotiate the project objectives with the customer to align with the new strategy"
+    },
+    "full_text": "Midway through a project, the organization announces a major strategic shift that makes the project's original objectives no longer aligned with corporate strategy. The project is 60% complete. What should the project manager do FIRST?\nA. Continue the project since it is already 60% complete and stopping would waste investment\nB. Immediately halt the project and reallocate all resources\nC. Assess the impact of the strategic change on the project and escalate findings to the sponsor\nD. Renegotiate the project objectives with the customer to align with the new strategy"
+  },
+  {
+    "tag": "🔤 Language · EXCEPT Trap",
+    "domain": "EXCEPT Trap",
+    "approach": "",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project manager is closing a project. Which of the following is LEAST likely to be part of the project closure process?",
+    "options": {
+      "A": "Releasing project resources and updating resource availability",
+      "B": "Documenting lessons learned and archiving project records",
+      "C": "Initiating a new project to address gaps identified during closure",
+      "D": "Obtaining formal acceptance of deliverables from the customer"
+    },
+    "full_text": "A project manager is closing a project. Which of the following is LEAST likely to be part of the project closure process?\nA. Releasing project resources and updating resource availability\nB. Documenting lessons learned and archiving project records\nC. Initiating a new project to address gaps identified during closure\nD. Obtaining formal acceptance of deliverables from the customer"
+  },
+  {
+    "tag": "👥 People · Hybrid · Coaching",
+    "domain": "Hybrid",
+    "approach": "Coaching",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project manager notices that a junior team member is struggling with Agile ceremonies and frequently misses the purpose of the sprint retrospective. The team member's contributions in sprints have been declining. What should the project manager do FIRST?",
+    "options": {
+      "A": "Replace the team member with someone more experienced in Agile",
+      "B": "Coach the team member one-on-one to build understanding of Agile principles and their role",
+      "C": "Raise the issue in the next retrospective so the whole team can provide feedback",
+      "D": "Assign a senior developer to supervise and correct the team member's work"
+    },
+    "full_text": "A project manager notices that a junior team member is struggling with Agile ceremonies and frequently misses the purpose of the sprint retrospective. The team member's contributions in sprints have been declining. What should the project manager do FIRST?\nA. Replace the team member with someone more experienced in Agile\nB. Coach the team member one-on-one to build understanding of Agile principles and their role\nC. Raise the issue in the next retrospective so the whole team can provide feedback\nD. Assign a senior developer to supervise and correct the team member's work"
+  },
+  {
+    "tag": "👥 People · Agile · Team Motivation",
+    "domain": "Agile",
+    "approach": "Team Motivation",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "Midway through a project, team morale drops significantly after a key feature is descoped by the sponsor without explanation. Velocity drops and team members begin missing stand-ups. What should the project manager do FIRST?",
+    "options": {
+      "A": "Issue a formal warning to team members who miss stand-ups",
+      "B": "Re-plan the sprint to reduce workload and compensate for lower velocity",
+      "C": "Facilitate a transparent conversation between the team and sponsor about the decision and its rationale",
+      "D": "Escalate to senior management to reinstate the descoped feature"
+    },
+    "full_text": "Midway through a project, team morale drops significantly after a key feature is descoped by the sponsor without explanation. Velocity drops and team members begin missing stand-ups. What should the project manager do FIRST?\nA. Issue a formal warning to team members who miss stand-ups\nB. Re-plan the sprint to reduce workload and compensate for lower velocity\nC. Facilitate a transparent conversation between the team and sponsor about the decision and its rationale\nD. Escalate to senior management to reinstate the descoped feature"
+  },
+  {
+    "tag": "👥 People · Predictive · Conflict Resolution",
+    "domain": "Predictive",
+    "approach": "Conflict Resolution",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "Two functional managers are in dispute about which department should provide resources for a critical project activity. The conflict is causing delays. The project manager has attempted informal resolution without success. What should the project manager do NEXT?",
+    "options": {
+      "A": "Make a unilateral decision about which department provides the resources",
+      "B": "Escalate the conflict to the project sponsor for resolution",
+      "C": "Delay the activity until the functional managers resolve the issue themselves",
+      "D": "Remove the activity from the project scope to avoid further conflict"
+    },
+    "full_text": "Two functional managers are in dispute about which department should provide resources for a critical project activity. The conflict is causing delays. The project manager has attempted informal resolution without success. What should the project manager do NEXT?\nA. Make a unilateral decision about which department provides the resources\nB. Escalate the conflict to the project sponsor for resolution\nC. Delay the activity until the functional managers resolve the issue themselves\nD. Remove the activity from the project scope to avoid further conflict"
+  },
+  {
+    "tag": "👥 People · Predictive · Communication Plan",
+    "domain": "Predictive",
+    "approach": "Communication Plan",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project manager discovers that a key stakeholder has been receiving project updates through informal channels and has developed incorrect assumptions about the project status. What should the project manager do FIRST?",
+    "options": {
+      "A": "Reprimand the team members who shared information informally",
+      "B": "Meet with the stakeholder to clarify the correct project status and update the communications management plan",
+      "C": "Send a formal memo to all stakeholders reminding them to use official channels only",
+      "D": "Escalate the miscommunication to the project sponsor"
+    },
+    "full_text": "A project manager discovers that a key stakeholder has been receiving project updates through informal channels and has developed incorrect assumptions about the project status. What should the project manager do FIRST?\nA. Reprimand the team members who shared information informally\nB. Meet with the stakeholder to clarify the correct project status and update the communications management plan\nC. Send a formal memo to all stakeholders reminding them to use official channels only\nD. Escalate the miscommunication to the project sponsor"
+  },
+  {
+    "tag": "⚙️ Process · Schedule · Critical Path",
+    "domain": "Schedule",
+    "approach": "Critical Path",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project manager is analyzing the project schedule and finds that a non-critical path activity has been delayed by 5 days. The activity has 3 days of total float. The project deadline has not changed. What should the project manager do FIRST?",
+    "options": {
+      "A": "Issue a change request to extend the project deadline by 2 days",
+      "B": "Crash the delayed activity by adding resources to recover the 5-day delay",
+      "C": "Assess the impact on the critical path and update the schedule accordingly",
+      "D": "Immediately escalate to the sponsor as the project is at risk of delay"
+    },
+    "full_text": "A project manager is analyzing the project schedule and finds that a non-critical path activity has been delayed by 5 days. The activity has 3 days of total float. The project deadline has not changed. What should the project manager do FIRST?\nA. Issue a change request to extend the project deadline by 2 days\nB. Crash the delayed activity by adding resources to recover the 5-day delay\nC. Assess the impact on the critical path and update the schedule accordingly\nD. Immediately escalate to the sponsor as the project is at risk of delay"
+  },
+  {
+    "tag": "⚙️ Process · Schedule · Fast Tracking",
+    "domain": "Schedule",
+    "approach": "Fast Tracking",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project is running 3 weeks behind schedule. The sponsor demands the project finish on the original date. The project manager evaluates options: overlapping two sequential phases or adding resources to critical path activities. Which techniques is the project manager considering?",
+    "options": {
+      "A": "Schedule compression: fast tracking and crashing",
+      "B": "Resource leveling and resource smoothing",
+      "C": "Critical chain method and Monte Carlo simulation",
+      "D": "Scope reduction and re-baselining"
+    },
+    "full_text": "A project is running 3 weeks behind schedule. The sponsor demands the project finish on the original date. The project manager evaluates options: overlapping two sequential phases or adding resources to critical path activities. Which techniques is the project manager considering?\nA. Schedule compression: fast tracking and crashing\nB. Resource leveling and resource smoothing\nC. Critical chain method and Monte Carlo simulation\nD. Scope reduction and re-baselining"
+  },
+  {
+    "tag": "⚙️ Process · Quality · QA vs QC",
+    "domain": "Quality",
+    "approach": "QA vs QC",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "During project execution, the quality team conducts an audit of the project management processes and finds that the testing procedures are not being followed consistently. What type of quality activity is this, and what should the project manager do?",
+    "options": {
+      "A": "This is Quality Control; the project manager should reject the non-conforming deliverables",
+      "B": "This is Quality Assurance; the project manager should implement corrective actions to improve process compliance",
+      "C": "This is Quality Control; the project manager should update the quality metrics",
+      "D": "This is Quality Assurance; the project manager should escalate to the sponsor"
+    },
+    "full_text": "During project execution, the quality team conducts an audit of the project management processes and finds that the testing procedures are not being followed consistently. What type of quality activity is this, and what should the project manager do?\nA. This is Quality Control; the project manager should reject the non-conforming deliverables\nB. This is Quality Assurance; the project manager should implement corrective actions to improve process compliance\nC. This is Quality Control; the project manager should update the quality metrics\nD. This is Quality Assurance; the project manager should escalate to the sponsor"
+  },
+  {
+    "tag": "⚙️ Process · Quality · Cost of Quality",
+    "domain": "Quality",
+    "approach": "Cost of Quality",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project sponsor asks the project manager to cut the testing budget by 30% to reduce costs. The project manager is concerned about the long-term impact. Which argument BEST supports maintaining the testing budget?",
+    "options": {
+      "A": "Testing is required by the project management plan and cannot be changed without a change request",
+      "B": "Prevention and appraisal costs are investments that reduce failure costs, which are typically far more expensive",
+      "C": "The sponsor does not have authority to change the quality management plan",
+      "D": "Cutting testing will delay the project and increase schedule costs"
+    },
+    "full_text": "A project sponsor asks the project manager to cut the testing budget by 30% to reduce costs. The project manager is concerned about the long-term impact. Which argument BEST supports maintaining the testing budget?\nA. Testing is required by the project management plan and cannot be changed without a change request\nB. Prevention and appraisal costs are investments that reduce failure costs, which are typically far more expensive\nC. The sponsor does not have authority to change the quality management plan\nD. Cutting testing will delay the project and increase schedule costs"
+  },
+  {
+    "tag": "⚙️ Process · Procurement · Contract Type",
+    "domain": "Procurement",
+    "approach": "Contract Type",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project requires specialized technical work where the full scope cannot be clearly defined upfront. The organization wants to minimize its risk on the project. Which contract type is MOST appropriate?",
+    "options": {
+      "A": "Firm Fixed Price (FFP)",
+      "B": "Fixed Price Incentive Fee (FPIF)",
+      "C": "Cost Plus Fixed Fee (CPFF)",
+      "D": "Time and Material (T&M)"
+    },
+    "full_text": "A project requires specialized technical work where the full scope cannot be clearly defined upfront. The organization wants to minimize its risk on the project. Which contract type is MOST appropriate?\nA. Firm Fixed Price (FFP)\nB. Fixed Price Incentive Fee (FPIF)\nC. Cost Plus Fixed Fee (CPFF)\nD. Time and Material (T&M)"
+  },
+  {
+    "tag": "⚙️ Process · Procurement · Vendor Management",
+    "domain": "Procurement",
+    "approach": "Vendor Management",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A key vendor informs the project manager that they will be unable to deliver a critical component on time due to internal resource issues. The component is on the critical path. What should the project manager do FIRST?",
+    "options": {
+      "A": "Terminate the contract and immediately find a new vendor",
+      "B": "Assess the impact on the project schedule and evaluate options including workarounds, alternative vendors, and contract remedies",
+      "C": "Escalate to the sponsor and request a project deadline extension",
+      "D": "Penalize the vendor according to the contract terms and continue waiting for delivery"
+    },
+    "full_text": "A key vendor informs the project manager that they will be unable to deliver a critical component on time due to internal resource issues. The component is on the critical path. What should the project manager do FIRST?\nA. Terminate the contract and immediately find a new vendor\nB. Assess the impact on the project schedule and evaluate options including workarounds, alternative vendors, and contract remedies\nC. Escalate to the sponsor and request a project deadline extension\nD. Penalize the vendor according to the contract terms and continue waiting for delivery"
+  },
+  {
+    "tag": "⚙️ Process · Agile · Definition of Done",
+    "domain": "Agile",
+    "approach": "Definition of Done",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "During a sprint review, the product owner rejects several user stories that the development team marked as complete. The team argues the stories meet the acceptance criteria. Upon review, the project manager finds the Definition of Done was never formally agreed upon. What should the project manager do FIRST?",
+    "options": {
+      "A": "Side with the development team since the acceptance criteria were met",
+      "B": "Facilitate a session to establish a shared Definition of Done and use it going forward",
+      "C": "Ask the product owner to accept the stories and raise a change request for any additional requirements",
+      "D": "Escalate the dispute to senior management for resolution"
+    },
+    "full_text": "During a sprint review, the product owner rejects several user stories that the development team marked as complete. The team argues the stories meet the acceptance criteria. Upon review, the project manager finds the Definition of Done was never formally agreed upon. What should the project manager do FIRST?\nA. Side with the development team since the acceptance criteria were met\nB. Facilitate a session to establish a shared Definition of Done and use it going forward\nC. Ask the product owner to accept the stories and raise a change request for any additional requirements\nD. Escalate the dispute to senior management for resolution"
+  },
+  {
+    "tag": "⚙️ Process · Agile · Backlog Refinement",
+    "domain": "Agile",
+    "approach": "Backlog Refinement",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project manager notices that the team frequently encounters unclear user stories during sprint planning, causing delays and rework. Sprint velocity has been inconsistent as a result. What is the BEST corrective action?",
+    "options": {
+      "A": "Reduce sprint length to limit the impact of unclear stories",
+      "B": "Implement regular backlog refinement sessions to clarify and estimate stories before sprint planning",
+      "C": "Ask the product owner to write more detailed user stories after each sprint",
+      "D": "Add a documentation phase before each sprint to clarify requirements"
+    },
+    "full_text": "A project manager notices that the team frequently encounters unclear user stories during sprint planning, causing delays and rework. Sprint velocity has been inconsistent as a result. What is the BEST corrective action?\nA. Reduce sprint length to limit the impact of unclear stories\nB. Implement regular backlog refinement sessions to clarify and estimate stories before sprint planning\nC. Ask the product owner to write more detailed user stories after each sprint\nD. Add a documentation phase before each sprint to clarify requirements"
+  },
+  {
+    "tag": "🏢 Business Env · Compliance",
+    "domain": "Compliance",
+    "approach": "",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "During project execution, a team member discovers that a deliverable does not comply with a new government regulation that came into effect after the project was initiated. The regulation applies to the final product. What should the project manager do FIRST?",
+    "options": {
+      "A": "Continue the project as planned since the regulation was not in effect when the project was approved",
+      "B": "Assess the impact of the regulation on the project and engage the appropriate stakeholders to determine the required response",
+      "C": "Immediately halt the project until full compliance can be achieved",
+      "D": "Notify the customer and ask them to accept the non-compliant deliverable"
+    },
+    "full_text": "During project execution, a team member discovers that a deliverable does not comply with a new government regulation that came into effect after the project was initiated. The regulation applies to the final product. What should the project manager do FIRST?\nA. Continue the project as planned since the regulation was not in effect when the project was approved\nB. Assess the impact of the regulation on the project and engage the appropriate stakeholders to determine the required response\nC. Immediately halt the project until full compliance can be achieved\nD. Notify the customer and ask them to accept the non-compliant deliverable"
+  },
+  {
+    "tag": "🏢 Business Env · Organizational Change",
+    "domain": "Organizational Change",
+    "approach": "",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project manager is leading a project to implement a new enterprise system. After delivery, users resist adopting the system, reverting to old processes. The technical solution works correctly. What should the project manager have done DIFFERENTLY during the project?",
+    "options": {
+      "A": "Delivered the project faster to minimize the time users had to prepare for change",
+      "B": "Developed and executed a change management and user adoption plan alongside the technical solution",
+      "C": "Escalated user resistance to senior management earlier in the project",
+      "D": "Simplified the system features to reduce the learning curve for users"
+    },
+    "full_text": "A project manager is leading a project to implement a new enterprise system. After delivery, users resist adopting the system, reverting to old processes. The technical solution works correctly. What should the project manager have done DIFFERENTLY during the project?\nA. Delivered the project faster to minimize the time users had to prepare for change\nB. Developed and executed a change management and user adoption plan alongside the technical solution\nC. Escalated user resistance to senior management earlier in the project\nD. Simplified the system features to reduce the learning curve for users"
+  },
+  {
+    "tag": "🔤 Language · NEXT vs FIRST",
+    "domain": "NEXT vs FIRST",
+    "approach": "",
+    "trap_type": "",
+    "response_type": "single",
+    "question": "A project manager has just received the results of a risk assessment showing three high-priority risks. Two risks have mitigation strategies already documented in the risk register. One risk has no response plan. What should the project manager do NEXT?",
+    "options": {
+      "A": "Implement the mitigation strategies for the two documented risks immediately",
+      "B": "Escalate all three risks to the project sponsor for guidance",
+      "C": "Develop a risk response plan for the undocumented high-priority risk",
+      "D": "Re-run the risk assessment to validate the findings before taking any action"
+    },
+    "full_text": "A project manager has just received the results of a risk assessment showing three high-priority risks. Two risks have mitigation strategies already documented in the risk register. One risk has no response plan. What should the project manager do NEXT?\nA. Implement the mitigation strategies for the two documented risks immediately\nB. Escalate all three risks to the project sponsor for guidance\nC. Develop a risk response plan for the undocumented high-priority risk\nD. Re-run the risk assessment to validate the findings before taking any action"
+  },
+  {
+    "tag": "🔢 Multiple Response · People · Agile",
+    "domain": "People",
+    "approach": "Agile",
+    "trap_type": "",
+    "response_type": "multiple",
+    "question": "A project manager is transitioning a traditional project team to an Agile approach. Which TWO actions should the project manager take FIRST to support this transition?",
+    "options": {
+      "A": "Establish a detailed project plan covering all sprints for the next 12 months",
+      "B": "Coach team members on Agile values and principles to build foundational understanding",
+      "C": "Facilitate the creation of a team working agreement and Definition of Done",
+      "D": "Assign individual tasks to team members to maintain accountability",
+      "E": "Immediately implement all Scrum ceremonies without adaptation"
+    },
+    "full_text": "A project manager is transitioning a traditional project team to an Agile approach. Which TWO actions should the project manager take FIRST to support this transition?\nA. Establish a detailed project plan covering all sprints for the next 12 months\nB. Coach team members on Agile values and principles to build foundational understanding\nC. Facilitate the creation of a team working agreement and Definition of Done\nD. Assign individual tasks to team members to maintain accountability\nE. Immediately implement all Scrum ceremonies without adaptation"
+  },
+  {
+    "tag": "🔢 Multiple Response · Process · Risk",
+    "domain": "Process",
+    "approach": "Risk",
+    "trap_type": "",
+    "response_type": "multiple",
+    "question": "A project is experiencing cost overruns and schedule delays. Which TWO actions should the project manager take to address the situation? (Select TWO)",
+    "options": {
+      "A": "Re-baseline the project schedule and budget to reflect current performance",
+      "B": "Conduct a root cause analysis to identify the underlying causes of the variances",
+      "C": "Immediately crash the schedule by adding maximum resources to all activities",
+      "D": "Implement corrective actions based on the root cause analysis findings",
+      "E": "Close the project and restart with a new plan"
+    },
+    "full_text": "A project is experiencing cost overruns and schedule delays. Which TWO actions should the project manager take to address the situation? (Select TWO)\nA. Re-baseline the project schedule and budget to reflect current performance\nB. Conduct a root cause analysis to identify the underlying causes of the variances\nC. Immediately crash the schedule by adding maximum resources to all activities\nD. Implement corrective actions based on the root cause analysis findings\nE. Close the project and restart with a new plan"
+  },
+  {
+    "tag": "🔢 Multiple Response · People · Conflict",
+    "domain": "People",
+    "approach": "Conflict",
+    "trap_type": "",
+    "response_type": "multiple",
+    "question": "A project manager is managing a cross-functional team where two senior engineers are in ongoing conflict that is impacting team morale and sprint velocity. Which TWO actions should the project manager take?",
+    "options": {
+      "A": "Immediately remove one of the engineers from the project to resolve the conflict",
+      "B": "Meet with each engineer separately to understand their perspectives before facilitating a joint discussion",
+      "C": "Facilitate a direct conversation between the two engineers to work toward a mutually acceptable resolution",
+      "D": "Escalate the conflict to HR and let them handle it without PM involvement",
+      "E": "Ignore the conflict and allow the team to self-organize around it"
+    },
+    "full_text": "A project manager is managing a cross-functional team where two senior engineers are in ongoing conflict that is impacting team morale and sprint velocity. Which TWO actions should the project manager take?\nA. Immediately remove one of the engineers from the project to resolve the conflict\nB. Meet with each engineer separately to understand their perspectives before facilitating a joint discussion\nC. Facilitate a direct conversation between the two engineers to work toward a mutually acceptable resolution\nD. Escalate the conflict to HR and let them handle it without PM involvement\nE. Ignore the conflict and allow the team to self-organize around it"
+  },
+  {
+    "tag": "🔢 Multiple Response · Process · Change Management",
+    "domain": "Process",
+    "approach": "Change Management",
+    "trap_type": "",
+    "response_type": "multiple",
+    "question": "A project sponsor requests several scope changes midway through project execution. Which TWO actions should the project manager take FIRST?",
+    "options": {
+      "A": "Implement the changes immediately since they come from the sponsor",
+      "B": "Document the requested changes as formal change requests",
+      "C": "Assess the impact of the changes on schedule, cost, quality, and risk",
+      "D": "Reject the changes since the project plan is already approved",
+      "E": "Inform the team to begin working on the changes while the assessment is in progress"
+    },
+    "full_text": "A project sponsor requests several scope changes midway through project execution. Which TWO actions should the project manager take FIRST?\nA. Implement the changes immediately since they come from the sponsor\nB. Document the requested changes as formal change requests\nC. Assess the impact of the changes on schedule, cost, quality, and risk\nD. Reject the changes since the project plan is already approved\nE. Inform the team to begin working on the changes while the assessment is in progress"
+  },
+  {
+    "tag": "🔢 Multiple Response · Process · Quality",
+    "domain": "Process",
+    "approach": "Quality",
+    "trap_type": "",
+    "response_type": "multiple",
+    "question": "A project manager discovers that several deliverables have been rejected by the customer due to quality issues. Which TWO actions should the project manager take to address the root cause?",
+    "options": {
+      "A": "Conduct a quality audit to identify gaps in the quality management process",
+      "B": "Immediately replace the team members responsible for the defective deliverables",
+      "C": "Perform a root cause analysis to understand why defects are occurring",
+      "D": "Accept the defects and negotiate with the customer to lower quality standards",
+      "E": "Re-baseline the quality metrics to match current performance"
+    },
+    "full_text": "A project manager discovers that several deliverables have been rejected by the customer due to quality issues. Which TWO actions should the project manager take to address the root cause?\nA. Conduct a quality audit to identify gaps in the quality management process\nB. Immediately replace the team members responsible for the defective deliverables\nC. Perform a root cause analysis to understand why defects are occurring\nD. Accept the defects and negotiate with the customer to lower quality standards\nE. Re-baseline the quality metrics to match current performance"
+  },
+  {
+    "tag": "🔢 Multiple Response · People · Stakeholder",
+    "domain": "People",
+    "approach": "Stakeholder",
+    "trap_type": "",
+    "response_type": "multiple",
+    "question": "A project manager finds that key stakeholders have low engagement and are not attending project reviews. The project is approaching a critical milestone requiring stakeholder sign-off. Which TWO actions should the project manager take?",
+    "options": {
+      "A": "Proceed to the next phase without stakeholder sign-off to avoid delays",
+      "B": "Review and update the stakeholder engagement plan to address disengagement",
+      "C": "Schedule individual meetings with key stakeholders to understand their concerns and re-engage them",
+      "D": "Escalate to the PMO to force stakeholder attendance at all reviews",
+      "E": "Send weekly email reminders and consider the issue resolved"
+    },
+    "full_text": "A project manager finds that key stakeholders have low engagement and are not attending project reviews. The project is approaching a critical milestone requiring stakeholder sign-off. Which TWO actions should the project manager take?\nA. Proceed to the next phase without stakeholder sign-off to avoid delays\nB. Review and update the stakeholder engagement plan to address disengagement\nC. Schedule individual meetings with key stakeholders to understand their concerns and re-engage them\nD. Escalate to the PMO to force stakeholder attendance at all reviews\nE. Send weekly email reminders and consider the issue resolved"
+  },
+  {
+    "tag": "🔢 Multiple Response · Process · Risk",
+    "domain": "Process",
+    "approach": "Risk",
+    "trap_type": "",
+    "response_type": "multiple",
+    "question": "During project planning, the risk management team identifies several high-probability, high-impact risks. Which TWO risk response strategies are MOST appropriate for risks that cannot be avoided?",
+    "options": {
+      "A": "Accept all risks passively and document them in the risk register",
+      "B": "Transfer applicable risks to third parties through contracts or insurance",
+      "C": "Develop mitigation strategies to reduce the probability or impact of the risks",
+      "D": "Remove all high-risk activities from the project scope",
+      "E": "Escalate all risks to the project sponsor for resolution"
+    },
+    "full_text": "During project planning, the risk management team identifies several high-probability, high-impact risks. Which TWO risk response strategies are MOST appropriate for risks that cannot be avoided?\nA. Accept all risks passively and document them in the risk register\nB. Transfer applicable risks to third parties through contracts or insurance\nC. Develop mitigation strategies to reduce the probability or impact of the risks\nD. Remove all high-risk activities from the project scope\nE. Escalate all risks to the project sponsor for resolution"
+  },
+  {
+    "tag": "🔢 Multiple Response · Agile · Sprint",
+    "domain": "Agile",
+    "approach": "Sprint",
+    "trap_type": "",
+    "response_type": "multiple",
+    "question": "At the end of a sprint, the team has completed all planned user stories but the product owner is not satisfied with the product increment. Which TWO actions should the project manager and team take?",
+    "options": {
+      "A": "Accept the product owner's feedback and close the sprint as unsuccessful",
+      "B": "Facilitate a sprint retrospective to understand what process improvements can prevent this in the future",
+      "C": "Work with the product owner during sprint review to clarify acceptance criteria for future sprints",
+      "D": "Skip the retrospective this time to immediately begin planning the next sprint",
+      "E": "Replace the product owner since they are causing delivery issues"
+    },
+    "full_text": "At the end of a sprint, the team has completed all planned user stories but the product owner is not satisfied with the product increment. Which TWO actions should the project manager and team take?\nA. Accept the product owner's feedback and close the sprint as unsuccessful\nB. Facilitate a sprint retrospective to understand what process improvements can prevent this in the future\nC. Work with the product owner during sprint review to clarify acceptance criteria for future sprints\nD. Skip the retrospective this time to immediately begin planning the next sprint\nE. Replace the product owner since they are causing delivery issues"
+  },
+  {
+    "tag": "🔢 Multiple Response · Business Env · Compliance",
+    "domain": "Business Env",
+    "approach": "Compliance",
+    "trap_type": "",
+    "response_type": "multiple",
+    "question": "A project manager discovers that a regulatory requirement that applies to the project deliverable was not captured during planning. The project is 70% complete. Which TWO actions should the project manager take?",
+    "options": {
+      "A": "Continue without addressing the regulation since the project is already 70% complete",
+      "B": "Submit a change request to incorporate the compliance requirement into the project scope",
+      "C": "Perform an impact assessment to understand the cost and schedule implications of the new requirement",
+      "D": "Inform the customer that the regulation does not apply to this project",
+      "E": "Immediately halt the project until full regulatory compliance can be guaranteed"
+    },
+    "full_text": "A project manager discovers that a regulatory requirement that applies to the project deliverable was not captured during planning. The project is 70% complete. Which TWO actions should the project manager take?\nA. Continue without addressing the regulation since the project is already 70% complete\nB. Submit a change request to incorporate the compliance requirement into the project scope\nC. Perform an impact assessment to understand the cost and schedule implications of the new requirement\nD. Inform the customer that the regulation does not apply to this project\nE. Immediately halt the project until full regulatory compliance can be guaranteed"
+  },
+  {
+    "tag": "🔢 Multiple Response · Agile · Backlog",
+    "domain": "Agile",
+    "approach": "Backlog",
+    "trap_type": "",
+    "response_type": "multiple",
+    "question": "The product owner wants to add a significant new feature to the product backlog that was not part of the original project scope. The feature would provide high business value. Which TWO actions should the project manager take?",
+    "options": {
+      "A": "Reject the feature since it was not in the original scope",
+      "B": "Add the feature to the product backlog and prioritize it based on business value with the product owner",
+      "C": "Assess the impact on the project timeline and resources with the team",
+      "D": "Immediately implement the feature in the next sprint without team discussion",
+      "E": "Escalate to the sponsor to decide whether to add the feature"
+    },
+    "full_text": "The product owner wants to add a significant new feature to the product backlog that was not part of the original project scope. The feature would provide high business value. Which TWO actions should the project manager take?\nA. Reject the feature since it was not in the original scope\nB. Add the feature to the product backlog and prioritize it based on business value with the product owner\nC. Assess the impact on the project timeline and resources with the team\nD. Immediately implement the feature in the next sprint without team discussion\nE. Escalate to the sponsor to decide whether to add the feature"
+  },
+  {
+    "tag": "🔢 Multiple Response · Process · Schedule",
+    "domain": "Process",
+    "approach": "Schedule",
+    "trap_type": "",
+    "response_type": "multiple",
+    "question": "A project manager determines that the project will miss its deadline by three weeks. The sponsor insists the deadline cannot be changed. Which TWO schedule compression techniques should the project manager evaluate?",
+    "options": {
+      "A": "Re-baseline the project to show the new delivery date",
+      "B": "Fast track by overlapping sequential activities where risk is acceptable",
+      "C": "Crash the schedule by adding resources to critical path activities",
+      "D": "Remove quality control checkpoints to save time",
+      "E": "Reduce stakeholder communication frequency to free up PM time"
+    },
+    "full_text": "A project manager determines that the project will miss its deadline by three weeks. The sponsor insists the deadline cannot be changed. Which TWO schedule compression techniques should the project manager evaluate?\nA. Re-baseline the project to show the new delivery date\nB. Fast track by overlapping sequential activities where risk is acceptable\nC. Crash the schedule by adding resources to critical path activities\nD. Remove quality control checkpoints to save time\nE. Reduce stakeholder communication frequency to free up PM time"
+  },
+  {
+    "tag": "🔢 Multiple Response · People · Leadership",
+    "domain": "People",
+    "approach": "Leadership",
+    "trap_type": "",
+    "response_type": "multiple",
+    "question": "A project manager is leading a highly experienced self-organizing Agile team. Several team members have raised concerns that the project manager is too involved in technical decisions and daily task assignments. Which TWO actions should the project manager take?",
+    "options": {
+      "A": "Continue current management style since it ensures project control",
+      "B": "Shift to a servant leadership approach, focusing on removing impediments rather than directing work",
+      "C": "Empower the team to make technical decisions within agreed boundaries and retrospect on outcomes",
+      "D": "Delegate all project responsibilities to the team and disengage from the project",
+      "E": "Report the team members' complaints to HR as insubordination"
+    },
+    "full_text": "A project manager is leading a highly experienced self-organizing Agile team. Several team members have raised concerns that the project manager is too involved in technical decisions and daily task assignments. Which TWO actions should the project manager take?\nA. Continue current management style since it ensures project control\nB. Shift to a servant leadership approach, focusing on removing impediments rather than directing work\nC. Empower the team to make technical decisions within agreed boundaries and retrospect on outcomes\nD. Delegate all project responsibilities to the team and disengage from the project\nE. Report the team members' complaints to HR as insubordination"
+  }
+]
