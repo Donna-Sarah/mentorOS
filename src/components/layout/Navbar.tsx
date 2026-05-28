@@ -86,6 +86,10 @@ function Wordmark({ className }: { className?: string }) {
 export function Navbar() {
   const { t } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname()
+  const isHome = pathname === '/'
+  const isPMPInput = pathname === '/pmp'
+  const isTransparent = isPMPInput
 
   const closeDrawer = useCallback(() => setIsOpen(false), [])
   const openDrawer = useCallback(() => setIsOpen(true), [])
@@ -129,27 +133,32 @@ export function Navbar() {
     <>
       <header
         className={cn(
-          'fixed top-0 right-0 left-0 z-navbar border-b border-soft-gray bg-white-canvas pt-[env(safe-area-inset-top)]',
+          'fixed top-0 right-0 left-0 z-navbar border-b pt-[env(safe-area-inset-top)] transition-colors duration-200',
           'h-navbar-mobile md:h-navbar-desktop',
+          isHome
+            ? 'border-transparent bg-amber-glow hover:border-[#F3F4F6] hover:bg-white'
+            : isTransparent
+              ? 'border-black/5 bg-transparent'
+              : 'border-soft-gray bg-white-canvas',
         )}
       >
         <div className="mx-auto flex h-full max-w-content items-center justify-between px-4 md:px-6">
           <Wordmark />
 
           <nav
-            className="hidden items-center gap-1 md:flex"
+            className="hidden items-center gap-1 lg:flex"
             aria-label="Main navigation"
           >
             {navLinks.map((link) => (
               <NavLink
                 key={link.href}
                 link={link}
-                className="px-3 py-2 font-body text-body-sm font-semibold text-slate-text transition-colors hover:text-midnight-ink"
+                className="px-3 py-2 font-body text-[14px] font-semibold text-slate-text transition-colors hover:text-midnight-ink"
               />
             ))}
           </nav>
 
-          <div className="hidden items-center md:flex">
+          <div className="hidden items-center lg:flex">
             <Button variant="primary" size="sm" href="/askbetter">
               {t.nav.try_free}
             </Button>
@@ -157,7 +166,7 @@ export function Navbar() {
 
           <button
             type="button"
-            className="inline-flex min-h-touch min-w-touch items-center justify-center text-midnight-ink md:hidden"
+            className="inline-flex min-h-touch min-w-touch items-center justify-center text-midnight-ink lg:hidden"
             onClick={openDrawer}
             aria-expanded={isOpen}
             aria-controls="mobile-nav-drawer"
@@ -170,7 +179,7 @@ export function Navbar() {
 
       <div
         className={cn(
-          'fixed inset-0 z-overlay bg-obsidian/40 transition-opacity md:hidden',
+          'fixed inset-0 z-overlay bg-obsidian/40 transition-opacity lg:hidden',
           isOpen
             ? 'pointer-events-auto opacity-100'
             : 'pointer-events-none opacity-0',
@@ -182,7 +191,7 @@ export function Navbar() {
       <aside
         id="mobile-nav-drawer"
         className={cn(
-          'fixed top-0 right-0 z-drawer flex h-screen flex-col bg-white-canvas shadow-drawer transition-transform duration-300 md:hidden',
+          'fixed top-0 right-0 z-drawer flex h-screen flex-col bg-white-canvas shadow-drawer transition-transform duration-300 lg:hidden',
           '[transition-timing-function:cubic-bezier(0.4,0,0.2,1)]',
           isOpen ? 'translate-x-0' : 'translate-x-full',
         )}

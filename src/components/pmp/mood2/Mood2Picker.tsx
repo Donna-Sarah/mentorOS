@@ -32,6 +32,13 @@ function Spinner() {
 }
 
 export default function Mood2Picker({ question, onSubmit, onBack }: Mood2PickerProps) {
+  const steps = [
+    'Đang đọc câu hỏi...',
+    'Xác định PMI signal chain...',
+    'Tạo interpretation options...',
+    'Hoàn thiện...',
+  ]
+
   const [subPhase, setSubPhase] = useState<SubPhase>('loading')
   const [aiResult, setAiResult] = useState<Mood2Result | null>(null)
   const [loadError, setLoadError] = useState<string | null>(null)
@@ -39,6 +46,35 @@ export default function Mood2Picker({ question, onSubmit, onBack }: Mood2PickerP
   const [elapsedSeconds, setElapsedSeconds] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [optionsReady, setOptionsReady] = useState(false)
+  const [loadStep, setLoadStep] = useState(0)
+  const [dots, setDots] = useState('')
+
+  useEffect(() => {
+    if (subPhase === 'loading') {
+      setLoadStep(0)
+      setDots('')
+    }
+  }, [subPhase])
+
+  useEffect(() => {
+    if (subPhase !== 'loading') return
+
+    const interval = setInterval(() => {
+      setLoadStep((prev) => Math.min(prev + 1, steps.length - 1))
+    }, 4000)
+
+    return () => clearInterval(interval)
+  }, [subPhase, steps.length])
+
+  useEffect(() => {
+    if (subPhase !== 'loading') return
+
+    const interval = setInterval(() => {
+      setDots((prev) => (prev.length >= 3 ? '' : `${prev}.`))
+    }, 500)
+
+    return () => clearInterval(interval)
+  }, [subPhase])
 
   useEffect(() => {
     let cancelled = false
@@ -84,6 +120,56 @@ export default function Mood2Picker({ question, onSubmit, onBack }: Mood2PickerP
     }
   }, [question])
 
+  if (subPhase === 'loading') {
+    const progressPercent = ((loadStep + 1) / steps.length) * 100
+
+    return (
+      <div className="mx-auto max-w-[640px] px-4 py-8 md:px-6">
+        <div className="mb-8 flex items-center justify-between">
+          <Button variant="ghost" size="sm" onClick={onBack}>
+            ← Đổi chế độ
+          </Button>
+          <span className="rounded-md bg-pmp-surface px-3 py-1 font-body text-[12px] font-bold text-pmp-accent">
+            🔍 Mood 2
+          </span>
+        </div>
+
+        <div className="flex min-h-[360px] flex-col items-center justify-center px-4 py-12 text-center">
+          <div className="mx-auto mb-6 flex h-14 w-14 animate-pulse items-center justify-center rounded-full bg-[#EFF6FF]">
+            <span className="text-2xl" aria-hidden>
+              🔍
+            </span>
+          </div>
+
+          <p className="mb-2 min-h-[28px] font-body text-[15px] font-semibold text-[#111111]">
+            {steps[loadStep]}
+            {dots}
+          </p>
+
+          <div className="mx-auto mt-4 h-1 w-full max-w-[240px] overflow-hidden rounded-full bg-[#E5E7EB]">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-[#2563EB] to-[#06B6D4]"
+              style={{
+                width: `${progressPercent}%`,
+                transition: 'width 4s ease-in-out',
+              }}
+            />
+          </div>
+
+          <p className="mx-auto mt-6 max-w-[260px] font-body text-[13px] leading-[1.6] text-[#9CA3AF]">
+            Mood 2 luyện kỹ năng đọc đề — không phải chọn đáp án đúng, mà nhận ra PMI đang hỏi gì.
+          </p>
+
+          {loadError ? (
+            <div className="mt-6 max-w-[320px] rounded-md border border-error/20 bg-error/10 p-3 font-body text-[13px] text-error">
+              {loadError}
+            </div>
+          ) : null}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <section className="mx-auto max-w-[640px] px-4 py-8 md:px-6">
       <div className="mb-4 flex items-center justify-between gap-3">
@@ -107,25 +193,12 @@ export default function Mood2Picker({ question, onSubmit, onBack }: Mood2PickerP
       />
 
       <div className="mt-4 rounded-md bg-white-canvas p-4 shadow-card">
-        <p className="font-body text-body text-midnight-ink leading-relaxed">
+        <p className="font-body text-body leading-relaxed text-midnight-ink">
           {renderWithTriggers(question.text)}
         </p>
       </div>
 
-      {subPhase === 'loading' && (
-        <div className="flex flex-col items-center gap-3 py-12">
-          <Spinner />
-          <p className="font-body text-body-sm text-slate-text">Đang tạo interpretation options...</p>
-        </div>
-      )}
-
-      {loadError && subPhase === 'loading' && (
-        <div className="mt-4 rounded-md border border-error/20 bg-error/10 p-3 font-body text-body-sm text-error">
-          {loadError}
-        </div>
-      )}
-
-      {subPhase === 'picking' && aiResult && (
+      {aiResult && (
         <div className="mt-6">
           <p className="mb-3 font-body text-body-sm font-semibold text-midnight-ink">
             Interpretation nào nắm đúng PMI signal?

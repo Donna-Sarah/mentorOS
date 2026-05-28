@@ -61,25 +61,32 @@ export default function ImageUpload({
     <div>
       <label
         htmlFor="pmp-image-upload"
-        className="font-body text-body-sm font-semibold text-midnight-ink"
+        className="mb-2 block font-body text-[13px] font-semibold text-[#374151]"
       >
         Tải ảnh câu hỏi lên
       </label>
-      <input
-        id="pmp-image-upload"
-        type="file"
-        accept="image/jpeg,image/png,image/webp"
-        disabled={isLoading}
-        onChange={handleChange}
-        className="mt-2 w-full cursor-pointer rounded-md border border-soft-gray bg-white-canvas p-3 font-body text-midnight-ink text-[16px]"
-      />
-      <p className="mt-1 font-body text-caption text-ash-text">
-        JPG, PNG hoặc WebP · Tối đa 5MB
-      </p>
+
+      <div className="w-full cursor-pointer rounded-md border border-dashed border-[#E5E7EB] bg-[#F9FAFB] p-4 text-center transition-colors hover:bg-[#F3F4F6]">
+        <p className="mb-2 font-body text-[13px] text-[#9CA3AF]">
+          Nhấn để chọn ảnh hoặc kéo thả vào đây
+        </p>
+        <input
+          id="pmp-image-upload"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          disabled={isLoading}
+          onChange={handleChange}
+          className="w-full cursor-pointer font-body text-[13px] text-[#374151]"
+          style={{ fontSize: '16px' }}
+        />
+      </div>
+
+      <p className="mt-2 font-body text-[11px] text-[#9CA3AF]">JPG, PNG hoặc WebP · Tối đa 5MB</p>
+
       {isLoading && (
-        <p className="mt-2 flex items-center font-body text-body-sm text-slate-text">
+        <p className="mt-2 flex items-center font-body text-body-sm text-[#6B7280]">
           <span
-            className="mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-soft-gray border-t-pmp-accent"
+            className="mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-[#E5E7EB] border-t-pmp-accent"
             aria-hidden
           />
           Đang đọc ảnh...

@@ -331,3 +331,51 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Improved reading defaults */
+p,
+li,
+span {
+  line-height: 1.65;
+}
+
+@media print {
+  /* Hide everything except lesson content */
+  nav,
+  footer,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Reset page */
+  body {
+    background: white !important;
+  }
+
+  /* Ensure collapsed sections show when printing */
+  .lesson-content .hidden {
+    display: block !important;
+  }
+
+  /* Page break hints */
+  .lesson-content > * {
+    page-break-inside: avoid;
+  }
+
+  /* Prevent content from splitting across pages */
+  .lesson-section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Core Rule must never split */
+  .core-rule-content {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Add margin between sections for readability */
+  .lesson-section + .lesson-section {
+    margin-top: 8px;
+  }
+}

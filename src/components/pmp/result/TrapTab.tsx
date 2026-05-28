@@ -7,14 +7,12 @@ interface TrapTabProps {
   trap: Mood1Result['trap']
 }
 
-const getCategoryIcon = (category: Mood1Result['trap']['category']): string => {
-  if (category === 'Mindset Trap') return '🧠'
-  if (category === 'Terminology Trap') return '📖'
-  if (category === 'Technical Trap') return '⚙️'
-  return '🔤'
-}
+const metadataPillClassName =
+  'inline-flex items-center rounded-sm bg-[#F3F4F6] px-2 py-0.5 font-body text-[11px] font-semibold text-[#6B7280]'
 
 export default function TrapTab({ trap }: TrapTabProps) {
+  const categoryLabel = trap.category.replace(' Trap', '')
+
   return (
     <div className="space-y-4">
       <h2 className="mb-4 font-display text-heading-sm font-bold text-midnight-ink">Trap Analysis</h2>
@@ -32,16 +30,10 @@ export default function TrapTab({ trap }: TrapTabProps) {
           <div className="font-body text-body-sm text-slate-text italic">{trap.why_feels_right}</div>
         </div>
 
-        <div className="mt-2 flex flex-wrap gap-2">
-          <div className="inline-flex items-center gap-1.5 rounded-sm border border-soft-gray bg-white-canvas px-2 py-1 text-caption font-body text-slate-text">
-            📌 {trap.domain}
-          </div>
-          <div className="inline-flex items-center gap-1.5 rounded-sm border border-soft-gray bg-white-canvas px-2 py-1 text-caption font-body text-slate-text">
-            {trap.approach}
-          </div>
-          <div className="inline-flex items-center gap-1.5 rounded-sm border border-soft-gray bg-white-canvas px-2 py-1 text-caption font-body text-slate-text">
-            {getCategoryIcon(trap.category)} {trap.category.replace(' Trap', '')}
-          </div>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <span className={metadataPillClassName}>{trap.domain}</span>
+          <span className={metadataPillClassName}>{trap.approach}</span>
+          <span className={metadataPillClassName}>{categoryLabel}</span>
         </div>
 
         <div className="mt-3 rounded-md bg-pmp-surface p-3 font-body text-body-sm text-pmp-primary">
@@ -51,4 +43,3 @@ export default function TrapTab({ trap }: TrapTabProps) {
     </div>
   )
 }
-

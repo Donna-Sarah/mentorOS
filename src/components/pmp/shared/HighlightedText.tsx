@@ -1,6 +1,7 @@
 'use client'
 
-import { useMemo } from 'react'
+import { Fragment, useMemo } from 'react'
+import { cn } from '@/lib/utils/cn'
 import {
   buildGlossaryHighlightPattern,
   buildGlossaryTermList,
@@ -33,7 +34,6 @@ function splitIntoSegments(
   const globalPattern = new RegExp(pattern.source, flags.includes('g') ? flags : `${flags}g`)
 
   let match: RegExpExecArray | null
-  // RegExp.exec with a global regex avoids TS iterator requirements.
   while ((match = globalPattern.exec(text)) !== null) {
     const matched = match[0]
     if (!matched) break
@@ -75,10 +75,10 @@ export default function HighlightedText({
   }, [pattern, terms, text])
 
   return (
-    <span className={`whitespace-pre-wrap ${className ?? ''}`}>
+    <span className={cn('inline whitespace-pre-wrap', className)}>
       {segments.map((segment, index) => {
         if (segment.type === 'text') {
-          return <span key={`text-${index}`}>{segment.value}</span>
+          return <Fragment key={`text-${index}`}>{segment.value}</Fragment>
         }
 
         return (
@@ -86,7 +86,8 @@ export default function HighlightedText({
             key={`term-${index}-${segment.value}`}
             type="button"
             onClick={() => onTermClick(segment.value, segment.entryIndex!)}
-            className="inline-flex min-h-touch min-w-touch items-center justify-center align-baseline cursor-pointer border-none bg-transparent p-0 font-inherit text-inherit text-pmp-primary underline decoration-pmp-primary decoration-dotted underline-offset-2 transition-colors hover:text-pmp-accent"
+            style={{ display: 'inline' }}
+            className="cursor-pointer border-none bg-transparent p-0 font-inherit text-inherit text-pmp-primary underline decoration-pmp-primary decoration-dotted underline-offset-2 transition-colors hover:text-pmp-accent"
           >
             {segment.value}
           </button>

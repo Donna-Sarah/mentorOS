@@ -82,6 +82,16 @@ export interface SampleQuestion {
   full_text: string
 }
 
+export interface SampleAnswerEntry {
+  sampleIndex: number
+  tag: string
+  analysis: Mood1Result
+  translation: string
+  generatedAt: string
+}
+
+export type SampleAnswersCache = Record<string, SampleAnswerEntry>
+
 export interface PMPSession {
   id?: string
   user_id?: string

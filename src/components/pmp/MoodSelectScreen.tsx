@@ -1,114 +1,64 @@
 'use client'
 
-import { useState } from 'react'
-import type { PMPMood, PMPQuestion } from '@/types/pmp'
-import { Badge } from '@/components/ui/Badge'
+import type { PMPMood } from '@/types/pmp'
 import { Button } from '@/components/ui/Button'
-import { GlossaryTooltip, HighlightedText } from '@/components/pmp/shared'
 
 interface MoodSelectScreenProps {
-  question: PMPQuestion
   onSelect: (mood: PMPMood) => void
   onBack: () => void
-  onOpenGlossary: (index: number) => void
 }
 
-export default function MoodSelectScreen({
-  question,
-  onSelect,
-  onBack,
-  onOpenGlossary,
-}: MoodSelectScreenProps) {
-  const [tooltipTerm, setTooltipTerm] = useState<{ term: string; idx: number } | null>(null)
+const moodCardClassName =
+  'cursor-pointer rounded-md border-2 border-[#F3F4F6] bg-white p-5 transition-all duration-150 hover:border-pmp-primary hover:shadow-card'
 
+export default function MoodSelectScreen({ onSelect, onBack }: MoodSelectScreenProps) {
   return (
-    <section className="mx-auto max-w-[640px] px-4 py-8 md:px-6">
-      <Button variant="ghost" size="sm" onClick={onBack}>
-        ← Câu hỏi khác
-      </Button>
-
-      <div className="mt-4 rounded-md bg-white-canvas p-4 shadow-card">
-        {question.tag && (
-          <div className="mb-2">
-            <Badge variant="default">{question.tag}</Badge>
-          </div>
-        )}
-
-        <HighlightedText
-          text={question.text}
-          onTermClick={(term, idx) => setTooltipTerm({ term, idx })}
-          className="font-body text-body text-midnight-ink leading-relaxed"
-        />
-
-        {Object.keys(question.options ?? {}).length > 0 && (
-          <div className="mt-4 space-y-2">
-            {Object.entries(question.options).map(([key, value]) => (
-              <div key={key} className="flex gap-2">
-                <div className="w-5 shrink-0 font-body text-body-sm font-bold text-pmp-primary">
-                  {key}
-                </div>
-                <div className="min-w-0 flex-1 font-body text-body-sm text-slate-text">
-                  <HighlightedText
-                    text={value}
-                    onTermClick={(term, idx) => setTooltipTerm({ term, idx })}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {tooltipTerm && (
-        <GlossaryTooltip
-          term={tooltipTerm.term}
-          entryIndex={tooltipTerm.idx}
-          onClose={() => setTooltipTerm(null)}
-          onViewFull={(idx) => {
-            setTooltipTerm(null)
-            onOpenGlossary(idx)
-          }}
-        />
-      )}
-
-      <div className="mt-8">
-        <p className="mb-4 font-body text-body-sm font-bold text-midnight-ink">
-          Chọn chế độ luyện tập:
+    <section className="mx-auto max-w-[560px] px-4 py-10">
+      <header className="mb-8">
+        <Button variant="ghost" size="sm" onClick={onBack}>
+          ← Đổi câu hỏi
+        </Button>
+        <h1 className="mt-4 font-display text-[24px] font-bold tracking-[-0.02em] text-[#111111]">
+          Chọn chế độ luyện tập
+        </h1>
+        <p className="mt-2 font-body text-[14px] leading-[1.6] text-[#6B7280]">
+          Câu hỏi đã sẵn sàng. Bạn muốn luyện theo hướng nào?
         </p>
+      </header>
 
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-          <button
-            type="button"
-            onClick={() => onSelect('mood1')}
-            className="w-full min-h-touch rounded-md border-2 border-soft-gray p-4 text-left transition-all hover:border-pmp-primary hover:bg-pmp-surface/30"
-          >
-            <div className="flex items-start justify-between gap-2">
-              <div className="font-body text-body font-bold text-midnight-ink">🧠 Mood 1</div>
-              <Badge variant="product">Answer Thinking</Badge>
-            </div>
-            <p className="mt-2 font-body text-body-sm text-slate-text">
-              Chọn đáp án, nhận phân tích đầy đủ: tại sao đúng, tại sao sai, bẫy tư duy và Core Rule.
-            </p>
-            <p className="mt-3 font-body text-caption text-ash-text">⏱ Benchmark: 77 giây</p>
-          </button>
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <button type="button" onClick={() => onSelect('mood1')} className={`${moodCardClassName} text-left`}>
+          <div className="mb-3 flex items-center justify-between">
+            <span className="font-body text-[15px] font-bold text-[#111111]">🧠 Mood 1</span>
+            <span className="rounded-sm bg-[#F3F4F6] px-2 py-0.5 font-body text-[11px] font-semibold text-[#9CA3AF]">
+              77 giây
+            </span>
+          </div>
+          <p className="mb-2 font-body text-[14px] font-semibold text-[#374151]">Thinking Analysis</p>
+          <p className="font-body text-[13px] leading-[1.55] text-[#9CA3AF]">
+            Chọn đáp án → nhận phân tích đầy đủ tại sao đúng/sai, bẫy tư duy và Core Rule theo PMI.
+          </p>
+          <div className="mt-3 border-t border-[#F3F4F6] pt-3">
+            <span className="font-body text-[13px] font-semibold text-pmp-accent">Chọn Mood 1 →</span>
+          </div>
+        </button>
 
-          <button
-            type="button"
-            onClick={() => onSelect('mood2')}
-            className="w-full min-h-touch rounded-md border-2 border-soft-gray p-4 text-left transition-all hover:border-pmp-primary hover:bg-pmp-surface/30"
-          >
-            <div className="flex items-start justify-between gap-2">
-              <div className="font-body text-body font-bold text-midnight-ink">🔍 Mood 2</div>
-              <Badge variant="product">Reading Decode</Badge>
-            </div>
-            <p className="mt-2 font-body text-body-sm text-slate-text">
-              Luyện đọc đề nhanh — tìm PMI signal đúng trong 25 giây trước khi chọn đáp án.
-            </p>
-            <p className="mt-3 font-body text-caption text-ash-text">⏱ Benchmark: 25 giây</p>
-          </button>
-        </div>
+        <button type="button" onClick={() => onSelect('mood2')} className={`${moodCardClassName} text-left`}>
+          <div className="mb-3 flex items-center justify-between">
+            <span className="font-body text-[15px] font-bold text-[#111111]">🔍 Mood 2</span>
+            <span className="rounded-sm bg-[#F3F4F6] px-2 py-0.5 font-body text-[11px] font-semibold text-[#9CA3AF]">
+              25 giây
+            </span>
+          </div>
+          <p className="mb-2 font-body text-[14px] font-semibold text-[#374151]">Reading Decode</p>
+          <p className="font-body text-[13px] leading-[1.55] text-[#9CA3AF]">
+            Luyện đọc đề nhanh — nhận ra PMI signal trong 25 giây trước khi chọn đáp án.
+          </p>
+          <div className="mt-3 border-t border-[#F3F4F6] pt-3">
+            <span className="font-body text-[13px] font-semibold text-askbetter-primary">Chọn Mood 2 →</span>
+          </div>
+        </button>
       </div>
     </section>
   )
 }
-

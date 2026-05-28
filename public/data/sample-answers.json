@@ -1,0 +1,2288 @@
+{
+  "0": {
+    "sampleIndex": 0,
+    "tag": "👥 People · Agile · Escalation Reflex",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "A",
+      "correct_answers": [
+        "A"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": true,
+          "explanation": "PMI yêu cầu PM giải quyết trực tiếp với cá nhân trước (servant leadership + root cause analysis). Hiểu nguyên nhân thật trước khi hành động."
+        },
+        "B": {
+          "correct": false,
+          "explanation": "Escalation là bước sau cùng. PM phải thử giải quyết ở cấp độ team trước, không bypass quyền tự quản của team."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Vấn đề cá nhân nhạy cảm không nên công khai trước toàn team. Retrospective cho system issues, không phải individual performance."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "HR/formal warning là hành động cuối cùng sau khi coaching thất bại. PMI ưu tiên coaching và support trước punishment."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager trong Agile context — có trách nhiệm servant leadership, không phải command & control",
+        "situation": "Velocity giảm 20%, developer báo 1 thành viên đi muộn thường xuyên, bỏ stand-up",
+        "trigger_word": "FIRST",
+        "trigger_meaning": "Hỏi hành động đầu tiên — test xem bạn có skip qua bước quan trọng nhất (understand before acting)",
+        "hidden_test": "PMI không test kỹ năng kỷ luật — PMI test servant leadership mindset: support & coach before escalate or punish"
+      },
+      "mindset": {
+        "vn_thinking": "Báo cáo lên functional manager ngay hoặc họp team để 'bắt quả tang' trước mặt mọi người",
+        "vn_reason": "Văn hóa tập thể, tránh conflict trực diện, ưu tiên xử lý qua cấp trên hoặc dùng áp lực tập thể",
+        "pmi_thinking": "Nói chuyện riêng với người đó trước, không assume ý đồ xấu, tìm hiểu root cause",
+        "pmi_reason": "PMI tin vào coaching > punishment, psychological safety, và giải quyết conflict ở cấp thấp nhất có thể"
+      },
+      "core_rule": "Nói riêng trước khi công khai hoặc leo thang",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Premature Escalation",
+        "why_feels_right": "Functional manager có authority về HR, tưởng đó là con đường 'đúng quy trình' và tránh được responsibility",
+        "domain": "People",
+        "approach": "Agile"
+      }
+    },
+    "translation": "Trong quá trình thực hiện dự án, một senior developer thông báo với bạn rằng một thành viên trong nhóm liên tục đến muộn và bỏ lỡ các cuộc họp stand-up. Velocity (vận tốc) của nhóm đã giảm 20% trong hai sprint vừa qua. Project manager nên làm gì FIRST?\n\nA. Thảo luận trực tiếp với thành viên có hiệu suất kém để hiểu root cause (nguyên nhân gốc rễ)\nB. Báo cáo vấn đề lên functional manager (người quản lý chức năng) của thành viên đó ngay lập tức\nC. Giải quyết vấn đề trong buổi sprint retrospective (họp cải tiến sprint) tiếp theo với cả nhóm\nD. Ghi lại hành vi và đưa ra cảnh cáo chính thức thông qua HR (bộ phận nhân sự)",
+    "generatedAt": "2026-05-28T03:48:45.640Z"
+  },
+  "1": {
+    "sampleIndex": 1,
+    "tag": "👥 People · Agile · Conflict Avoidance",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Removing a team member is an extreme last resort after all conflict resolution attempts fail. PMI requires progressive intervention, not immediate escalation to punitive measures."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "PMI's conflict resolution model prioritizes direct confrontation/collaboration first. The PM facilitates face-to-face dialogue between parties to address root causes before escalating or restructuring."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "HR escalation is premature when the PM hasn't attempted direct resolution. PMI expects project managers to handle team conflicts as a core competency before involving external parties."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "While Agile teams self-organize, the PM must intervene when conflict persists for three sprints and impacts ceremonies. Self-organization doesn't mean abandoning servant leadership responsibilities."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager in Agile context — still owns team dynamics despite Scrum Master presence",
+        "situation": "Prolonged interpersonal conflict (3 sprints) disrupting team ceremonies and productivity",
+        "trigger_word": "FIRST",
+        "trigger_meaning": "Test proper escalation sequence — direct resolution before external intervention or structural changes",
+        "hidden_test": "PMI không test kỹ thuật Agile ceremonies — PMI test conflict management ladder và servant leadership timing"
+      },
+      "mindset": {
+        "vn_thinking": "Tránh đối đầu trực tiếp → gặp riêng từng người hoặc nhờ bên thứ ba (HR/Scrum Master)",
+        "vn_reason": "Văn hóa Việt coi giữ thể diện quan trọng, đối thoại trực tiếp có thể làm căng thẳng leo thang",
+        "pmi_thinking": "Facilitate direct confrontation giữa hai bên ngay lập tức để address root cause",
+        "pmi_reason": "PMI Conflict Resolution: Collaborate/Confront là mode hiệu quả nhất, tạo ownership và sustainable solution thay vì dependency vào bên thứ ba"
+      },
+      "core_rule": "Xung đột kéo dài: PM tạo không gian đối thoại trực tiếp trước khi leo thang",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Conflict Avoidance Reflex",
+        "why_feels_right": "C/D tránh confrontation hoặc delegate responsibility — thoải mái hơn văn hóa gián tiếp",
+        "domain": "People",
+        "approach": "All"
+      }
+    },
+    "translation": "Hai nhà phát triển cấp cao trong nhóm Agile của bạn đã xung đột công khai trong ba sprint. Scrum Master báo cáo rằng sự căng thẳng đang ảnh hưởng đến daily stand-ups và sprint reviews. Với vai trò project manager, bạn nên làm gì FIRST?\n\nA. Loại bỏ một trong hai nhà phát triển khỏi nhóm để giải quyết xung đột\nB. Gặp cả hai nhà phát triển cùng lúc để tạo điều kiện giải quyết trực tiếp\nC. Escalate xung đột lên bộ phận HR để hòa giải chính thức\nD. Bỏ qua xung đột và để nhóm tự tổ chức (self-organize) để giải quyết",
+    "generatedAt": "2026-05-28T03:49:10.210Z"
+  },
+  "2": {
+    "sampleIndex": 2,
+    "tag": "👥 People · Agile · Servant Leadership",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Tăng kiểm soát chỉ làm trầm trọng thêm vấn đề micromanagement, vi phạm nguyên tắc self-organizing team trong Agile."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Servant leadership và trao quyền cho team self-organize là giải pháp đúng khi team bị micromanage, phù hợp với Agile mindset và vai trò của Agile coach."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Thay người là phản ứng Command & Control, không giải quyết root cause là micromanagement, vi phạm nguyên tắc servant leadership."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Áp lực deadline không giải quyết vấn đề psychological safety và autonomy, làm tăng stress thay vì động lực thực sự."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager leading AGILE team — vai trò cần là servant leader/coach, không phải command & control manager",
+        "situation": "Team underperform VÌ bị micromanage và thiếu autonomy — không phải team yếu",
+        "trigger_word": "NEXT",
+        "trigger_meaning": "Hành động TỨC THÌ để reverse micromanagement pattern, không phải long-term planning",
+        "hidden_test": "PMI không test kỹ thuật tăng velocity — PMI test hiểu servant leadership và psychological safety trong Agile"
+      },
+      "mindset": {
+        "vn_thinking": "Velocity thấp → kiểm soát chặt hơn, đổi người hoặc đặt deadline gấp",
+        "vn_reason": "Văn hóa top-down: quản lý = kiểm soát, kết quả kém = tăng áp lực hoặc thay người",
+        "pmi_thinking": "Micromanagement kills motivation → step back, empower team, servant leader",
+        "pmi_reason": "Agile foundation: self-organizing team + psychological safety = sustainable performance, servant leader removes impediments không tạo ra chúng"
+      },
+      "core_rule": "Micromanagement là impediment — servant leader phải remove chính mình",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Control Fixes Performance",
+        "why_feels_right": "Low velocity cảm giác cần more control, A/C/D đều là control-based solutions nghe logical",
+        "domain": "People",
+        "approach": "Agile"
+      }
+    },
+    "translation": "Một project manager đang lãnh đạo một Agile team liên tục giao hàng thấp hơn committed velocity của họ. Các thành viên trong team nói rằng họ cảm thấy bị micromanaged và không thể đưa ra quyết định một cách độc lập. Project manager nên làm gì NEXT?\n\nA. Tăng cường giám sát bằng cách tham dự tất cả các cuộc họp của team và theo dõi các công việc cá nhân hàng ngày\nB. Lùi lại một bước và cho phép team tự tổ chức (self-organize) trong khi vẫn sẵn sàng hỗ trợ như một servant leader\nC. Thay thế các thành viên trong team có hiệu suất thấp để cải thiện velocity\nD. Yêu cầu sponsor đặt ra các deadline nghiêm ngặt hơn để thúc đẩy team",
+    "generatedAt": "2026-05-28T03:49:35.581Z"
+  },
+  "3": {
+    "sampleIndex": 3,
+    "tag": "👥 People · Predictive · Authority Bias",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Sponsor có authority cao nhưng không được bypass Integrated Change Control process. Mọi thay đổi scope đều phải qua formal evaluation về impact đến baselines."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "PMI yêu cầu mọi scope change phải qua Perform Integrated Change Control. Bước đầu là submit formal change request để analyze impact đến schedule, cost, risk trước khi approve."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Deny ngay là sai vì sponsor có quyền request change. PM không từ chối mà phải facilitate change control process để evaluate change một cách objective."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Consult team là bước assess impact, nhưng chưa có formal change request thì chưa trigger được change control process. Phải có documented request trước."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager — vai trò gatekeeper của change control process, không phải order-taker ngay cả với sponsor",
+        "situation": "Sponsor request scope change nhưng skip formal change request — test process compliance",
+        "trigger_word": "FIRST",
+        "trigger_meaning": "Trong nhiều bước logic, bước khởi đầu bắt buộc là gì",
+        "hidden_test": "PMI không test sponsor authority — PMI test PM có enforce Integrated Change Control process hay không"
+      },
+      "mindset": {
+        "vn_thinking": "Sponsor là sếp lớn request → phải làm ngay hoặc ít nhất hỏi team xem có làm được không",
+        "vn_reason": "Văn hóa thứ bậc: người quyền lực cao có thể bypass quy trình, từ chối trực tiếp là bất kính",
+        "pmi_thinking": "Sponsor cũng phải follow process → FIRST step là formalize request để trigger change control",
+        "pmi_reason": "PMI ưu tiên process integrity và traceability. Không có formal request = không track được impact, không audit trail, không accountability"
+      },
+      "core_rule": "Mọi scope change phải qua change request trước",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Authority Bypass",
+        "why_feels_right": "Sponsor có authority cao nên có thể skip formality, PM nên accommodate ngay",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Trong quá trình thực hiện dự án, nhà tài trợ dự án (project sponsor) yêu cầu người quản lý dự án bổ sung một tính năng mới quan trọng vào phạm vi dự án (project scope). Chưa có yêu cầu thay đổi (change request) nào được gửi. Người quản lý dự án nên làm gì FIRST?\n\nA. Thêm tính năng ngay lập tức vì nhà tài trợ có thẩm quyền yêu cầu thay đổi\nB. Thông báo cho nhà tài trợ rằng một yêu cầu thay đổi chính thức (formal change request) phải được gửi và đánh giá\nC. Từ chối yêu cầu vì kế hoạch dự án (project plan) đã được phê duyệt\nD. Tham khảo ý kiến nhóm dự án (project team) để xem liệu tính năng có thể được thêm vào mà không ảnh hưởng đến tiến độ (schedule)",
+    "generatedAt": "2026-05-28T03:50:00.088Z"
+  },
+  "4": {
+    "sampleIndex": 4,
+    "tag": "👥 People · Predictive · Stakeholder Engagement",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "C",
+      "correct_answers": [
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Bypassing required sign-off violates governance and creates risk. Critical milestones require stakeholder approval per project charter and governance framework."
+        },
+        "B": {
+          "correct": false,
+          "explanation": "Escalation is premature. PMI expects PMs to exhaust direct engagement first. Escalating without attempting resolution damages relationships and demonstrates poor stakeholder management."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "Proactive engagement addresses root cause. Understanding concerns enables collaborative problem-solving and maintains trust. This aligns with servant leadership and effective stakeholder engagement per PMBOK."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Formal notice is confrontational and assumes blame. It damages relationships before understanding the situation. PMI prioritizes collaboration over documentation as first response."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager với quyền engage stakeholders, không có quyền bypass governance hoặc assign blame",
+        "situation": "Stakeholder disengaged + critical milestone cần sign-off = risk về approval và timeline",
+        "trigger_word": "FIRST",
+        "trigger_meaning": "Hành động đầu tiên phải là low-risk, collaborative, và gather information trước khi action",
+        "hidden_test": "PMI không test kỹ năng enforce compliance — PMI test khả năng servant leadership và stakeholder engagement để tìm root cause"
+      },
+      "mindset": {
+        "vn_thinking": "Stakeholder không đến họp = không quan tâm = cần escalate hoặc document để tự bảo vệ mình",
+        "vn_reason": "Văn hóa tránh trách nhiệm, dùng hierarchy và giấy tờ để cover yourself first (CYA mentality)",
+        "pmi_thinking": "Disengagement là triệu chứng, không phải vấn đề gốc. Phải tìm hiểu why (workload? priority shift? communication gap?) rồi mới giải quyết",
+        "pmi_reason": "Servant leadership đòi hỏi PM facilitate success của stakeholders, không phải enforce attendance. Understanding context enables collaborative solutions"
+      },
+      "core_rule": "Engage trước khi escalate hoặc document",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "CYA Over Collaboration",
+        "why_feels_right": "B và D bảo vệ PM khỏi blame nếu dự án trễ, nhưng PMI đánh giá PM qua khả năng solve problems, không phải shift blame",
+        "domain": "People",
+        "approach": "All"
+      }
+    },
+    "translation": "Một key stakeholder (bên liên quan chủ chốt) liên tục vắng mặt các cuộc họp báo cáo tình trạng dự án và không xem xét bất kỳ deliverable (sản phẩm bàn giao) nào trong tháng qua. Dự án đang tiến gần đến một critical milestone (cột mốc quan trọng) yêu cầu sign-off (phê duyệt) của stakeholder. Project manager (người quản lý dự án) nên làm gì FIRST?\n\nA. Tiến hành milestone tiếp theo mà không cần sign-off của stakeholder để tránh chậm trễ\nB. Escalate (leo thang) vấn đề lên senior management (ban quản lý cấp cao) để buộc stakeholder tham gia\nC. Chủ động tiếp cận stakeholder để hiểu concerns (mối quan ngại) của họ và tái thu hút họ tham gia\nD. Gửi thông báo chính thức bằng văn bản rằng dự án sẽ bị trзадержкаì do họ không có mặt",
+    "generatedAt": "2026-05-28T03:50:27.741Z"
+  },
+  "5": {
+    "sampleIndex": 5,
+    "tag": "⚙️ Process · Risk · Terminology Trap",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Mitigation là TRƯỚC khi risk xảy ra. Khi risk đã occurred, nó trở thành issue—cần workaround, không phải mitigation."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Risk đã materialize = issue. PM phải tạo workaround ngay để handle issue thực tế, và update issue log theo process."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Escalate chỉ khi issue vượt authority hoặc impact severe. PM có responsibility xử lý issue trước, không escalate reflexively."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Emergency meeting để reassess ALL risks là overreaction và waste time. Priority là resolve issue hiện tại, không phải review toàn bộ risks."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager—có authority xử lý issues trong project scope",
+        "situation": "Risk identified trước đó ĐÃ OCCURRED (past tense), đang gây schedule delays. Risk response plan có mitigation strategy",
+        "trigger_word": "FIRST",
+        "trigger_meaning": "Hành động immediate priority khi tình huống vừa xảy ra",
+        "hidden_test": "PMI không test 'có follow risk response plan không'—PMI test 'có hiểu risk vs issue, và mitigation vs workaround không'"
+      },
+      "mindset": {
+        "vn_thinking": "Đã có plan mitigation sẵn rồi thì implement ngay theo plan",
+        "vn_reason": "Văn hóa tuân thủ quy trình đã định sẵn, coi kế hoạch là tuyệt đối",
+        "pmi_thinking": "Risk occurred = không còn là risk. Phải xử lý như issue bằng workaround",
+        "pmi_reason": "PMI phân biệt rõ: mitigation (trước khi xảy ra) vs workaround (sau khi xảy ra). Terminology precision drives correct action."
+      },
+      "core_rule": "Risk xảy ra rồi là issue, dùng workaround không phải mitigation",
+      "trap": {
+        "category": "Terminology Trap",
+        "name": "Mitigation After Occurrence",
+        "why_feels_right": "Câu hỏi nhắc 'risk response plan includes mitigation strategy' nên nghĩ phải follow plan đó",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Một project manager nhận được báo cáo rằng một rủi ro đã được xác định trước đó hiện đã xảy ra và đang gây ra sự chậm trễ tiến độ. Kế hoạch ứng phó rủi ro bao gồm một chiến lược giảm thiểu (mitigation strategy). Project manager nên làm gì FIRST?\n\nA. Thực hiện chiến lược giảm thiểu (mitigation strategy) từ risk register\nB. Tạo một giải pháp tình thế (workaround) và cập nhật issue log\nC. Leo thang (escalate) lên sponsor vì rủi ro đã hiện thực hóa\nD. Triệu tập một cuộc họp nhóm khẩn cấp để đánh giá lại tất cả các rủi ro dự án",
+    "generatedAt": "2026-05-28T03:50:50.691Z"
+  },
+  "6": {
+    "sampleIndex": 6,
+    "tag": "⚙️ Process · Risk · Mitigation vs Contingency",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Avoidance loại bỏ hoàn toàn mối đe dọa (ví dụ: thay đổi kế hoạch để risk không thể xảy ra). Acceptance là chấp nhận risk mà không hành động chủ động. Không match với 'giảm xác suất' và 'chuẩn bị response plan'."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Mitigation là giảm probability hoặc impact của threat. Contingency Reserve/Plan là chuẩn bị response cho risk NẾU nó xảy ra. Hai hành động trong câu hỏi chính xác match hai strategies này."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Transfer chuyển ownership của threat sang bên thứ ba (ví dụ: bảo hiểm). Exploit là chiến lược cho opportunity (positive risk), không phải threat. Hoàn toàn không liên quan đến tình huống."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Enhance và Share đều là strategies cho positive risks (opportunities), không áp dụng cho threat có thể delay deliverable. Câu hỏi đang nói về negative risk."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager trong risk planning — scope là xác định response strategies cho identified risk",
+        "situation": "Team đề xuất 2 hành động: (1) giảm probability risk xảy ra, (2) chuẩn bị response plan nếu risk xảy ra",
+        "trigger_word": "Which strategies",
+        "trigger_meaning": "Yêu cầu map 2 hành động cụ thể vào 2 tên strategies chính xác trong PMBOK",
+        "hidden_test": "PMI không test kỹ năng quản lý risk tổng quát — PMI test khả năng phân biệt chính xác giữa Mitigation (proactive reduction) và Contingency Planning (reactive preparation)"
+      },
+      "mindset": {
+        "vn_thinking": "Chọn A vì nghĩ 'chuẩn bị plan' = acceptance, hoặc chọn C vì nghĩ 'giảm risk' = transfer sang người khác lo",
+        "vn_reason": "Văn hoá Việt thường dùng thuật ngữ risk management lỏng lẻo, không phân biệt rõ giữa 'giảm xác suất' (mitigation) và 'chuẩn bị dự phòng' (contingency)",
+        "pmi_thinking": "Đọc kỹ 2 hành động → map chính xác vào terminology: 'reducing probability' = Mitigation, 'preparing response plan in case' = Contingency Plan",
+        "pmi_reason": "PMI yêu cầu precision trong risk terminology vì mỗi strategy có cost/effort khác nhau — mitigate tốn effort ngay, contingency reserve tốn budget/schedule buffer"
+      },
+      "core_rule": "Giảm xác suất = Mitigation; Chuẩn bị phòng hờ = Contingency Plan",
+      "trap": {
+        "category": "Terminology Trap",
+        "name": "Fuzzy Risk Vocabulary",
+        "why_feels_right": "A nghe quen vì 'acceptance' thường đi với 'có plan dự phòng' trong đời thực, nhưng PMI định nghĩa acceptance là passive (không action) hoặc active (contingency reserve) — đáp án B tách rõ mitigation vs contingency",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Trong quá trình lập kế hoạch rủi ro, một người quản lý dự án xác định được một rủi ro có thể làm chậm trễ một sản phẩm bàn giao quan trọng hai tuần. Nhóm đề xuất hai phương án: giảm xác suất xảy ra rủi ro, hoặc chuẩn bị kế hoạch ứng phó trong trường hợp rủi ro xảy ra. Các chiến lược ứng phó rủi ro nào đang được đề xuất?\n\nA. Avoidance (Tránh né) và Acceptance (Chấp nhận)\nB. Mitigation (Giảm thiểu) và Contingency Reserve (Dự phòng)\nC. Transfer (Chuyển giao) và Exploit (Khai thác)\nD. Enhance (Tăng cường) và Share (Chia sẻ)",
+    "generatedAt": "2026-05-28T03:51:21.120Z"
+  },
+  "7": {
+    "sampleIndex": 7,
+    "tag": "⚙️ Process · Risk · Risk vs Issue",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Không thể 'mitigate' một rủi ro đã xảy ra. Mitigation strategy áp dụng cho UNCERTAINTY (chưa xảy ra), không phải CERTAINTY (đã xảy ra)."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Khi risk materialized → chuyển thành issue. Issue log quản lý vấn đề hiện tại, corrective action giải quyết impact thực tế theo PMBOK."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Close risk đúng nhưng thiếu action. PM phải quản lý impact đã xảy ra, không chỉ đơn thuần đóng record."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "PM có authority xử lý issue thông thường. Escalate chỉ khi vượt authority/threshold, không phải reflex mặc định."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager — có authority quản lý risk→issue transition",
+        "situation": "Risk đã materialize thành reality sau 3 tháng, team member gợi ý sai category action",
+        "trigger_word": "MOST appropriate",
+        "trigger_meaning": "Không phải 'có thể làm' mà là 'theo đúng quy trình PMI về lifecycle của risk'",
+        "hidden_test": "PMI không test 'có nên làm gì với risk' — PMI test 'hiểu phân biệt risk vs issue lifecycle'"
+      },
+      "mindset": {
+        "vn_thinking": "Team member gợi ý rồi thì làm theo đi, update strategy cho nhanh",
+        "vn_reason": "Văn hoá tôn trọng ý kiến đồng nghiệp, sợ conflict nếu không follow suggestion, thiên về action nhanh hơn process đúng",
+        "pmi_thinking": "Risk materialized = không còn là risk. Change artifact category trước khi action",
+        "pmi_reason": "Risk register vs Issue log phục vụ mục đích khác nhau. Đúng container mới đúng tracking, reporting, accountability"
+      },
+      "core_rule": "Risk xảy ra → issue. Đổi log trước khi hành động",
+      "trap": {
+        "category": "Technical Trap",
+        "name": "Risk-Issue Confusion",
+        "why_feels_right": "Team member đề xuất 'update strategy' nghe proactive và collaborative, dễ chọn A vì tôn trọng input",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Một project manager đang xem xét risk register và nhận thấy rằng một hạng mục đã được xác định ba tháng trước như một risk (rủi ro) nhưng giờ đã trở thành hiện thực. Một thành viên team đề xuất cập nhật mitigation strategy (chiến lược giảm thiểu). Hành động nào là MOST phù hợp?\n\nA. Cập nhật mitigation strategy (chiến lược giảm thiểu) như thành viên team đề xuất\nB. Chuyển hạng mục từ risk register sang issue log và thực hiện corrective action (hành động khắc phục)\nC. Đóng risk (rủi ro) vì nó đã xảy ra và không thể quản lý được nữa\nD. Escalate (leo thang) issue (vấn đề) lên risk management office để đánh giá lại",
+    "generatedAt": "2026-05-28T03:51:47.096Z"
+  },
+  "8": {
+    "sampleIndex": 8,
+    "tag": "⚙️ Process · Change · Scope Creep",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Rewarding scope creep undermines integrated change control and sets dangerous precedent for future unauthorized changes."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "PMI requires retroactive change request to assess actual impacts (schedule, cost, dependencies) and restore baseline integrity before decisions."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Removing features without impact assessment wastes effort and makes hasty decisions before understanding true consequences."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Consulting customer before impact assessment puts PM in weak position—cannot negotiate without knowing actual costs/risks."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "PM as process guardian — scope already defined, team member violated change control",
+        "situation": "Unauthorized scope addition disguised as 'customer delight' — classic gold plating scenario",
+        "trigger_word": "FIRST",
+        "trigger_meaning": "Immediate priority before customer/stakeholder communication",
+        "hidden_test": "PMI không test 'feature có tốt không' — PMI test 'PM có thực thi Integrated Change Control không'"
+      },
+      "mindset": {
+        "vn_thinking": "Tính năng có ích thì báo khách hàng, họ thích thì giữ lại",
+        "vn_reason": "Văn hoá 'kết quả quan trọng hơn quy trình' — làm được việc tốt thì ai cũng vui",
+        "pmi_thinking": "Assess impact on triple constraint TRƯỚC, quyết định SAU",
+        "pmi_reason": "PMI prioritizes process integrity — không có baseline control thì project chaos inevitable"
+      },
+      "core_rule": "Change request trước, customer decision sau — không biết giá thì không bán",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Customer Delight Fallacy",
+        "why_feels_right": "Feature useful for customer → customer happiness → must be good action",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Một thành viên nhóm dự án thông báo với người quản lý dự án rằng họ đã thêm một tính năng nhỏ nhưng hữu ích vào sản phẩm mà không có yêu cầu thay đổi chính thức vì họ nghĩ rằng điều đó sẽ làm hài lòng khách hàng. Người quản lý dự án nên làm gì FIRST?\n\nA. Cảm ơn thành viên nhóm vì sáng kiến và ghi nhận tính năng đã hoàn thành\nB. Đưa ra yêu cầu thay đổi (change request) có hiệu lực hồi tố và đánh giá tác động đến phạm vi (scope), tiến độ (schedule) và chi phí (cost)\nC. Gỡ bỏ tính năng ngay lập tức vì nó không nằm trong phạm vi (scope) đã được phê duyệt\nD. Thông báo cho khách hàng về tính năng bổ sung và hỏi xem họ có muốn giữ lại không",
+    "generatedAt": "2026-05-28T03:52:08.592Z"
+  },
+  "9": {
+    "sampleIndex": 9,
+    "tag": "⚙️ Process · Change · Gold Plating",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "C",
+      "correct_answers": [
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Gold plating vi phạm scope management. Dù không ảnh hưởng schedule/budget, thêm tính năng không được yêu cầu là scope creep, tăng rủi ro maintenance và không align với customer needs đã định nghĩa."
+        },
+        "B": {
+          "correct": false,
+          "explanation": "Quá cứng nhắc và bỏ lỡ cơ hội tăng value. PMI khuyến khích customer collaboration, không phải rigid adherence. Từ chối ngay không xem xét customer input vi phạm servant leadership."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "Đúng quy trình: engage customer trước, nếu customer thấy valuable thì raise change request theo Perform Integrated Change Control. Đây là balance giữa scope control và customer collaboration."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Escalate không cần thiết vì đây là scope change thông thường, nằm trong authority của PM. Customer mới là người quyết định value, không phải sponsor."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Developer — không phải customer — đề xuất thêm tính năng. Scope authority thuộc customer, developer chỉ có technical perspective.",
+        "situation": "Đề xuất tính năng ngoài scope đã agreed, lý do là 'tin rằng' sẽ tăng satisfaction nhưng customer chưa request.",
+        "trigger_word": "SHOULD — hành động đúng trong tình huống này",
+        "trigger_meaning": "Tìm approach balance giữa scope control và value optimization",
+        "hidden_test": "PMI không test kỹ năng reject hay accept thêm scope — PMI test hiểu quy trình change control VÀ customer-centric mindset"
+      },
+      "mindset": {
+        "vn_thinking": "Developer tốt bụng, không tốn tiền/thời gian thì cứ làm thêm cho khách hàng vui",
+        "vn_reason": "Văn hoá 'làm thêm để khách hài lòng' và tư duy 'không tốn gì thì không sao', không quen với quy trình formal change control",
+        "pmi_thinking": "Customer chưa request = không nằm trong agreed scope. Phải consult customer trước, nếu customer muốn thì đi quy trình change request",
+        "pmi_reason": "Scope baseline là agreement với customer. Thêm tính năng tự ý — dù miễn phí — là gold plating, tạo technical debt và có thể không align với customer strategy. Customer phải quyết định value."
+      },
+      "core_rule": "Không thêm scope ngoài yêu cầu, dù miễn phí. Hỏi customer trước.",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Gold Plating Goodwill",
+        "why_feels_right": "Developer có thiện chí, không tốn thêm resources, nghe như win-win cho customer",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Trong quá trình thực hiện dự án, một nhà phát triển đề xuất bổ sung thêm chức năng ngoài những gì khách hàng yêu cầu, tin rằng điều này sẽ làm tăng sự hài lòng của khách hàng. Các bổ sung này sẽ không ảnh hưởng đến tiến độ hoặc ngân sách. Project manager nên làm gì?\n\nA. Cho phép các bổ sung vì chúng không ảnh hưởng đến tiến độ hoặc ngân sách\nB. Từ chối các bổ sung và nhắc nhở team rằng việc giao đúng những gì đã thỏa thuận là tiêu chuẩn PM\nC. Tham khảo ý kiến khách hàng FIRST và đưa ra change request (yêu cầu thay đổi) nếu khách hàng chấp thuận\nD. Escalate (báo cáo lên cấp trên) cho sponsor để quyết định liệu các bổ sung có phù hợp hay không",
+    "generatedAt": "2026-05-28T03:52:38.534Z"
+  },
+  "10": {
+    "sampleIndex": 10,
+    "tag": "📊 Process · EVM · Action Bias",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Crashing trước khi hiểu root cause có thể làm tăng cost mà không giải quyết vấn đề gốc, CPI càng tệ hơn. PMI yêu cầu phân tích trước khi hành động."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Root cause analysis là bước đầu tiên khi có variance. Phải hiểu TẠI SAO cả cost và schedule đều vượt trước khi đưa ra giải pháp phù hợp."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Re-baseline không phải giải pháp đầu tiên và cần formal approval. PMI yêu cầu phân tích root cause + xác định corrective actions trước khi re-baseline."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Giảm scope là quyết định lớn cần approval và chỉ thực hiện sau khi phân tích tất cả các options. Chưa biết root cause thì chưa thể xác định scope reduction là giải pháp đúng."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager — có quyền phân tích nhưng cần sponsor approval cho major decisions",
+        "situation": "Cả cost và schedule đều underperform (CPI<1, SPI<1) — sponsor hỏi NEXT step",
+        "trigger_word": "NEXT",
+        "trigger_meaning": "Bước logic kế tiếp NGAY SAU khi phát hiện variance — không phải final solution",
+        "hidden_test": "PMI không test 'biết CPI/SPI thấp là xấu' — PMI test 'có tuân theo problem-solving sequence: analyze → identify options → decide → act không'"
+      },
+      "mindset": {
+        "vn_thinking": "Thấy lệch lịch → cần crash ngay bằng thêm người. Thấy cả hai lệch → phải re-baseline hoặc giảm scope để 'cân bằng lại'",
+        "vn_reason": "Văn hóa action-oriented, sợ chậm trễ, muốn có giải pháp nhanh để báo cáo lên trên. Ưu tiên 'sửa số liệu' hơn 'sửa vấn đề'",
+        "pmi_thinking": "Variance là triệu chứng, không phải bệnh. Phải tìm root cause trước khi prescribe solution, vì mỗi cause cần treatment khác nhau",
+        "pmi_reason": "PMI emphasize data-driven decisions. Rushing to solution without understanding 'why' leads to wasted effort, increased cost, team burnout. Analyze first = prevent wrong fix"
+      },
+      "core_rule": "Variance xảy ra → Root cause analysis trước khi hành động",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Action Bias",
+        "why_feels_right": "CPI và SPI đều thấp → cần hành động GẤP. Crash/re-baseline/cut scope đều là 'giải pháp' nên người Việt chọn ngay",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Một project manager xem xét báo cáo hiệu suất mới nhất và thấy CPI = 0.8 và SPI = 0.75. Project sponsor hỏi project manager nên làm gì NEXT để giải quyết tình huống này.\n\nA. Crash the schedule bằng cách bổ sung thêm nguồn lực ngay lập tức\nB. Thực hiện phân tích nguyên nhân gốc rễ (root cause analysis) để hiểu tại sao hiệu suất chi phí (cost) và tiến độ (schedule) đều không thuận lợi\nC. Re-baseline lại tiến độ dự án (project schedule) và ngân sách (budget)\nD. Đưa ra yêu cầu thay đổi (change request) để giảm phạm vi dự án (project scope)",
+    "generatedAt": "2026-05-28T03:53:11.694Z"
+  },
+  "11": {
+    "sampleIndex": 11,
+    "tag": "📊 Process · EVM · Formula Application",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "C",
+      "correct_answers": [
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Đây là BAC gốc, không phản ánh performance thực tế. Khi CPI = 0.8 (<1), chi phí cuối dự án sẽ cao hơn budget ban đầu."
+        },
+        "B": {
+          "correct": false,
+          "explanation": "Công thức sai hoặc nhầm lẫn EAC với variance tuyến tính. Không áp dụng đúng EAC = BAC/CPI khi giả định current performance continues."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "EAC = BAC/CPI = $500,000/0.8 = $625,000. Công thức này giả định cost performance hiện tại (CPI = EV/AC = 0.8) sẽ tiếp diễn đến cuối project."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Sai hướng tính toán, có thể nhầm với ETC hoặc variance calculation. EAC phải lớn hơn BAC khi CPI < 1."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager - đo lường và báo cáo cost performance, sử dụng EVM metrics để forecast",
+        "situation": "Dự án đang cost overrun (AC > EV). Sponsor yêu cầu forecast EAC với giả định current cost trend tiếp tục",
+        "trigger_word": "assuming current cost performance continues",
+        "trigger_meaning": "Yêu cầu sử dụng công thức EAC dựa trên CPI hiện tại, không phải re-estimate từ đầu",
+        "hidden_test": "PMI không test khả năng nhớ số liệu - PMI test hiểu ĐÚNG công thức EAC nào cho scenario 'current performance continues'"
+      },
+      "mindset": {
+        "vn_thinking": "Nhìn thấy BAC = $500k, nghĩ rằng đó là con số cần báo cáo, hoặc cộng trừ variance một cách trực quan",
+        "vn_reason": "Văn hóa tránh báo tin xấu, xu hướng giữ nguyên commitment ban đầu thay vì forecast thực tế dựa trên data",
+        "pmi_thinking": "Áp dụng công thức EAC = BAC/CPI ngay lập tức khi thấy 'current performance continues', calculate CPI trước",
+        "pmi_reason": "PMI yêu cầu data-driven forecasting. Khi performance trend rõ ràng, PM phải project trend đó ra tương lai để stakeholder có informed decision"
+      },
+      "core_rule": "Current performance continues → EAC = BAC/CPI",
+      "trap": {
+        "category": "Technical Trap",
+        "name": "EAC Formula Confusion",
+        "why_feels_right": "BAC là số quen thuộc, hoặc tính toán variance theo trực giác thay vì công thức EVM chuẩn",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Một dự án có Budget at Completion (BAC - Ngân sách khi hoàn thành) là $500,000. Earned Value (EV - Giá trị đã đạt được) là $200,000, Actual Cost (AC - Chi phí thực tế) là $250,000, và Planned Value (PV - Giá trị theo kế hoạch) là $220,000. Nhà tài trợ dự án yêu cầu Estimate at Completion (EAC - Ước tính chi phí khi hoàn thành) với giả định hiệu suất chi phí hiện tại tiếp tục duy trì. Project manager nên báo cáo số liệu nào?\n\nA. $500,000\nB. $550,000\nC. $625,000\nD. $450,000",
+    "generatedAt": "2026-05-28T03:53:38.618Z"
+  },
+  "12": {
+    "sampleIndex": 12,
+    "tag": "🏢 Business Env · Benefits Realization",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "PM chịu trách nhiệm deliver deliverables đúng scope/time/cost, KHÔNG chịu trách nhiệm về business outcomes sau closure theo PMBOK."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Sponsor owns business case và benefits realization plan, có authority và accountability cho strategic outcomes xuyên suốt project lifecycle và sau closure."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Customer acceptance chỉ confirm deliverables meet requirements, KHÔNG đồng nghĩa với responsibility cho benefits realization trong organizational context."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "PMO provides governance và support, KHÔNG own accountability cho individual project benefits — đây là executive/sponsor accountability."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Sponsor — vai trò này OWNS business value, không phải chỉ approve budget",
+        "situation": "Project thành công về execution metrics nhưng FAIL về business value — ai chịu trách nhiệm gap này?",
+        "trigger_word": "MOST responsible",
+        "trigger_meaning": "Không hỏi ai có liên quan — hỏi ai có PRIMARY accountability theo governance framework",
+        "hidden_test": "PMI không test PM skills — PMI test hiểu RACI boundaries giữa PM (delivery) vs Sponsor (value)"
+      },
+      "mindset": {
+        "vn_thinking": "PM deliver project xong thì phải chịu trách nhiệm mọi thứ, kể cả business benefits",
+        "vn_reason": "Văn hoá Việt gán trách nhiệm cho người làm việc thực tế, không phân biệt execution vs strategic accountability",
+        "pmi_thinking": "PM accountable for scope/schedule/cost — Sponsor accountable for business case và benefits realization",
+        "pmi_reason": "PMI framework tách bạch: PM = delivery expert, Sponsor = business owner với authority để align strategy-execution"
+      },
+      "core_rule": "PM giao sản phẩm — Sponsor thu lợi ích",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "PM Owns Everything",
+        "why_feels_right": "PM delivered project nên phải chịu trách nhiệm outcome, nghe logical với người mới",
+        "domain": "Business Environment",
+        "approach": "All"
+      }
+    },
+    "translation": "Một dự án đã được hoàn thành đúng thời gian và trong phạm vi ngân sách, và tất cả các deliverables (sản phẩm bàn giao) đã được khách hàng chấp nhận. Tuy nhiên, ba tháng sau khi đóng dự án, sponsor (nhà tài trợ) báo cáo rằng các lợi ích kinh doanh kỳ vọng vẫn chưa được hiện thực hóa. Ai là người MOST (CHỊU TRÁCH NHIỆM NHẤT) trong việc đảm bảo hiện thực hóa lợi ích?\n\nA. Project manager (người quản lý dự án), vì họ đã bàn giao dự án\nB. Project sponsor (nhà tài trợ dự án), người sở hữu business case (lý do kinh doanh) và benefits realization plan (kế hoạch hiện thực hóa lợi ích)\nC. Khách hàng, người đã chấp nhận các deliverables (sản phẩm bàn giao)\nD. PMO, đơn vị giám sát tất cả các dự án trong tổ chức\n\nPrint Token Count: 264 tokens",
+    "generatedAt": "2026-05-28T03:54:04.466Z"
+  },
+  "13": {
+    "sampleIndex": 13,
+    "tag": "🏢 Business Env · Strategic Alignment",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "C",
+      "correct_answers": [
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Sunk cost fallacy - PMI không chấp nhận tiếp tục dự án mất alignment với chiến lược chỉ vì đã đầu tư 60%. Value > cost spent."
+        },
+        "B": {
+          "correct": false,
+          "explanation": "Hành động vội vàng không qua phân tích. PM không có quyền đơn phương halt project - cần sponsor/governance decision."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "Đúng theo PMI: Assess impact trước, escalate lên sponsor với data để governance body quyết định. PM phục vụ governance, không tự quyết định strategic change."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Vượt thẩm quyền - PM không tự renegotiate objectives khi có strategic shift. Sponsor/governance phải quyết định hướng đi trước."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager - không có quyền quyết định strategic alignment, chỉ có quyền assess và escalate",
+        "situation": "Strategic misalignment xảy ra giữa dự án - PMI test quy trình governance, không test decision-making power của PM",
+        "trigger_word": "FIRST",
+        "trigger_meaning": "Hành động đầu tiên trong governance escalation process - không phải hành động cuối cùng hay quyết định",
+        "hidden_test": "PMI không test khả năng quyết định của PM — PMI test hiểu biết về vai trò governance và escalation protocol"
+      },
+      "mindset": {
+        "vn_thinking": "60% rồi thì phải làm cho xong, dừng thì phí tiền. Hoặc PM phải tự tìm cách fix bằng renegotiate với customer",
+        "vn_reason": "Văn hóa sợ lãng phí, sợ thất bại, và kỳ vọng PM phải tự giải quyết mọi vấn đề",
+        "pmi_thinking": "Strategic misalignment không phải PM decision - assess impact, escalate với data, để governance quyết định",
+        "pmi_reason": "PM là servant leader phục vụ governance structure. Strategic decision thuộc sponsor/portfolio management, không phải PM"
+      },
+      "core_rule": "Strategic shift: assess trước, escalate luôn, không tự quyết",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Sunk Cost Authority",
+        "why_feels_right": "60% complete tạo pressure phải hoàn thành, và PM nghĩ mình phải tự fix mọi thứ",
+        "domain": "Business Environment",
+        "approach": "All"
+      }
+    },
+    "translation": "Giữa dự án, tổ chức công bố một thay đổi chiến lược lớn khiến cho các mục tiêu ban đầu của dự án không còn phù hợp với chiến lược của công ty nữa. Dự án đã hoàn thành 60%. Project manager nên làm gì FIRST?\n\nA. Tiếp tục dự án vì nó đã hoàn thành 60% và việc dừng lại sẽ lãng phí khoản đầu tư\nB. Ngay lập tức dừng dự án và phân bổ lại tất cả các nguồn lực\nC. Đánh giá tác động của thay đổi chiến lược đối với dự án và leo thang (escalate) các phát hiện lên sponsor\nD. Đàm phán lại các mục tiêu dự án với khách hàng để phù hợp với chiến lược mới",
+    "generatedAt": "2026-05-28T03:54:31.464Z"
+  },
+  "14": {
+    "sampleIndex": 14,
+    "tag": "🔤 Language · EXCEPT Trap",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "C",
+      "correct_answers": [
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Releasing resources và cập nhật availability là hoạt động CORE của closure để tổ chức có thể tái sử dụng resources cho projects khác."
+        },
+        "B": {
+          "correct": false,
+          "explanation": "Lessons learned và archiving records là mandatory activities trong Close Project or Phase process theo PMBOK."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "Initiating new project thuộc Initiating Process Group, KHÔNG phải closure. Gaps identified có thể được document nhưng việc khởi động project mới nằm ngoài scope của closure process."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Formal acceptance là điều kiện tiên quyết để close project - phải có customer sign-off trước khi administrative closure."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager đang close project - scope giới hạn trong Close Project process",
+        "situation": "Xác định activity nào KHÔNG thuộc closure process",
+        "trigger_word": "LEAST likely",
+        "trigger_meaning": "Tìm đáp án NGOÀI scope của closure - các đáp án còn lại đều PHẢI có trong closure",
+        "hidden_test": "PMI không test kiến thức về closure activities - PMI test khả năng phân biệt BOUNDARY giữa Process Groups (Closing vs Initiating)"
+      },
+      "mindset": {
+        "vn_thinking": "Thấy gaps thì phải fix ngay, làm luôn project mới để giải quyết - proactive mà",
+        "vn_reason": "Văn hóa Việt Nam coi trọng 'làm tới đâu hay tới đó', giải quyết liền không để dang dở",
+        "pmi_thinking": "Closure process chỉ DOCUMENT gaps, việc initiate new project là decision riêng biệt của governance/sponsor",
+        "pmi_reason": "PMI tách bạch Process Groups để đảm bảo proper governance - PM không tự ý initiate projects mới khi đang close project hiện tại"
+      },
+      "core_rule": "Closure chỉ ĐÓNG và GHI NHẬN - không BAO GIỜ MỞ MỚI",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Proactive Problem Solver",
+        "why_feels_right": "Nghe proactive và responsible khi thấy gaps liền khởi động project mới để fix - như một PM tốt nên làm",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Một người quản lý dự án đang đóng một dự án. Điều nào sau đây ít có khả năng nhất là một phần của quy trình đóng dự án?\n\nA. Giải phóng nguồn lực dự án (releasing project resources) và cập nhật khả năng sẵn có của nguồn lực\nB. Lập tài liệu bài học kinh nghiệm (lessons learned) và lưu trữ hồ sơ dự án\nC. Khởi động một dự án mới để giải quyết các khoảng trống được xác định trong quá trình đóng dự án\nD. Có được sự chấp thuận chính thức (formal acceptance) về các sản phẩm bàn giao từ khách hàng",
+    "generatedAt": "2026-05-28T03:54:56.974Z"
+  },
+  "15": {
+    "sampleIndex": 15,
+    "tag": "👥 People · Hybrid · Coaching",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "PMI ưu tiên phát triển con người trước khi thay thế. Replacing team members là last resort sau khi đã cố gắng coach và support."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Servant leadership đòi hỏi PM coach và phát triển team members trước. One-on-one coaching giải quyết gốc rễ: thiếu hiểu biết về Agile principles."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Public feedback trong retrospective có thể làm team member xấu hổ và giảm tâm lý an toàn. Individual performance issues cần xử lý riêng tư trước."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Supervision không giải quyết knowledge gap. Junior cần hiểu WHY của Agile ceremonies, không chỉ bị supervise HOW làm việc."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project manager trong Agile context — vai trò servant leader, coach, facilitator phát triển team",
+        "situation": "Junior team member thiếu hiểu biết Agile principles dẫn đến declining performance trong ceremonies và sprints",
+        "trigger_word": "FIRST",
+        "trigger_meaning": "Hành động ưu tiên cao nhất trước khi leo thang hoặc can thiệp nặng hơn",
+        "hidden_test": "PMI không test technical supervision — PMI test servant leadership mindset: invest in people development trước khi replace"
+      },
+      "mindset": {
+        "vn_thinking": "Team member yếu → giao senior giám sát hoặc đưa ra team góp ý để sửa ngay",
+        "vn_reason": "Văn hóa Việt Nam ưu tiên hiệu quả tức thì, ngại đối thoại riêng tư, thích dùng áp lực tập thể để điều chỉnh hành vi",
+        "pmi_thinking": "Team member struggling → PM coach riêng tư để build understanding và confidence trước",
+        "pmi_reason": "PMI servant leadership đặt people development lên hàng đầu. Psychological safety và private coaching tạo môi trường học hỏi an toàn"
+      },
+      "core_rule": "Coach riêng tư trước, public feedback sau",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Efficiency Over Development",
+        "why_feels_right": "D và C có vẻ giải quyết performance issue nhanh hơn, nhưng bỏ qua root cause là knowledge gap",
+        "domain": "People",
+        "approach": "Agile"
+      }
+    },
+    "translation": "Một project manager nhận thấy rằng một thành viên junior trong team đang gặp khó khăn với các Agile ceremonies (nghi thức Agile) và thường xuyên hiểu sai mục đích của sprint retrospective (cuộc họp cải tiến sprint). Những đóng góp của thành viên này trong các sprint đang giảm sút. Project manager nên làm gì FIRST?\n\nA. Thay thế thành viên team này bằng người có kinh nghiệm hơn về Agile\nB. Coach (huấn luyện) thành viên team này theo phương thức one-on-one để xây dựng sự hiểu biết về các nguyên tắc Agile và vai trò của họ\nC. Nêu vấn đề này trong retrospective tiếp theo để toàn team có thể cung cấp feedback\nD. Chỉ định một senior developer giám sát và sửa chữa công việc của thành viên team này",
+    "generatedAt": "2026-05-28T03:55:22.172Z"
+  },
+  "16": {
+    "sampleIndex": 16,
+    "tag": "👥 People · Agile · Team Motivation",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "C",
+      "correct_answers": [
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Treating symptoms (attendance) thay vì root cause (mất động lực do thiếu transparency). PMI ưu tiên hiểu nguyên nhân trước khi hành động."
+        },
+        "B": {
+          "correct": false,
+          "explanation": "Re-planning là reactive solution mà không giải quyết trust issue. Velocity sẽ không cải thiện nếu team vẫn disengaged và không hiểu lý do descope."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "PMI ưu tiên transparency và servant leadership. PM phải tạo không gian để team hiểu quyết định của sponsor, rebuild trust, và restore engagement — đây là root cause của velocity drop."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Escalation vượt qua sponsor là undermining authority. PM chưa facilitate conversation để hiểu rationale — có thể quyết định descope là hợp lý về business value."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager với servant leadership role — không phải controller hay escalator, mà là facilitator of trust và communication",
+        "situation": "Team disengagement do lack of transparency trong descoping decision — không phải workload issue hay process problem",
+        "trigger_word": "FIRST",
+        "trigger_meaning": "Hành động đầu tiên phải address root cause (communication breakdown) trước khi react với symptoms (velocity, attendance)",
+        "hidden_test": "PMI không test khả năng discipline management — PMI test servant leadership, transparency, và emotional intelligence để restore team morale"
+      },
+      "mindset": {
+        "vn_thinking": "Phạt attendance (A) hoặc báo cáo lên trên (D) để giải quyết nhanh vấn đề kỷ luật và authority",
+        "vn_reason": "Văn hóa Việt ưu tiên hierarchy và discipline — khi có vấn đề thì hoặc phạt xuống dưới hoặc báo cáo lên trên để bảo vệ vai trò",
+        "pmi_thinking": "Facilitate conversation giữa team và sponsor để rebuild trust và understanding trước, rồi mới giải quyết các vấn đề khác",
+        "pmi_reason": "PMI tin rằng engaged team với clear understanding sẽ tự điều chỉnh performance — transparency và trust là foundation của team productivity"
+      },
+      "core_rule": "Giải quyết trust issue trước khi giải quyết performance issue",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Authority First",
+        "why_feels_right": "A và D nghe decisive và action-oriented — tạo cảm giác PM đang kiểm soát tình hình thông qua authority",
+        "domain": "People",
+        "approach": "All"
+      }
+    },
+    "translation": "Giữa dự án, tinh thần của nhóm giảm sút đáng kể sau khi một tính năng chính bị cắt giảm phạm vi (descoped) bởi nhà tài trợ (sponsor) mà không có lời giải thích. Năng suất (velocity) giảm và các thành viên nhóm bắt đầu vắng mặt ở các buổi stand-up. Người quản lý dự án nên làm gì FIRST?\n\nA. Đưa ra cảnh cáo chính thức cho các thành viên nhóm vắng mặt ở stand-up\nB. Lập lại kế hoạch sprint để giảm khối lượng công việc và bù đắp cho năng suất (velocity) thấp hơn\nC. Tạo điều kiện cho một cuộc trò chuyện minh bạch giữa nhóm và nhà tài trợ (sponsor) về quyết định và lý do của nó\nD. Báo cáo lên cấp quản lý cao hơn để khôi phục lại tính năng đã bị cắt giảm phạm vi (descoped)",
+    "generatedAt": "2026-05-28T03:55:50.801Z"
+  },
+  "17": {
+    "sampleIndex": 17,
+    "tag": "👥 People · Predictive · Conflict Resolution",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "PM không có authority trực tiếp trên functional managers trong matrix organization. Quyết định đơn phương sẽ bị challenge và tạo thêm conflict."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Sau khi informal resolution thất bại, escalate lên sponsor là bước tiếp theo đúng trong conflict management escalation path. Sponsor có authority để quyết định resource allocation giữa các departments."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Passive approach vi phạm PM accountability. Conflict đã cause delays, việc chờ đợi sẽ làm schedule risk nghiêm trọng hơn và không đảm bảo functional managers tự giải quyết được."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Scope change để tránh conflict là abdication of responsibility. Activity được mô tả là 'critical', việc remove sẽ impact project objectives mà không address root cause."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "PM trong matrix organization không có direct authority trên functional managers, phụ thuộc vào influence và escalation channels",
+        "situation": "Resource conflict giữa 2 functional managers về critical activity, informal resolution đã thất bại, đang gây delays",
+        "trigger_word": "NEXT",
+        "trigger_meaning": "Hỏi bước tiếp theo trong escalation sequence: informal failed → formal escalation",
+        "hidden_test": "PMI không test khả năng quyết định resource — PMI test hiểu escalation path và khi nào escalate trong matrix structure"
+      },
+      "mindset": {
+        "vn_thinking": "PM phải tự quyết định hoặc đợi người khác giải quyết để tránh 'vượt cấp' hay 'để lộ bất lực'",
+        "vn_reason": "Văn hoá Việt Nam coi escalate là weakness hoặc failure, hoặc sợ 'mất mặt' khi báo lên cấp trên. PM cảm thấy phải tự handle mọi thứ.",
+        "pmi_thinking": "Escalate không phải weakness mà là sử dụng đúng governance structure. Sponsor exists để resolve cross-functional issues beyond PM authority.",
+        "pmi_reason": "PMI framework xác định clear escalation paths. PM accountability là identify và escalate timely các issues vượt quá authority level, không phải resolve everything alone."
+      },
+      "core_rule": "Informal thất bại thì escalate formal, không quyết định vượt authority",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Authority Overreach",
+        "why_feels_right": "A nghe decisive và proactive, C tránh conflict, D giải quyết nhanh. Người Việt thường nghĩ escalate là 'yếu' hoặc 'gây phiền'.",
+        "domain": "People",
+        "approach": "All"
+      }
+    },
+    "translation": "Hai người quản lý chức năng đang tranh chấp về việc phòng ban nào nên cung cấp nguồn lực cho một hoạt động dự án quan trọng. Xung đột này đang gây ra sự chậm trễ. Người quản lý dự án đã cố gắng giải quyết không chính thức nhưng không thành công. Người quản lý dự án nên làm gì NEXT?\n\nA. Đưa ra quyết định đơn phương về phòng ban nào cung cấp nguồn lực\nB. Escalate (leo thang) xung đột lên project sponsor (nhà tài trợ dự án) để giải quyết\nC. Trích hoãn hoạt động cho đến khi các người quản lý chức năng tự giải quyết vấn đề\nD. Loại bỏ hoạt động khỏi phạm vi dự án để tránh xung đột thêm",
+    "generatedAt": "2026-05-28T03:56:19.203Z"
+  },
+  "18": {
+    "sampleIndex": 18,
+    "tag": "👥 People · Predictive · Communication Plan",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "PMI ưu tiên giải quyết vấn đề trước khi tìm người chịu trách nhiệm. Reprimand là reactive và tạo môi trường sợ hãi, không phù hợp với servant leadership."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "PMI yêu cầu PM chủ động sửa sai thông tin ngay (proactive communication) và cập nhật process để ngăn tái diễn. Đây là double-action: fix hiện tại + prevent tương lai."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Formal memo là controlling, chưa giải quyết sai lệch thông tin đang tồn tại ở stakeholder. PMI ưu tiên direct engagement hơn broadcasting rules."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Escalate khi PM không có authority hoặc vấn đề vượt scope. Đây là communication issue nằm trong trách nhiệm trực tiếp của PM."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager - có full authority về stakeholder communication trong project boundary",
+        "situation": "Stakeholder có incorrect assumptions do informal communication",
+        "trigger_word": "FIRST",
+        "trigger_meaning": "Hành động ưu tiên tức thì, không phải long-term hoặc punitive action",
+        "hidden_test": "PMI không test kỹ năng kiểm soát - PMI test tư duy servant leader: sửa sai + cải tiến process"
+      },
+      "mindset": {
+        "vn_thinking": "Tìm ai sai để xử lý, hoặc thông báo chính thức để tránh trách nhiệm",
+        "vn_reason": "Văn hóa tránh confrontation trực tiếp, ưu tiên thiết lập quy tắc và xử lý vi phạm từ trên xuống",
+        "pmi_thinking": "Fix misinformation ngay với stakeholder, sau đó update process gap",
+        "pmi_reason": "Stakeholder trust là tài sản quan trọng nhất - sửa sai nhận thức trước, rồi mới prevent recurrence"
+      },
+      "core_rule": "Sửa sai thông tin trước, rồi mới sửa quy trình",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Control Before Correct",
+        "why_feels_right": "A/C/D đều có vẻ professional và establish authority, nhưng bỏ qua việc stakeholder đang có wrong information cần được clarify ngay",
+        "domain": "People",
+        "approach": "All"
+      }
+    },
+    "translation": "Một project manager phát hiện ra rằng một key stakeholder (bên liên quan chủ chốt) đã nhận được các thông tin cập nhật dự án thông qua các kênh không chính thức và đã phát triển những giả định không chính xác về tình trạng dự án. Project manager nên làm gì FIRST?\n\nA. Khiển trách các thành viên nhóm đã chia sẻ thông tin một cách không chính thức\nB. Gặp gỡ stakeholder để làm rõ tình trạng dự án chính xác và cập nhật communications management plan (kế hoạch quản lý truyền thông)\nC. Gửi một bản ghi nhớ chính thức đến tất cả các stakeholders nhắc nhở họ chỉ sử dụng các kênh chính thức\nD. Escalate (leo thang) vấn đề truyền thông sai lệch này lên project sponsor (nhà tài trợ dự án)",
+    "generatedAt": "2026-05-28T03:56:46.637Z"
+  },
+  "19": {
+    "sampleIndex": 19,
+    "tag": "⚙️ Process · Schedule · Critical Path",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "C",
+      "correct_answers": [
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Chưa cần change request vì chưa biết impact thực sự. Non-critical path activity có thể không ảnh hưởng deadline nếu được quản lý đúng."
+        },
+        "B": {
+          "correct": false,
+          "explanation": "Crashing là technique tốn kém, chỉ áp dụng SAU KHI đã assess impact. Có thể delay này không cần recover toàn bộ 5 ngày."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "PMI yêu cầu ASSESS trước khi hành động. Activity delay 5 ngày nhưng chỉ có 3 ngày float → vượt 2 ngày → có thể ảnh hưởng critical path, cần analyze impact trước."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Escalate ngay là phản ứng thái quá khi chưa có data. PM cần assess impact trước rồi mới escalate nếu thực sự cần thiết."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager - có trách nhiệm analyze schedule impact trước khi đưa ra giải pháp hoặc escalate",
+        "situation": "Non-critical activity delay 5 ngày, chỉ có 3 ngày total float → vượt float 2 ngày → có thể ảnh hưởng critical path",
+        "trigger_word": "FIRST",
+        "trigger_meaning": "PMI test thứ tự hành động: assess/analyze luôn đi trước execute/escalate",
+        "hidden_test": "PMI không test kiến thức về crashing hay change request - PMI test tư duy 'Analyze before Act' và hiểu float dynamics"
+      },
+      "mindset": {
+        "vn_thinking": "Thấy delay → nghĩ ngay đến giải pháp technical (crash) hoặc escalate (báo sếp)",
+        "vn_reason": "Văn hóa Việt ưu tiên 'làm ngay' hoặc 'báo cáo ngay' để thể hiện proactive, sợ bị cho là chậm chạp",
+        "pmi_thinking": "Delay trên non-critical path → assess impact to critical path → rồi mới quyết định response",
+        "pmi_reason": "PMI framework dựa trên data-driven decision. Không phải mọi delay đều cần recover hay escalate - phải biết impact thực sự trước"
+      },
+      "core_rule": "Non-critical delay: assess impact to critical path trước",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Action Bias Trap",
+        "why_feels_right": "Crashing và escalate đều là hành động 'có vẻ quyết đoán', nhưng thiếu assessment nền tảng",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Một project manager đang phân tích tiến độ dự án và phát hiện rằng một hoạt động nằm trên non-critical path (đường không tới hạn) đã bị trзадержано 5 ngày. Hoạt động này có 3 ngày total float (thời gian trôi nổi toàn phần). Thời hạn dự án không thay đổi. Project manager nên làm gì FIRST?\n\nA. Phát hành change request (yêu cầu thay đổi) để gia hạn thời hạn dự án thêm 2 ngày\nB. Crash (đẩy nhanh) hoạt động bị trễ bằng cách bổ sung thêm nguồn lực để khắc phục độ trễ 5 ngày\nC. Đánh giá tác động lên critical path (đường tới hạn) và cập nhật tiến độ tương ứng\nD. Ngay lập tức báo cáo lên sponsor vì dự án đang có rủi ro bị trễ",
+    "generatedAt": "2026-05-28T03:57:15.934Z"
+  },
+  "20": {
+    "sampleIndex": 20,
+    "tag": "⚙️ Process · Schedule · Fast Tracking",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "A",
+      "correct_answers": [
+        "A"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": true,
+          "explanation": "Overlapping phases = fast tracking; adding resources to critical path = crashing. Đây là 2 kỹ thuật schedule compression chuẩn PMI để recover delay."
+        },
+        "B": {
+          "correct": false,
+          "explanation": "Resource leveling/smoothing tối ưu resource allocation nhưng KHÔNG rút ngắn schedule — thậm chí leveling còn kéo dài duration."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Critical chain method là approach lập schedule ban đầu; Monte Carlo là quantitative risk analysis — không phải kỹ thuật recover delay."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Scope reduction có thể rút schedule nhưng yêu cầu change control và sponsor approval — không phải evaluate technical options như đề bài."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager — có quyền evaluate technical scheduling options trong authority",
+        "situation": "Delay 3 tuần + sponsor ép deadline cố định → cần rút ngắn schedule",
+        "trigger_word": "Which techniques",
+        "trigger_meaning": "Nhận diện ĐÚNG TÊN 2 kỹ thuật đã mô tả trong câu trước",
+        "hidden_test": "PMI không test kỹ năng recover schedule — PMI test khả năng MAP MÔ TẢ → THUẬT NGỮ CHUẨN"
+      },
+      "mindset": {
+        "vn_thinking": "\"Leveling nghe technical, Monte Carlo nghe pro → chọn B hoặc C\"",
+        "vn_reason": "Văn hóa ngưỡng mộ thuật ngữ phức tạp, né đáp án 'quá đơn giản' như fast tracking/crashing",
+        "pmi_thinking": "Đề cho 2 MÔ TẢ cụ thể → tìm đáp án chứa ĐÚNG 2 THUẬT NGỮ tương ứng",
+        "pmi_reason": "PMI yêu cầu PM thành thạo terminology để communicate chính xác với stakeholders"
+      },
+      "core_rule": "Overlapping phases = fast tracking; thêm resources = crashing",
+      "trap": {
+        "category": "Terminology Trap",
+        "name": "Fancy Words Distraction",
+        "why_feels_right": "B/C/D chứa thuật ngữ nghe advanced hơn A — nhưng đề đã MÔ TẢ rõ fast tracking + crashing",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Một dự án đang chậm tiến độ 3 tuần. Nhà tài trợ yêu cầu dự án phải hoàn thành đúng ngày ban đầu. Người quản lý dự án đánh giá các lựa chọn: chồng lấn hai giai đoạn tuần tự hoặc bổ sung nguồn lực cho các hoạt động trên đường găng (critical path). Người quản lý dự án đang cân nhắc những kỹ thuật nào?\n\nA. Schedule compression (nén tiến độ): fast tracking (song song hóa) và crashing (gia tăng nguồn lực)\nB. Resource leveling (san bằng nguồn lực) và resource smoothing (làm mượt nguồn lực)\nC. Critical chain method (phương pháp chuỗi găng) và Monte Carlo simulation (mô phỏng Monte Carlo)\nD. Scope reduction (giảm phạm vi) và re-baselining (thiết lập lại baseline)",
+    "generatedAt": "2026-05-28T03:57:43.568Z"
+  },
+  "21": {
+    "sampleIndex": 21,
+    "tag": "⚙️ Process · Quality · QA vs QC",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "QC kiểm tra deliverables (sản phẩm), không phải processes. Audit processes là QA, và rejecting deliverables không giải quyết process compliance issue."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Audit processes = Quality Assurance. Khi QA phát hiện process không tuân thủ, PM thực hiện corrective actions để cải thiện compliance theo PMBOK."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Đây là QA audit (processes), không phải QC (deliverables). Update metrics không fix root cause là process non-compliance."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Process compliance issue nằm trong authority của PM. Escalate to sponsor chỉ khi vượt authority hoặc cần strategic decision, không phải action đầu tiên."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager - có authority quản lý processes và implement corrective actions trong project execution",
+        "situation": "Quality team audit phát hiện testing procedures không được follow consistently",
+        "trigger_word": "what should the project manager do",
+        "trigger_meaning": "Tìm action phù hợp nhất với vai trò PM và tình huống QA audit",
+        "hidden_test": "PMI không test kiến thức reject deliverables hay escalate - PMI test khả năng phân biệt QA vs QC và response đúng khi processes sai"
+      },
+      "mindset": {
+        "vn_thinking": "Thấy 'testing' và 'non-conforming' → nghĩ ngay QC reject deliverables, hoặc vấn đề lớn nên escalate sponsor",
+        "vn_reason": "Văn hóa Việt Nam associate testing với kiểm tra sản phẩm, và xu hướng escalate issues lên cấp trên để 'an toàn'",
+        "pmi_thinking": "Audit processes = QA. Process issue → PM implement corrective actions để fix compliance, không escalate ngay",
+        "pmi_reason": "PMI phân biệt rõ QA (processes) vs QC (deliverables). PM ownership processes trong scope authority trước khi escalate"
+      },
+      "core_rule": "Audit processes là QA; fix bằng corrective actions, không reject hay escalate",
+      "trap": {
+        "category": "Terminology Trap",
+        "name": "QA-QC Confusion",
+        "why_feels_right": "Từ 'testing' làm liên tưởng QC và reject deliverables, hoặc nghĩ issue lớn cần escalate ngay",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Trong quá trình thực hiện dự án, nhóm chất lượng tiến hành kiểm toán các quy trình quản lý dự án và phát hiện rằng các thủ tục kiểm thử không được tuân thủ một cách nhất quán. Đây là loại hoạt động chất lượng nào và người quản lý dự án nên làm gì?\n\nA. Đây là Quality Control (Kiểm soát Chất lượng); người quản lý dự án nên từ chối các sản phẩm bàn giao không phù hợp\nB. Đây là Quality Assurance (Đảm bảo Chất lượng); người quản lý dự án nên thực hiện các hành động khắc phục để cải thiện việc tuân thủ quy trình\nC. Đây là Quality Control (Kiểm soát Chất lượng); người quản lý dự án nên cập nhật các chỉ số chất lượng\nD. Đây là Quality Assurance (Đảm bảo Chất lượng); người quản lý dự án nên leo thang lên nhà tài trợ",
+    "generatedAt": "2026-05-28T04:03:15.196Z"
+  },
+  "22": {
+    "sampleIndex": 22,
+    "tag": "⚙️ Process · Quality · Cost of Quality",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Đúng về process nhưng là defensive argument - chỉ nói 'không được phép' thay vì giải thích WHY sponsor nên giữ nguyên budget, không thuyết phục được business decision."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Cost of Quality logic: Prevention costs (testing) << Failure costs (rework, warranty, reputation damage). Đây là business argument mạnh nhất - show sponsor the money impact, không phải process rules."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Sai về governance - sponsor thường CÓ authority thay đổi plan thông qua change control. Câu này vừa sai fact, vừa confrontational, không phải cách PM professional collaborate."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Có thể đúng nhưng chỉ focus vào schedule impact. Không comprehensive bằng B - thiếu góc nhìn về failure costs sau go-live (warranty, customer dissatisfaction, rework in production)."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager phải influence sponsor bằng business logic, không phải process rules hay personal concern",
+        "situation": "Sponsor muốn cắt testing budget 30% - PM cần argument để defend quality investment",
+        "trigger_word": "BEST",
+        "trigger_meaning": "Argument nào THUYẾT PHỤC sponsor nhất từ góc độ business value",
+        "hidden_test": "PMI không test 'ai đúng về process' - PMI test 'PM có thể influence bằng business case không' (servant leadership + value delivery)"
+      },
+      "mindset": {
+        "vn_thinking": "Chọn A hoặc C - dùng process/authority để block sponsor request",
+        "vn_reason": "Văn hóa thứ bậc - khi bị sếp pressure thì cite policy/rules để tự bảo vệ, tránh confrontation trực tiếp",
+        "pmi_thinking": "Chọn B - educate sponsor bằng Cost of Quality model để họ tự thấy giá trị của testing investment",
+        "pmi_reason": "PMI servant leadership: PM influence thông qua data + business logic, không hide behind process. Sponsor là partner, không phải adversary cần 'block'."
+      },
+      "core_rule": "Influence stakeholder bằng business value, không phải process compliance",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Authority Shield",
+        "why_feels_right": "A và C nghe có vẻ đúng vì 'đúng về process' - nhưng PMI test servant leadership (influence) không phải bureaucracy (enforce)",
+        "domain": "People",
+        "approach": "All"
+      }
+    },
+    "translation": "Một project sponsor (nhà tài trợ dự án) yêu cầu project manager (người quản lý dự án) cắt giảm 30% ngân sách testing (kiểm thử) để giảm chi phí. Project manager lo ngại về tác động lâu dài. Lập luận nào BEST (TỐT NHẤT) hỗ trợ việc duy trì ngân sách testing?\n\nA. Testing được yêu cầu bởi project management plan (kế hoạch quản lý dự án) và không thể thay đổi nếu không có change request (yêu cầu thay đổi)\nB. Prevention and appraisal costs (Chi phí phòng ngừa và đánh giá) là các khoản đầu tư giúp giảm failure costs (chi phí thất bại), vốn thường đắt hơn rất nhiều\nC. Sponsor không có thẩm quyền thay đổi quality management plan (kế hoạch quản lý chất lượng)\nD. Cắt giảm testing sẽ làm chậm dự án và tăng schedule costs (chi phí tiến độ)",
+    "generatedAt": "2026-05-28T04:03:45.257Z"
+  },
+  "23": {
+    "sampleIndex": 23,
+    "tag": "⚙️ Process · Procurement · Contract Type",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "D",
+      "correct_answers": [
+        "D"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "FFP yêu cầu scope rõ ràng từ đầu. Với scope không xác định được, buyer sẽ chịu risk cao do change orders liên tục và tranh chấp."
+        },
+        "B": {
+          "correct": false,
+          "explanation": "FPIF vẫn cần baseline scope cố định để tính incentive. Không phù hợp khi scope 'cannot be clearly defined upfront'."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "CPFF đặt TẤT CẢ risk lên buyer (trả mọi chi phí thực tế + phí). Trái ngược hoàn toàn với mục tiêu 'minimize its risk'."
+        },
+        "D": {
+          "correct": true,
+          "explanation": "T&M cân bằng risk: buyer kiểm soát qua unit rates và approval, seller chịu risk về năng suất. Linh hoạt với scope phát triển dần."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Organization (buyer) — quyết định contract type để bảo vệ lợi ích của mình",
+        "situation": "Scope không xác định + buyer muốn giảm thiểu risk",
+        "trigger_word": "MOST appropriate",
+        "trigger_meaning": "Tìm contract type cân bằng GIỮA hai ràng buộc mâu thuẫn: scope unclear VÀ minimize buyer risk",
+        "hidden_test": "PMI không test thuộc lòng định nghĩa contract — test khả năng MATCH risk allocation với điều kiện dự án"
+      },
+      "mindset": {
+        "vn_thinking": "Scope không rõ → dùng Cost Plus để linh hoạt, trả theo thực tế phát sinh",
+        "vn_reason": "Văn hóa ưu tiên 'xử lý tình huống' hơn 'thiết kế cơ chế'. Nghĩ Cost Plus = linh hoạt nhất nên an toàn nhất.",
+        "pmi_thinking": "Scope unclear + minimize BUYER risk → T&M vì buyer kiểm soát hours/rates, không phải trả mù quáng mọi cost",
+        "pmi_reason": "PMI phân biệt rõ: linh hoạt (flexibility) ≠ giảm risk (risk mitigation). Cost Plus cho flexibility nhưng tăng buyer risk; T&M cân bằng cả hai."
+      },
+      "core_rule": "Scope mờ + giảm risk buyer = T&M vì kiểm soát được rates",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Flexibility Equals Safety",
+        "why_feels_right": "Cost Plus nghe linh hoạt nhất nên cảm giác an toàn cho dự án scope không rõ",
+        "domain": "Business Environment",
+        "approach": "All"
+      }
+    },
+    "translation": "Một dự án yêu cầu công việc kỹ thuật chuyên môn nơi mà phạm vi đầy đủ không thể được xác định rõ ràng ngay từ đầu. Tổ chức muốn giảm thiểu rủi ro của mình trong dự án. Loại hợp đồng nào là MOST phù hợp?\n\nA. Firm Fixed Price (FFP) - Giá Cố Định Trọn Gói\nB. Fixed Price Incentive Fee (FPIF) - Giá Cố Định Có Phí Khuyến Khích\nC. Cost Plus Fixed Fee (CPFF) - Chi Phí Cộng Phí Cố Định\nD. Time and Material (T&M) - Thời Gian và Vật Tư",
+    "generatedAt": "2026-05-28T04:04:14.247Z"
+  },
+  "24": {
+    "sampleIndex": 24,
+    "tag": "⚙️ Process · Procurement · Vendor Management",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Hành động quá vội vàng trước khi hiểu đầy đủ tác động. PMI yêu cầu phân tích trước khi quyết định, đặc biệt với vendor relationships có hợp đồng pháp lý."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Đúng theo PMI: FIRST luôn là assess impact + evaluate options. Critical thinking đòi hỏi hiểu rõ tình huống trước khi hành động, đúng với PMBOK về issue management."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Escalate chỉ là một OPTION sau khi assess. PM phải tự phân tích trước, không ném vấn đề lên sponsor ngay lập tức—đây là thiếu ownership."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Penalize không giải quyết vấn đề critical path. PMI ưu tiên giải pháp thực tế cho project success hơn là trừng phạt—penalty là tool cuối cùng, không phải first response."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager—có quyền và trách nhiệm phân tích, đề xuất giải pháp cho critical path issues trước khi escalate",
+        "situation": "Critical component delay trên critical path—mối đe dọa trực tiếp đến schedule baseline",
+        "trigger_word": "FIRST",
+        "trigger_meaning": "Hành động ưu tiên tuyệt đối—bỏ qua bước này = sai process",
+        "hidden_test": "PMI không test kỹ năng trừng phạt vendor—PMI test tư duy systematic problem-solving và risk response planning"
+      },
+      "mindset": {
+        "vn_thinking": "Vendor lỗi → phạt ngay hoặc đổi vendor, hoặc báo sếp ngay",
+        "vn_reason": "Văn hóa Việt ưu tiên accountability (trách nhiệm) và quyền lực cấp trên—khi có vấn đề lớn thì 'để sếp quyết định' là an toàn nhất",
+        "pmi_thinking": "Issue xuất hiện → assess impact toàn diện → evaluate tất cả options có sẵn → recommend giải pháp tối ưu",
+        "pmi_reason": "PM phải demonstrate problem-solving ownership. Data-driven decisions tốt hơn emotional reactions. Options analysis là professional standard của PMI."
+      },
+      "core_rule": "Critical path delay: Assess impact FIRST, react SECOND",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Reactive Justice Reflex",
+        "why_feels_right": "Vendor sai → trừng phạt ngay có vẻ quyết đoán và công bằng, hoặc escalate tỏ ra thận trọng",
+        "domain": "People",
+        "approach": "All"
+      }
+    },
+    "translation": "Một nhà cung cấp chính thông báo cho người quản lý dự án rằng họ sẽ không thể giao một linh kiện quan trọng đúng hạn do các vấn đề về nguồn lực nội bộ. Linh kiện này nằm trên đường găng (critical path). Người quản lý dự án nên làm gì FIRST?\n\nA. Chấm dứt hợp đồng và ngay lập tức tìm nhà cung cấp mới\nB. Đánh giá tác động lên tiến độ dự án và xem xét các lựa chọn bao gồm giải pháp thay thế (workarounds), nhà cung cấp thay thế, và các biện pháp khắc phục theo hợp đồng\nC. Leo thang lên nhà tài trợ (sponsor) và yêu cầu gia hạn thời hạn dự án\nD. Phạt nhà cung cấp theo các điều khoản hợp đồng và tiếp tục chờ đợi việc giao hàng",
+    "generatedAt": "2026-05-28T04:04:43.941Z"
+  },
+  "25": {
+    "sampleIndex": 25,
+    "tag": "⚙️ Process · Agile · Definition of Done",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Siding with one party ignores root cause (missing DoD) and creates win-lose dynamics. PM must facilitate alignment, not judge who's right."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Addresses root cause immediately. DoD is foundational Scrum artifact that prevents future conflicts. Facilitation is PM's servant-leadership role in Agile."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Forces acceptance without resolving underlying issue. Change request is predictive thinking—Agile handles this through backlog refinement with clear DoD."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Escalation is last resort for impediments PM cannot resolve. This is solvable at team level through facilitation—escalating undermines team empowerment."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager in Agile/Scrum context - servant leader who removes impediments and facilitates team agreements, not command-and-control decision maker",
+        "situation": "DoD missing → conflict inevitable. Acceptance criteria ≠ DoD. Team and PO have different quality standards",
+        "trigger_word": "FIRST",
+        "trigger_meaning": "Prioritize root cause over symptoms. Establish foundation before handling current dispute",
+        "hidden_test": "PMI doesn't test 'who wins the argument' — tests 'can PM create sustainable team alignment through facilitation'"
+      },
+      "mindset": {
+        "vn_thinking": "PM phải ra quyết định ngay - chọn phe team hoặc PO, hoặc leo thang cho sếp xử",
+        "vn_reason": "Văn hóa thứ bậc - PM = người giải quyết tranh chấp bằng quyền lực hoặc ủy quyền lên trên",
+        "pmi_thinking": "PM facilitates agreement, doesn't impose decisions. Fix process gap before addressing current conflict",
+        "pmi_reason": "Servant leadership + systems thinking: missing DoD will cause repeated conflicts. Team self-organization requires shared understanding first"
+      },
+      "core_rule": "Thiếu DoD = thiếu nền móng. Xây nền trước khi xử lý tranh chấp",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Authority-Based Resolution",
+        "why_feels_right": "PM phải quyết định ngay để giải quyết xung đột - chậm sẽ ảnh hưởng tiến độ sprint",
+        "domain": "People",
+        "approach": "Agile"
+      }
+    },
+    "translation": "Trong buổi sprint review, product owner từ chối một số user story mà đội phát triển đánh dấu là đã hoàn thành. Đội ngũ lập luận rằng các story đã đáp ứng acceptance criteria (tiêu chí chấp nhận). Khi xem xét, project manager phát hiện ra Definition of Done (Định nghĩa Hoàn thành) chưa bao giờ được thống nhất chính thức. Project manager nên làm gì FIRST?\n\nA. Ủng hộ đội phát triển vì acceptance criteria (tiêu chí chấp nhận) đã được đáp ứng\nB. Tổ chức một buổi làm việc để thiết lập Definition of Done (Định nghĩa Hoàn thành) chung và sử dụng nó cho các giai đoạn tiếp theo\nC. Yêu cầu product owner chấp nhận các story và đưa ra change request (yêu cầu thay đổi) cho bất kỳ yêu cầu bổ sung nào\nD. Báo cáo sự bất đồng này lên senior management (ban lãnh đạo cấp cao) để giải quyết",
+    "generatedAt": "2026-05-28T04:05:15.472Z"
+  },
+  "26": {
+    "sampleIndex": 26,
+    "tag": "⚙️ Process · Agile · Backlog Refinement",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Giảm sprint length không giải quyết gốc rễ — stories vẫn unclear. Đây là reactive symptom fix, không phải proactive prevention."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Backlog refinement là Scrum practice chuẩn để làm rõ stories TRƯỚC sprint planning, giải quyết đúng root cause và prevent delays/rework."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Viết stories AFTER sprint là quá muộn — stories cần ready BEFORE sprint planning. Timing sai, không prevent được issue."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Thêm documentation phase vi phạm Agile principle (working software over comprehensive documentation) và tạo waste, không align Scrum framework."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager — trong Agile context thường tích hợp vai trò facilitate process improvement",
+        "situation": "Unclear user stories → delays + rework → inconsistent velocity. Cần preventive action tại nguồn.",
+        "trigger_word": "BEST",
+        "trigger_meaning": "Tìm solution giải quyết root cause, sustainable, align Agile/Scrum practices chuẩn",
+        "hidden_test": "PMI không test hiểu biết Scrum ceremonies — PMI test khả năng identify preventive action vs reactive fix"
+      },
+      "mindset": {
+        "vn_thinking": "Thêm documentation phase (D) hoặc yêu cầu PO viết chi tiết hơn (C) — fix bằng more control, more documentation",
+        "vn_reason": "Văn hoá Việt tin rằng chi tiết hoá documents trước = giảm risk, và tách vai trò rõ ràng (PO chịu trách nhiệm hoàn toàn)",
+        "pmi_thinking": "Establish continuous collaboration ritual (backlog refinement) để team + PO cùng clarify stories ongoing",
+        "pmi_reason": "PMI/Agile ưu tiên collaboration over documentation, preventive process over reactive control, và shared ownership"
+      },
+      "core_rule": "Refine backlog liên tục, không chờ sprint planning mới clarify",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Documentation Before Action",
+        "why_feels_right": "Documentation phase (D) nghe chuyên nghiệp, structured — giống waterfall thinking quen thuộc",
+        "domain": "Process",
+        "approach": "Agile"
+      }
+    },
+    "translation": "Một project manager nhận thấy rằng team thường xuyên gặp phải các user story không rõ ràng trong sprint planning, gây ra chậm trễ và rework. Sprint velocity đã không ổn định do đó. Đâu là hành động khắc phục BEST?\n\nA. Giảm sprint length để hạn chế tác động của các story không rõ ràng\nB. Triển khai các buổi backlog refinement thường xuyên để làm rõ và estimate các story trước sprint planning\nC. Yêu cầu product owner viết các user story chi tiết hơn sau mỗi sprint\nD. Thêm giai đoạn documentation trước mỗi sprint để làm rõ requirements\n\nCorrect Answer: B",
+    "generatedAt": "2026-05-28T04:05:39.103Z"
+  },
+  "27": {
+    "sampleIndex": 27,
+    "tag": "🏢 Business Env · Compliance",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "PMI yêu cầu PM phải điều chỉnh với thay đổi môi trường bên ngoài. Bỏ qua regulation mới là vi phạm compliance và phơi bày rủi ro pháp lý cho tổ chức."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "PMI tiêu chuẩn: FIRST là assess impact + engage stakeholders. PM không tự quyết định response mà phải có informed decision với key stakeholders về scope, cost, schedule trade-offs."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Halt toàn bộ project là overreaction chưa có data. PMI yêu cầu assess impact trước—có thể chỉ cần điều chỉnh nhỏ, không cần dừng hoàn toàn."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Yêu cầu customer chấp nhận non-compliance vi phạm đạo đức và trách nhiệm compliance. PM không được đẩy rủi ro pháp lý sang customer."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager—vai trò compliance steward và change facilitator, không phải decision maker độc lập",
+        "situation": "Regulation mới xuất hiện giữa dự án, ảnh hưởng deliverable cuối cùng",
+        "trigger_word": "FIRST",
+        "trigger_meaning": "Hỏi hành động ưu tiên ngay lập tức—PMI luôn ưu tiên assess + engage trước khi action",
+        "hidden_test": "PMI không test kiến thức regulation—PMI test quy trình change management và stakeholder collaboration trong tình huống bất ngờ"
+      },
+      "mindset": {
+        "vn_thinking": "Dự án đã approved, regulation mới là 'ngoài scope', nên tiếp tục theo plan hoặc yêu cầu customer chịu",
+        "vn_reason": "Văn hoá tránh trách nhiệm, tư duy 'theo đúng contract' nghiêm ngặt, ngại thay đổi giữa chừng vì sợ blame",
+        "pmi_thinking": "Môi trường thay đổi là normal—PM phải adaptive, assess impact, collaborate với stakeholders để điều chỉnh",
+        "pmi_reason": "PMI coi PM là change agent và compliance champion. Success là deliver value trong context mới, không phải defend baseline cũ bất chấp thực tế"
+      },
+      "core_rule": "FIRST gặp thay đổi bên ngoài: assess impact + engage stakeholders",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Baseline Rigidity",
+        "why_feels_right": "Dự án đã approved nên 'đúng' là follow baseline, regulation mới là 'not my problem'",
+        "domain": "Business Environment",
+        "approach": "All"
+      }
+    },
+    "translation": "Trong quá trình thực hiện dự án, một thành viên nhóm phát hiện ra rằng một sản phẩm bàn giao không tuân thủ một quy định mới của chính phủ có hiệu lực sau khi dự án được khởi động. Quy định này áp dụng cho sản phẩm cuối cùng. Người quản lý dự án nên làm gì FIRST?\n\nA. Tiếp tục dự án như đã lên kế hoạch vì quy định chưa có hiệu lực khi dự án được phê duyệt\nB. Đánh giá tác động của quy định đối với dự án và thu hút các bên liên quan thích hợp để xác định phản ứng cần thiết\nC. Ngay lập tức dừng dự án cho đến khi có thể đạt được sự tuân thủ đầy đủ\nD. Thông báo cho khách hàng và yêu cầu họ chấp nhận sản phẩm bàn giao không tuân thủ",
+    "generatedAt": "2026-05-28T04:06:09.548Z"
+  },
+  "28": {
+    "sampleIndex": 28,
+    "tag": "🏢 Business Env · Organizational Change",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Tốc độ giao hàng không giải quyết vấn đề adoption. Người dùng cần thời gian và hỗ trợ để thích nghi, không phải bị áp đặt nhanh hơn."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "PMI yêu cầu change management phải tích hợp SONG SONG với technical solution, không phải sau khi delivery. Quản lý sự thay đổi hành vi người dùng là một phần của project scope."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "User resistance KHÔNG phải vấn đề để escalate. Đây là dấu hiệu thiếu change management từ đầu. Escalation không khắc phục nguyên nhân gốc rễ."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Đơn giản hóa tính năng là reactive và có thể ảnh hưởng business value. Vấn đề không phải technical complexity mà là thiếu chuẩn bị và hỗ trợ người dùng."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager dẫn dắt enterprise system implementation — scope bao gồm cả technical delivery VÀ organizational adoption",
+        "situation": "Technical solution đúng, nhưng users reject và quay về old process — điển hình của failure in change management",
+        "trigger_word": "DIFFERENTLY",
+        "trigger_meaning": "PMI hỏi gốc rễ: điều gì nên làm KHÁC từ đầu project, không phải reactive fix",
+        "hidden_test": "PMI không test technical skill — PMI test hiểu change management là integral part of project delivery, không phải afterthought"
+      },
+      "mindset": {
+        "vn_thinking": "Làm xong technical rồi, user không dùng thì đó là lỗi của user hoặc training team. PM đã giao đúng spec.",
+        "vn_reason": "Văn hóa tách biệt giữa 'làm' và 'triển khai', PM chỉ chịu trách nhiệm đến lúc bàn giao, adoption là công việc của người khác",
+        "pmi_thinking": "PM owns cả technical delivery VÀ user adoption. Change management phải chạy song song từ initiation, không phải post-delivery.",
+        "pmi_reason": "PMI định nghĩa project success = delivered value được realize. Nếu user không adopt, value không realize, project FAILED dù technical đúng 100%"
+      },
+      "core_rule": "Change management song song với technical work, không phải sau",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Technical Delivery Illusion",
+        "why_feels_right": "Nghĩ rằng PM chỉ chịu trách nhiệm technical delivery đúng spec, còn user adoption là việc của operations hoặc change team",
+        "domain": "People",
+        "approach": "All"
+      }
+    },
+    "translation": "Một project manager đang lãnh đạo dự án triển khai một hệ thống doanh nghiệp mới. Sau khi bàn giao, người dùng kháng cự việc áp dụng hệ thống và quay trở lại các quy trình cũ. Giải pháp kỹ thuật hoạt động chính xác. Project manager nên đã làm gì DIFFERENTLY trong suốt dự án?\n\nA. Bàn giao dự án nhanh hơn để giảm thiểu thời gian người dùng phải chuẩn bị cho sự thay đổi\nB. Phát triển và thực thi kế hoạch quản lý thay đổi (change management) và áp dụng người dùng song song với giải pháp kỹ thuật\nC. Escalate sự kháng cự của người dùng lên senior management sớm hơn trong dự án\nD. Đơn giản hóa các tính năng của hệ thống để giảm đường cong học tập (learning curve) cho người dùng",
+    "generatedAt": "2026-05-28T04:06:39.889Z"
+  },
+  "29": {
+    "sampleIndex": 29,
+    "tag": "🔤 Language · NEXT vs FIRST",
+    "analysis": {
+      "response_type": "single",
+      "correct_count": 1,
+      "correct_answer": "C",
+      "correct_answers": [
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Implementing documented strategies while ignoring a high-priority risk with NO response plan violates PMI's completeness principle—all high-priority risks must have documented responses before execution begins."
+        },
+        "B": {
+          "correct": false,
+          "explanation": "Escalation is premature—the PM owns risk response planning for project-level risks; sponsor involvement is needed only when risks exceed PM authority or require strategic decisions."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "PMI requires all high-priority risks have documented response plans before proceeding—the gap (undocumented risk) must be closed first to maintain risk management integrity per PMBOK guidelines."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Re-running assessment wastes time when results already identify a clear action item (missing response plan)—PMI emphasizes addressing known gaps over redundant validation."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager—owns risk response planning within project authority boundaries",
+        "situation": "3 high-priority risks identified: 2 have plans, 1 lacks any response documentation",
+        "trigger_word": "NEXT",
+        "trigger_meaning": "Immediate logical next step in the risk management sequence—not ultimate action, but gap-closing priority",
+        "hidden_test": "PMI not testing risk execution speed—PMI tests completeness discipline: never proceed with incomplete risk response documentation for high-priority threats"
+      },
+      "mindset": {
+        "vn_thinking": "2/3 có kế hoạch rồi thì làm luôn 2 cái đó, cái còn lại xử lý sau—tận dụng momentum",
+        "vn_reason": "Văn hóa ưu tiên hành động nhanh, tâm lý 'làm được việc gì trước đã', chấp nhận bỏ sót tạm thời",
+        "pmi_thinking": "Complete the documentation gap FIRST—no high-priority risk should remain without a response plan before execution",
+        "pmi_reason": "PMI prioritizes governance completeness over execution speed—undocumented risks create audit failures and uncontrolled exposure even if other risks are managed"
+      },
+      "core_rule": "Hoàn thiện tài liệu rủi ro ưu tiên cao trước khi thực thi",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Action Bias Over Completeness",
+        "why_feels_right": "2 out of 3 ready feels like enough momentum to start—Vietnamese culture values tangible progress over paperwork gaps",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Một project manager vừa nhận được kết quả của đánh giá rủi ro cho thấy ba rủi ro có mức độ ưu tiên cao. Hai rủi ro đã có các chiến lược giảm thiểu (mitigation strategies) được ghi nhận trong risk register (hồ sơ rủi ro). Một rủi ro không có kế hoạch ứng phó. Project manager nên làm gì NEXT?\n\nA. Thực hiện các chiến lược giảm thiểu (mitigation strategies) cho hai rủi ro đã được ghi nhận ngay lập tức\nB. Escalate (báo cáo lên cấp trên) cả ba rủi ro cho project sponsor để được hướng dẫn\nC. Xây dựng kế hoạch ứng phó rủi ro (risk response plan) cho rủi ro có mức độ ưu tiên cao chưa được ghi nhận\nD. Chạy lại đánh giá rủi ro để xác thực các phát hiện trước khi thực hiện bất kỳ hành động nào",
+    "generatedAt": "2026-05-28T04:07:11.488Z"
+  },
+  "30": {
+    "sampleIndex": 30,
+    "tag": "🔢 Multiple Response · People · Agile",
+    "analysis": {
+      "response_type": "multiple",
+      "correct_count": 2,
+      "correct_answer": "B, C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Detailed 12-month sprint planning contradicts Agile's adaptive planning principle. Agile emphasizes iterative planning and welcomes changing requirements."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Building foundational understanding of Agile values and principles is essential FIRST for mindset shift. Without understanding 'why', teams cannot effectively adopt 'how'."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "Team working agreement and Definition of Done create self-organization foundation and shared understanding. These are immediate enablers for Agile team autonomy."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Assigning individual tasks maintains command-and-control approach. Agile requires team-level commitment and self-organization, not top-down task assignment."
+        },
+        "E": {
+          "correct": false,
+          "explanation": "Implementing ceremonies without adaptation ignores team context and transition readiness. Agile adoption requires gradual, contextualized change management."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project manager leading organizational change — scope is culture transformation, not just process implementation",
+        "situation": "Team transitioning from traditional to Agile — focus on FIRST actions, not full transformation",
+        "trigger_word": "FIRST + TWO",
+        "trigger_meaning": "Prioritize foundational enablers over advanced practices. Multiple correct answers test understanding of transition sequence.",
+        "hidden_test": "PMI không test Scrum mechanics — PMI test servant leadership ability to build Agile mindset and team self-organization foundation"
+      },
+      "mindset": {
+        "vn_thinking": "Làm ngay ceremonies (daily standup, sprint planning) để team thấy khác biệt rõ ràng, hoặc làm plan chi tiết để có control",
+        "vn_reason": "Văn hóa Việt ưu tiên hành động nhanh có thể thấy (visible action) và giữ quyền kiểm soát từ trên xuống",
+        "pmi_thinking": "Coach mindset trước, tạo team agreement để team tự tổ chức, sau đó mới áp dụng practices phù hợp",
+        "pmi_reason": "Agile transformation thành công khi team hiểu 'why' và tự cam kết 'how' — không thể ép áp practices từ trên xuống"
+      },
+      "core_rule": "Agile transition: mindset first, self-organization foundation, then practices",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Mechanics Before Mindset",
+        "why_feels_right": "Implementing visible ceremonies (A, E) or maintaining control (D) feels like taking action. But without mindset shift (B) and self-organization foundation (C), Agile adoption fails.",
+        "domain": "People",
+        "approach": "Agile"
+      }
+    },
+    "translation": "Một project manager đang chuyển đổi một nhóm dự án truyền thống sang phương pháp Agile. Hai hành động nào project manager nên thực hiện FIRST để hỗ trợ quá trình chuyển đổi này?\n\nA. Thiết lập một kế hoạch dự án chi tiết bao gồm tất cả các sprint cho 12 tháng tới\nB. Huấn luyện (coach) các thành viên nhóm về các giá trị và nguyên tắc Agile để xây dựng sự hiểu biết nền tảng\nC. Tạo điều kiện (facilitate) cho việc xây dựng thỏa thuận làm việc của nhóm (team working agreement) và Definition of Done\nD. Phân công các nhiệm vụ riêng lẻ cho các thành viên nhóm để duy trì tính trách nhiệm giải trình (accountability)\nE. Ngay lập tức triển khai tất cả các nghi thức Scrum (Scrum ceremonies) mà không có sự điều chỉnh",
+    "generatedAt": "2026-05-28T04:07:37.071Z"
+  },
+  "31": {
+    "sampleIndex": 31,
+    "tag": "🔢 Multiple Response · Process · Risk",
+    "analysis": {
+      "response_type": "multiple",
+      "correct_count": 2,
+      "correct_answer": "B,D",
+      "correct_answers": [
+        "B",
+        "D"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Re-baseline TRƯỚC khi hiểu root cause là sai thứ tự. PMI yêu cầu analyze → corrective action → nếu cần mới re-baseline sau khi có change request được approve."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Root cause analysis là bước ĐẦU TIÊN bắt buộc theo PMI. Phải hiểu TẠI SAO variance xảy ra trước khi quyết định hành động gì."
+        },
+        "C": {
+          "correct": false,
+          "explanation": "Crash TẤT CẢ activities là overkill và vi phạm nguyên tắc optimization. Phải analyze root cause để biết crash ở ĐÂU, không phải crash mọi thứ."
+        },
+        "D": {
+          "correct": true,
+          "explanation": "Implement corrective actions DỰA TRÊN findings của root cause analysis là chuỗi logic đúng theo PMI: analyze → decide → act."
+        },
+        "E": {
+          "correct": false,
+          "explanation": "Close project là extreme action. PMI yêu cầu thử corrective actions trước. Chỉ close khi project không còn justify về business value."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager quản lý variance — scope đầy đủ để analyze và implement actions",
+        "situation": "Cost overruns + schedule delays đang xảy ra — cần hành động ngay",
+        "trigger_word": "TWO actions | Select TWO",
+        "trigger_meaning": "Phải chọn ĐÚNG 2 đáp án tạo thành chuỗi logic hoàn chỉnh theo PMI process",
+        "hidden_test": "PMI không test kỹ thuật crashing — PMI test TƯ DUY systematic problem solving: analyze TRƯỚC, action SAU"
+      },
+      "mindset": {
+        "vn_thinking": "Thấy overrun → phản xạ 'fix ngay' (re-baseline) hoặc 'đổ resource vào' (crash)",
+        "vn_reason": "Văn hóa action-oriented: sếp thấy problem muốn see action ngay, không kiên nhẫn với analysis phase",
+        "pmi_thinking": "Analyze root cause TRƯỚC → Implement corrective action based on findings SAU",
+        "pmi_reason": "PMI ưu tiên data-driven decisions. Action không dựa trên analysis = waste resource vào sai chỗ."
+      },
+      "core_rule": "Variance xảy ra: analyze root cause trước, action sau",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Action Before Analysis",
+        "why_feels_right": "Re-baseline (A) hoặc crash (C) là visible actions, thoả mãn nhu cầu 'làm gì đó ngay'",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Một dự án đang gặp phải tình trạng vượt chi phí và chậm tiến độ. Hai hành động NÀO mà người quản lý dự án nên thực hiện để giải quyết tình huống này? (Chọn HAI đáp án)\n\nA. Re-baseline (Thiết lập lại baseline) tiến độ và ngân sách dự án để phản ánh hiệu suất hiện tại\nB. Tiến hành phân tích nguyên nhân gốc rễ (root cause analysis) để xác định các nguyên nhân cơ bản của các chênh lệch\nC. Lập tức crash (rút ngắn) tiến độ bằng cách bổ sung tối đa nguồn lực cho tất cả các hoạt động\nD. Thực hiện các hành động khắc phục dựa trên kết quả phân tích nguyên nhân gốc rễ\nE. Đóng dự án và khởi động lại với một kế hoạch mới",
+    "generatedAt": "2026-05-28T04:08:07.093Z"
+  },
+  "32": {
+    "sampleIndex": 32,
+    "tag": "🔢 Multiple Response · People · Conflict",
+    "analysis": {
+      "response_type": "multiple",
+      "correct_count": 2,
+      "correct_answer": "B, C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Removal là giải pháp cuối cùng, không phải bước đầu. PMI yêu cầu PM giải quyết conflict trước khi leo thang hành chính."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "PMI khuyến khích hiểu root cause trước khi hành động. Separate meetings thu thập thông tin khách quan, tránh defensive posture trong cuộc họp chung ban đầu."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "Collaborate/Problem-solve là preferred conflict resolution mode theo PMI. PM facilitates direct dialogue giữa 2 bên để tìm win-win solution."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "PM owns team performance issues. Escalate HR chỉ khi conflict involves policy violations (harassment, discrimination), không phải interpersonal disagreements."
+        },
+        "E": {
+          "correct": false,
+          "explanation": "Self-organization không đồng nghĩa abdication. Khi conflict impacts velocity và morale, PM must intervene để restore team health."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "PM managing cross-functional team — có quyền/trách giải quyết team dynamics, không chỉ task allocation",
+        "situation": "Senior-level conflict đã ảnh hưởng morale + velocity — vượt qua healthy debate, cần PM intervention",
+        "trigger_word": "TWO actions",
+        "trigger_meaning": "Tìm 2 actions bổ trợ nhau tạo process hoàn chỉnh, không chỉ 1 silver bullet",
+        "hidden_test": "PMI không test conflict avoidance/escalation reflex — PMI test PM ownership + structured conflict resolution process"
+      },
+      "mindset": {
+        "vn_thinking": "Conflict giữa senior engineers → tìm cách nhanh nhất loại bỏ conflict (remove 1 người, hoặc đẩy HR xử lý)",
+        "vn_reason": "Văn hóa né tránh đối đầu, sợ conflict lan rộng, tin HR/upper management giải quyết nhanh hơn",
+        "pmi_thinking": "PM facilitates structured dialogue: Listen separately → Bring together → Collaborative resolution",
+        "pmi_reason": "PMI coi conflict là natural, PM là first-line resolver. Structured process bảo vệ psychological safety và ownership của team members."
+      },
+      "core_rule": "PM giải quyết conflict bằng listen riêng rồi facilitate chung",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Conflict Avoidance Reflex",
+        "why_feels_right": "A/D nhanh, sạch, tránh uncomfortable conversations. E nghe agile (self-org) nhưng là hands-off disguised as empowerment",
+        "domain": "People",
+        "approach": "All"
+      }
+    },
+    "translation": "Một project manager đang quản lý một cross-functional team trong đó hai senior engineers đang có xung đột liên tục đang ảnh hưởng đến tinh thần nhóm và sprint velocity. Project manager nên thực hiện HAI hành động nào?\n\nA. Ngay lập tức loại bỏ một trong hai engineers khỏi dự án để giải quyết xung đột\nB. Gặp riêng từng engineer để hiểu quan điểm của họ trước khi tổ chức một cuộc thảo luận chung\nC. Tạo điều kiện cho một cuộc trò chuyện trực tiếp giữa hai engineers để hướng tới một giải pháp chấp nhận được cho cả hai bên\nD. Escalate xung đột lên HR và để họ xử lý mà không có sự tham gia của PM\nE. Bỏ qua xung đột và cho phép team tự tổ chức để giải quyết nó",
+    "generatedAt": "2026-05-28T04:08:36.503Z"
+  },
+  "33": {
+    "sampleIndex": 33,
+    "tag": "🔢 Multiple Response · Process · Change Management",
+    "analysis": {
+      "response_type": "multiple",
+      "correct_count": 2,
+      "correct_answer": "B, C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "PMI yêu cầu Perform Integrated Change Control cho MỌI change requests, kể cả từ sponsor. Implement ngay = bypass change control process."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Change Control process bắt đầu bằng document formal change request. Điều này tạo audit trail và đảm bảo governance cho mọi thay đổi."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "Impact analysis (schedule, cost, quality, risk) là bước thiết yếu để CCB/sponsor ra quyết định có căn cứ về approve hay reject change."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Approved plan KHÔNG nghĩa là không thể thay đổi. PMI yêu cầu controlled changes thông qua change control process, không phải reject mọi thay đổi."
+        },
+        "E": {
+          "correct": false,
+          "explanation": "Bắt đầu work trước khi complete impact assessment và get approval = gold plating và vi phạm change control discipline."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager — phải balance sponsor authority với change control governance",
+        "situation": "Sponsor requests scope changes mid-execution — cần formal process mặc dù từ sponsor",
+        "trigger_word": "TWO actions FIRST",
+        "trigger_meaning": "Ưu tiên 2 bước đầu tiên trong change control process, trước khi approve/reject/implement",
+        "hidden_test": "PMI KHÔNG test 'sponsor luôn đúng' — PMI test 'mọi change phải qua controlled process bất kể nguồn gốc'"
+      },
+      "mindset": {
+        "vn_thinking": "Sponsor yêu cầu thì phải làm ngay (A), hoặc ít nhất inform team bắt đầu (E)",
+        "vn_reason": "Văn hoá tôn trọng cấp trên tuyệt đối, sợ từ chối sponsor = mất lòng người có quyền lực",
+        "pmi_thinking": "Document + Assess trước, Approve sau, Implement cuối cùng — áp dụng cho MỌI changes",
+        "pmi_reason": "PMI ưu tiên process discipline và data-driven decisions hơn hierarchy. Sponsor cần impact data để decide wisely."
+      },
+      "core_rule": "Mọi change phải qua: Document → Assess → Approve → Implement",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Sponsor Supremacy Bias",
+        "why_feels_right": "Sponsor có authority cao nhất nên requests của họ = orders phải execute ngay",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Một project sponsor (nhà tài trợ dự án) yêu cầu một số thay đổi scope (phạm vi) vào giữa quá trình thực thi dự án. Project manager (người quản lý dự án) nên thực hiện HAI hành động nào FIRST?\n\nA. Triển khai các thay đổi ngay lập tức vì chúng đến từ sponsor (nhà tài trợ)\nB. Ghi nhận các thay đổi được yêu cầu thành các change requests (yêu cầu thay đổi) chính thức\nC. Đánh giá tác động của các thay đổi đến schedule (tiến độ), cost (chi phí), quality (chất lượng), và risk (rủi ro)\nD. Từ chối các thay đổi vì project plan (kế hoạch dự án) đã được phê duyệt\nE. Thông báo cho team (nhóm) bắt đầu làm việc trên các thay đổi trong khi đánh giá đang được tiến hành",
+    "generatedAt": "2026-05-28T04:09:05.499Z"
+  },
+  "34": {
+    "sampleIndex": 34,
+    "tag": "🔢 Multiple Response · Process · Quality",
+    "analysis": {
+      "response_type": "multiple",
+      "correct_count": 2,
+      "correct_answer": "A, C",
+      "correct_answers": [
+        "A",
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": true,
+          "explanation": "Quality audit kiểm tra hệ thống QMS để tìm khoảng trống quy trình — đúng hướng phòng ngừa dài hạn theo PMI."
+        },
+        "B": {
+          "correct": false,
+          "explanation": "Thay người là phản ứng cảm xúc, chưa biết root cause nằm ở người hay quy trình — PMI yêu cầu data trước action."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "RCA là công cụ chuẩn PMI để đào sâu nguyên nhân gốc rễ — không nhảy vào giải pháp khi chưa hiểu vấn đề."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Hạ tiêu chí chất lượng vi phạm cam kết scope baseline và làm tổn hại danh tiếng tổ chức — PMI không chấp nhận."
+        },
+        "E": {
+          "correct": false,
+          "explanation": "Re-baseline để 'chạy theo' hiện trạng là che giấu vấn đề thay vì sửa chữa — không giải quyết root cause."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager — có quyền điều tra quy trình, không bị giới hạn bởi escalation",
+        "situation": "Nhiều deliverable bị reject vì quality → vấn đề hệ thống, không phải incident đơn lẻ",
+        "trigger_word": "TWO actions + root cause",
+        "trigger_meaning": "Phải chọn 2 hành động bổ trợ nhau để đào sâu nguyên nhân gốc — không phải quick fix",
+        "hidden_test": "PMI không test kỹ năng điều tra — PMI test mindset 'Inspect Process Before Blame People'"
+      },
+      "mindset": {
+        "vn_thinking": "Có lỗi → phải xử người + thoả hiệp với khách ngay để bớt áp lực",
+        "vn_reason": "Văn hoá trách cứ cá nhân + sợ xung đột với stakeholder quyền lực cao",
+        "pmi_thinking": "Lỗi lặp lại → audit quy trình + RCA để hiểu system failure",
+        "pmi_reason": "PMI tin 94% vấn đề đến từ quy trình kém, chỉ 6% từ con người — data-driven improvement"
+      },
+      "core_rule": "Defect nhiều lần = kiểm tra hệ thống trước khi động người",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Blame-First Reflex",
+        "why_feels_right": "Thay người và hạ tiêu chí cho kết quả tức thì, tránh phân tích tốn công",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Một project manager phát hiện ra rằng một số deliverables đã bị khách hàng từ chối do các vấn đề về chất lượng. Project manager nên thực hiện HAI hành động nào để giải quyết root cause (nguyên nhân gốc rễ)?\n\nA. Tiến hành quality audit (kiểm toán chất lượng) để xác định các khoảng trống trong quy trình quản lý chất lượng\nB. Ngay lập tức thay thế các thành viên nhóm chịu trách nhiệm về các deliverables bị lỗi\nC. Thực hiện root cause analysis (phân tích nguyên nhân gốc rễ) để hiểu tại sao các defects (khuyết tật) lại xảy ra\nD. Chấp nhận các defects và đàm phán với khách hàng để hạ thấp các tiêu chuẩn chất lượng\nE. Re-baseline (tái lập đường cơ sở) các quality metrics (chỉ số chất lượng) để phù hợp với hiệu suất hiện tại",
+    "generatedAt": "2026-05-28T04:09:35.590Z"
+  },
+  "35": {
+    "sampleIndex": 35,
+    "tag": "🔢 Multiple Response · People · Stakeholder",
+    "analysis": {
+      "response_type": "multiple",
+      "correct_count": 2,
+      "correct_answer": "B, C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Bỏ qua sign-off vi phạm governance và tạo rủi ro pháp lý, thiếu accountability khi vào production."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Stakeholder Engagement Plan là living document, phải update khi engagement giảm để điều chỉnh chiến lược tương tác."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "Individual meetings giúp hiểu root cause của disengagement, xây dựng lại trust và tìm giải pháp phù hợp từng người."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Force attendance không giải quyết root cause, gây thêm resistance và phá vỡ relationship với stakeholder."
+        },
+        "E": {
+          "correct": false,
+          "explanation": "Email reminders là passive communication, không address underlying concerns và cho thấy PM chưa truly engage."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager — chịu trách nhiệm stakeholder engagement, không thể delegate hay ignore",
+        "situation": "Stakeholders không tham gia reviews, milestone quan trọng cần sign-off đang đến gần, engagement thấp",
+        "trigger_word": "TWO actions",
+        "trigger_meaning": "Cần 2 actions bổ trợ nhau: cập nhật plan (strategic) + trực tiếp re-engage (tactical)",
+        "hidden_test": "PMI không test khả năng tổ chức meeting — PMI test khả năng진단 engagement problem và điều chỉnh approach"
+      },
+      "mindset": {
+        "vn_thinking": "Stakeholder không đến là họ bận, cứ nhắc nhiều lần hoặc báo sếp ép họ đến",
+        "vn_reason": "Văn hoá phân cấp, tin vào authority và persistence, ít focus vào hiểu động cơ và điều chỉnh approach",
+        "pmi_thinking": "Engagement thấp là tín hiệu PM chưa hiểu nhu cầu stakeholder, cần điều chỉnh cả plan lẫn relationship",
+        "pmi_reason": "PMI coi stakeholder engagement là trách nhiệm PM, success đo bằng willing participation chứ không phải forced compliance"
+      },
+      "core_rule": "Engagement thấp thì vừa sửa plan vừa nghe trực tiếp",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Authority Over Relationship",
+        "why_feels_right": "Nghĩ rằng authority (PMO escalation) hoặc persistence (email reminders) sẽ giải quyết attendance",
+        "domain": "People",
+        "approach": "All"
+      }
+    },
+    "translation": "Một người quản lý dự án nhận thấy các bên liên quan chủ chốt (key stakeholders) có mức độ tham gia thấp và không tham dự các buổi đánh giá dự án. Dự án đang tiến gần đến một cột mốc quan trọng (critical milestone) yêu cầu sự phê duyệt (sign-off) của các bên liên quan. Người quản lý dự án nên thực hiện HAI hành động nào?\n\nA. Tiến hành giai đoạn tiếp theo mà không có sự phê duyệt (sign-off) của các bên liên quan để tránh trзадержки\nB. Xem xét và cập nhật kế hoạch gắn kết các bên liên quan (stakeholder engagement plan) để giải quyết tình trạng thiếu tham gia\nC. Lên lịch các cuộc họp riêng với các bên liên quan chủ chốt (key stakeholders) để hiểu rõ mối quan tâm của họ và gắn kết lại họ\nD. Báo cáo lên PMO để bắt buộc các bên liên quan tham dự tất cả các buổi đánh giá\nE. Gửi email nhắc nhở hàng tuần và coi như vấn đề đã được giải quyết",
+    "generatedAt": "2026-05-28T04:10:06.829Z"
+  },
+  "36": {
+    "sampleIndex": 36,
+    "tag": "🔢 Multiple Response · Process · Risk",
+    "analysis": {
+      "response_type": "multiple",
+      "correct_count": 2,
+      "correct_answer": "B, C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Passive acceptance chỉ phù hợp với low-priority risks hoặc khi không có response khả thi. Với high-probability, high-impact risks, passive acceptance là không đủ - cần proactive response."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Transfer là negative risk response hợp lệ khi không thể avoid - chuyển ownership và impact cho third party qua insurance, warranty, contracts, outsourcing."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "Mitigate là negative risk response chủ đạo - giảm probability hoặc impact xuống mức chấp nhận được khi không thể eliminate hoàn toàn risk."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Remove high-risk activities khỏi scope là Avoid strategy - nhưng câu hỏi nói 'risks that CANNOT be avoided', nên Avoid không khả thi trong context này."
+        },
+        "E": {
+          "correct": false,
+          "explanation": "Escalate chỉ dùng khi risk nằm ngoài authority của PM hoặc project team. Không phải default response cho tất cả high risks - team phải xử lý trong scope trước."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Risk management team - có authority để đề xuất và implement risk responses trong project boundary",
+        "situation": "High-probability, high-impact risks đã identified nhưng CANNOT be avoided - cần chọn response strategies thay thế",
+        "trigger_word": "TWO... MOST appropriate... cannot be avoided",
+        "trigger_meaning": "Chọn 2 strategies phù hợp nhất khi Avoid strategy không khả thi - test hiểu 4 negative risk responses",
+        "hidden_test": "PMI không test 'biết 4 strategies' - PMI test 'phân biệt khi nào dùng strategy nào và loại trừ Avoid khi đề bài nói cannot be avoided'"
+      },
+      "mindset": {
+        "vn_thinking": "Rủi ro lớn thì báo sếp (E) hoặc bỏ luôn công việc đó (D)",
+        "vn_reason": "Văn hóa né tránh trách nhiệm và escalate nhanh thay vì tự giải quyết; sợ rủi ro nên muốn loại bỏ hẳn",
+        "pmi_thinking": "PM ownership - xử lý risk trong scope bằng Transfer hoặc Mitigate khi không Avoid được",
+        "pmi_reason": "PM phải proactive manage risks với appropriate responses - Escalate chỉ khi out of authority, không phải reflex đầu tiên"
+      },
+      "core_rule": "High risks không Avoid được thì Transfer hoặc Mitigate",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Escalation Reflex",
+        "why_feels_right": "Rủi ro lớn → báo sếp nghe an toàn và đúng quy trình",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Trong quá trình lập kế hoạch dự án, nhóm quản lý rủi ro xác định một số rủi ro có xác suất cao và tác động cao. Hai chiến lược ứng phó rủi ro nào là MOST phù hợp nhất cho các rủi ro không thể tránh được?\n\nA. Chấp nhận tất cả các rủi ro một cách thụ động và ghi lại chúng trong risk register (sổ đăng ký rủi ro)\nB. Chuyển giao (Transfer) các rủi ro có thể áp dụng cho bên thứ ba thông qua hợp đồng hoặc bảo hiểm\nC. Phát triển các chiến lược giảm thiểu (mitigation strategies) để giảm xác suất hoặc tác động của các rủi ro\nD. Loại bỏ tất cả các hoạt động rủi ro cao khỏi phạm vi dự án\nE. Escalate tất cả các rủi ro lên project sponsor (nhà tài trợ dự án) để giải quyết",
+    "generatedAt": "2026-05-28T04:10:36.496Z"
+  },
+  "37": {
+    "sampleIndex": 37,
+    "tag": "🔢 Multiple Response · Agile · Sprint",
+    "analysis": {
+      "response_type": "multiple",
+      "correct_count": 2,
+      "correct_answer": "B, C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Sprint không bao giờ bị 'unsuccessful' vì PO không hài lòng - mọi sprint đều tạo ra learning và increment, đây là cơ hội inspect & adapt"
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Retrospective là mandatory event để team reflect về process issues - đây chính xác là vấn đề process (acceptance criteria không rõ)"
+        },
+        "C": {
+          "correct": true,
+          "explanation": "Sprint Review là nơi collaborate với PO để clarify expectations và acceptance criteria cho future work - đúng timing và đúng cách"
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Skip retrospective vi phạm Scrum framework - retrospective là bắt buộc và chính là nơi giải quyết root cause của vấn đề này"
+        },
+        "E": {
+          "correct": false,
+          "explanation": "Replace PO là reactive và blame-focused - PMI approach là collaborate và improve process, không thay người khi gặp conflict"
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager trong Scrum context - facilitate events và servant leadership, không command & control",
+        "situation": "Sprint hoàn thành về mặt technical nhưng không đáp ứng expectations của PO - đây là process gap, không phải performance issue",
+        "trigger_word": "Which TWO",
+        "trigger_meaning": "Yêu cầu 2 actions bổ trợ nhau - 1 action cho immediate learning (retrospective) và 1 action cho future prevention (clarify criteria)",
+        "hidden_test": "PMI không test blame culture hay skip process - PMI test khả năng dùng Scrum events đúng mục đích để continuous improvement"
+      },
+      "mindset": {
+        "vn_thinking": "PO không hài lòng là do team làm sai, cần close sprint nhanh và rush sang sprint mới để bù đắp",
+        "vn_reason": "Văn hóa tránh conflict và sợ 'unsuccessful label' - ưu tiên velocity hơn quality of collaboration",
+        "pmi_thinking": "Đây là learning opportunity - dùng retrospective để fix process và sprint review để align expectations",
+        "pmi_reason": "PMI mindset là servant leadership và continuous improvement - mọi 'failure' đều là data để improve process, không phải để blame"
+      },
+      "core_rule": "Scrum events không bao giờ bị skip - mỗi event có purpose riêng để inspect & adapt",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Blame Over Process",
+        "why_feels_right": "Khi có conflict với stakeholder, reflexively nghĩ đến close issue nhanh hoặc thay người thay vì fix process",
+        "domain": "People",
+        "approach": "Agile"
+      }
+    },
+    "translation": "Vào cuối một sprint, nhóm đã hoàn thành tất cả các user story đã lên kế hoạch nhưng product owner không hài lòng với product increment. Hai hành động nào mà project manager và nhóm NÊN thực hiện?\n\nA. Chấp nhận phản hồi của product owner và đóng sprint như không thành công\nB. Tổ chức sprint retrospective để hiểu những cải tiến quy trình nào có thể ngăn ngừa điều này trong tương lai\nC. Làm việc với product owner trong sprint review để làm rõ acceptance criteria (tiêu chí chấp nhận) cho các sprint tương lai\nD. Bỏ qua retrospective lần này để ngay lập tức bắt đầu lập kế hoạch cho sprint tiếp theo\nE. Thay thế product owner vì họ đang gây ra các vấn đề về giao hàng",
+    "generatedAt": "2026-05-28T04:11:03.210Z"
+  },
+  "38": {
+    "sampleIndex": 38,
+    "tag": "🔢 Multiple Response · Business Env · Compliance",
+    "analysis": {
+      "response_type": "multiple",
+      "correct_count": 2,
+      "correct_answer": "B, C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Bỏ qua regulatory requirement vi phạm compliance và tạo rủi ro pháp lý nghiêm trọng cho tổ chức, bất kể tiến độ dự án."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Change request là cơ chế chính thức để modify scope, đưa compliance requirement vào baseline thông qua integrated change control."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "Impact assessment cung cấp dữ liệu về cost/schedule/quality để CCB đưa ra quyết định sáng suốt về change request."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "PM không có quyền tự ý tuyên bố regulation không áp dụng—đây là quyết định của legal/compliance, không phải PM."
+        },
+        "E": {
+          "correct": false,
+          "explanation": "Halt project ngay lập tức là phản ứng thái quá—PM cần assess impact trước, sau đó escalate để stakeholder quyết định."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "PM vai trò điều phối—không quyết định bỏ qua regulation, không tự halt project",
+        "situation": "Phát hiện regulatory gap ở 70% complete—cần formal process để address",
+        "trigger_word": "TWO",
+        "trigger_meaning": "Cần 2 hành động bổ trợ nhau: formal change mechanism (B) + data-driven decision support (C)",
+        "hidden_test": "PMI không test phản ứng cảm tính—PMI test quy trình: change request + impact analysis trước khi action"
+      },
+      "mindset": {
+        "vn_thinking": "70% rồi, sửa tốn kém quá, cố gắng work around hoặc xin bỏ qua requirement",
+        "vn_reason": "Văn hóa né tránh conflict, thiên về cost optimization và làm cho xong, chưa quen compliance mindset",
+        "pmi_thinking": "Regulatory là non-negotiable—ngay lập tức formal change request và assess impact để stakeholder decide",
+        "pmi_reason": "PMI coi compliance như constraint tuyệt đối, PM phải facilitate informed decision chứ không tự quyết"
+      },
+      "core_rule": "Regulatory gap = Change request + Impact assessment, không bỏ qua",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Sunk Cost Fallacy",
+        "why_feels_right": "70% complete làm người ta nghĩ đã invest nhiều, nên tránh thay đổi lớn",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Một người quản lý dự án phát hiện ra rằng một yêu cầu quy định (regulatory requirement) áp dụng cho sản phẩm bàn giao của dự án đã không được nắm bắt trong quá trình lập kế hoạch. Dự án đã hoàn thành 70%. Người quản lý dự án nên thực hiện HAI hành động nào?\n\nA. Tiếp tục mà không giải quyết quy định vì dự án đã hoàn thành 70%\nB. Gửi một yêu cầu thay đổi (change request) để đưa yêu cầu tuân thủ vào phạm vi dự án (project scope)\nC. Thực hiện đánh giá tác động (impact assessment) để hiểu rõ các ảnh hưởng về chi phí và tiến độ của yêu cầu mới\nD. Thông báo cho khách hàng rằng quy định không áp dụng cho dự án này\nE. Ngay lập tức dừng dự án cho đến khi có thể đảm bảo tuân thủ quy định đầy đủ",
+    "generatedAt": "2026-05-28T04:11:30.015Z"
+  },
+  "39": {
+    "sampleIndex": 39,
+    "tag": "🔢 Multiple Response · Agile · Backlog",
+    "analysis": {
+      "response_type": "multiple",
+      "correct_count": 2,
+      "correct_answer": "B, C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Agile embraces change even late in development. Rejecting based solely on 'original scope' contradicts value-driven prioritization and adaptive planning principles."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Product backlog is the single source of truth for all work. Adding and prioritizing based on business value with PO is core Scrum practice for maximizing ROI."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "Servant leadership requires PM to facilitate informed decisions. Assessing impact with the team provides data needed for prioritization and release planning."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Bypassing team discussion violates self-organization and collaborative decision-making. Sprint planning requires team commitment, not unilateral implementation."
+        },
+        "E": {
+          "correct": false,
+          "explanation": "PO has authority over backlog prioritization. Escalating usurps PO role and creates unnecessary bureaucracy when team can assess impact collaboratively."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager trong Agile — facilitator, không phải gatekeeper hay decision-maker duy nhất",
+        "situation": "PO muốn thêm feature có high business value ngoài scope ban đầu",
+        "trigger_word": "TWO actions",
+        "trigger_meaning": "Cần 2 hành động bổ trợ nhau: quản lý backlog (B) + đánh giá tác động (C)",
+        "hidden_test": "PMI không test kiến thức scope control — PMI test hiểu Agile values: value-driven flexibility + collaborative assessment"
+      },
+      "mindset": {
+        "vn_thinking": "Scope thay đổi = rủi ro, phải từ chối hoặc leo thang lên sponsor để bảo vệ baseline",
+        "vn_reason": "Văn hóa tránh rủi ro, sợ thay đổi làm vỡ kế hoạch, quen với quyền lực tập trung ở cấp trên",
+        "pmi_thinking": "Change = cơ hội tối ưu giá trị. PM tạo điều kiện cho PO và team đánh giá, quyết định dựa trên data",
+        "pmi_reason": "Agile tối ưu business outcome chứ không bảo vệ scope. Servant leadership empowers team thay vì command-control"
+      },
+      "core_rule": "Agile PM facilitates value, không gatekeep scope",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Scope Protection Reflex",
+        "why_feels_right": "A và E nghe an toàn vì bảo vệ baseline và có backing từ sponsor",
+        "domain": "Process",
+        "approach": "Agile"
+      }
+    },
+    "translation": "Product owner muốn thêm một tính năng mới quan trọng vào product backlog (tồn đọng sản phẩm) mà không phải là phần của phạm vi dự án ban đầu. Tính năng này sẽ mang lại giá trị kinh doanh cao. Project manager nên thực hiện HAI hành động nào?\n\nA. Từ chối tính năng vì nó không nằm trong phạm vi ban đầu\nB. Thêm tính năng vào product backlog (tồn đọng sản phẩm) và ưu tiên hóa nó dựa trên giá trị kinh doanh cùng với product owner\nC. Đánh giá tác động lên tiến độ dự án và nguồn lực cùng với team\nD. Triển khai ngay lập tức tính năng trong sprint tiếp theo mà không thảo luận với team\nE. Báo cáo lên sponsor để quyết định có nên thêm tính năng hay không",
+    "generatedAt": "2026-05-28T04:11:56.661Z"
+  },
+  "40": {
+    "sampleIndex": 40,
+    "tag": "🔢 Multiple Response · Process · Schedule",
+    "analysis": {
+      "response_type": "multiple",
+      "correct_count": 2,
+      "correct_answer": "B, C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Re-baselining chỉ thay đổi kế hoạch trên giấy, không giải quyết vấn đề deadline cố định của sponsor."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Fast tracking là kỹ thuật nén tiến độ hợp lệ theo PMBOK, chấp nhận tăng rủi ro để rút ngắn thời gian bằng song song hóa."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "Crashing là kỹ thuật nén tiến độ hợp lệ theo PMBOK, thêm nguồn lực vào critical path để rút ngắn thời gian."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Loại bỏ quality checkpoints vi phạm nguyên tắc PMI về quality management và tạo rủi ro lớn cho deliverable."
+        },
+        "E": {
+          "correct": false,
+          "explanation": "Giảm stakeholder communication vi phạm nguyên tắc PMI về engagement và không giải quyết vấn đề tiến độ thực sự."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager - quyền evaluate và propose giải pháp kỹ thuật trong constraint cứng từ sponsor",
+        "situation": "Deadline cố định, thiếu 3 tuần, cần kỹ thuật nén tiến độ hợp lệ",
+        "trigger_word": "TWO schedule compression techniques",
+        "trigger_meaning": "Chỉ có 2 kỹ thuật chính thức: Fast Tracking và Crashing - các phương án khác là bẫy",
+        "hidden_test": "PMI không test khả năng creative workaround — PMI test hiểu biết chính xác 2 kỹ thuật compression trong PMBOK"
+      },
+      "mindset": {
+        "vn_thinking": "Re-baseline để 'hợp thức hóa' trễ, hoặc cắt quality/communication để tiết kiệm thời gian nhanh",
+        "vn_reason": "Văn hóa ưu tiên giải pháp nhanh, thực dụng, tránh conflict với leadership bằng điều chỉnh giấy tờ",
+        "pmi_thinking": "Chỉ evaluate 2 kỹ thuật compression chính thức: Fast Tracking và Crashing, không thỏa hiệp quality hay engagement",
+        "pmi_reason": "PMI framework yêu cầu PM phải áp dụng kỹ thuật đúng chuẩn, bảo vệ quality và stakeholder value ngay cả khi nén tiến độ"
+      },
+      "core_rule": "Schedule compression chỉ có Fast Tracking và Crashing",
+      "trap": {
+        "category": "Technical Trap",
+        "name": "Pseudo-Compression Solutions",
+        "why_feels_right": "Re-baseline, cắt quality, giảm communication đều tiết kiệm thời gian trên giấy và tránh conflict",
+        "domain": "Process",
+        "approach": "All"
+      }
+    },
+    "translation": "Một project manager xác định rằng dự án sẽ trễ deadline ba tuần. Sponsor khẳng định deadline không thể thay đổi. TWO kỹ thuật nén tiến độ (schedule compression) nào mà project manager nên đánh giá?\n\nA. Re-baseline dự án để hiển thị ngày bàn giao mới\nB. Fast track bằng cách chồng lấn các hoạt động tuần tự khi rủi ro ở mức chấp nhận được\nC. Crash tiến độ bằng cách bổ sung nguồn lực vào các hoạt động trên critical path\nD. Loại bỏ các điểm kiểm soát chất lượng để tiết kiệm thời gian\nE. Giảm tần suất giao tiếp với stakeholder để giải phóng thời gian cho PM\n\nĐáp án: **B và C**",
+    "generatedAt": "2026-05-28T04:12:25.792Z"
+  },
+  "41": {
+    "sampleIndex": 41,
+    "tag": "🔢 Multiple Response · People · Leadership",
+    "analysis": {
+      "response_type": "multiple",
+      "correct_count": 2,
+      "correct_answer": "B, C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "answer_verdict": {
+        "A": {
+          "correct": false,
+          "explanation": "Command-and-control contradicts Agile principles of self-organization and undermines team autonomy that PMI expects leaders to foster."
+        },
+        "B": {
+          "correct": true,
+          "explanation": "Servant leadership is the PMI-endorsed approach for Agile teams—removing impediments instead of micromanaging aligns with facilitative leadership."
+        },
+        "C": {
+          "correct": true,
+          "explanation": "Empowering self-organizing teams within boundaries and using retrospectives for continuous improvement directly reflects PMI's Agile mindset."
+        },
+        "D": {
+          "correct": false,
+          "explanation": "Complete disengagement abandons the PM's accountability for project success—PMI expects facilitation, not abdication of responsibility."
+        },
+        "E": {
+          "correct": false,
+          "explanation": "Treating legitimate feedback as insubordination violates PMI's values of collaboration, psychological safety, and open communication."
+        }
+      },
+      "anatomy": {
+        "role_anchor": "Project Manager trong Agile team—vai trò chuyển từ director sang facilitator/servant leader",
+        "situation": "PM micromanage technical decisions và task assignments cho experienced self-organizing team → team phản hồi",
+        "trigger_word": "TWO",
+        "trigger_meaning": "Yêu cầu chọn 2 đáp án đúng—test khả năng nhận diện multiple correct actions trong leadership transition",
+        "hidden_test": "PMI không test 'ai đúng ai sai'—PMI test hiểu vai trò PM trong Agile và cách transition từ command-control sang servant leadership"
+      },
+      "mindset": {
+        "vn_thinking": "PM phải chịu trách nhiệm → phải kiểm soát mọi quyết định kỹ thuật để đảm bảo chất lượng → tiếp tục style hiện tại hoặc report HR",
+        "vn_reason": "Văn hóa top-down, sợ mất kiểm soát, coi phản hồi là thách thức quyền lực thay vì cơ hội cải thiện",
+        "pmi_thinking": "Self-organizing team không cần direction—cần facilitation. PM shift sang servant leader, remove impediments, empower trong boundaries rõ ràng",
+        "pmi_reason": "PMI Agile principles: tối đa hóa autonomy của experienced team, PM tạo environment cho team thành công thay vì direct công việc"
+      },
+      "core_rule": "Agile PM phục vụ team, không chỉ huy team",
+      "trap": {
+        "category": "Mindset Trap",
+        "name": "Command-Control Reflex",
+        "why_feels_right": "A/E cảm giác bảo vệ authority và project control—phản xạ tự nhiên khi bị thách thức",
+        "domain": "People",
+        "approach": "Agile"
+      }
+    },
+    "translation": "Một project manager đang lãnh đạo một Agile team tự tổ chức có kinh nghiệm cao. Một số thành viên trong team đã nêu lên mối lo ngại rằng project manager quá can thiệp vào các quyết định kỹ thuật và phân công công việc hàng ngày. project manager nên thực hiện HAI hành động nào?\n\nA. Tiếp tục phong cách quản lý hiện tại vì nó đảm bảo kiểm soát dự án\nB. Chuyển sang cách tiếp cận servant leadership (lãnh đạo phục vụ), tập trung vào việc loại bỏ các trở ngại thay vì chỉ đạo công việc\nC. Trao quyền (Empower) cho team đưa ra các quyết định kỹ thuật trong các ranh giới đã thỏa thuận và retrospect (xem xét lại) các kết quả\nD. Ủy quyền tất cả trách nhiệm dự án cho team và rút lui khỏi dự án\nE. Báo cáo khiếu nại của các thành viên team lên HR như hành vi không tuân thủ",
+    "generatedAt": "2026-05-28T04:12:52.917Z"
+  }
+}

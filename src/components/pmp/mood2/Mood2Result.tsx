@@ -103,12 +103,33 @@ export default function Mood2Result({
 
   const signalSegments = displaySignal.split(' → ').filter(Boolean)
 
+  const translateButtonClassName =
+    'inline-flex min-h-[32px] items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3 py-1.5 font-body text-[12px] font-semibold text-[#374151] transition-colors hover:bg-[#F9FAFB] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9CA3AF]/30 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
+
   return (
-    <section className="mx-auto max-w-[640px] px-4 py-6 md:px-6">
+    <section className="mx-auto max-w-[640px] px-4 py-6 pb-16 md:px-6">
       <div className="mb-4 flex items-center justify-between gap-3">
         <div className="rounded-md bg-pmp-surface px-3 py-1 font-body text-body-sm font-bold text-pmp-accent">
           🔍 Mood 2
         </div>
+        <button
+          type="button"
+          onClick={() => void handleTranslateToggle()}
+          disabled={isTranslating}
+          className={translateButtonClassName}
+          aria-busy={isTranslating}
+        >
+          {isTranslating ? (
+            <>
+              <Spinner />
+              Đang dịch...
+            </>
+          ) : isTranslated ? (
+            '🇬🇧 EN'
+          ) : (
+            '🇻🇳 VI'
+          )}
+        </button>
         <Button variant="ghost" size="sm" onClick={onReset}>
           ← Câu mới
         </Button>
@@ -251,22 +272,6 @@ export default function Mood2Result({
         <p className="font-body text-body-sm text-slate-text">{displayTip}</p>
       </div>
 
-      <button
-        type="button"
-        onClick={() => void handleTranslateToggle()}
-        className="fixed bottom-6 left-4 z-30 flex min-h-touch min-w-touch items-center gap-2 rounded-md border border-soft-gray bg-white-canvas px-4 py-2 font-body text-body-sm font-semibold text-midnight-ink shadow-modal transition-colors hover:bg-amber-glow"
-      >
-        {isTranslating ? (
-          <>
-            <Spinner />
-            Đang dịch...
-          </>
-        ) : isTranslated ? (
-          '🇬🇧 EN'
-        ) : (
-          '🇻🇳 VI'
-        )}
-      </button>
     </section>
   )
 }

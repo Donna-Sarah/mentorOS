@@ -52,7 +52,7 @@ export default function AnalyzingScreen({ mood }: AnalyzingScreenProps) {
   }, [])
 
   return (
-    <section className="mx-auto flex min-h-[400px] max-w-[640px] flex-col items-center justify-center px-4 py-12 md:px-6">
+    <section className="mx-auto flex min-h-[calc(100vh-180px)] max-w-[640px] flex-col items-center justify-center px-4 py-12 md:px-6">
       <div className="mb-8 flex h-16 w-16 animate-pulse items-center justify-center rounded-full bg-pmp-surface">
         <span className="text-3xl" aria-hidden>
           {icon}

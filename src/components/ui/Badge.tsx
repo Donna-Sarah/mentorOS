@@ -7,8 +7,8 @@ interface BadgeProps {
 }
 
 const variantStyles = {
-  default: 'bg-soft-gray text-midnight-ink',
-  product: 'bg-obsidian text-white-canvas',
+  default: 'bg-[#F3F4F6] text-[#6B7280]',
+  product: 'bg-[#111111] text-white',
   warning: 'bg-amber-glow text-sunset-orange',
 } as const
 
@@ -20,7 +20,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-sm px-2 py-0.5 text-caption font-body font-bold uppercase tracking-wide',
+        'inline-flex items-center rounded-sm px-2 py-0.5 font-body text-[11px] font-semibold uppercase tracking-wide',
         variantStyles[variant],
         className,
       )}

@@ -1,12 +1,12 @@
 'use client'
 
-import { useCallback, useState } from 'react'
-import type { Mood1Result, Mood2Result, PMPMood, PMPQuestion } from '@/types/pmp'
+import { useCallback, useEffect, useState } from 'react'
+import type { Mood1Result, Mood2Result, PMPMood, PMPQuestion, SampleAnswersCache } from '@/types/pmp'
 import { AnswerPicker, InputScreen, MoodSelectScreen } from '@/components/pmp'
 import GlossaryPanel from './GlossaryPanel'
 import EVMCalculator from './EVMCalculator'
 import PMPHeader from './PMPHeader'
-import { ResultScreen } from './result'
+import { LessonScreen } from './result'
 import { Mood2Picker, Mood2Result as Mood2ResultScreen } from './mood2'
 import AnalyzingScreen from './AnalyzingScreen'
 
@@ -25,6 +25,18 @@ export default function PMPClient() {
   const [showGlossary, setShowGlossary] = useState(false)
   const [glossaryScrollTo, setGlossaryScrollTo] = useState<number | null>(null)
   const [showEVM, setShowEVM] = useState(false)
+  const [sampleCache, setSampleCache] = useState<SampleAnswersCache | null>(null)
+  const [cachedTranslation, setCachedTranslation] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetch('/data/sample-answers.json')
+      .then((r) => r.json())
+      .then((data: SampleAnswersCache) => setSampleCache(data))
+      .catch(() => {
+        // Cache not available — will fall back to API
+        console.log('Sample cache not available, using live API')
+      })
+  }, [])
 
   const handleOpenGlossary = useCallback((index?: number) => {
     setGlossaryScrollTo(index ?? null)
@@ -41,11 +53,59 @@ export default function PMPClient() {
     setUserAnswers([])
     setElapsedSeconds(0)
     setIsAnalyzing(false)
+    setCachedTranslation(null)
   }, [])
+
+  const handleConfirm = useCallback((q: PMPQuestion) => {
+    setQuestion(q)
+    setSelectedMood(null)
+    setMood1Result(null)
+    setMood2Result(null)
+    setMood2SelectedOption(null)
+    setUserAnswers([])
+    setElapsedSeconds(0)
+    setCachedTranslation(null)
+    setPhase('mood_select')
+  }, [])
+
+  const handleConfirmWithMood = useCallback(
+    (q: PMPQuestion, mood: PMPMood) => {
+      setQuestion(q)
+      setSelectedMood(mood)
+      setMood1Result(null)
+      setMood2Result(null)
+      setMood2SelectedOption(null)
+      setUserAnswers([])
+      setElapsedSeconds(0)
+      setCachedTranslation(null)
+
+      if (q.source === 'sample' && q.sampleId !== undefined && sampleCache) {
+        const cached = sampleCache[String(q.sampleId)]
+        if (cached) setCachedTranslation(cached.translation)
+      }
+
+      setPhase('answer')
+    },
+    [sampleCache],
+  )
 
   async function handleAnswerSubmit(answers: string[], seconds: number) {
     setIsAnalyzing(true)
+    setUserAnswers(answers)
     setElapsedSeconds(seconds)
+
+    // Check cache first (Mood 1 samples only)
+    if (question?.source === 'sample' && question.sampleId !== undefined && sampleCache) {
+      const cached = sampleCache[String(question.sampleId)]
+      if (cached) {
+        console.log('Using cached answer for sample', question.sampleId)
+        setMood1Result(cached.analysis)
+        setCachedTranslation(cached.translation)
+        setPhase('result')
+        setIsAnalyzing(false)
+        return
+      }
+    }
 
     try {
       const res = await fetch('/api/pmp/analyze', {
@@ -65,7 +125,6 @@ export default function PMPClient() {
       const json = (await res.json()) as { data: Mood1Result | null; error: string | null }
       if (json.error || !json.data) throw new Error(json.error ?? 'No data')
 
-      setUserAnswers(answers)
       setMood1Result(json.data)
       setPhase('result')
     } catch {
@@ -80,18 +139,12 @@ export default function PMPClient() {
       return <AnalyzingScreen mood={selectedMood} />
     }
 
-    if (phase === 'input') {
+    if (phase === 'input' || (phase === 'mood_select' && !question)) {
       return (
         <InputScreen
-          onConfirm={(q) => {
-            setQuestion(q)
-            setSelectedMood(null)
-            setMood1Result(null)
-            setMood2Result(null)
-            setMood2SelectedOption(null)
-            setUserAnswers([])
-            setPhase('mood_select')
-          }}
+          onConfirm={handleConfirm}
+          onConfirmWithMood={handleConfirmWithMood}
+          onOpenGlossary={() => handleOpenGlossary()}
         />
       )
     }
@@ -99,9 +152,6 @@ export default function PMPClient() {
     if (phase === 'mood_select' && question) {
       return (
         <MoodSelectScreen
-          question={question}
-          onBack={resetToInput}
-          onOpenGlossary={handleOpenGlossary}
           onSelect={(mood) => {
             setSelectedMood(mood)
             setMood1Result(null)
@@ -110,6 +160,12 @@ export default function PMPClient() {
             setUserAnswers([])
             setElapsedSeconds(0)
             setPhase('answer')
+          }}
+          onBack={() => {
+            setPhase('input')
+            setQuestion(null)
+            setSelectedMood(null)
+            setCachedTranslation(null)
           }}
         />
       )
@@ -140,6 +196,8 @@ export default function PMPClient() {
         <AnswerPicker
           question={question}
           mood="mood1"
+          cachedTranslation={cachedTranslation}
+          onReset={resetToInput}
           onBack={() => {
             setPhase('mood_select')
             setUserAnswers([])
@@ -165,13 +223,19 @@ export default function PMPClient() {
 
     if (phase === 'result' && mood1Result && question && selectedMood === 'mood1') {
       return (
-        <ResultScreen
+        <LessonScreen
           question={question}
           result={mood1Result}
           userAnswers={userAnswers}
           elapsedSeconds={elapsedSeconds}
           onReset={resetToInput}
-          onOpenGlossary={handleOpenGlossary}
+          onBack={() => {
+            setPhase('mood_select')
+            setMood1Result(null)
+            setUserAnswers([])
+            setCachedTranslation(null)
+          }}
+          cachedTranslation={cachedTranslation}
         />
       )
     }
@@ -192,10 +256,12 @@ export default function PMPClient() {
 
   return (
     <>
-      <PMPHeader
-        onOpenGlossary={() => handleOpenGlossary()}
-        onOpenEVM={() => setShowEVM(true)}
-      />
+      {phase !== 'input' && (
+        <PMPHeader
+          onOpenGlossary={() => handleOpenGlossary()}
+          onOpenEVM={() => setShowEVM(true)}
+        />
+      )}
 
       {renderPhase()}
 

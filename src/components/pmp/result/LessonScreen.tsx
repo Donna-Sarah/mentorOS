@@ -1,0 +1,704 @@
+'use client'
+
+import { useEffect, useMemo, useRef, useState } from 'react'
+import type { AnswerVerdict, Mood1Result, PMPQuestion } from '@/types/pmp'
+import { cn } from '@/lib/utils/cn'
+import HighlightedText from '@/components/pmp/shared/HighlightedText'
+
+interface LessonScreenProps {
+  question: PMPQuestion
+  result: Mood1Result
+  userAnswers: string[]
+  elapsedSeconds: number
+  onReset: () => void
+  onBack: () => void
+  cachedTranslation?: string | null
+}
+
+interface CollapsibleSectionProps {
+  title: string
+  isExpanded: boolean
+  onToggle: () => void
+  accent?: string
+  highlight?: boolean
+  children: React.ReactNode
+}
+
+function CollapsibleSection({
+  title,
+  isExpanded,
+  onToggle,
+  accent,
+  highlight,
+  children,
+}: CollapsibleSectionProps) {
+  return (
+    <div
+      className={cn(
+        'lesson-section',
+        'mb-4 overflow-hidden rounded-md border border-[#F3F4F6] print:border-[#E5E7EB]',
+        // Avoid Tailwind v4 color-mix(in oklab, ...) output (html2canvas can't parse it)
+        highlight && isExpanded ? 'bg-[rgba(255,246,236,0.3)]' : 'bg-white',
+      )}
+    >
+      <button
+        type="button"
+        onClick={onToggle}
+        className="flex w-full items-center justify-between px-5 py-4 text-left transition-colors hover:bg-[#F9FAFB] print:pointer-events-none print:cursor-default"
+      >
+        <div className="flex items-center gap-3">
+          {accent ? (
+            <span className="h-5 w-1 rounded-full" style={{ backgroundColor: accent }} aria-hidden />
+          ) : null}
+          <span className="font-body text-[14px] font-semibold text-[#111111]">{title}</span>
+        </div>
+        <div className="print:hidden" aria-hidden>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            className={cn('transition-transform duration-200', isExpanded ? 'rotate-180' : '')}
+          >
+            <path
+              d="M4 6l4 4 4-4"
+              stroke="#2563EB"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+      </button>
+
+      <div
+        className={cn(
+          'px-5 pb-5 pt-1',
+          isExpanded ? 'block' : 'hidden print:block',
+          'print:px-4 print:pb-4 print:pt-1',
+        )}
+      >
+        {children}
+      </div>
+    </div>
+  )
+}
+
+function formatMmSs(totalSeconds: number) {
+  const m = Math.floor(totalSeconds / 60)
+  const s = totalSeconds % 60
+  return `${m}:${s.toString().padStart(2, '0')}`
+}
+
+const headerButtonClassName =
+  'inline-flex min-h-[32px] items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3 py-1.5 font-body text-[12px] font-semibold text-[#374151] transition-colors hover:bg-[#F9FAFB]'
+
+function RefreshIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+      <path
+        d="M1 7a6 6 0 1 0 1.5-3.9M1 3v3.5h3.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function getTimerState(seconds: number, benchmark: number): { color: string; message: string } {
+  const greenEnd = benchmark * 0.52
+  const amberEnd = benchmark
+  const orangeEnd = benchmark * 1.56
+
+  if (seconds <= greenEnd) return { color: '#10B981', message: 'Trong thời gian lý tưởng' }
+  if (seconds <= amberEnd) return { color: '#F59E0B', message: 'Sắp hết thời gian khuyến nghị' }
+  if (seconds <= orangeEnd) return { color: '#F97316', message: 'Đã vượt thời gian khuyến nghị' }
+  return { color: '#EF4444', message: 'Đang mất rất nhiều thời gian' }
+}
+
+export default function LessonScreen({
+  question,
+  result,
+  userAnswers,
+  elapsedSeconds,
+  onReset,
+  onBack,
+  cachedTranslation = null,
+}: LessonScreenProps) {
+  const [displayText, setDisplayText] = useState(question.text)
+  const [isTranslated, setIsTranslated] = useState(false)
+  const [translateCache, setTranslateCache] = useState<string | null>(null)
+  const [isTranslating, setIsTranslating] = useState(false)
+  const [isExporting, setIsExporting] = useState(false)
+  const [exportError, setExportError] = useState<string | null>(null)
+  const [showReportModal, setShowReportModal] = useState(false)
+  const [reportType, setReportType] = useState<string>('')
+  const [reportSubmitted, setReportSubmitted] = useState(false)
+  const [expanded, setExpanded] = useState({
+    verdict: true,
+    anatomy: false,
+    mindset: false,
+    core_rule: true,
+    trap: false,
+  })
+  const lessonRef = useRef<HTMLDivElement>(null)
+  const html2pdfRef = useRef<null | (() => { set: (opt: unknown) => { from: (el: HTMLElement) => { save: () => Promise<void> } } })>(null)
+  const isPreloadingRef = useRef(false)
+  const reportTimerRef = useRef<number | null>(null)
+
+  useEffect(() => {
+    if (html2pdfRef.current || isPreloadingRef.current) return
+    isPreloadingRef.current = true
+    void import('html2pdf.js')
+      .then((m) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        html2pdfRef.current = (m as unknown as { default?: unknown }).default as typeof html2pdfRef.current
+      })
+      .catch((err) => {
+        console.error('Failed to preload html2pdf.js', err)
+      })
+  }, [])
+
+  const toggle = (key: keyof typeof expanded) =>
+    setExpanded((prev) => ({ ...prev, [key]: !prev[key] }))
+
+  const isCorrect = useMemo(() => {
+    const a = [...userAnswers].sort().join(',')
+    const b = [...result.correct_answers].sort().join(',')
+    return a === b
+  }, [result.correct_answers, userAnswers])
+
+  async function handleTranslate() {
+    if (isTranslating) return
+
+    if (isTranslated) {
+      setIsTranslated(false)
+      setDisplayText(question.text)
+      return
+    }
+
+    // Use cached translation if available (precomputed sample cache)
+    if (cachedTranslation) {
+      setDisplayText(cachedTranslation)
+      setTranslateCache(cachedTranslation)
+      setIsTranslated(true)
+      return
+    }
+
+    if (translateCache) {
+      setIsTranslated(true)
+      setDisplayText(translateCache)
+      return
+    }
+
+    setIsTranslating(true)
+    try {
+      const res = await fetch('/api/pmp/translate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: question.text, mode: 'mood1' }),
+      })
+      const json = (await res.json()) as { data: string | null; error: string | null }
+      if (json.error || !json.data) {
+        console.error(json.error ?? 'Translation failed')
+        return
+      }
+      setTranslateCache(json.data)
+      setIsTranslated(true)
+      setDisplayText(json.data)
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setIsTranslating(false)
+    }
+  }
+
+  async function handleExportPDF() {
+    if (!lessonRef.current || isExporting) return
+    setIsExporting(true)
+    setExportError(null)
+
+    setExpanded({
+      verdict: true,
+      anatomy: true,
+      mindset: true,
+      core_rule: true,
+      trap: true,
+    })
+
+    try {
+      // Wait 1 frame for expanded DOM to render (keeps download closer to the click gesture)
+      await new Promise((resolve) => requestAnimationFrame(() => resolve(null)))
+
+      const html2pdf = html2pdfRef.current
+      if (!html2pdf) {
+        setExportError('PDF exporter chưa sẵn sàng. Thử bấm lại sau 1 giây.')
+        return
+      }
+
+      const questionPreview = question.text
+        .slice(0, 60)
+        .replace(/[^a-zA-Z0-9]/g, '_')
+        .replace(/_+/g, '_')
+        .replace(/^_+|_+$/g, '')
+      const filename = `PMP_Lesson_${questionPreview}.pdf`
+
+      await html2pdf()
+        .set({
+          margin: [12, 14, 12, 14],
+          filename,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: {
+            scale: 1.5,
+            useCORS: true,
+            letterRendering: true,
+            windowWidth: 800,
+          },
+          jsPDF: {
+            unit: 'mm',
+            format: 'a4',
+            orientation: 'portrait',
+            compress: true,
+          },
+          // html2pdf.js supports `pagebreak`, but the DefinitelyTyped options type
+          // doesn't include it. Keep runtime behavior while satisfying TS.
+          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
+        } as unknown as Record<string, unknown>)
+        .from(lessonRef.current)
+        .save()
+    } catch (err) {
+      console.error('PDF export failed:', err)
+      setExportError('Xuất PDF thất bại. Mở Console để xem chi tiết lỗi.')
+    } finally {
+      setIsExporting(false)
+    }
+  }
+
+  async function handleReport() {
+    // TODO: Send to Supabase pmp_reports table when ready
+    console.log('Report submitted:', {
+      questionTag: question.tag,
+      questionText: question.text.slice(0, 100),
+      reportType,
+      timestamp: new Date().toISOString(),
+      sampleId: question.sampleId,
+      source: question.source,
+    })
+    setReportSubmitted(true)
+
+    if (reportTimerRef.current) {
+      window.clearTimeout(reportTimerRef.current)
+    }
+    reportTimerRef.current = window.setTimeout(() => {
+      setShowReportModal(false)
+      setReportSubmitted(false)
+      setReportType('')
+      reportTimerRef.current = null
+    }, 2500)
+  }
+
+  const verdictAccent = isCorrect ? '#10B981' : '#EF4444'
+  const benchmarkSeconds = 25
+  const timerState = getTimerState(elapsedSeconds, benchmarkSeconds)
+  const fillPercent = Math.min((elapsedSeconds / (benchmarkSeconds * 1.56)) * 100, 100)
+
+  return (
+    <section className="mx-auto max-w-[680px] px-4 py-8 pb-24 md:px-6">
+      <div className="mb-6 flex items-center justify-between print:hidden">
+        <div className="flex items-center gap-2">
+          <button type="button" onClick={onReset} className={headerButtonClassName}>
+            <RefreshIcon />
+            Câu hỏi mới
+          </button>
+          <button type="button" onClick={onBack} className={headerButtonClassName}>
+            Đổi mood
+          </button>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => void handleExportPDF()}
+            disabled={isExporting}
+            className={cn(headerButtonClassName, 'disabled:opacity-60')}
+          >
+            {isExporting ? 'Đang xuất...' : '📄 Xuất PDF'}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setShowReportModal(true)
+              setReportSubmitted(false)
+              setReportType('')
+              setExportError(null)
+            }}
+            className={headerButtonClassName}
+          >
+            🚩 Báo cáo
+          </button>
+          <span className="rounded-md bg-pmp-surface px-3 py-1.5 font-body text-[12px] font-bold text-pmp-accent">
+            🧠 Mood 1
+          </span>
+        </div>
+      </div>
+
+      {exportError ? (
+        <div className="mb-4 rounded-md border border-error/20 bg-error/10 px-4 py-3 print:hidden">
+          <p className="font-body text-[13px] text-error">{exportError}</p>
+        </div>
+      ) : null}
+
+      {showReportModal ? (
+        <>
+          <div
+            className="fixed inset-0 z-modal bg-obsidian/40"
+            onClick={() => setShowReportModal(false)}
+            aria-hidden
+          />
+          <div
+            className="fixed left-1/2 top-1/2 z-modal w-[calc(100%-32px)] max-w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white p-6 shadow-modal"
+            role="dialog"
+            aria-modal="true"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {reportSubmitted ? (
+              <div className="py-4 text-center">
+                <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#F0FDF4] font-bold text-[#10B981]">
+                  ✓
+                </div>
+                <div className="mb-1 font-body text-[14px] font-semibold text-[#111111]">Cảm ơn bạn!</div>
+                <div className="font-body text-[13px] text-[#6B7280]">
+                  Phản hồi của bạn giúp chúng tôi cải thiện PMP Thinking Coach.
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <div className="font-body text-[15px] font-semibold text-[#111111]">
+                    Báo cáo nội dung không chính xác
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowReportModal(false)}
+                    className="flex h-8 w-8 items-center justify-center text-[#9CA3AF] transition-colors hover:text-[#111111]"
+                    aria-label="Đóng"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                      <path
+                        d="M3 3L13 13M13 3L3 13"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                <p className="mb-4 font-body text-[13px] leading-[1.65] text-[#6B7280]">
+                  Cảm ơn bạn đã phản hồi. Vui lòng chọn loại lỗi:
+                </p>
+
+                <div className="space-y-2">
+                  {[
+                    { value: 'wrong_answer', label: 'Đáp án đúng/sai không chính xác' },
+                    { value: 'wrong_analysis', label: 'Phân tích/giải thích sai' },
+                    { value: 'wrong_trap', label: 'Trap hoặc Core Rule không phù hợp' },
+                    { value: 'other', label: 'Vấn đề khác' },
+                  ].map((opt) => (
+                    <label
+                      key={opt.value}
+                      className="flex cursor-pointer items-center gap-3 rounded-md border border-[#F3F4F6] p-3 transition-colors hover:border-[#E5E7EB] hover:bg-[#FAFAFA] has-[:checked]:border-[#7C3AED] has-[:checked]:bg-[#F5F3FF]"
+                    >
+                      <input
+                        type="radio"
+                        name="report"
+                        value={opt.value}
+                        checked={reportType === opt.value}
+                        onChange={(e) => setReportType(e.target.value)}
+                        className="accent-pmp-accent"
+                      />
+                      <span className="font-body text-[13px] text-[#374151]">{opt.label}</span>
+                    </label>
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  disabled={!reportType}
+                  onClick={() => void handleReport()}
+                  className="mt-4 w-full rounded-md bg-[#111111] py-2.5 font-body text-[13px] font-semibold text-white transition-colors hover:bg-[#333333] disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  Gửi phản hồi
+                </button>
+              </>
+            )}
+          </div>
+        </>
+      ) : null}
+
+      <div ref={lessonRef} className="lesson-content">
+        <div className="mb-6 rounded-md border border-[#F3F4F6] bg-[#FAFAFA] p-5 print:border-[#E5E7EB] print:bg-white">
+          <div className="mb-3 flex items-start justify-between gap-3">
+            <div>
+              {question.tag ? (
+                <div className="font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
+                  {question.tag}
+                </div>
+              ) : null}
+            </div>
+            <button
+              type="button"
+              onClick={() => void handleTranslate()}
+              disabled={isTranslating}
+              className={cn(
+                'inline-flex min-h-[30px] shrink-0 items-center gap-1.5 rounded-md px-3 py-1.5 font-body text-[12px] font-semibold transition-all duration-150 disabled:opacity-60',
+                isTranslated
+                  ? 'border-2 border-[#7C3AED] bg-[#F5F3FF] text-[#7C3AED]'
+                  : 'border-2 border-[#E5E7EB] bg-white text-[#374151] hover:border-[#7C3AED] hover:text-[#7C3AED]',
+              )}
+            >
+              {isTranslating ? '...' : isTranslated ? '🇬🇧 EN' : '🇻🇳 VI'}
+            </button>
+          </div>
+
+          <HighlightedText
+            text={displayText}
+            onTermClick={() => {}}
+            className="font-body text-[15px] leading-[1.7] text-[#111111]"
+          />
+
+          <div className="mt-3 flex w-full items-center gap-3">
+            <span
+              className="font-body text-[12px] font-bold tabular-nums"
+              style={{ color: timerState.color }}
+            >
+              ⏱ {formatMmSs(elapsedSeconds)}
+            </span>
+            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#E5E7EB]">
+              <div
+                className="h-full rounded-full transition-all duration-1000"
+                style={{ width: `${fillPercent}%`, backgroundColor: timerState.color }}
+              />
+            </div>
+            <span className="hidden font-body text-[11px] text-[#9CA3AF] md:block">{timerState.message}</span>
+          </div>
+        </div>
+
+        <CollapsibleSection
+          title="Kết quả"
+          isExpanded={expanded.verdict}
+          onToggle={() => toggle('verdict')}
+          accent={verdictAccent}
+        >
+          <div
+            className={cn(
+              'mb-4 flex items-center gap-3 rounded-md p-4',
+              isCorrect ? 'bg-[#F0FDF4] text-[#166534]' : 'bg-[#FEF2F2] text-[#991B1B]',
+            )}
+          >
+            <div
+              className={cn(
+                'flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white',
+                isCorrect ? 'bg-[#10B981]' : 'bg-[#EF4444]',
+              )}
+            >
+              {isCorrect ? '✓' : '✗'}
+            </div>
+            <p className="font-body text-[15px] font-semibold">
+              {isCorrect
+                ? `Chính xác! Đáp án đúng là ${result.correct_answers.join(', ')}`
+                : `Chưa đúng. Đáp án đúng là ${result.correct_answers.join(', ')}`}
+            </p>
+          </div>
+
+          <div className="mt-2 space-y-2">
+            {(Object.entries(result.answer_verdict) as Array<[string, AnswerVerdict]>).map(([key, item]) => {
+              const isAnswerCorrect = result.correct_answers.includes(key)
+              const userPicked = userAnswers.includes(key)
+
+              const rowClass = isAnswerCorrect
+                ? 'bg-[#F0FDF4] border border-[#BBF7D0]'
+                : userPicked
+                  ? 'bg-[#FEF2F2] border border-[#FECACA]'
+                  : 'bg-white border border-[#F3F4F6]'
+
+              const circleClass = isAnswerCorrect
+                ? 'bg-[#10B981] text-white'
+                : userPicked
+                  ? 'bg-[#EF4444] text-white'
+                  : 'bg-[#F3F4F6] text-[#6B7280]'
+
+              return (
+                <div key={key} className={cn('flex items-start gap-3 rounded-md p-3', rowClass)}>
+                  <div
+                    className={cn(
+                      'flex h-7 w-7 shrink-0 items-center justify-center rounded-full font-body text-[13px] font-bold',
+                      circleClass,
+                    )}
+                  >
+                    {key}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-body text-[12px] font-semibold text-[#374151]">
+                        {isAnswerCorrect ? 'ĐÚNG' : userPicked ? 'SAI' : 'KHÁC'}
+                      </span>
+                      {userPicked ? (
+                        <span className="inline-flex items-center rounded-sm bg-[#F3F4F6] px-2 py-0.5 font-body text-[11px] font-semibold uppercase tracking-wide text-[#6B7280]">
+                          BẠN CHỌN
+                        </span>
+                      ) : null}
+                    </div>
+                    <div className="mt-1 font-body text-[13px] leading-[1.65] text-[#374151]">
+                      <HighlightedText text={item.explanation} onTermClick={() => {}} />
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </CollapsibleSection>
+
+        <CollapsibleSection
+          title="Giải phẫu câu hỏi"
+          isExpanded={expanded.anatomy}
+          onToggle={() => toggle('anatomy')}
+          accent="#EE5A29"
+        >
+          <div className="space-y-4">
+            <div>
+              <div className="mb-1 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
+                VAI TRÒ
+              </div>
+              <div className="font-body text-[14px] leading-[1.65] text-[#374151]">{result.anatomy.role_anchor}</div>
+            </div>
+
+            <div>
+              <div className="mb-1 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
+                TÌNH HUỐNG CỐT LÕI
+              </div>
+              <div className="font-body text-[14px] leading-[1.65] text-[#374151]">{result.anatomy.situation}</div>
+            </div>
+
+            <div>
+              <div className="mb-1 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
+                TRIGGER WORD
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-sm bg-amber-glow px-2 py-0.5 font-display text-[14px] font-bold text-sunset-orange">
+                  {result.anatomy.trigger_word}
+                </span>
+                <span className="font-body text-[14px] text-[#374151]">{result.anatomy.trigger_meaning}</span>
+              </div>
+            </div>
+
+            <div className="rounded-r-md border-l-4 border-[#7C3AED] bg-[#F5F3FF] p-3">
+              <div className="mb-1 font-body text-[11px] font-bold uppercase tracking-widest text-[#7C3AED]">
+                PMI THỰC SỰ TEST GÌ
+              </div>
+              <div className="font-body text-[14px] font-semibold leading-[1.65] text-[#4C1D95]">
+                {result.anatomy.hidden_test}
+              </div>
+            </div>
+          </div>
+        </CollapsibleSection>
+
+        <CollapsibleSection
+          title="VN Reflex vs PMI Thinking"
+          isExpanded={expanded.mindset}
+          onToggle={() => toggle('mindset')}
+          accent="#EE5A29"
+        >
+          <div className="rounded-md border-l-4 border-[#EF4444] bg-[#FFF7F7] p-4">
+            <div className="mb-2 flex items-center gap-2">
+              <span aria-hidden>🇻🇳</span>
+              <span className="font-body text-[13px] font-semibold text-[#374151]">Phản xạ thực tế VN</span>
+            </div>
+            <div className="mb-1 font-body text-[14px] font-semibold leading-[1.65] text-[#111111]">
+              {result.mindset.vn_thinking}
+            </div>
+            <div className="font-body text-[13px] italic leading-[1.65] text-[#6B7280]">
+              {result.mindset.vn_reason}
+            </div>
+          </div>
+
+          <div className="mt-4 rounded-md border-l-4 border-[#10B981] bg-[#F0FDF4] p-4">
+            <div className="mb-2 flex items-center gap-2">
+              <span aria-hidden>🎯</span>
+              <span className="font-body text-[13px] font-semibold text-[#374151]">PMI Mindset</span>
+            </div>
+            <div className="mb-1 font-body text-[14px] font-semibold leading-[1.65] text-[#111111]">
+              {result.mindset.pmi_thinking}
+            </div>
+            <div className="font-body text-[13px] italic leading-[1.65] text-[#6B7280]">
+              {result.mindset.pmi_reason}
+            </div>
+          </div>
+        </CollapsibleSection>
+
+        <CollapsibleSection
+          title="Core Rule"
+          isExpanded={expanded.core_rule}
+          onToggle={() => toggle('core_rule')}
+          highlight
+          accent="#EE5A29"
+        >
+          <div className="core-rule-content relative py-4 text-center">
+            <div className="mb-3 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
+              CORE RULE
+            </div>
+            <div className="relative z-10 mx-auto max-w-[480px] font-display text-[26px] font-bold leading-[1.3] tracking-[-0.02em] text-[#111111] md:text-[32px] print:text-[22px]">
+              {result.core_rule}
+            </div>
+            <div className="relative z-0 mx-auto mt-6 w-fit rounded-md bg-amber-glow px-3 py-1.5 font-body text-[13px] text-[#374151]">
+              <span>Áp dụng khi gặp bẫy:</span>
+              <span className="font-semibold">{result.trap.name}</span>
+            </div>
+          </div>
+        </CollapsibleSection>
+
+        <CollapsibleSection
+          title="Trap Analysis"
+          isExpanded={expanded.trap}
+          onToggle={() => toggle('trap')}
+          accent="#EE5A29"
+        >
+          <div>
+            <div className="mb-1 font-display text-[18px] font-bold text-[#111111]">
+              {result.trap.name}
+              <span className="ml-2 inline-flex items-center rounded-sm bg-[#FEF3C7] px-2 py-0.5 font-body text-[11px] font-semibold text-[#92400E]">
+                {result.trap.category}
+              </span>
+            </div>
+
+            <div className="mt-4 mb-1 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
+              NGHE CÓ VẺ ĐÚNG VÌ...
+            </div>
+            <div className="font-body text-[14px] italic leading-[1.65] text-[#374151]">
+              {result.trap.why_feels_right}
+            </div>
+
+            <div className="mt-3 flex flex-wrap gap-2">
+              <span className="inline-flex items-center rounded-sm bg-[#F3F4F6] px-2 py-0.5 font-body text-[11px] font-semibold text-[#6B7280]">
+                {result.trap.domain}
+              </span>
+              <span className="inline-flex items-center rounded-sm bg-[#F3F4F6] px-2 py-0.5 font-body text-[11px] font-semibold text-[#6B7280]">
+                {result.trap.approach}
+              </span>
+              <span className="inline-flex items-center rounded-sm bg-[#F3F4F6] px-2 py-0.5 font-body text-[11px] font-semibold text-[#6B7280]">
+                {result.trap.category}
+              </span>
+            </div>
+
+            <div className="mt-4 rounded-md bg-[rgba(238,242,255,0.5)] p-3 font-body text-[13px] leading-[1.65] text-pmp-primary">
+              💡 Gặp lại bẫy này? Nhớ ngay Core Rule và dừng lại trước khi chọn.
+            </div>
+          </div>
+        </CollapsibleSection>
+      </div>
+    </section>
+  )
+}
+

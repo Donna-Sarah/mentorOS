@@ -9,6 +9,9 @@ interface TranslateToggleProps {
   setIsTranslated: (v: boolean) => void
 }
 
+const inlineButtonClassName =
+  'inline-flex min-h-[32px] items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3 py-1.5 font-body text-[12px] font-semibold text-[#374151] transition-colors hover:bg-[#F9FAFB] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9CA3AF]/30 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
+
 export default function TranslateToggle({
   questionText,
   onTranslated,
@@ -58,22 +61,23 @@ export default function TranslateToggle({
     <button
       type="button"
       onClick={() => void handleToggle()}
-      className="fixed bottom-6 left-4 z-30 flex min-h-touch min-w-touch items-center gap-2 rounded-md border border-soft-gray bg-white-canvas px-4 py-2 font-body text-body-sm font-semibold text-midnight-ink shadow-modal hover:bg-amber-glow transition-colors"
+      disabled={isLoading}
+      className={inlineButtonClassName}
+      aria-busy={isLoading}
     >
       {isLoading ? (
         <>
           <span
-            className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-soft-gray border-t-pmp-accent"
+            className="inline-block h-3.5 w-3.5 animate-spin rounded-full border-2 border-[#E5E7EB] border-t-pmp-accent"
             aria-hidden
           />
           Đang dịch...
         </>
       ) : isTranslated ? (
-        <>🇬🇧 EN</>
+        '🇬🇧 EN'
       ) : (
-        <>🇻🇳 VI</>
+        '🇻🇳 VI'
       )}
     </button>
   )
 }
-

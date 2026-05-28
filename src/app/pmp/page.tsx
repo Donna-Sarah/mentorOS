@@ -7,5 +7,9 @@ export const metadata: Metadata = {
 }
 
 export default function PMPPage() {
-  return <PMPClient />
+  return (
+    <div className="min-h-[calc(100vh-56px)] bg-amber-glow md:min-h-[calc(100vh-64px)]">
+      <PMPClient />
+    </div>
+  )
 }
