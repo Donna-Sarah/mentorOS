@@ -1,0 +1,329 @@
+---
+description: mentorOS Coda-inspired design system, mobile rules, PMP layout patterns
+alwaysApply: true
+---
+
+# mentorOS — Design System
+
+Source: coda.io design tokens + mentorOS brand layer.  
+Tokens live in `src/app/globals.css` (`@theme { ... }`).
+
+---
+
+## Design philosophy (Coda-inspired)
+
+The mentorOS shell follows Coda visual language:
+
+- Crisp white canvas with warm **amber-glow** sections for hero and footer
+- Strong **Montserrat 700** display headlines with tight negative letter-spacing
+- **Inter** for all body, navigation, and UI text
+- **Obsidian (#000000)** for primary CTAs — not blue
+- Monochrome base palette with product-specific color accents only on product elements
+- Generous spacing — Coda uses 113px between sections
+- Cards use subtle shadow, NOT heavy borders
+- Buttons are always **8px border-radius** (`rounded-md`) — never pill, never sharp (shell)
+
+---
+
+## Color rules
+
+### Shell and layout colors — use for all non-product UI
+
+| Token | Class | Hex |
+|-------|-------|-----|
+| Page background | `bg-white-canvas` | #ffffff |
+| Hero/footer warm | `bg-amber-glow` | #fff6ec |
+| Primary text | `text-midnight-ink` | #212121 |
+| Muted body | `text-slate-text` | #666666 |
+| Helper text | `text-ash-text` | #8e8e8e |
+| Subtle borders | `border-soft-gray` | #e0e0e0 |
+| Primary CTA bg | `bg-obsidian` | #000000 |
+| CTA text | `text-white-canvas` | #ffffff |
+| Secondary btn | `text-warm-gray` | #444444 |
+| Accent highlight | `text-sunset-orange` | #ee5a29 (sparingly) |
+
+### Product accent colors — ONLY on product cards and module UI
+
+**PMP Thinking Coach:**
+- Primary `#2563EB` → `text-pmp-primary`
+- Accent `#7C3AED` → `text-pmp-accent`
+- Surface `#EEF2FF` → `bg-pmp-surface`
+- Gradient → `bg-gradient-pmp` (135deg #2563EB → #7C3AED)
+
+**AskBetter:** `askbetter-primary`, `askbetter-accent`, `askbetter-surface`, `bg-gradient-askbetter`
+
+**NextUp:** `nextup`, `nextup-purple`, `nextup-surface`, `bg-gradient-nextup`
+
+**BidMentor:** `bidmentor`, `bidmentor-primary`, `bidmentor-surface`, `bg-gradient-bidmentor`
+
+### Do NOT
+
+- Use blue as primary CTA on shell — use `bg-obsidian`
+- Use product colors in navbar, footer, or page backgrounds (except product module interiors)
+- Hardcode hex in JSX when a token exists — prefer Tailwind classes
+- **Exception:** PDF/html2canvas export surfaces in PMP use explicit hex (`#FFFFFF`, `#2563EB`) to avoid `oklab` parse errors
+
+---
+
+## Typography rules
+
+| Role | Classes |
+|------|---------|
+| Display / hero | `font-display`, `text-display`, `text-heading-lg` |
+| Section headings | `text-heading`, `text-heading-sm` |
+| Body | `font-body`, `text-body`, `text-body-sm` |
+| Labels | `text-caption`, uppercase tracking |
+
+**Fonts:** Montserrat 700 (display), Inter 400/600/700 (body/UI), Playfair optional sparingly.
+
+Always apply letter-spacing from scale for display/heading sizes.
+
+**PMP product pages** often use explicit pixel sizes for marketing hero (e.g. InputScreen `text-[34px] md:text-[52px]`) — OK inside product module; shell pages use token scale.
+
+---
+
+## Spacing rules
+
+- Base unit: **4px** — use Tailwind multiples
+- Section vertical padding: `py-[113px]` desktop, `py-60` mobile
+- Card padding: `p-16` (shell); PMP inner cards often `p-5 md:p-6` or `px-6 md:px-8`
+- Page horizontal gutter: `.px-page` (clamp in `globals.css`)
+- Element gap: `gap-8`
+
+---
+
+## Border radius rules — STRICT (shell)
+
+| Element | Radius | Class |
+|---------|--------|-------|
+| Cards, buttons | 8px | `rounded-md` |
+| Icon containers | 44px | `rounded-pill` |
+| Badges | 4px | `rounded-sm` |
+| Full circle | — | `rounded-full` |
+
+NEVER `rounded-lg`, `rounded-xl`, `rounded-2xl` for shell cards/buttons.
+
+---
+
+## Shadow rules — custom tokens ONLY
+
+| Token | Use |
+|-------|-----|
+| `shadow-card` | Feature cards |
+| `shadow-modal` | Modals, overlays |
+| `shadow-drawer` | Mobile nav drawer |
+| `shadow-subtle` | Ghost btn focus ring |
+| `shadow-subtle-2` | Soft border card |
+| `shadow-block` | Decorative offset block (homepage) |
+
+NEVER Tailwind default `shadow-sm/md/lg/xl`.
+
+---
+
+## Button rules
+
+**Primary CTA (shell):** `bg-obsidian text-white-canvas font-semibold rounded-md` — hover opacity-90
+
+**Ghost secondary:** transparent + `border-midnight-ink`
+
+**Product CTA (inside product modules):** `Button variant="product" gradient="bg-gradient-pmp"`
+
+**PMP header actions:** compact ghost pills — `border-[#E5E7EB] bg-white text-[13px]` (see `AnswerPicker`, `LessonScreen`)
+
+---
+
+## Surface and section rules
+
+1. `bg-white-canvas` — default page background
+2. `bg-amber-glow` — hero, footer, accent blocks, **PMP page background**
+3. `bg-white-canvas shadow-card` — elevated cards
+
+Use amber-glow sparingly on marketing pages (max 2 sections). **PMP `/pmp` uses full-page `bg-amber-glow`** — intentional product immersion.
+
+---
+
+## Lesson page layout pattern
+
+**Reference:** `src/components/pmp/result/LessonScreen.tsx`
+
+Use for **long-form AI lesson output** (not tabbed summaries).
+
+### Structure
+
+1. **Outer page:** `max-w-[680px]`, `bg-[#FAFAFA]` page gutter
+2. **Document card** (`lessonRef`, class `lesson-content`):
+   - `bg-[#FFFFFF] rounded-md border border-[#F3F4F6]`
+   - `shadow-[0_1px_8px_rgba(0,0,0,0.06)]`
+   - `px-8 md:px-12 pt-2 pb-8` (print: `print:shadow-none print:border-none print:px-6`)
+3. **Question card** inside document: `bg-[#FAFAFA] rounded-md px-6 py-5 md:px-8` — subtle contrast
+4. **Collapsible sections** below — continuous book flow, NOT card-per-section
+
+### When to use vs tabs
+
+| Use lesson document | Use tabs |
+|---------------------|----------|
+| Sequential narrative (verdict → anatomy → core rule) | Independent equal-weight panels |
+| PDF export of full lesson | Quick scan only |
+| Mood 1 rich analysis | Simple 3-field results |
+
+### Collapsible section defaults (Mood 1)
+
+```typescript
+expanded: { verdict: true, anatomy: false, mindset: false, core_rule: true, trap: false }
+```
+
+PDF export expands all before capture.
+
+---
+
+## Sidebar layout pattern
+
+**Reference:** `PMPLayout.tsx`, `PMPSidebar.tsx`
+
+Use when a product module has **multiple tools/modes** (Mood 1, Mood 2, upload, glossary, calculators).
+
+| Property | Value |
+|----------|-------|
+| Breakpoint | `lg:` and above only |
+| Width expanded | `w-[220px]` |
+| Width collapsed | `w-[56px]` |
+| Sticky | `top-[56px] md:top-[64px]`, `h-[calc(100vh-56px)]` |
+| Background | `bg-white border-r border-[#F3F4F6]` |
+| Mobile | **Hidden** — use `PMPHeader` + hamburger navbar |
+
+Sidebar actions call `PMPClientHandle` via ref — do not duplicate flow state in sidebar.
+
+Active item state: `'mood1' | 'mood2' | 'upload' | 'glossary' | 'evm' | null`
+
+---
+
+## Hero landing within a product page
+
+**Reference:** `InputScreen.tsx`
+
+PMP landing is a **hero inside `/pmp`**, not the marketing homepage.
+
+- Full-width **amber-glow** background on module (`min-h-[calc(100vh-56px)]`)
+- Hero typography + dual CTAs (`Khám phá 2 chế độ học`, `Tải đề lên`)
+- Feature cards section (`featureCardsRef`) — scroll target for "Câu hỏi mới"
+- Unified input box below cards (`inputBoxRef`) — scroll target for upload
+- **Does not replace** shell navbar — navbar stays fixed above (`Navbar.tsx`)
+- On desktop: sidebar replaces `PMPHeader` (`lg:hidden` on header)
+
+---
+
+## Navbar scroll behavior
+
+**Reference:** `src/components/layout/Navbar.tsx`
+
+| Behavior | Implementation |
+|----------|----------------|
+| Scroll down | Hide: `-translate-y-full` |
+| Scroll up | Show: `translate-y-0` |
+| At top (`scrollY < 10`) | Always visible |
+| Transition | `transition-transform duration-300 ease-in-out` only |
+| Drawer open | Never hide (`isOpen` early return) |
+| PMP transparent top | `pathname === '/pmp' && !scrolled` → `bg-transparent` |
+| PMP scrolled | `bg-amber-glow border-[#E8D5BC]` |
+| Home | `bg-amber-glow` |
+
+Use `lastScrollY` ref (not state) to avoid re-renders on every scroll. Passive scroll listener.
+
+---
+
+## Collapsible section component pattern
+
+**Reference:** `CollapsibleSection` in `LessonScreen.tsx`
+
+```typescript
+interface CollapsibleSectionProps {
+  title: string
+  isExpanded: boolean
+  onToggle: () => void
+  accent?: string      // vertical bar color
+  isFirst?: boolean    // first section: no top border
+  children: React.ReactNode
+}
+```
+
+**Visual rules:**
+- NO card wrapper — only `border-t border-[#F3F4F6]` between sections
+- Header: `px-0 py-5`, accent bar `w-1 h-5`, title `text-[15px] font-semibold`
+- Content: `pb-8 pt-0` (no horizontal padding — document card provides it)
+- Collapsed: header + divider only; content `hidden print:block` for PDF
+- Chevron: `print:hidden`
+
+---
+
+## MOBILE-FIRST RULES — MANDATORY
+
+iOS Safari + Android Chrome. Both equal priority.
+
+### General mobile rules
+
+- Write mobile styles FIRST, then `md:` for desktop.
+- Test mentally at **375px** before writing layout.
+- Every section must look correct at 375px width.
+
+### Touch targets
+
+- Min **44px**: `min-h-touch`, `min-w-touch` (from `@theme`)
+- Never icon-only buttons under 44px tap area.
+
+### Typography on mobile
+
+- Mobile sizes default; desktop with `md:` prefix.
+- NEVER fixed `text-6xl` — use custom scale tokens.
+
+### Spacing on mobile
+
+- Horizontal: `px-page` / `px-16` mobile, `md:px-24`
+- Stack: `flex-col` → `md:flex-row`
+
+### Navbar — hamburger top-right
+
+- Heights: `h-navbar-mobile` (56px), `md:h-navbar-desktop` (64px)
+- Fixed, `z-navbar`, `pt-[env(safe-area-inset-top)]`
+- Right drawer: `min(320px, 85vw)`, overlay `z-overlay`, drawer `z-drawer`
+- Body `menu-open` class locks scroll when open
+- Desktop inline nav at `xl:` (see current `Navbar.tsx`)
+
+### iOS-specific
+
+- Input **16px minimum** — `style={{ fontSize: '16px' }}` on inputs/textareas
+- Use `min-h-screen` / `100dvh`, not raw `100vh`
+- Safe area: `env(safe-area-inset-*)`
+
+### Android-specific
+
+- `-webkit-font-smoothing: antialiased` globally
+- Avoid heavy `backdrop-filter`
+
+### Grid patterns
+
+- Product cards: `grid-cols-1` → `md:grid-cols-2`
+- PMP feature cards: horizontal scroll mobile → `md:grid-cols-3`
+
+### Scroll behavior
+
+- `scroll-container` on overflow-y-auto (iOS momentum)
+- `scroll-hidden` on horizontal lists
+- Never `overflow: hidden` on body unless menu open
+
+### Image handling
+
+- Prefer `next/image` with `sizes` prop
+- Blob previews (OMP OCR): `<img>` with eslint exception — see `InputScreen.tsx`
+
+### PWA
+
+- `public/manifest.json` exists
+- No service worker yet — TODO Phase 5
+
+### What NOT to do on mobile
+
+- No hover-only interactions
+- No fixed pixel container widths
+- No tiny close buttons
+- No heavy blur animations
+- No `100vh` — use `100dvh` / `min-h-screen`

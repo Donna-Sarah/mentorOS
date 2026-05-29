@@ -1,0 +1,193 @@
+---
+description: mentorOS static data, pre-computation, and Supabase conventions
+globs: public/data/**,scripts/**,src/types/**
+alwaysApply: false
+---
+
+# mentorOS — Data Rules
+
+---
+
+## Static JSON data files
+
+**Location:** `public/data/`
+
+Loaded at runtime via `fetch('/data/[file].json')` in `useEffect` (client) or server fetch (RSC).
+
+| File | Purpose | Typed by |
+|------|---------|----------|
+| `glossary.json` | PMI term pairs for highlight + glossary panel | `GlossaryEntry` |
+| `samples.json` | Demo PMP questions | `SampleQuestion` |
+| `sample-answers.json` | Pre-computed Mood 1 analysis + translation | `SampleAnswersCache` |
+
+### Glossary entry shape
+
+```typescript
+interface GlossaryEntry {
+  pair: [string, string]
+  diff: string
+  trap: string
+  detail: string   // two paragraphs separated by \n\n
+  example: string
+  id?: number
+}
+```
+
+**Counts (derived — never hardcode):**
+
+```typescript
+import { GLOSSARY_PAIR_COUNT, GLOSSARY_TERM_COUNT } from '@/components/pmp/shared/glossaryTerms'
+// 46 pairs · 92 terms (each pair = 2 searchable terms)
+```
+
+Display pattern: `"46 cặp · 92 thuật ngữ"` — pairs vs terms are different metrics.
+
+### Sample question shape
+
+```typescript
+interface SampleQuestion {
+  question: string
+  options: Record<string, string>
+  tag?: string
+}
+```
+
+### Sample answer cache entry
+
+```typescript
+interface SampleAnswerEntry {
+  sampleIndex: number
+  tag?: string
+  analysis: Mood1Result
+  translation: string
+  generatedAt: string
+}
+```
+
+Key in JSON file: `String(sampleIndex)`
+
+---
+
+## Pre-computation script pattern
+
+**Reference:** `scripts/generate-sample-answers.mjs`
+
+| Item | Convention |
+|------|------------|
+| Script path | `scripts/generate-[module]-answers.mjs` |
+| npm script | `npm run generate:answers` (see `package.json`) |
+| Input | `public/data/samples.json` |
+| Output | `public/data/sample-answers.json` |
+| Env | Reads `.env.local` for `ANTHROPIC_API_KEY` |
+| Model | Same as production Sonnet (not Opus) |
+| Idempotent | Saves after each item — safe to resume |
+
+**Use when content is:**
+1. Deterministic (fixed sample set)
+2. Called repeatedly (demo flow)
+3. Expensive at runtime (Mood 1 full analysis)
+
+**Do NOT pre-compute** user-pasted unique questions.
+
+---
+
+## PMP question source types
+
+```typescript
+type QuestionSource = 'sample' | 'uploaded' | 'manual'
+```
+
+| Source | When set |
+|--------|----------|
+| `sample` | Feature cards, sidebar mood start |
+| `manual` | Pasted text via `InputScreen` |
+| `uploaded` | Reserved — OCR/paste currently uses `manual` |
+
+Always pass `sampleId` index when `source === 'sample'` for cache lookup.
+
+---
+
+## Supabase schema conventions
+
+- Never import Supabase client directly in components — use hooks / server utils
+- Browser: `src/lib/supabase/client.ts`
+- Server: `src/lib/supabase/server.ts`
+- Never expose `SUPABASE_SERVICE_ROLE_KEY` to client
+- **RLS always enabled** — all tables
+- Column names: **snake_case**
+- DB types: `src/types/database.ts`
+
+### Table naming per product module
+
+Each product gets its own table prefix:
+
+| Module | Example tables |
+|--------|----------------|
+| PMP | `pmp_sessions`, `pmp_reports` (planned) |
+| AskBetter | `askbetter_sessions` |
+| NextUp | `nextup_tasks` |
+
+### Required columns on user-owned rows
+
+```sql
+id          uuid primary key default gen_random_uuid()
+user_id     uuid references auth.users  -- nullable until auth wired
+created_at  timestamptz default now()
+updated_at  timestamptz default now()
+```
+
+### PMP session shape (TypeScript)
+
+```typescript
+interface PMPSession {
+  question_text: string
+  mood: PMPMood
+  user_answers?: string[]
+  selected_option?: string
+  elapsed_seconds: number
+  result_json?: Mood1Result | Mood2Result
+}
+```
+
+API: `POST /api/pmp/sessions` — inserts to `pmp_sessions`.
+
+---
+
+## Data collection readiness
+
+Every product module must eventually log enough to analyze user behavior.
+
+**Minimum per session:** mood/mode, timing, input source, outcome correctness, AI result JSON.
+
+**Current TODOs in codebase:**
+- `LessonScreen` report modal → `pmp_reports` table
+- `PMPClient` → call `/api/pmp/sessions` on submit/complete
+- Analytics events — TODO comments only (no SDK yet)
+
+When adding features, leave `// TODO: analytics — [event_name]` at decision points.
+
+---
+
+## API routes rules (data-related)
+
+- All routes in `src/app/api/`
+- Validate request body before processing
+- Return `{ data, error }` — never raw throws to client
+- Rate limiting: TODO comments until implemented
+
+---
+
+## Caching rules
+
+- Client cache: React state + optional `useRef` for imperative handles
+- Sample cache: single fetch on mount in `PMPClient`
+- Translation cache: per-component `translateCache` state; seed from `sample-answers.json` when available
+- No localStorage for AI results unless explicitly requested
+
+---
+
+## File loading anti-patterns
+
+- ❌ Import large JSON directly in client components (bundles size) — prefer `fetch('/data/...')` for big files
+- ✅ `glossary.json` imported in `glossaryTerms.ts` for sync highlight regex build (acceptable — glossary size bounded)
+- ❌ Hardcode glossary counts — use `GLOSSARY_PAIR_COUNT` / `GLOSSARY_TERM_COUNT`

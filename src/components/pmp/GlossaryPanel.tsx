@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { GlossaryEntry } from '@/types/pmp'
 import { cn } from '@/lib/utils/cn'
+import { GLOSSARY_PAIR_COUNT, GLOSSARY_TERM_COUNT } from '@/components/pmp/shared/glossaryTerms'
 import glossaryData from '../../../public/data/glossary.json'
 
 interface GlossaryPanelProps {
@@ -102,7 +103,9 @@ export default function GlossaryPanel({ onClose, scrollToIndex = null }: Glossar
       </div>
 
       <p className="px-5 py-3 font-body text-[13px] text-ash-text md:px-8">
-        {filtered.length} thuật ngữ
+        {search === ''
+          ? `${GLOSSARY_PAIR_COUNT} cặp · ${GLOSSARY_TERM_COUNT} thuật ngữ`
+          : `${filtered.length} cặp phù hợp`}
       </p>
 
       <div className="scroll-container flex-1 space-y-3 overflow-y-auto px-5 pb-10 md:px-8">

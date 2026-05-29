@@ -1,0 +1,286 @@
+---
+description: mentorOS core architecture, TypeScript, folder structure, PMP flow patterns
+alwaysApply: true
+---
+
+# mentorOS — Core Rules
+
+These rules apply to every prompt. Never override without explicit user request.
+
+## Project identity
+
+This is **mentorOS** — an AI-native professional cognition operating system.
+
+- **Repo:** mentoros
+- **Stack:** Next.js 14 App Router, TypeScript strict, Tailwind CSS v4, Supabase, Claude API
+- **Deployment:** Vercel
+- **Design system:** Coda-inspired shell + product-specific accent layers (see `mentoros-design.mdc`)
+
+---
+
+## Folder structure rules
+
+- All source code lives in `src/`
+- Routes live in `src/app/`
+- Components live in `src/components/`
+- Shared logic lives in `src/lib/`
+- Custom hooks live in `src/hooks/`
+- Types live in `src/types/`
+- Static runtime JSON lives in `public/data/`
+- Never put components inside `app/` route folders
+- Never put business logic inside `page.tsx` files — extract to hooks, lib, or client modules
+
+### PMP module layout (reference implementation)
+
+```
+src/components/pmp/
+  PMPClient.tsx       — master client state + phase router
+  PMPLayout.tsx       — desktop sidebar shell (lg+)
+  PMPSidebar.tsx      — left nav
+  InputScreen.tsx     — landing / paste / upload
+  MoodSelectScreen.tsx
+  AnswerPicker.tsx
+  AnalyzingScreen.tsx
+  result/LessonScreen.tsx
+  mood2/Mood2Picker.tsx, Mood2Result.tsx
+  shared/             — reusable PMP atoms
+src/app/api/pmp/      — analyze, translate, ocr, sessions
+src/lib/ai/prompts/pmp.ts
+src/types/pmp.ts
+```
+
+Use this structure as the template for future product modules (`askbetter`, `nextup`, etc.).
+
+---
+
+## TypeScript rules
+
+- Always use strict TypeScript. No `any` unless explicitly justified with a comment.
+- Always type component props with an `interface`, not inline.
+- Always type function return values explicitly for non-trivial functions.
+- Use `type` for unions and utility types, `interface` for object shapes.
+- Never use `// @ts-ignore` — fix the type error properly.
+- All API route handlers must type their request body and response.
+- Define AI output shapes in `src/types/[module].ts` **before** writing prompts.
+
+---
+
+## Component rules
+
+- **Default:** Server Components.
+- Add `'use client'` only when the component needs:
+  - `useState`, `useEffect`, `useRef`, or other React hooks
+  - Browser APIs (`localStorage`, `window`, etc.)
+  - Event handlers that require client state
+  - Third-party libraries that require client context
+- Never add `'use client'` to a component just because it is a page.
+- If a Server Component needs one interactive piece, extract that piece into a small Client Component.
+- Component file names: **PascalCase** (e.g. `ProductCard.tsx`)
+- One exported component per file (local subcomponents in same file are OK, as in `LessonScreen.tsx` → `CollapsibleSection`).
+
+---
+
+## State management pattern (multi-screen product modules)
+
+**Reference:** `src/components/pmp/PMPClient.tsx` + `src/components/pmp/PMPLayout.tsx`
+
+For any product module with multiple screens inside one route:
+
+1. **Single master client component** owns all flow state (question, results, overlays, cache).
+2. **Screen navigation uses `PMPPhase` + `renderPhase()`** — not a `screenStack`, not Next.js nested routes for inner flow (see below).
+3. **`forwardRef` + `useImperativeHandle`** exposes a handle for external navigation (sidebar, shortcuts):
+
+```typescript
+export interface PMPClientHandle {
+  startWithMood: (mood: PMPMood) => void
+  scrollToUpload: () => void
+  openGlossary: () => void
+  openEVM: () => void
+}
+```
+
+4. **Layout wrapper** (`PMPLayout.tsx`) holds sidebar UI state and calls `pmpClientRef.current?.method()`.
+5. **Optional callbacks:** `onPhaseChange`, `onReturnToInput` for parent layout sync.
+
+**Do NOT** duplicate question/result state in sidebar or child screens. Pass down via props; lift resets to master client.
+
+---
+
+## Screen navigation pattern (`PMPPhase` + `renderPhase()`)
+
+**Reference:** `src/components/pmp/PMPClient.tsx`
+
+This is the **standard for all future product modules** with multi-screen flows inside one route.
+
+### How it works (actual codebase pattern)
+
+1. **`PMPPhase`** — exported string union type listing every screen in the flow:
+
+```typescript
+export type PMPPhase = 'input' | 'mood_select' | 'answer' | 'result'
+```
+
+2. **`currentPhase` state** — `const [phase, setPhase] = useState<PMPPhase>('input')`
+
+3. **Phase transitions** — call `setPhase('answer')`, `setPhase('result')`, etc. Never push/pop a stack; one active phase at a time.
+
+4. **`renderPhase()`** — a function with a `switch (phase)` (plus mood/flags) that **returns the correct screen component**:
+
+```typescript
+function renderPhase() {
+  if (isAnalyzing) return <AnalyzingScreen mood={selectedMood} />
+  if (phase === 'input') return <InputScreen ... />
+  if (phase === 'answer' && selectedMood === 'mood1') return <AnswerPicker ... />
+  // ...
+}
+```
+
+5. **Main render** — `{renderPhase()}` inside the client root; overlays (glossary, EVM) as siblings, not separate phases.
+
+### Do NOT use
+
+- ❌ `screenStack` / stack-based navigation — not implemented in mentorOS
+- ❌ Separate Next.js routes per step inside a product module
+- ❌ Duplicating phase logic in sidebar or child screens
+
+### PMP phase graph
+
+```
+input (InputScreen)
+  ├─ paste/upload only → mood_select (MoodSelectScreen) → answer
+  └─ sample card / sidebar mood → answer (skip mood_select)
+
+answer
+  ├─ mood1 → AnswerPicker → isAnalyzing → result
+  └─ mood2 → Mood2Picker (fetches options) → result
+
+result
+  ├─ mood1 → LessonScreen
+  └─ mood2 → Mood2ResultScreen
+```
+
+### Rules for new modules
+
+- Export a `[Module]Phase` string union and a `renderPhase()` switch — same shape as PMP.
+- Transition only via `setPhase(...)` (and reset helpers that call `setPhase` internally).
+- Reset function clears all downstream state (results, timers, selections).
+- `handleSwitchMood`-style toggles stay on same phase, swap mode, reset attempt state.
+- Overlays (modals, analyzing) sit above `renderPhase()` — not separate routes.
+
+---
+
+## API integration pattern (client → route → provider)
+
+**Reference:** `AnswerPicker.tsx`, `Mood2Picker.tsx`, `InputScreen.tsx`, `src/app/api/pmp/`
+
+### Client call shape
+
+```typescript
+const res = await fetch('/api/pmp/analyze', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ question: string, mood: 'mood1' | 'mood2' }),
+})
+const json = (await res.json()) as { data: Mood1Result | null; error: string | null }
+```
+
+### Standard response envelope
+
+All product API routes return:
+
+```typescript
+{ data: T | null, error: string | null }
+```
+
+### Loading / error UX
+
+- Set local `isSubmitting` / `isAnalyzing` before fetch.
+- Mood 2: dedicated loading sub-phase with step copy (`Mood2Picker` `SubPhase = 'loading' | 'picking'`).
+- On error: show inline message; never throw uncaught to user.
+- Never call `@anthropic-ai/sdk` from components — only from `src/lib/ai/provider.ts` via API routes.
+
+### PMP routes (current)
+
+| Route | Purpose |
+|-------|---------|
+| `POST /api/pmp/analyze` | Mood 1 result or Mood 2 options |
+| `POST /api/pmp/translate` | EN→VI (mood1 plain text, mood2 JSON) |
+| `POST /api/pmp/ocr` | Image → question text (`FormData` field `image`) |
+| `POST /api/pmp/sessions` | Persist session to Supabase (ready, not wired in UI yet) |
+
+Future products: `src/app/api/[module]/...` mirroring this pattern.
+
+---
+
+## Pre-computed cache pattern
+
+**Reference:** `public/data/sample-answers.json`, `PMPClient.tsx`, `scripts/generate-sample-answers.mjs`
+
+When inputs are **finite and repeatable** (sample questions):
+
+1. Pre-generate AI responses offline → `public/data/[module]-answers.json`
+2. On mount: `fetch('/data/sample-answers.json')` → store in client state
+3. Before live API: check cache by stable key (`String(sampleId)`)
+4. Cache entry shape (`SampleAnswerEntry`): `{ analysis, translation, tag, sampleIndex, generatedAt }`
+5. Skip API on cache hit; still set phase/result state identically
+
+**When to use:** demo samples, regression fixtures, expensive Mood 1 analysis.
+**When NOT to use:** user-pasted unique questions (always live API).
+
+Run generator: `npm run generate:answers` → updates `public/data/sample-answers.json`.
+
+---
+
+## Auth rules
+
+- Supabase Auth with Google OAuth.
+- Use `useAuth()` hook from `src/hooks/useAuth.ts`.
+- Protected routes redirect to `/login` if no session.
+- User data in `public.users` table synced from `auth.users` via trigger.
+
+---
+
+## Error handling rules
+
+- Every async function must have try/catch.
+- API routes return `{ data, error }` shape.
+- Client-side: show user-friendly messages (prefer i18n `common.error`).
+- Never expose raw errors or stack traces to users.
+
+---
+
+## Naming conventions
+
+- Files: kebab-case for non-components
+- Components: PascalCase
+- Hooks: camelCase starting with `use`
+- Constants: SCREAMING_SNAKE_CASE
+- DB tables: snake_case plural
+- DB columns: snake_case
+
+---
+
+## What NOT to do
+
+- Do NOT use shadcn/Radix/MUI — use `src/components/ui/` primitives
+- Do NOT add new dependencies without being asked
+- Do NOT build features not in the current prompt
+- Do NOT use Tailwind default shadow classes (`shadow-sm`, etc.)
+- Do NOT use `rounded-lg` or larger for buttons and cards — strictly `rounded-md` (8px) on shell; PMP inner cards may use product-specific radii documented in design rules
+- Do NOT use blue CTAs on the shell — obsidian (black) only
+- Do NOT use product colors outside product cards and modules
+- Do NOT add gamification, streaks, or social features
+- Do NOT build a heavy dashboard
+- Do NOT merge BidMentor into this repo
+- Do NOT add analytics code yet — add TODO comments
+- Do NOT add real payment processing — QR manual only
+
+---
+
+## Code quality checklist
+
+- After completing any prompt: `npx tsc --noEmit && npm run lint`
+- Fix all TypeScript and ESLint errors before considering a prompt done.
+- Every new component must be usable — no empty shells.
+- Placeholder means a polished-looking page, not a bare div.
+- **PDF/export paths:** avoid Tailwind v4 `oklab`/`color-mix` in exported DOM — use hex/rgba (see `LessonScreen.tsx` html2canvas workaround).

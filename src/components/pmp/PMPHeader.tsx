@@ -10,7 +10,7 @@ interface PMPHeaderProps {
 
 export default function PMPHeader({ onOpenGlossary, onOpenEVM }: PMPHeaderProps) {
   return (
-    <header className="sticky top-[56px] z-navbar w-full border-b border-[#F3F4F6] bg-white md:top-[64px]">
+    <header className="sticky top-[56px] z-navbar w-full border-b border-[#F3F4F6] bg-white md:top-[64px] lg:hidden">
       <div className="mx-auto flex w-full max-w-[640px] items-center justify-between px-4 py-2 md:px-6">
         <span className="font-body text-[13px] font-semibold text-[#374151]">PMP Thinking Coach</span>
         <div className="flex items-center gap-2">

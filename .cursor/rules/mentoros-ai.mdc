@@ -1,0 +1,168 @@
+---
+description: mentorOS AI prompts, API integration, and Claude usage conventions
+globs: src/lib/ai/**,src/app/api/**,scripts/**
+alwaysApply: false
+---
+
+# mentorOS — AI Rules
+
+---
+
+## Provider and model
+
+- **All AI calls server-side only** via `src/lib/ai/provider.ts`
+- **Canonical model ID:** `claude-sonnet-4-5` (as set in `src/lib/ai/provider.ts`) unless the user explicitly requests a different model
+- **Always verify against `src/lib/ai/provider.ts` before assuming model ID** — do not copy model strings from older docs or prompts
+- **Never use Claude Opus** in production API routes (cost)
+
+Functions in provider:
+- `analyzeWithClaude({ systemPrompt, userContent, maxTokens })`
+- `translateWithClaude(...)`
+- `ocrWithClaude(...)`
+
+Never import `@anthropic-ai/sdk` in React components.
+
+---
+
+## Prompt file convention
+
+- One file per module: `src/lib/ai/prompts/[module].ts`
+- Each prompt = **named exported const string** (e.g. `PROMPT_M1`, `PROMPT_M2`, `PROMPT_OCR`)
+- Import prompts **only in API routes** (`src/app/api/[module]/`), never in components
+- PMP reference: `src/lib/ai/prompts/pmp.ts`
+
+---
+
+## System prompt structure (template for all modules)
+
+Every prompt in mentorOS follows this order:
+
+1. **Role definition** — "Bạn là [Product] AI Mentor của mentorOS..."
+2. **Task context** — what the model must accomplish
+3. **Input format** — what user content looks like (plain text, JSON, image)
+4. **Output format** — strict JSON schema inline in prompt
+5. **Constraints** — word limits, field rules, forbidden patterns
+6. **Language instruction** — which fields EN vs VI
+7. **Delivery rule** — "Trả về JSON thuần, KHÔNG backticks, KHÔNG preamble"
+
+### PMP Mood 1 example (`PROMPT_M1`)
+
+Output type: `Mood1Result` in `src/types/pmp.ts`
+
+Key fields: `response_type`, `correct_answers`, `answer_verdict`, `anatomy`, `mindset`, `core_rule`, `trap`
+
+Constraints: trap categories enum, domain enum, core_rule < 15 words VI
+
+### PMP Mood 2 example (`PROMPT_M2`)
+
+Output type: `Mood2Result`
+
+Key fields: `options` (2-3, max 20 words, `·` separator), `correct_option`, `traps`, `pmi_signal`, `compression_tip`
+
+Constraints: shuffle correct option; options are mental compression NOT translations
+
+---
+
+## Output schema convention
+
+1. **Define TypeScript interface first** in `src/types/[module].ts`
+2. Write prompt JSON schema to **match exactly**
+3. API route parses JSON from provider — never regex-parse free-form text
+4. Client types the response: `(await res.json()) as { data: Mood1Result | null; error: string | null }`
+
+If schema changes: update type → prompt → any cache generator script → sample JSON files.
+
+---
+
+## API route pattern
+
+```
+src/app/api/pmp/analyze/route.ts   → PROMPT_M1 | PROMPT_M2
+src/app/api/pmp/translate/route.ts → PROMPT_TRANSLATE | PROMPT_M2_TRANSLATE
+src/app/api/pmp/ocr/route.ts       → PROMPT_OCR
+```
+
+Each route:
+1. Validate body / FormData
+2. Select prompt by mode
+3. Call provider with appropriate `maxTokens` (M1: ~1500, M2: ~1000)
+4. Return `{ data, error }`
+
+---
+
+## OCR prompt pattern
+
+**When:** image upload or clipboard paste (jpeg/png/webp/gif)
+
+**Reference:** `PROMPT_OCR`, `POST /api/pmp/ocr`, `InputScreen.tsx`
+
+- Client sends `FormData` with field `image`
+- Max file size **5MB** (client-side check)
+- Output: `{ text: string }` — raw question + options if visible
+- OCR text feeds into `parseRawQuestionText()` then `onConfirm` → mood_select
+- OCR is **pre-step** — not merged into analyze prompt automatically; user confirms text first
+
+---
+
+## Translation prompt pattern
+
+**When:** user clicks `LangToggle` (EN↔VI display), NOT inline in analyze prompt
+
+| Mode | Prompt | Output |
+|------|--------|--------|
+| mood1 | `PROMPT_TRANSLATE` | plain VI string (full Q + A-D) |
+| mood2 | `PROMPT_M2_TRANSLATE` | JSON `Mood2TranslatePayload` |
+
+Rules in prompts:
+- Keep PMI terms + trigger words in English
+- mood2: preserve `·` in signal chains
+
+Cache: sample translations in `sample-answers.json`; component-level `translateCache` state.
+
+**Do NOT** embed translation in `PROMPT_M1`/`PROMPT_M2` — keeps analyze token budget focused.
+
+---
+
+## Token budget awareness
+
+| Feature | Relative cost | Output richness |
+|---------|---------------|-----------------|
+| Mood 1 analyze | **Highest** | Full lesson (verdict, anatomy, mindset, core rule, trap) |
+| Mood 2 analyze | Medium | Options + traps + signal chain |
+| Translate | Low–medium | Mirror of visible content |
+| OCR | Low–medium | Plain text extraction |
+| AskBetter / NextUp (future) | Lean | Short structured JSON |
+
+Design free utilities with **lean schemas**; reserve rich output for paid/core coaching features.
+
+---
+
+## Pre-computation scripts
+
+**Reference:** `scripts/generate-sample-answers.mjs`
+
+- Reads `public/data/samples.json`
+- Calls same prompts as production (`PROMPT_M1`, `PROMPT_TRANSLATE`)
+- Writes `public/data/sample-answers.json` incrementally (resume-safe)
+- Rate limit delay between samples (~1.5s)
+- Run: `npm run generate:answers`
+
+Use for any deterministic, repeated, expensive generation.
+
+---
+
+## Error handling
+
+- Provider returns `{ data, error }` — propagate to API response
+- Log server-side with `console.error` — never expose stack to client
+- Client shows friendly fallback ("Không thể phân tích...") — i18n when migrated
+
+---
+
+## Sessions / analytics (future)
+
+`POST /api/pmp/sessions` accepts `PMPSession` body → Supabase `pmp_sessions`.
+
+**TODO:** wire from `PMPClient` on submit/complete. Fields defined in `src/types/pmp.ts`.
+
+Report modal in `LessonScreen` — TODO `pmp_reports` table.

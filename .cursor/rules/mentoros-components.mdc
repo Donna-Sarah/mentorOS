@@ -1,0 +1,254 @@
+---
+description: mentorOS reusable UI components catalog — use before creating new elements
+globs: src/components/**
+alwaysApply: false
+---
+
+# mentorOS — Components Catalog
+
+**Rule:** Before creating any new UI element, check this file. If a matching component exists, **use it**. Extend via props — **never duplicate**.
+
+Custom primitives live in `src/components/ui/` (NOT shadcn/Radix).
+
+---
+
+## PMP shared components (`src/components/pmp/shared/`)
+
+### TimerBar
+
+**Path:** `src/components/pmp/shared/TimerBar.tsx`
+
+```typescript
+interface TimerBarProps {
+  benchmark: number
+  isActive: boolean
+  onTick?: (seconds: number) => void
+}
+```
+
+| Use | Don't use |
+|-----|-----------|
+| PMP timed answer/decode flows | Static progress unrelated to time |
+| Mood 1 benchmark 77s, Mood 2 benchmark 25s | Countdown with different color logic duplicated inline |
+
+Color states: green → amber → orange → red based on elapsed vs benchmark.
+
+---
+
+### ImageUpload
+
+**Path:** `src/components/pmp/shared/ImageUpload.tsx`
+
+```typescript
+interface ImageUploadProps {
+  onExtracted: (text: string) => void
+  onError: (message: string) => void
+  isLoading: boolean
+  setIsLoading: (loading: boolean) => void
+}
+```
+
+| Use | Don't use |
+|-----|-----------|
+| Standalone OCR dropzone flows | New file input + fetch to `/api/pmp/ocr` |
+
+**Note:** `InputScreen.tsx` implements **inline** upload (paste, attach, OCR) — preferred for unified input box. Use `ImageUpload` only if building a separate upload screen.
+
+---
+
+### HighlightedText
+
+**Path:** `src/components/pmp/shared/HighlightedText.tsx`
+
+```typescript
+interface HighlightedTextProps {
+  text: string
+  onTermClick: (term: string, entryIndex: number, rect: DOMRect) => void
+  className?: string
+}
+```
+
+| Use | Don't use |
+|-----|-----------|
+| Question stems, option text, explanations with glossary terms | Manual regex highlight |
+| Opens glossary flow via `onTermClick` + `GlossaryTooltip` | Non-glossary keyword styling |
+
+Uses `glossaryTerms.ts` pattern — terms from `public/data/glossary.json`.
+
+Glossary term links use hex colors (`#2563EB`) for PDF/export safety.
+
+---
+
+### GlossaryTooltip
+
+**Path:** `src/components/pmp/shared/GlossaryTooltip.tsx`
+
+```typescript
+interface GlossaryTooltipProps {
+  term: string
+  entryIndex: number
+  onClose: () => void
+  onViewFull: (index: number) => void
+  anchorRect?: DOMRect | null
+}
+```
+
+| Use | Don't use |
+|-----|-----------|
+| Inline glossary lookup on term click | Full glossary panel for single term |
+| 2-tier: compact definition → expand for comparison/example/trap | Showing all glossary fields by default |
+
+**Positioning:** `anchorRect` from click target → near term; fallback center screen. Pass `getBoundingClientRect()` from `HighlightedText`.
+
+Counts: import `GLOSSARY_PAIR_COUNT`, `GLOSSARY_TERM_COUNT` from `glossaryTerms.ts` (46 pairs · 92 terms).
+
+---
+
+### LangToggle
+
+**Path:** `src/components/pmp/shared/LangToggle.tsx`
+
+```typescript
+interface LangToggleProps {
+  isVI: boolean
+  onToggle: () => void
+  isLoading?: boolean
+  className?: string
+}
+```
+
+| Use | Don't use |
+|-----|-----------|
+| EN/VI display toggle on question cards | Separate "Translate" buttons per screen |
+| Bottom-right of question card, `print:hidden` on lesson | Toggle for app-wide locale (use site i18n) |
+
+---
+
+### parseQuestionText (helpers)
+
+**Path:** `src/components/pmp/shared/parseQuestionText.ts`
+
+Exports: `formatFullQuestionText`, `parseTranslation`
+
+Use for Mood 1 EN/VI parity — always show Q + A-D in both languages.
+
+---
+
+## UI primitives (`src/components/ui/`)
+
+### Button
+
+**Path:** `src/components/ui/Button.tsx`
+
+```typescript
+interface ButtonProps {
+  variant?: 'primary' | 'ghost' | 'product'
+  size?: 'default' | 'sm'
+  gradient?: string
+  href?: string
+  external?: boolean
+  disabled?: boolean
+  className?: string
+  children: React.ReactNode
+  onClick?: () => void
+}
+```
+
+| Variant | Use |
+|---------|-----|
+| `primary` | Shell CTAs — obsidian bg |
+| `ghost` | Secondary actions, sidebar-adjacent |
+| `product` | Inside product modules — pass `gradient="bg-gradient-pmp"` |
+
+Min touch: `min-h-touch min-w-touch` built in.
+
+---
+
+### Badge
+
+**Path:** `src/components/ui/Badge.tsx`
+
+```typescript
+interface BadgeProps {
+  variant?: 'default' | 'product' | 'warning'
+  className?: string
+  children: React.ReactNode
+}
+```
+
+| Variant | Use |
+|---------|-----|
+| `default` | Neutral tags |
+| `product` | Product-scoped labels |
+| `warning` | "Bạn chọn", user-attention chips |
+
+---
+
+### Card
+
+**Path:** `src/components/ui/Card.tsx`
+
+```typescript
+interface CardProps {
+  className?: string
+  children: React.ReactNode
+  onClick?: () => void
+}
+```
+
+Base: `bg-white-canvas rounded-md shadow-card p-4`
+
+Use for generic elevated containers — not for PMP lesson document (custom layout in `LessonScreen`).
+
+---
+
+## Marketing components
+
+### ProductCard
+
+**Path:** `src/components/shared/ProductCard.tsx`
+
+```typescript
+interface ProductCardProps {
+  name: string
+  tagline: string
+  badge: string
+  badgeVariant?: 'default' | 'product' | 'warning'
+  cta: string
+  href: string
+  external?: boolean
+  gradient: string
+  accentColor: string
+  surfaceColor: string
+}
+```
+
+Homepage product grid only — not inside `/pmp` module screens.
+
+---
+
+## PMP layout components
+
+| Component | Path | Role |
+|-----------|------|------|
+| `PMPClient` | `src/components/pmp/PMPClient.tsx` | Master state + phase router |
+| `PMPLayout` | `src/components/pmp/PMPLayout.tsx` | Desktop sidebar + main column |
+| `PMPSidebar` | `src/components/pmp/PMPSidebar.tsx` | Left nav (lg+ only) |
+| `PMPHeader` | `src/components/pmp/PMPHeader.tsx` | Mobile/tablet module header (`lg:hidden`) |
+| `GlossaryPanel` | `src/components/pmp/GlossaryPanel.tsx` | Full glossary overlay |
+| `AnalyzingScreen` | `src/components/pmp/AnalyzingScreen.tsx` | Mood 1 post-submit loading |
+
+---
+
+## CollapsibleSection (local pattern)
+
+Not exported — copy pattern from `LessonScreen.tsx` when building similar lesson outputs. See `mentoros-design.mdc`.
+
+---
+
+## Anti-patterns
+
+- ❌ New timer bar component — use `TimerBar`
+- ❌ New EN/VI pill — use `LangToggle`
+- ❌ Radix/shadcn Tooltip — use `GlossaryTooltip` or native `title` on collapsed sidebar items
+- ❌ Duplicate `Button` styles inline — use `Button` or documented header button class constants

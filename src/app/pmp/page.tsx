@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { PMPClient } from '@/components/pmp'
+import PMPLayout from '@/components/pmp/PMPLayout'
 
 export const metadata: Metadata = {
   title: 'PMP Thinking Coach — mentorOS',
@@ -7,9 +7,5 @@ export const metadata: Metadata = {
 }
 
 export default function PMPPage() {
-  return (
-    <div className="min-h-[calc(100vh-56px)] bg-amber-glow md:min-h-[calc(100vh-64px)]">
-      <PMPClient />
-    </div>
-  )
+  return <PMPLayout />
 }

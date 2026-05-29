@@ -4,12 +4,14 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { ClipboardEvent, ChangeEvent } from 'react'
 import type { PMPMood, PMPQuestion, SampleQuestion } from '@/types/pmp'
 import samplesData from '../../../public/data/samples.json'
+import { GLOSSARY_PAIR_COUNT, GLOSSARY_TERM_COUNT } from '@/components/pmp/shared/glossaryTerms'
 
 interface InputScreenProps {
   onConfirm: (question: PMPQuestion) => void
   onConfirmWithMood: (question: PMPQuestion, mood: PMPMood) => void
   onOpenGlossary?: () => void
   autoScrollToCards?: boolean
+  autoScrollToInput?: boolean
   onScrollComplete?: () => void
 }
 
@@ -161,6 +163,7 @@ export default function InputScreen({
   onConfirmWithMood,
   onOpenGlossary,
   autoScrollToCards = false,
+  autoScrollToInput = false,
   onScrollComplete,
 }: InputScreenProps) {
   const [inputText, setInputText] = useState('')
@@ -197,6 +200,21 @@ export default function InputScreen({
       return () => window.clearTimeout(timer)
     }
   }, [autoScrollToCards, onScrollComplete])
+
+  useEffect(() => {
+    if (autoScrollToInput && inputBoxRef.current) {
+      const timer = window.setTimeout(() => {
+        inputBoxRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        })
+        setTimeout(() => textareaRef.current?.focus(), 600)
+        onScrollComplete?.()
+      }, 100)
+
+      return () => window.clearTimeout(timer)
+    }
+  }, [autoScrollToInput, onScrollComplete])
 
   const removeAttachment = useCallback(() => {
     setAttachedImage(null)
@@ -457,14 +475,14 @@ export default function InputScreen({
                   </span>
                   <span className="font-body text-[15px] font-bold text-[#111111] md:text-[16px]">Glossary</span>
                   <span className="ml-auto rounded-sm bg-[#F3F4F6] px-2 py-0.5 font-body text-[11px] text-[#6B7280] md:text-[12px]">
-                    46 thuật ngữ
+                    {GLOSSARY_TERM_COUNT} thuật ngữ
                   </span>
                 </div>
                 <p className="mb-1 font-body text-[14px] font-semibold text-[#374151] md:text-[15px]">
                   Thuật ngữ hay nhầm
                 </p>
                 <p className="mt-2 font-body text-[13px] leading-[1.6] text-[#9CA3AF] md:text-[14px] md:leading-[1.65]">
-                  46 cặp thuật ngữ PMI — tra cứu nhanh khi gặp từ lạ trong đề
+                  {GLOSSARY_PAIR_COUNT} cặp · {GLOSSARY_TERM_COUNT} thuật ngữ PMI — tra cứu nhanh khi gặp từ lạ trong đề
                 </p>
                 <p className="mt-4 font-body text-[14px] font-semibold text-[#10B981] md:mt-5 md:text-[15px]">
                   Mở Glossary →
@@ -497,6 +515,8 @@ export default function InputScreen({
                 {attachedImage && imagePreviewUrl ? (
                   <div className="px-4 pb-3">
                     <div className="inline-flex items-center gap-2 rounded-lg border border-[#E5E7EB] bg-[#F9FAFB] px-3 py-2">
+                      {/* Blob preview — next/image does not support object URLs */}
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={imagePreviewUrl}
                         alt=""

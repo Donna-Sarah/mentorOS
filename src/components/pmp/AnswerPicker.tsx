@@ -11,7 +11,6 @@ import {
   formatFullQuestionText,
   parseTranslation,
 } from '@/components/pmp/shared'
-import { cn } from '@/lib/utils/cn'
 
 interface AnswerPickerProps {
   question: PMPQuestion

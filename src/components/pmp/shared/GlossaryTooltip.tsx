@@ -130,7 +130,6 @@ export default function GlossaryTooltip({
         }
         role="dialog"
         aria-labelledby="glossary-tooltip-title"
-        aria-expanded={expanded}
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
@@ -197,6 +196,7 @@ export default function GlossaryTooltip({
           <button
             type="button"
             onClick={() => setExpanded((prev) => !prev)}
+            aria-expanded={expanded}
             className="font-body text-[12px] font-semibold text-[#6B7280] transition-colors hover:text-[#111111]"
           >
             {expanded ? 'Thu gọn ↑' : 'Xem thêm ↓'}

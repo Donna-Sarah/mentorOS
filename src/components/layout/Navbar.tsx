@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { useLanguage } from '@/hooks/useLanguage'
 import { cn } from '@/lib/utils/cn'
@@ -87,6 +87,8 @@ export function Navbar() {
   const { t } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const lastScrollY = useRef(0)
   const pathname = usePathname()
   const isHome = pathname === '/'
   const isPMPInput = pathname === '/pmp'
@@ -110,11 +112,39 @@ export function Navbar() {
   )
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10)
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      const scrollingDown = currentScrollY > lastScrollY.current
+      const atTop = currentScrollY < 10
+
+      setScrolled(currentScrollY > 10)
+
+      if (isOpen) {
+        lastScrollY.current = currentScrollY
+        return
+      }
+
+      if (atTop) {
+        setIsVisible(true)
+      } else if (scrollingDown) {
+        setIsVisible(false)
+      } else {
+        setIsVisible(true)
+      }
+
+      lastScrollY.current = currentScrollY
+    }
+
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [isOpen])
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsVisible(true)
+    }
+  }, [isOpen])
 
   useEffect(() => {
     if (isOpen) {
@@ -140,8 +170,10 @@ export function Navbar() {
     <>
       <header
         className={cn(
-          'fixed top-0 right-0 left-0 z-navbar border-b pt-[env(safe-area-inset-top)] transition-colors duration-200',
+          'fixed top-0 right-0 left-0 z-navbar border-b pt-[env(safe-area-inset-top)]',
           'h-navbar-mobile md:h-navbar-desktop',
+          'transition-transform duration-300 ease-in-out',
+          isVisible ? 'translate-y-0' : '-translate-y-full',
           isHome
             ? 'border-transparent bg-amber-glow hover:border-[#F3F4F6] hover:bg-white'
             : isPMPInput && !scrolled

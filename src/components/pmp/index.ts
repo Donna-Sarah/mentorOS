@@ -1,4 +1,7 @@
 export { default as PMPClient } from './PMPClient'
+export type { PMPClientHandle, PMPPhase } from './PMPClient'
+export { default as PMPLayout } from './PMPLayout'
+export { default as PMPSidebar } from './PMPSidebar'
 export { default as InputScreen } from './InputScreen'
 export { default as MoodSelectScreen } from './MoodSelectScreen'
 export { default as AnswerPicker } from './AnswerPicker'

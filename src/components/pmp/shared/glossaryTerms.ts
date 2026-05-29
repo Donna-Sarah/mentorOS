@@ -3,6 +3,13 @@ import glossaryData from '../../../../public/data/glossary.json'
 
 export const glossaryEntries = glossaryData as GlossaryEntry[]
 
+export const GLOSSARY_PAIR_COUNT = glossaryEntries.length
+
+export const GLOSSARY_TERM_COUNT = glossaryEntries.reduce(
+  (count, entry) => count + entry.pair.filter((term) => term.trim()).length,
+  0,
+)
+
 export interface GlossaryTermMatch {
   term: string
   entryIndex: number

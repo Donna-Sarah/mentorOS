@@ -1,0 +1,149 @@
+---
+description: mentorOS i18n conventions and product module copy structure
+alwaysApply: true
+---
+
+# mentorOS — i18n Rules
+
+---
+
+## Core rules (all modules)
+
+- **NEVER** hardcode Vietnamese or English strings in JSX for **new** UI work.
+- ALL visible UI text must come from `src/lib/i18n/vi.ts` or `src/lib/i18n/en.ts`.
+- Use `useLanguage()` hook and `t()` accessor in every Client Component that renders text.
+- When adding a new UI string: add it to **BOTH** `vi.ts` and `en.ts` at the same time.
+- i18n keys use **snake_case**, nested by section: `nav.home`, `home.hero_title`, `products.pmp.tagline`
+
+---
+
+## i18n key structure for product modules
+
+Follow nesting: **`[product].[screen|area].[element]`**
+
+### Current marketing keys (homepage — implemented)
+
+```
+nav.pmp
+products.pmp.name
+products.pmp.tagline
+products.pmp.badge
+products.pmp.cta
+products.pmp.features.f1   → Mood 1
+products.pmp.features.f2   → Mood 2
+products.pmp.features.f3   → Glossary
+products.pmp.features.f4   → Upload
+```
+
+### Target structure for PMP module UI (migrate hardcoded copy here)
+
+```
+pmp.input.hero_title
+pmp.input.hero_sub
+pmp.input.cta_explore
+pmp.input.cta_upload
+pmp.input.section_features
+pmp.input.section_upload_label
+pmp.input.placeholder
+pmp.input.hint_paste
+pmp.input.hint_english
+
+pmp.mood_select.title
+pmp.mood_select.mood1_title
+pmp.mood_select.mood2_title
+
+pmp.mood1.submit
+pmp.mood1.switch_mood
+pmp.mood1.new_question
+
+pmp.mood2.loading_steps.*
+pmp.mood2.instruction
+pmp.mood2.switch_mood
+
+pmp.glossary.title
+pmp.glossary.search_placeholder
+pmp.glossary.pair_count
+pmp.glossary.term_count
+
+pmp.lesson.sections.verdict
+pmp.lesson.sections.anatomy
+pmp.lesson.sections.mindset
+pmp.lesson.sections.core_rule
+pmp.lesson.sections.trap
+pmp.lesson.export_pdf
+pmp.lesson.report.*
+
+pmp.sidebar.mood1
+pmp.sidebar.mood2
+pmp.sidebar.upload
+pmp.sidebar.glossary
+pmp.sidebar.evm
+```
+
+### Future products — same pattern
+
+```
+askbetter.input.*
+askbetter.result.*
+nextup.today.*
+nextup.task.*
+bidmentor.*   (external product — marketing keys only in this repo)
+```
+
+**Gap (known):** PMP screens currently hardcode Vietnamese in components (`InputScreen`, `LessonScreen`, `PMPSidebar`, etc.). New strings go to i18n; refactor existing copy when touching those files.
+
+---
+
+## English-only exception rule (HARD)
+
+Never translate in UI copy or prompts:
+
+### Product / brand names
+- mentorOS
+- PMP Thinking Coach
+- AskBetter
+- NextUp
+- BidMentor
+
+### PMI / exam technical terms (keep English in VI UI)
+- PMI, PMBOK, PMP, EVM, CPI, SPI, CV, SV
+- Mood 1, Mood 2 (product modes)
+- Core Rule, Glossary (feature names)
+- Trigger words in stems: **FIRST, NEXT, BEST, EXCEPT** (always EN, uppercase)
+- Domain labels when shown as PMI taxonomy: People, Process, Business Environment
+- Approach: Agile, Predictive, Hybrid
+- Standard terms in glossary pairs: Risk, Issue, Sprint, Stakeholder, etc.
+
+Vietnamese **explanations** wrap EN terms — e.g. `"Risk (rủi ro chưa xảy ra)"` in glossary detail, not replacing the term.
+
+---
+
+## Component copy convention
+
+### Static UI labels
+- Always `t('section.key')` via `useLanguage()`.
+- Server Components: pass translated strings as props from a parent client wrapper or use static metadata in `generateMetadata` with locale if multi-locale routing added later.
+
+### Dynamic AI-generated content
+- Language is determined by **the prompt** (`PROMPT_M1` returns VI fields; question stem stays EN).
+- Display AI output as returned — **do not re-translate client-side** except via explicit user action (`LangToggle` → `POST /api/pmp/translate`).
+- Cache translations in component state (`cachedTranslation`, `translateCache`) — not i18n files.
+
+### LangToggle behavior
+- Toggles display language for **question + options** via pre-fetched or on-demand translation API.
+- Label pills: **EN | VI** (not translated).
+
+---
+
+## Common keys
+
+Use shared sections for cross-product strings:
+
+```
+common.error
+common.loading
+common.close
+common.back
+```
+
+(Add to both locale files when introducing.)

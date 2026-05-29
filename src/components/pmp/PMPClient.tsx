@@ -1,7 +1,13 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
-import type { Mood1Result, Mood2Result, PMPMood, PMPQuestion, SampleAnswersCache } from '@/types/pmp'
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react'
+import type { Mood1Result, Mood2Result, PMPMood, PMPQuestion, SampleAnswersCache, SampleQuestion } from '@/types/pmp'
 import { AnswerPicker, InputScreen, MoodSelectScreen } from '@/components/pmp'
 import GlossaryPanel from './GlossaryPanel'
 import EVMCalculator from './EVMCalculator'
@@ -9,10 +15,28 @@ import PMPHeader from './PMPHeader'
 import { LessonScreen } from './result'
 import { Mood2Picker, Mood2Result as Mood2ResultScreen } from './mood2'
 import AnalyzingScreen from './AnalyzingScreen'
+import samplesData from '../../../public/data/samples.json'
 
-type PMPPhase = 'input' | 'mood_select' | 'answer' | 'result'
+export type PMPPhase = 'input' | 'mood_select' | 'answer' | 'result'
 
-export default function PMPClient() {
+export interface PMPClientHandle {
+  startWithMood: (mood: PMPMood) => void
+  scrollToUpload: () => void
+  openGlossary: () => void
+  openEVM: () => void
+}
+
+interface PMPClientProps {
+  onPhaseChange?: (phase: PMPPhase) => void
+  onReturnToInput?: () => void
+}
+
+const samples = samplesData as SampleQuestion[]
+
+const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient(
+  { onPhaseChange, onReturnToInput },
+  ref,
+) {
   const [phase, setPhase] = useState<PMPPhase>('input')
   const [question, setQuestion] = useState<PMPQuestion | null>(null)
   const [selectedMood, setSelectedMood] = useState<PMPMood | null>(null)
@@ -29,23 +53,9 @@ export default function PMPClient() {
   const [cachedTranslation, setCachedTranslation] = useState<string | null>(null)
 
   const [shouldScrollToCards, setShouldScrollToCards] = useState(false)
+  const [shouldScrollToInput, setShouldScrollToInput] = useState(false)
 
-  useEffect(() => {
-    fetch('/data/sample-answers.json')
-      .then((r) => r.json())
-      .then((data: SampleAnswersCache) => setSampleCache(data))
-      .catch(() => {
-        // Cache not available — will fall back to API
-        console.log('Sample cache not available, using live API')
-      })
-  }, [])
-
-  const handleOpenGlossary = useCallback((index?: number) => {
-    setGlossaryScrollTo(index ?? null)
-    setShowGlossary(true)
-  }, [])
-
-  const resetToInput = useCallback(() => {
+  function returnToInputScreen(options?: { scrollToCards?: boolean; scrollToInput?: boolean }) {
     setPhase('input')
     setQuestion(null)
     setSelectedMood(null)
@@ -56,8 +66,79 @@ export default function PMPClient() {
     setElapsedSeconds(0)
     setIsAnalyzing(false)
     setCachedTranslation(null)
-    setShouldScrollToCards(true)
+    setShowGlossary(false)
+    setShowEVM(false)
+    setShouldScrollToCards(options?.scrollToCards ?? false)
+    setShouldScrollToInput(options?.scrollToInput ?? false)
+  }
+
+  useEffect(() => {
+    fetch('/data/sample-answers.json')
+      .then((r) => r.json())
+      .then((data: SampleAnswersCache) => setSampleCache(data))
+      .catch(() => {
+        console.log('Sample cache not available, using live API')
+      })
   }, [])
+
+  useEffect(() => {
+    onPhaseChange?.(phase)
+  }, [phase, onPhaseChange])
+
+  const handleOpenGlossary = useCallback((index?: number) => {
+    setGlossaryScrollTo(index ?? null)
+    setShowGlossary(true)
+  }, [])
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      startWithMood(mood: PMPMood) {
+        const randomIndex = Math.floor(Math.random() * samples.length)
+        const sample = samples[randomIndex]
+        const nextQuestion: PMPQuestion = {
+          text: sample.question,
+          options: sample.options,
+          source: 'sample',
+          sampleId: randomIndex,
+          tag: sample.tag,
+        }
+
+        setQuestion(nextQuestion)
+        setSelectedMood(mood)
+        setMood1Result(null)
+        setMood2Result(null)
+        setMood2SelectedOption(null)
+        setUserAnswers([])
+        setElapsedSeconds(0)
+        setIsAnalyzing(false)
+        setCachedTranslation(null)
+
+        if (sampleCache) {
+          const cached = sampleCache[String(randomIndex)]
+          if (cached) setCachedTranslation(cached.translation)
+        }
+
+        setPhase('answer')
+      },
+      scrollToUpload() {
+        returnToInputScreen({ scrollToInput: true })
+      },
+      openGlossary() {
+        setGlossaryScrollTo(null)
+        setShowGlossary(true)
+      },
+      openEVM() {
+        setShowEVM(true)
+      },
+    }),
+    [sampleCache],
+  )
+
+  const resetToInput = useCallback(() => {
+    returnToInputScreen({ scrollToCards: true })
+    onReturnToInput?.()
+  }, [onReturnToInput])
 
   function handleSwitchMood() {
     const newMood: PMPMood = selectedMood === 'mood1' ? 'mood2' : 'mood1'
@@ -108,7 +189,6 @@ export default function PMPClient() {
     setUserAnswers(answers)
     setElapsedSeconds(seconds)
 
-    // Check cache first (Mood 1 samples only)
     if (question?.source === 'sample' && question.sampleId !== undefined && sampleCache) {
       const cached = sampleCache[String(question.sampleId)]
       if (cached) {
@@ -160,7 +240,11 @@ export default function PMPClient() {
           onConfirmWithMood={handleConfirmWithMood}
           onOpenGlossary={() => handleOpenGlossary()}
           autoScrollToCards={shouldScrollToCards}
-          onScrollComplete={() => setShouldScrollToCards(false)}
+          autoScrollToInput={shouldScrollToInput}
+          onScrollComplete={() => {
+            setShouldScrollToCards(false)
+            setShouldScrollToInput(false)
+          }}
         />
       )
     }
@@ -316,4 +400,6 @@ export default function PMPClient() {
       )}
     </>
   )
-}
+})
+
+export default PMPClient
