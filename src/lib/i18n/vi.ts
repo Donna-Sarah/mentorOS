@@ -11,19 +11,19 @@ export const vi = {
     close_menu: 'Đóng menu',
   },
   home: {
-    hero_badge: 'AI-native Cognition System',
-    hero_title: 'Think clearer.',
-    hero_title_2: 'Learn faster.',
-    hero_title_3: 'Work smarter with AI.',
+    hero_badge: 'Hệ thống tư duy chuyên môn bằng AI',
+    hero_title: 'Suy nghĩ rõ hơn.',
+    hero_title_2: 'Học nhanh hơn.',
+    hero_title_3: 'Làm việc thông minh hơn.',
     hero_sub:
       'mentorOS là hệ sinh thái công cụ AI giúp bạn hiểu vấn đề rõ hơn, học đúng hơn và làm việc hiệu quả hơn.',
     cta_primary: 'Dùng AskBetter miễn phí',
     cta_secondary: 'Khám phá PMP Coach',
     products_title: 'Bốn công cụ. Một hệ sinh thái.',
     products_sub:
-      'Mỗi công cụ giải quyết một pain point thật — cùng xây trên nền tư duy rõ ràng.',
+      'Mỗi công cụ giải quyết một nỗi đau thật — cùng xây trên nền tư duy rõ ràng.',
     philosophy_label: 'Triết lý',
-    philosophy_title: 'Not more content. Better thinking.',
+    philosophy_title: 'Không nhiều nội dung hơn. Tư duy tốt hơn.',
     philosophy_body:
       'Kiến thức không còn khan hiếm. Điều khan hiếm là sự rõ ràng — biết vấn đề thật sự là gì, biết mình đang sai ở đâu, biết bước tiếp theo cần làm gì. mentorOS xây xung quanh lớp giá trị đó.',
     cta_strip_title: 'Bắt đầu suy nghĩ rõ hơn ngay hôm nay.',
@@ -75,7 +75,7 @@ export const vi = {
     },
   },
   footer: {
-    tagline: 'AI-native cognition system.',
+    tagline: 'Hệ thống tư duy chuyên môn bằng AI.',
     products: 'Sản phẩm',
     company: 'mentorOS',
     rights: '© 2025 mentorOS. All rights reserved.',

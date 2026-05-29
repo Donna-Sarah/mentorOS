@@ -75,20 +75,20 @@ export default function TimerBar({ benchmark, isActive, onTick }: TimerBarProps)
   const fillPercent = Math.min((seconds / (benchmark * 1.56)) * 100, 100)
 
   return (
-    <div className="flex w-full items-center gap-3">
+    <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
       <span
-        className="font-body text-body-sm font-bold tabular-nums"
+        className="font-body text-[15px] font-bold tabular-nums sm:shrink-0"
         style={{ color }}
       >
         {formatElapsed(seconds)}
       </span>
-      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-soft-gray">
+      <div className="h-2 flex-1 overflow-hidden rounded-full bg-soft-gray">
         <div
           className="h-full rounded-full transition-all duration-1000"
           style={{ width: `${fillPercent}%`, backgroundColor: color }}
         />
       </div>
-      <span className="hidden font-body text-caption text-ash-text md:block">
+      <span className="font-body text-[13px] leading-snug text-ash-text sm:max-w-[200px] sm:text-right">
         {message}
       </span>
     </div>

@@ -5,13 +5,13 @@ import { useLanguage } from '@/hooks/useLanguage'
 import { cn } from '@/lib/utils/cn'
 
 const primaryButtonClassName =
-  'inline-flex min-h-[44px] items-center justify-center rounded-md bg-[#111111] px-6 py-3 font-body text-[14px] font-semibold text-white transition-colors hover:bg-[#333333]'
+  'inline-flex min-h-[48px] items-center justify-center rounded-md bg-[#111111] px-7 py-3.5 font-body text-[15px] font-semibold text-white transition-colors hover:bg-[#333333] md:min-h-[52px] md:px-8 md:py-4 md:text-[16px]'
 
 const ghostButtonClassName =
-  'inline-flex min-h-[44px] items-center justify-center rounded-md border border-[#D1D5DB] px-6 py-3 font-body text-[14px] font-semibold text-[#111111] transition-colors hover:bg-[#F9FAFB]'
+  'inline-flex min-h-[48px] items-center justify-center rounded-md border border-[#D1D5DB] px-7 py-3.5 font-body text-[15px] font-semibold text-[#111111] transition-colors hover:bg-[#F9FAFB] md:min-h-[52px] md:px-8 md:py-4 md:text-[16px]'
 
 const productCtaClassName =
-  'inline-flex min-h-[40px] items-center gap-2 rounded-md bg-[#111111] px-5 py-2.5 font-body text-[14px] font-semibold text-white transition-colors hover:bg-[#333333]'
+  'inline-flex min-h-[48px] items-center gap-2 rounded-md bg-[#111111] px-7 py-3.5 font-body text-[15px] font-semibold text-white transition-colors hover:bg-[#333333] md:min-h-[52px] md:px-8 md:text-[16px]'
 
 interface ProductSection {
   id: string
@@ -30,6 +30,10 @@ interface ProductSection {
 
 interface ProductBlockProps {
   product: ProductSection
+}
+
+interface ProductVisualBlockProps extends ProductBlockProps {
+  imageAlign?: 'start' | 'end'
 }
 
 function ProductTextBlock({ product }: ProductBlockProps) {
@@ -54,7 +58,7 @@ function ProductTextBlock({ product }: ProductBlockProps) {
             style={{ backgroundColor: product.accentColor }}
             aria-hidden
           />
-          <span className="font-body text-[12px] font-bold uppercase tracking-widest text-[#9CA3AF]">
+          <span className="font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
             {product.label}
           </span>
         </span>
@@ -68,11 +72,13 @@ function ProductTextBlock({ product }: ProductBlockProps) {
         </span>
       </div>
 
-      <h3 className="mt-2 mb-4 font-display text-[32px] font-bold leading-[1.15] tracking-[-0.02em] whitespace-pre-line text-[#111111] md:text-[40px]">
+      <h3 className="mb-4 font-display text-[28px] font-bold leading-[1.15] tracking-[-0.025em] whitespace-pre-line text-[#111111] md:mb-5 md:text-[32px] md:leading-[1.12] lg:text-[36px] xl:text-[38px]">
         {product.heading}
       </h3>
 
-      <p className="mb-8 font-body text-[16px] leading-[1.7] text-[#374151]">{product.description}</p>
+      <p className="mb-8 max-w-reading font-body text-[16px] leading-[1.75] text-[#374151] md:mb-10 md:text-[17px] md:leading-[1.8]">
+        {product.description}
+      </p>
 
       {product.external ? (
         <a
@@ -92,31 +98,41 @@ function ProductTextBlock({ product }: ProductBlockProps) {
   )
 }
 
-function ProductVisualBlock({ product }: ProductBlockProps) {
+function ProductVisualBlock({ product, imageAlign = 'end' }: ProductVisualBlockProps) {
   return (
     <div
       className={cn(
-        'relative aspect-[4/3] w-full overflow-hidden rounded-md shadow-[0_20px_60px_-10px_rgba(0,0,0,0.12)]',
-        product.surfaceColor,
+        'w-full',
+        imageAlign === 'end' ? 'md:flex md:justify-end' : 'md:flex md:justify-start',
       )}
     >
-      <div className="flex h-full flex-col p-6">
-        <div className="mb-4 flex items-center gap-1.5" aria-hidden>
-          <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
-        </div>
+      {/* Offset room for Coda-style hard shadow */}
+      <div className="relative mx-auto w-full max-w-[520px] pb-2 pr-2 md:mx-0 md:max-w-[480px] lg:max-w-[520px]">
+        <div
+          className={cn(
+            'overflow-hidden rounded-md border border-soft-gray bg-white shadow-block',
+            product.surfaceColor,
+          )}
+        >
+          <div className="flex flex-col p-5 md:p-6">
+            <div className="mb-4 flex items-center gap-1.5" aria-hidden>
+              <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
+            </div>
 
-        <div className="flex flex-1 flex-col rounded-md bg-white p-4 shadow-sm">
-          <p className={cn('mb-2 font-display text-[18px] font-bold', product.textColor)}>
-            {product.label}
-          </p>
-          <div className="mb-2 h-2 w-full rounded-full bg-[#E5E7EB]" aria-hidden />
-          <div className="mb-2 h-2 w-3/4 rounded-full bg-[#E5E7EB]" aria-hidden />
-          <div className="mb-2 h-2 w-1/2 rounded-full bg-[#E5E7EB]" aria-hidden />
-          <div className="my-3 h-px bg-[#F3F4F6]" aria-hidden />
-          <div className="mb-2 h-2 w-full rounded-full bg-[#E5E7EB]" aria-hidden />
-          <div className="h-2 w-4/5 rounded-full bg-[#E5E7EB]" aria-hidden />
+            <div className="flex min-h-[200px] flex-col rounded-md border border-[#F3F4F6] bg-white p-4 shadow-card md:min-h-[220px]">
+              <p className={cn('mb-2 font-display text-[17px] font-bold md:text-[18px]', product.textColor)}>
+                {product.label}
+              </p>
+              <div className="mb-2 h-2 w-full rounded-full bg-[#E5E7EB]" aria-hidden />
+              <div className="mb-2 h-2 w-3/4 rounded-full bg-[#E5E7EB]" aria-hidden />
+              <div className="mb-2 h-2 w-1/2 rounded-full bg-[#E5E7EB]" aria-hidden />
+              <div className="my-3 h-px bg-[#F3F4F6]" aria-hidden />
+              <div className="mb-2 h-2 w-full rounded-full bg-[#E5E7EB]" aria-hidden />
+              <div className="h-2 w-4/5 rounded-full bg-[#E5E7EB]" aria-hidden />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -149,7 +165,7 @@ export function HomepageClient() {
       badgeVariant: 'default',
       heading: 'Hỏi AI rõ hơn.\nNhận kết quả tốt hơn.',
       description:
-        'Vấn đề không phải AI không giỏi — vấn đề là yêu cầu của bạn quá mơ hồ. AskBetter phân tích yêu cầu thô của bạn, chỉ ra phần còn thiếu, và giúp bạn viết lại prompt đủ context để AI hiểu đúng ý. Miễn phí, không cần đăng ký.',
+        'Vấn đề không phải AI không giỏi — vấn đề là yêu cầu của bạn quá mơ hồ. AskBetter phân tích yêu cầu thô của bạn, chỉ ra phần còn thiếu, và giúp bạn viết lại để AI hiểu đúng ý. Miễn phí, không cần đăng ký.',
       cta: t.products.askbetter.cta,
       href: '/askbetter',
       accentColor: '#2563EB',
@@ -163,7 +179,7 @@ export function HomepageClient() {
       badgeVariant: 'default',
       heading: 'Biết việc tiếp theo\ncần làm.',
       description:
-        'Bạn không thiếu to-do app — bạn thiếu sự rõ ràng khi đầu óc đang rối. Nhập bất kỳ ghi chú công việc nào bằng ngôn ngữ tự nhiên, NextUp tự động tách task, detect deadline, phân loại ưu tiên và gom lại theo Today / This Week / This Month.',
+        'Bạn không thiếu to-do app — bạn thiếu sự rõ ràng khi đầu óc đang rối. Nhập bất kỳ ghi chú công việc nào bằng ngôn ngữ tự nhiên, NextUp tự tách task, nhận diện deadline, phân loại ưu tiên và gom theo hôm nay / tuần này / tháng này.',
       cta: t.products.nextup.cta,
       href: '/nextup',
       accentColor: '#06B6D4',
@@ -177,7 +193,7 @@ export function HomepageClient() {
       badgeVariant: 'product',
       heading: 'Hiểu đấu thầu\ntừ nền tảng.',
       description:
-        'Đấu thầu có hàng trăm thuật ngữ pháp lý và quy trình phức tạp dễ gây overwhelm. BidMentor giúp bạn học từ đầu theo cách thực dụng: giải thích thuật ngữ theo ngữ cảnh thực tế, phân tích bài học theo tier từ cơ bản đến nâng cao, và hỗ trợ đọc hiểu hồ sơ mời thầu.',
+        'Đấu thầu có hàng trăm thuật ngữ pháp lý và quy trình phức tạp dễ gây overwhelm. BidMentor giúp bạn học từ đầu theo cách thực dụng: giải thích thuật ngữ theo ngữ cảnh thực tế, phân tích bài học từ cơ bản đến nâng cao, hỗ trợ đọc hiểu hồ sơ mời thầu.',
       cta: t.products.bidmentor.cta,
       href: 'https://bidmentor.vercel.app',
       external: true,
@@ -189,23 +205,23 @@ export function HomepageClient() {
 
   return (
     <>
-      <section className="bg-amber-glow py-16 md:py-[113px]">
-        <div className="mx-auto max-w-narrow px-4 text-center md:px-6">
-          <p className="mb-4 font-body text-[12px] font-semibold uppercase tracking-widest text-[#6B7280]">
+      <section className="bg-amber-glow py-20 md:py-28 lg:py-32 xl:py-[120px]">
+        <div className="mx-auto max-w-narrow px-page text-center">
+          <p className="mb-5 font-body text-[11px] font-bold uppercase tracking-widest text-[#6B7280] md:mb-6">
             {t.home.hero_badge}
           </p>
 
-          <h1 className="font-display font-bold tracking-[-0.03em] text-midnight-ink text-[40px] leading-[1.02] md:text-[72px] md:leading-[0.92] md:tracking-[-0.045em]">
+          <h1 className="font-display text-[44px] font-bold leading-[1.05] tracking-[-0.035em] text-midnight-ink md:text-[56px] md:leading-[1.02] md:tracking-[-0.04em] lg:text-[64px] lg:leading-[0.96] xl:text-[72px] xl:leading-[0.92] xl:tracking-[-0.045em]">
             <span className="block">{t.home.hero_title}</span>
-            <span className="block -mt-1 md:-mt-3">{t.home.hero_title_2}</span>
-            <span className="block -mt-1 text-sunset-orange md:-mt-3">{t.home.hero_title_3}</span>
+            <span className="block -mt-0.5 md:-mt-1 lg:-mt-2 xl:-mt-3">{t.home.hero_title_2}</span>
+            <span className="block -mt-0.5 text-sunset-orange md:-mt-1 lg:-mt-2 xl:-mt-3">{t.home.hero_title_3}</span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-reading text-center font-body text-body text-[#374151] leading-[1.7] md:text-subheading">
+          <p className="mx-auto mt-8 max-w-reading text-center font-body text-[16px] leading-[1.75] text-[#374151] md:mt-10 md:text-[17px] md:leading-[1.85] xl:text-[18px] xl:leading-[1.7]">
             {t.home.hero_sub}
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4 md:mt-14">
             <Link href="/askbetter" className={primaryButtonClassName}>
               {t.home.cta_primary}
             </Link>
@@ -216,78 +232,80 @@ export function HomepageClient() {
         </div>
       </section>
 
-      <section className="bg-white-canvas py-16 md:py-20">
-        <div className="mx-auto mb-0 max-w-content px-4 text-center md:px-6">
-          <h2 className="font-display text-[32px] font-bold tracking-[-0.025em] text-[#111111] md:text-[48px]">
-            {t.home.products_title}
-          </h2>
-          <p className="mx-auto mt-3 max-w-[560px] font-body text-[15px] text-[#6B7280]">
-            {t.home.products_sub}
-          </p>
-        </div>
-      </section>
+      <div className="bg-white-canvas">
+        <section className="border-b border-soft-gray py-20 md:py-24">
+          <div className="mx-auto max-w-content px-page text-center">
+            <h2 className="font-display text-[36px] font-bold tracking-[-0.03em] text-[#111111] md:text-[52px]">
+              {t.home.products_title}
+            </h2>
+            <p className="mx-auto mt-4 max-w-[560px] font-body text-[16px] leading-[1.7] text-[#6B7280]">
+              {t.home.products_sub}
+            </p>
+          </div>
+        </section>
 
-      {productSections.map((product, index) => {
-        const isEven = index % 2 === 0
+        {productSections.map((product, index) => {
+          const isEven = index % 2 === 0
 
-        return (
-          <section
-            key={product.id}
-            className={isEven ? 'bg-white' : 'bg-[#FAFAFA]'}
-          >
-            <div className="mx-auto max-w-[1100px] px-4 py-16 md:px-8 md:py-24">
-              <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">
-                {isEven ? (
-                  <>
-                    <div>
-                      <ProductTextBlock product={product} />
-                    </div>
-                    <div>
-                      <ProductVisualBlock product={product} />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="md:order-2">
-                      <ProductTextBlock product={product} />
-                    </div>
-                    <div className="md:order-1">
-                      <ProductVisualBlock product={product} />
-                    </div>
-                  </>
-                )}
+          return (
+            <section
+              key={product.id}
+              className="border-b border-soft-gray last:border-b-0"
+            >
+              <div className="mx-auto max-w-content px-page py-16 md:py-24 lg:py-28">
+                <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-2 md:gap-x-16 md:gap-y-12 lg:gap-x-20">
+                  {isEven ? (
+                    <>
+                      <div className="order-2 md:order-1 md:pr-4 lg:pr-8">
+                        <ProductTextBlock product={product} />
+                      </div>
+                      <div className="order-1 md:order-2">
+                        <ProductVisualBlock product={product} imageAlign="end" />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="order-2 md:order-2 md:pl-4 lg:pl-8">
+                        <ProductTextBlock product={product} />
+                      </div>
+                      <div className="order-1 md:order-1">
+                        <ProductVisualBlock product={product} imageAlign="start" />
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
-            </div>
-          </section>
-        )
-      })}
+            </section>
+          )
+        })}
+      </div>
 
-      <section className="bg-amber-glow py-16 md:py-20">
-        <div className="mx-auto max-w-narrow px-4 text-center md:px-6">
-          <p className="mb-4 font-body text-caption font-bold uppercase tracking-widest text-sunset-orange">
+      <section className="bg-amber-glow py-20 md:py-28 lg:py-32">
+        <div className="mx-auto max-w-narrow px-page text-center">
+          <p className="mb-5 font-body text-[11px] font-bold uppercase tracking-widest text-sunset-orange md:mb-6">
             {t.home.philosophy_label}
           </p>
-          <h2 className="mt-2 font-display text-[32px] font-bold tracking-[-0.025em] text-[#111111] md:text-[52px] md:tracking-[-0.035em]">
+          <h2 className="mt-3 font-display text-[36px] font-bold tracking-[-0.03em] text-[#111111] md:text-[44px] md:tracking-[-0.035em] xl:text-[56px] xl:tracking-[-0.04em]">
             {t.home.philosophy_title}
           </h2>
-          <p className="mx-auto mt-6 max-w-[560px] font-body text-body leading-[1.7] text-[#374151] md:text-subheading">
+          <p className="mx-auto mt-8 max-w-[560px] font-body text-[16px] leading-[1.75] text-[#374151] md:mt-10 md:text-[17px] md:leading-[1.85] xl:text-[18px] xl:leading-[1.75]">
             {t.home.philosophy_body}
           </p>
         </div>
       </section>
 
-      <section className="border-t border-soft-gray bg-white-canvas py-12 md:py-16">
-        <div className="mx-auto flex max-w-content flex-col items-center justify-between gap-6 px-4 md:flex-row md:px-6">
-          <div className="mb-6 text-center md:mb-0 md:text-left">
-            <h2 className="font-display text-[22px] font-bold tracking-[-0.01em] text-[#111111] md:text-[28px]">
+      <section className="border-t border-soft-gray bg-white-canvas py-16 md:py-24 xl:py-20">
+        <div className="mx-auto flex max-w-content flex-col items-center justify-between gap-8 px-page md:flex-row md:gap-10">
+          <div className="mb-2 text-center md:mb-0 md:text-left">
+            <h2 className="font-display text-[26px] font-bold tracking-[-0.02em] text-[#111111] md:text-[28px] xl:text-[32px]">
               {t.home.cta_strip_title}
             </h2>
-            <p className="mt-1 font-body text-[14px] text-[#6B7280]">
+            <p className="mt-3 font-body text-[15px] leading-[1.65] text-[#6B7280] md:text-[16px] md:leading-[1.75]">
               {t.home.cta_strip_sub}
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 md:justify-end">
+          <div className="flex flex-wrap items-center justify-center gap-4 md:justify-end">
             <Link href="/askbetter" className={primaryButtonClassName}>
               {t.home.cta_primary}
             </Link>

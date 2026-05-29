@@ -260,12 +260,21 @@
   --section-gap: 113px;
   --card-padding: 16px;
   --element-gap: 8px;
+
+  /* Page horizontal gutter — scales with viewport (Coda-style breathing room) */
+  --spacing-page-x: clamp(1.25rem, 5vw + 0.75rem, 4.5rem);
 }
 
 /* Touch target helper */
 .touch-target {
   min-height: 44px;
   min-width: 44px;
+}
+
+/* Shared horizontal page gutter — logo, hero, and sections align to the same inset */
+.px-page {
+  padding-left: max(var(--spacing-page-x), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--spacing-page-x), env(safe-area-inset-right, 0px));
 }
 
 /* Scroll containers */
@@ -306,6 +315,19 @@ html {
 
 .safe-bottom {
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+@media (min-width: 768px) {
+  html {
+    /* Slightly larger base for tablet comfort */
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 1280px) {
+  html {
+    font-size: 16px;
+  }
 }
 
 :root {
@@ -366,16 +388,15 @@ span {
   .lesson-section {
     page-break-inside: avoid;
     break-inside: avoid;
+    border-top: 1px solid #f3f4f6 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
   }
 
   /* Core Rule must never split */
   .core-rule-content {
     page-break-inside: avoid;
     break-inside: avoid;
-  }
-
-  /* Add margin between sections for readability */
-  .lesson-section + .lesson-section {
-    margin-top: 8px;
   }
 }

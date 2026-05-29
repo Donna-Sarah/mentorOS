@@ -74,7 +74,7 @@ function Wordmark({ className }: { className?: string }) {
     <Link
       href="/"
       className={cn(
-        'font-display text-lg font-bold text-midnight-ink no-underline cursor-pointer',
+        'font-display text-xl font-bold tracking-[-0.02em] text-midnight-ink no-underline cursor-pointer md:text-[22px]',
         className,
       )}
     >
@@ -86,10 +86,10 @@ function Wordmark({ className }: { className?: string }) {
 export function Navbar() {
   const { t } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
   const isHome = pathname === '/'
   const isPMPInput = pathname === '/pmp'
-  const isTransparent = isPMPInput
 
   const closeDrawer = useCallback(() => setIsOpen(false), [])
   const openDrawer = useCallback(() => setIsOpen(true), [])
@@ -108,6 +108,13 @@ export function Navbar() {
     ],
     [t],
   )
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     if (isOpen) {
@@ -137,16 +144,18 @@ export function Navbar() {
           'h-navbar-mobile md:h-navbar-desktop',
           isHome
             ? 'border-transparent bg-amber-glow hover:border-[#F3F4F6] hover:bg-white'
-            : isTransparent
+            : isPMPInput && !scrolled
               ? 'border-black/5 bg-transparent'
-              : 'border-soft-gray bg-white-canvas',
+              : isPMPInput && scrolled
+                ? 'border-[#E8D5BC] bg-amber-glow'
+                : 'border-soft-gray bg-white-canvas',
         )}
       >
-        <div className="mx-auto flex h-full max-w-content items-center justify-between px-4 md:px-6">
+        <div className="mx-auto flex h-full max-w-content items-center justify-between px-page">
           <Wordmark />
 
           <nav
-            className="hidden items-center gap-1 lg:flex"
+            className="hidden items-center gap-1 xl:flex"
             aria-label="Main navigation"
           >
             {navLinks.map((link) => (
@@ -158,7 +167,7 @@ export function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden items-center lg:flex">
+          <div className="hidden items-center xl:flex">
             <Button variant="primary" size="sm" href="/askbetter">
               {t.nav.try_free}
             </Button>
@@ -166,7 +175,7 @@ export function Navbar() {
 
           <button
             type="button"
-            className="inline-flex min-h-touch min-w-touch items-center justify-center text-midnight-ink lg:hidden"
+            className="ml-auto inline-flex min-h-[48px] min-w-[48px] items-center justify-center text-midnight-ink xl:ml-0 xl:hidden"
             onClick={openDrawer}
             aria-expanded={isOpen}
             aria-controls="mobile-nav-drawer"
@@ -179,7 +188,7 @@ export function Navbar() {
 
       <div
         className={cn(
-          'fixed inset-0 z-overlay bg-obsidian/40 transition-opacity lg:hidden',
+          'fixed inset-0 z-overlay bg-obsidian/40 transition-opacity xl:hidden',
           isOpen
             ? 'pointer-events-auto opacity-100'
             : 'pointer-events-none opacity-0',
@@ -191,7 +200,7 @@ export function Navbar() {
       <aside
         id="mobile-nav-drawer"
         className={cn(
-          'fixed top-0 right-0 z-drawer flex h-screen flex-col bg-white-canvas shadow-drawer transition-transform duration-300 lg:hidden',
+          'fixed top-0 right-0 z-drawer flex h-screen flex-col bg-white-canvas shadow-drawer transition-transform duration-300 xl:hidden',
           '[transition-timing-function:cubic-bezier(0.4,0,0.2,1)]',
           isOpen ? 'translate-x-0' : 'translate-x-full',
         )}

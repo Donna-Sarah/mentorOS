@@ -16,7 +16,7 @@ export const en: Translations = {
     hero_badge: 'AI-native Cognition System',
     hero_title: 'Think clearer.',
     hero_title_2: 'Learn faster.',
-    hero_title_3: 'Work smarter with AI.',
+    hero_title_3: 'Work smarter.',
     hero_sub:
       'mentorOS is an AI-native ecosystem that helps you understand problems clearly, learn effectively, and work smarter.',
     cta_primary: 'Try AskBetter free',

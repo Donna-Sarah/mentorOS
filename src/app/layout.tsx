@@ -24,9 +24,9 @@ const playfair = Playfair({
 });
 
 export const metadata: Metadata = {
-  title: "mentorOS — Think clearer. Learn faster. Work smarter with AI.",
+  title: "mentorOS — Suy nghĩ rõ hơn. Học nhanh hơn. Làm việc thông minh hơn.",
   description:
-    "AI-native cognition system for professional learning and work.",
+    "Hệ thống tư duy chuyên môn bằng AI — học và làm việc hiệu quả hơn với mentorOS.",
 };
 
 export default function RootLayout({

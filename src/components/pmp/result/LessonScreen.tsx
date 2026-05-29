@@ -4,6 +4,9 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { AnswerVerdict, Mood1Result, PMPQuestion } from '@/types/pmp'
 import { cn } from '@/lib/utils/cn'
 import HighlightedText from '@/components/pmp/shared/HighlightedText'
+import GlossaryTooltip from '@/components/pmp/shared/GlossaryTooltip'
+import LangToggle from '@/components/pmp/shared/LangToggle'
+import { formatFullQuestionText, parseTranslation } from '@/components/pmp/shared/parseQuestionText'
 
 interface LessonScreenProps {
   question: PMPQuestion
@@ -12,6 +15,7 @@ interface LessonScreenProps {
   elapsedSeconds: number
   onReset: () => void
   onBack: () => void
+  onOpenGlossary?: (index: number) => void
   cachedTranslation?: string | null
 }
 
@@ -20,7 +24,7 @@ interface CollapsibleSectionProps {
   isExpanded: boolean
   onToggle: () => void
   accent?: string
-  highlight?: boolean
+  isFirst?: boolean
   children: React.ReactNode
 }
 
@@ -29,28 +33,21 @@ function CollapsibleSection({
   isExpanded,
   onToggle,
   accent,
-  highlight,
+  isFirst = false,
   children,
 }: CollapsibleSectionProps) {
   return (
-    <div
-      className={cn(
-        'lesson-section',
-        'mb-4 overflow-hidden rounded-md border border-[#F3F4F6] print:border-[#E5E7EB]',
-        // Avoid Tailwind v4 color-mix(in oklab, ...) output (html2canvas can't parse it)
-        highlight && isExpanded ? 'bg-[rgba(255,246,236,0.3)]' : 'bg-white',
-      )}
-    >
+    <div className={cn('lesson-section', !isFirst && 'border-t border-[#F3F4F6]')}>
       <button
         type="button"
         onClick={onToggle}
-        className="flex w-full items-center justify-between px-5 py-4 text-left transition-colors hover:bg-[#F9FAFB] print:pointer-events-none print:cursor-default"
+        className="flex w-full items-center justify-between px-0 py-5 text-left transition-opacity hover:opacity-80 print:pointer-events-none print:cursor-default"
       >
         <div className="flex items-center gap-3">
           {accent ? (
             <span className="h-5 w-1 rounded-full" style={{ backgroundColor: accent }} aria-hidden />
           ) : null}
-          <span className="font-body text-[14px] font-semibold text-[#111111]">{title}</span>
+          <span className="font-body text-[15px] font-semibold text-[#111111]">{title}</span>
         </div>
         <div className="print:hidden" aria-hidden>
           <svg
@@ -71,15 +68,7 @@ function CollapsibleSection({
         </div>
       </button>
 
-      <div
-        className={cn(
-          'px-5 pb-5 pt-1',
-          isExpanded ? 'block' : 'hidden print:block',
-          'print:px-4 print:pb-4 print:pt-1',
-        )}
-      >
-        {children}
-      </div>
+      <div className={cn('pb-8 pt-0', isExpanded ? 'block' : 'hidden print:block')}>{children}</div>
     </div>
   )
 }
@@ -107,6 +96,17 @@ function RefreshIcon() {
   )
 }
 
+/** html2canvas (via html2pdf) cannot parse Tailwind v4 oklab/oklch/color-mix in stylesheets. */
+function stripUnsupportedColorFunctions(doc: Document) {
+  doc.querySelectorAll('style').forEach((node) => {
+    if (!node.textContent) return
+    node.textContent = node.textContent
+      .replace(/oklab\([^;)}]+\)/gi, '#6b7280')
+      .replace(/oklch\([^;)}]+\)/gi, '#6b7280')
+      .replace(/color-mix\([^;)}]+\)/gi, 'transparent')
+  })
+}
+
 function getTimerState(seconds: number, benchmark: number): { color: string; message: string } {
   const greenEnd = benchmark * 0.52
   const amberEnd = benchmark
@@ -125,9 +125,9 @@ export default function LessonScreen({
   elapsedSeconds,
   onReset,
   onBack,
+  onOpenGlossary,
   cachedTranslation = null,
 }: LessonScreenProps) {
-  const [displayText, setDisplayText] = useState(question.text)
   const [isTranslated, setIsTranslated] = useState(false)
   const [translateCache, setTranslateCache] = useState<string | null>(null)
   const [isTranslating, setIsTranslating] = useState(false)
@@ -136,6 +136,11 @@ export default function LessonScreen({
   const [showReportModal, setShowReportModal] = useState(false)
   const [reportType, setReportType] = useState<string>('')
   const [reportSubmitted, setReportSubmitted] = useState(false)
+  const [tooltipTerm, setTooltipTerm] = useState<{
+    term: string
+    idx: number
+    rect: DOMRect
+  } | null>(null)
   const [expanded, setExpanded] = useState({
     verdict: true,
     anatomy: false,
@@ -147,6 +152,33 @@ export default function LessonScreen({
   const html2pdfRef = useRef<null | (() => { set: (opt: unknown) => { from: (el: HTMLElement) => { save: () => Promise<void> } } })>(null)
   const isPreloadingRef = useRef(false)
   const reportTimerRef = useRef<number | null>(null)
+
+  useEffect(() => {
+    setIsTranslated(false)
+    setTranslateCache(null)
+    setIsTranslating(false)
+  }, [question])
+
+  const displayContent = useMemo(() => {
+    const fallbackOptions = question.options ?? {}
+
+    if (!isTranslated) {
+      return { questionText: question.text, options: fallbackOptions }
+    }
+
+    const translatedSource = translateCache ?? cachedTranslation
+    if (translatedSource) {
+      const parsed = parseTranslation(translatedSource, fallbackOptions)
+      return { questionText: parsed.question, options: parsed.options }
+    }
+
+    return { questionText: question.text, options: fallbackOptions }
+  }, [isTranslated, translateCache, cachedTranslation, question])
+
+  const displayOptions = useMemo(
+    () => Object.entries(displayContent.options),
+    [displayContent.options],
+  )
 
   useEffect(() => {
     if (html2pdfRef.current || isPreloadingRef.current) return
@@ -175,13 +207,10 @@ export default function LessonScreen({
 
     if (isTranslated) {
       setIsTranslated(false)
-      setDisplayText(question.text)
       return
     }
 
-    // Use cached translation if available (precomputed sample cache)
     if (cachedTranslation) {
-      setDisplayText(cachedTranslation)
       setTranslateCache(cachedTranslation)
       setIsTranslated(true)
       return
@@ -189,16 +218,16 @@ export default function LessonScreen({
 
     if (translateCache) {
       setIsTranslated(true)
-      setDisplayText(translateCache)
       return
     }
 
     setIsTranslating(true)
     try {
+      const fullText = formatFullQuestionText(question.text, question.options ?? {})
       const res = await fetch('/api/pmp/translate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: question.text, mode: 'mood1' }),
+        body: JSON.stringify({ text: fullText, mode: 'mood1' }),
       })
       const json = (await res.json()) as { data: string | null; error: string | null }
       if (json.error || !json.data) {
@@ -207,7 +236,6 @@ export default function LessonScreen({
       }
       setTranslateCache(json.data)
       setIsTranslated(true)
-      setDisplayText(json.data)
     } catch (err) {
       console.error(err)
     } finally {
@@ -255,6 +283,9 @@ export default function LessonScreen({
             useCORS: true,
             letterRendering: true,
             windowWidth: 800,
+            onclone: (clonedDoc: Document) => {
+              stripUnsupportedColorFunctions(clonedDoc)
+            },
           },
           jsPDF: {
             unit: 'mm',
@@ -304,8 +335,12 @@ export default function LessonScreen({
   const timerState = getTimerState(elapsedSeconds, benchmarkSeconds)
   const fillPercent = Math.min((elapsedSeconds / (benchmarkSeconds * 1.56)) * 100, 100)
 
+  function handleTermClick(term: string, idx: number, rect: DOMRect) {
+    setTooltipTerm({ term, idx, rect })
+  }
+
   return (
-    <section className="mx-auto max-w-[680px] px-4 py-8 pb-24 md:px-6">
+    <section className="mx-auto max-w-[680px] px-5 py-10 pb-28 md:px-8 md:py-12">
       <div className="mb-6 flex items-center justify-between print:hidden">
         <div className="flex items-center gap-2">
           <button type="button" onClick={onReset} className={headerButtonClassName}>
@@ -313,7 +348,7 @@ export default function LessonScreen({
             Câu hỏi mới
           </button>
           <button type="button" onClick={onBack} className={headerButtonClassName}>
-            Đổi mood
+            Chuyển sang Mood 2
           </button>
         </div>
 
@@ -396,14 +431,14 @@ export default function LessonScreen({
                   </button>
                 </div>
 
-                <p className="mb-4 font-body text-[13px] leading-[1.65] text-[#6B7280]">
+                <p className="mb-4 font-body text-[13px] leading-[1.75] text-[#6B7280]">
                   Cảm ơn bạn đã phản hồi. Vui lòng chọn loại lỗi:
                 </p>
 
                 <div className="space-y-2">
                   {[
                     { value: 'wrong_answer', label: 'Đáp án đúng/sai không chính xác' },
-                    { value: 'wrong_analysis', label: 'Phân tích/giải thích sai' },
+                    { value: 'wrong_analysis', label: 'Phân tích hoặc giải thích sai' },
                     { value: 'wrong_trap', label: 'Trap hoặc Core Rule không phù hợp' },
                     { value: 'other', label: 'Vấn đề khác' },
                   ].map((opt) => (
@@ -430,7 +465,7 @@ export default function LessonScreen({
                   onClick={() => void handleReport()}
                   className="mt-4 w-full rounded-md bg-[#111111] py-2.5 font-body text-[13px] font-semibold text-white transition-colors hover:bg-[#333333] disabled:cursor-not-allowed disabled:opacity-40"
                 >
-                  Gửi phản hồi
+                  Gửi báo cáo
                 </button>
               </>
             )}
@@ -438,40 +473,58 @@ export default function LessonScreen({
         </>
       ) : null}
 
-      <div ref={lessonRef} className="lesson-content">
-        <div className="mb-6 rounded-md border border-[#F3F4F6] bg-[#FAFAFA] p-5 print:border-[#E5E7EB] print:bg-white">
-          <div className="mb-3 flex items-start justify-between gap-3">
-            <div>
-              {question.tag ? (
-                <div className="font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
-                  {question.tag}
-                </div>
-              ) : null}
+      <div
+        ref={lessonRef}
+        className="lesson-content rounded-md border border-[#F3F4F6] bg-[#FFFFFF] px-8 pb-8 pt-2 shadow-[0_1px_8px_rgba(0,0,0,0.06)] print:border-none print:px-6 print:shadow-none md:px-12"
+      >
+        <div className="mb-8 rounded-md border border-[#F3F4F6] bg-[#FAFAFA] px-6 py-5 print:border-[#E5E7EB] print:bg-[#FFFFFF] md:px-8">
+          {question.tag ? (
+            <div className="mb-4 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
+              {question.tag}
             </div>
-            <button
-              type="button"
-              onClick={() => void handleTranslate()}
-              disabled={isTranslating}
-              className={cn(
-                'inline-flex min-h-[30px] shrink-0 items-center gap-1.5 rounded-md px-3 py-1.5 font-body text-[12px] font-semibold transition-all duration-150 disabled:opacity-60',
-                isTranslated
-                  ? 'border-2 border-[#7C3AED] bg-[#F5F3FF] text-[#7C3AED]'
-                  : 'border-2 border-[#E5E7EB] bg-white text-[#374151] hover:border-[#7C3AED] hover:text-[#7C3AED]',
-              )}
-            >
-              {isTranslating ? '...' : isTranslated ? '🇬🇧 EN' : '🇻🇳 VI'}
-            </button>
-          </div>
+          ) : null}
 
           <HighlightedText
-            text={displayText}
-            onTermClick={() => {}}
-            className="font-body text-[15px] leading-[1.7] text-[#111111]"
+            text={displayContent.questionText}
+            onTermClick={handleTermClick}
+            className="font-body text-[16px] leading-[1.75] text-[#111111] md:text-[17px]"
           />
 
-          <div className="mt-3 flex w-full items-center gap-3">
+          {displayOptions.length > 0 ? (
+            <div className="mt-5 space-y-3">
+              {displayOptions.map(([key, value]) => {
+                const userPicked = userAnswers.includes(key)
+
+                return (
+                  <div
+                    key={key}
+                    className={cn(
+                      'flex min-h-[52px] items-start gap-4 rounded-md border px-5 py-4',
+                      userPicked
+                        ? 'border-[#93C5FD] bg-[#EEF2FF]'
+                        : 'border-[#F3F4F6] bg-[#FFFFFF]',
+                    )}
+                  >
+                    <div
+                      className={cn(
+                        'flex h-7 w-7 shrink-0 items-center justify-center rounded-full font-body text-[13px] font-bold',
+                        userPicked ? 'bg-[#2563EB] text-white' : 'bg-[#F3F4F6] text-[#6B7280]',
+                      )}
+                    >
+                      {key}
+                    </div>
+                    <div className="min-w-0 flex-1 font-body text-[15px] leading-[1.65] text-[#111111]">
+                      <HighlightedText text={value} onTermClick={handleTermClick} />
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          ) : null}
+
+          <div className="mt-5 flex w-full items-center gap-4">
             <span
-              className="font-body text-[12px] font-bold tabular-nums"
+              className="font-body text-[14px] font-bold tabular-nums"
               style={{ color: timerState.color }}
             >
               ⏱ {formatMmSs(elapsedSeconds)}
@@ -484,36 +537,45 @@ export default function LessonScreen({
             </div>
             <span className="hidden font-body text-[11px] text-[#9CA3AF] md:block">{timerState.message}</span>
           </div>
+
+          <div className="mt-4 flex justify-end print:hidden">
+            <LangToggle
+              isVI={isTranslated}
+              onToggle={() => void handleTranslate()}
+              isLoading={isTranslating}
+            />
+          </div>
         </div>
 
         <CollapsibleSection
           title="Kết quả"
+          isFirst
           isExpanded={expanded.verdict}
           onToggle={() => toggle('verdict')}
           accent={verdictAccent}
         >
           <div
             className={cn(
-              'mb-4 flex items-center gap-3 rounded-md p-4',
+              'mb-5 flex items-center gap-4 rounded-md p-5 md:p-6',
               isCorrect ? 'bg-[#F0FDF4] text-[#166534]' : 'bg-[#FEF2F2] text-[#991B1B]',
             )}
           >
             <div
               className={cn(
-                'flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white',
+                'flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white',
                 isCorrect ? 'bg-[#10B981]' : 'bg-[#EF4444]',
               )}
             >
               {isCorrect ? '✓' : '✗'}
             </div>
-            <p className="font-body text-[15px] font-semibold">
+            <p className="font-body text-[16px] font-semibold leading-[1.5] md:text-[17px]">
               {isCorrect
                 ? `Chính xác! Đáp án đúng là ${result.correct_answers.join(', ')}`
                 : `Chưa đúng. Đáp án đúng là ${result.correct_answers.join(', ')}`}
             </p>
           </div>
 
-          <div className="mt-2 space-y-2">
+          <div className="mt-4 space-y-3">
             {(Object.entries(result.answer_verdict) as Array<[string, AnswerVerdict]>).map(([key, item]) => {
               const isAnswerCorrect = result.correct_answers.includes(key)
               const userPicked = userAnswers.includes(key)
@@ -522,7 +584,7 @@ export default function LessonScreen({
                 ? 'bg-[#F0FDF4] border border-[#BBF7D0]'
                 : userPicked
                   ? 'bg-[#FEF2F2] border border-[#FECACA]'
-                  : 'bg-white border border-[#F3F4F6]'
+                  : 'bg-[#FFFFFF] border border-[#F3F4F6]'
 
               const circleClass = isAnswerCorrect
                 ? 'bg-[#10B981] text-white'
@@ -531,7 +593,7 @@ export default function LessonScreen({
                   : 'bg-[#F3F4F6] text-[#6B7280]'
 
               return (
-                <div key={key} className={cn('flex items-start gap-3 rounded-md p-3', rowClass)}>
+                <div key={key} className={cn('flex items-start gap-4 rounded-md p-4', rowClass)}>
                   <div
                     className={cn(
                       'flex h-7 w-7 shrink-0 items-center justify-center rounded-full font-body text-[13px] font-bold',
@@ -551,8 +613,8 @@ export default function LessonScreen({
                         </span>
                       ) : null}
                     </div>
-                    <div className="mt-1 font-body text-[13px] leading-[1.65] text-[#374151]">
-                      <HighlightedText text={item.explanation} onTermClick={() => {}} />
+                    <div className="mt-2 font-body text-[14px] leading-[1.7] text-[#374151]">
+                      <HighlightedText text={item.explanation} onTermClick={handleTermClick} />
                     </div>
                   </div>
                 </div>
@@ -567,19 +629,19 @@ export default function LessonScreen({
           onToggle={() => toggle('anatomy')}
           accent="#EE5A29"
         >
-          <div className="space-y-4">
+          <div className="space-y-5">
             <div>
-              <div className="mb-1 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
+              <div className="mb-2 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
                 VAI TRÒ
               </div>
-              <div className="font-body text-[14px] leading-[1.65] text-[#374151]">{result.anatomy.role_anchor}</div>
+              <div className="font-body text-[15px] leading-[1.75] text-[#374151]">{result.anatomy.role_anchor}</div>
             </div>
 
             <div>
               <div className="mb-1 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
                 TÌNH HUỐNG CỐT LÕI
               </div>
-              <div className="font-body text-[14px] leading-[1.65] text-[#374151]">{result.anatomy.situation}</div>
+              <div className="font-body text-[15px] leading-[1.75] text-[#374151]">{result.anatomy.situation}</div>
             </div>
 
             <div>
@@ -587,7 +649,7 @@ export default function LessonScreen({
                 TRIGGER WORD
               </div>
               <div className="flex flex-wrap items-center gap-2">
-                <span className="rounded-sm bg-amber-glow px-2 py-0.5 font-display text-[14px] font-bold text-sunset-orange">
+                <span className="rounded-sm bg-[#FFF6EC] px-2 py-0.5 font-display text-[14px] font-bold text-[#EE5A29]">
                   {result.anatomy.trigger_word}
                 </span>
                 <span className="font-body text-[14px] text-[#374151]">{result.anatomy.trigger_meaning}</span>
@@ -598,7 +660,7 @@ export default function LessonScreen({
               <div className="mb-1 font-body text-[11px] font-bold uppercase tracking-widest text-[#7C3AED]">
                 PMI THỰC SỰ TEST GÌ
               </div>
-              <div className="font-body text-[14px] font-semibold leading-[1.65] text-[#4C1D95]">
+              <div className="font-body text-[14px] font-semibold leading-[1.75] text-[#4C1D95]">
                 {result.anatomy.hidden_test}
               </div>
             </div>
@@ -606,7 +668,7 @@ export default function LessonScreen({
         </CollapsibleSection>
 
         <CollapsibleSection
-          title="VN Reflex vs PMI Thinking"
+          title="Tư duy VN vs PMI"
           isExpanded={expanded.mindset}
           onToggle={() => toggle('mindset')}
           accent="#EE5A29"
@@ -616,10 +678,10 @@ export default function LessonScreen({
               <span aria-hidden>🇻🇳</span>
               <span className="font-body text-[13px] font-semibold text-[#374151]">Phản xạ thực tế VN</span>
             </div>
-            <div className="mb-1 font-body text-[14px] font-semibold leading-[1.65] text-[#111111]">
+            <div className="mb-1 font-body text-[14px] font-semibold leading-[1.75] text-[#111111]">
               {result.mindset.vn_thinking}
             </div>
-            <div className="font-body text-[13px] italic leading-[1.65] text-[#6B7280]">
+            <div className="font-body text-[13px] italic leading-[1.75] text-[#6B7280]">
               {result.mindset.vn_reason}
             </div>
           </div>
@@ -629,10 +691,10 @@ export default function LessonScreen({
               <span aria-hidden>🎯</span>
               <span className="font-body text-[13px] font-semibold text-[#374151]">PMI Mindset</span>
             </div>
-            <div className="mb-1 font-body text-[14px] font-semibold leading-[1.65] text-[#111111]">
+            <div className="mb-1 font-body text-[14px] font-semibold leading-[1.75] text-[#111111]">
               {result.mindset.pmi_thinking}
             </div>
-            <div className="font-body text-[13px] italic leading-[1.65] text-[#6B7280]">
+            <div className="font-body text-[13px] italic leading-[1.75] text-[#6B7280]">
               {result.mindset.pmi_reason}
             </div>
           </div>
@@ -642,25 +704,23 @@ export default function LessonScreen({
           title="Core Rule"
           isExpanded={expanded.core_rule}
           onToggle={() => toggle('core_rule')}
-          highlight
           accent="#EE5A29"
         >
-          <div className="core-rule-content relative py-4 text-center">
-            <div className="mb-3 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
+          <div className="core-rule-content relative py-6 text-center md:py-8">
+            <div className="mb-4 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
               CORE RULE
             </div>
-            <div className="relative z-10 mx-auto max-w-[480px] font-display text-[26px] font-bold leading-[1.3] tracking-[-0.02em] text-[#111111] md:text-[32px] print:text-[22px]">
+            <div className="relative z-10 mx-auto max-w-[480px] font-display text-[28px] font-bold leading-[1.35] tracking-[-0.03em] text-[#111111] md:text-[36px] print:text-[22px]">
               {result.core_rule}
             </div>
-            <div className="relative z-0 mx-auto mt-6 w-fit rounded-md bg-amber-glow px-3 py-1.5 font-body text-[13px] text-[#374151]">
-              <span>Áp dụng khi gặp bẫy:</span>
-              <span className="font-semibold">{result.trap.name}</span>
+            <div className="relative z-0 mx-auto mt-6 w-fit rounded-md bg-[#FFF6EC] px-3 py-1.5 font-body text-[13px] text-[#374151]">
+              Lưu lại để ôn sau 💡
             </div>
           </div>
         </CollapsibleSection>
 
         <CollapsibleSection
-          title="Trap Analysis"
+          title="Phân tích Trap"
           isExpanded={expanded.trap}
           onToggle={() => toggle('trap')}
           accent="#EE5A29"
@@ -676,7 +736,7 @@ export default function LessonScreen({
             <div className="mt-4 mb-1 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
               NGHE CÓ VẺ ĐÚNG VÌ...
             </div>
-            <div className="font-body text-[14px] italic leading-[1.65] text-[#374151]">
+            <div className="font-body text-[14px] italic leading-[1.75] text-[#374151]">
               {result.trap.why_feels_right}
             </div>
 
@@ -692,12 +752,25 @@ export default function LessonScreen({
               </span>
             </div>
 
-            <div className="mt-4 rounded-md bg-[rgba(238,242,255,0.5)] p-3 font-body text-[13px] leading-[1.65] text-pmp-primary">
+            <div className="mt-4 rounded-md bg-[rgba(238,242,255,0.5)] p-3 font-body text-[13px] leading-[1.75] text-[#2563EB]">
               💡 Gặp lại bẫy này? Nhớ ngay Core Rule và dừng lại trước khi chọn.
             </div>
           </div>
         </CollapsibleSection>
       </div>
+
+      {tooltipTerm ? (
+        <GlossaryTooltip
+          term={tooltipTerm.term}
+          entryIndex={tooltipTerm.idx}
+          anchorRect={tooltipTerm.rect}
+          onClose={() => setTooltipTerm(null)}
+          onViewFull={(idx) => {
+            setTooltipTerm(null)
+            onOpenGlossary?.(idx)
+          }}
+        />
+      ) : null}
     </section>
   )
 }

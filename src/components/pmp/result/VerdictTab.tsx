@@ -36,7 +36,11 @@ export default function VerdictTab({
   elapsedSeconds,
   onOpenGlossary,
 }: VerdictTabProps) {
-  const [tooltipTerm, setTooltipTerm] = useState<{ term: string; idx: number } | null>(null)
+  const [tooltipTerm, setTooltipTerm] = useState<{
+    term: string
+    idx: number
+    rect: DOMRect
+  } | null>(null)
 
   const benchmark = 77
   const timerColor = getTimerColor(elapsedSeconds, benchmark)
@@ -118,7 +122,7 @@ export default function VerdictTab({
                 <div className="mt-1 font-body text-body-sm text-slate-text">
                   <HighlightedText
                     text={verdict.explanation}
-                    onTermClick={(term, idx) => setTooltipTerm({ term, idx })}
+                    onTermClick={(term, idx, rect) => setTooltipTerm({ term, idx, rect })}
                   />
                 </div>
               </div>
@@ -131,6 +135,7 @@ export default function VerdictTab({
         <GlossaryTooltip
           term={tooltipTerm.term}
           entryIndex={tooltipTerm.idx}
+          anchorRect={tooltipTerm.rect}
           onClose={() => setTooltipTerm(null)}
           onViewFull={(idx) => {
             setTooltipTerm(null)

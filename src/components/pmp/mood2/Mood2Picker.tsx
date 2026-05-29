@@ -13,7 +13,7 @@ import {
 interface Mood2PickerProps {
   question: PMPQuestion
   onSubmit: (selectedOption: string, seconds: number, aiResult: Mood2Result) => void
-  onBack: () => void
+  onSwitchMood: () => void
 }
 
 type SubPhase = 'loading' | 'picking'
@@ -31,7 +31,7 @@ function Spinner() {
   )
 }
 
-export default function Mood2Picker({ question, onSubmit, onBack }: Mood2PickerProps) {
+export default function Mood2Picker({ question, onSubmit, onSwitchMood }: Mood2PickerProps) {
   const steps = [
     'Đang đọc câu hỏi...',
     'Xác định PMI signal chain...',
@@ -126,8 +126,8 @@ export default function Mood2Picker({ question, onSubmit, onBack }: Mood2PickerP
     return (
       <div className="mx-auto max-w-[640px] px-4 py-8 md:px-6">
         <div className="mb-8 flex items-center justify-between">
-          <Button variant="ghost" size="sm" onClick={onBack}>
-            ← Đổi chế độ
+          <Button variant="ghost" size="sm" onClick={onSwitchMood}>
+            Chuyển sang Mood 1
           </Button>
           <span className="rounded-md bg-pmp-surface px-3 py-1 font-body text-[12px] font-bold text-pmp-accent">
             🔍 Mood 2
@@ -173,8 +173,8 @@ export default function Mood2Picker({ question, onSubmit, onBack }: Mood2PickerP
   return (
     <section className="mx-auto max-w-[640px] px-4 py-8 md:px-6">
       <div className="mb-4 flex items-center justify-between gap-3">
-        <Button variant="ghost" size="sm" onClick={onBack}>
-          ← Đổi chế độ
+        <Button variant="ghost" size="sm" onClick={onSwitchMood}>
+          Chuyển sang Mood 1
         </Button>
         <div className="rounded-md bg-pmp-surface px-3 py-1 font-body text-body-sm font-bold text-pmp-accent">
           🔍 Mood 2

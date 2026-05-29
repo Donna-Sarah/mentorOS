@@ -122,18 +122,20 @@ export default function EVMCalculator() {
   ]
 
   return (
-    <div className="px-4 py-8 md:px-6">
-      <h2 className="mb-2 font-display text-heading-sm font-bold text-midnight-ink">📊 EVM Calculator</h2>
-      <p className="mb-6 font-body text-body-sm text-slate-text">
+    <div className="px-5 py-10 md:px-8 md:py-12">
+      <h2 className="mb-3 font-display text-[22px] font-bold tracking-[-0.02em] text-midnight-ink md:text-[24px]">
+        📊 EVM Calculator
+      </h2>
+      <p className="mb-8 font-body text-[15px] leading-[1.65] text-slate-text">
         Nhập 4 giá trị để tính tất cả EVM metrics.
       </p>
 
-      <div className="mb-6 grid grid-cols-2 gap-3">
+      <div className="mb-8 grid grid-cols-2 gap-4">
         {inputFields.map(({ key, label, hint }) => (
           <div key={key}>
-            <label className="mb-1 block font-body text-body-sm font-semibold text-midnight-ink">
+            <label className="mb-2 block font-body text-[14px] font-semibold text-midnight-ink">
               {label}
-              <span className="mt-0.5 block font-body text-caption font-normal text-ash-text">{hint}</span>
+              <span className="mt-1 block font-body text-[12px] font-normal leading-snug text-ash-text">{hint}</span>
             </label>
             <input
               type="number"
@@ -142,7 +144,7 @@ export default function EVMCalculator() {
               placeholder="0"
               value={inputs[key]}
               onChange={(e) => setInputs((prev) => ({ ...prev, [key]: e.target.value }))}
-              className="w-full rounded-md border border-soft-gray p-3 font-body text-body-sm text-midnight-ink transition-colors focus:border-pmp-primary focus:outline-none"
+              className="w-full rounded-md border border-soft-gray p-4 font-body text-[15px] text-midnight-ink transition-colors focus:border-pmp-primary focus:outline-none"
               style={{ fontSize: '16px' }}
             />
           </div>
@@ -153,7 +155,7 @@ export default function EVMCalculator() {
         <>
           <div
             className={cn(
-              'mb-4 rounded-md border p-3 font-body text-body-sm font-semibold',
+              'mb-5 rounded-md border p-4 font-body text-[15px] font-semibold leading-[1.5]',
               computed.isHealthy
                 ? 'border-success/20 bg-success/10 text-success'
                 : 'border-warning/20 bg-warning/10 text-warning',
@@ -162,19 +164,21 @@ export default function EVMCalculator() {
             {computed.interpretation}
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-4">
             {metrics.map((metric) => {
               const value = computed[metric.key]
               const formatted = metric.isRatio ? value.toFixed(2) : value.toFixed(0)
               const styles = colorClasses[metric.color]
 
               return (
-                <div key={metric.key} className={cn('rounded-md border p-3', styles.card)}>
-                  <div className="mb-1 font-body text-caption font-bold uppercase tracking-widest text-ash-text">
+                <div key={metric.key} className={cn('rounded-md border p-4', styles.card)}>
+                  <div className="mb-2 font-body text-[11px] font-bold uppercase tracking-widest text-ash-text">
                     {metric.label}
                   </div>
-                  <div className={cn('font-display text-[20px] font-bold', styles.value)}>{formatted}</div>
-                  <div className="mt-0.5 font-body text-caption text-ash-text">{metric.formula}</div>
+                  <div className={cn('font-display text-[24px] font-bold tracking-[-0.02em]', styles.value)}>
+                    {formatted}
+                  </div>
+                  <div className="mt-1 font-body text-[12px] text-ash-text">{metric.formula}</div>
                 </div>
               )
             })}
@@ -182,17 +186,17 @@ export default function EVMCalculator() {
         </>
       )}
 
-      <div className="mt-8 overflow-hidden rounded-md border border-soft-gray">
-        <div className="bg-soft-gray/20 p-3 font-body text-body-sm font-bold text-midnight-ink">
-          Quick Reference
+      <div className="mt-10 overflow-hidden rounded-md border border-soft-gray">
+        <div className="bg-soft-gray/20 p-4 font-body text-[15px] font-bold text-midnight-ink">
+          Tham khảo nhanh
         </div>
         <table className="w-full text-left">
           <thead className="bg-soft-gray/10">
             <tr>
-              {['Metric', 'Formula', '>1 means', '<1 means'].map((col) => (
+              {['Chỉ số', 'Công thức', '>1 nghĩa là', '<1 nghĩa là'].map((col) => (
                 <th
                   key={col}
-                  className="px-3 py-2 font-body text-caption font-bold uppercase tracking-widest text-ash-text"
+                  className="px-4 py-3 font-body text-[11px] font-bold uppercase tracking-widest text-ash-text"
                 >
                   {col}
                 </th>
@@ -201,14 +205,14 @@ export default function EVMCalculator() {
           </thead>
           <tbody>
             {[
-              ['CV', 'EV-AC', 'Under budget', 'Over budget'],
-              ['SV', 'EV-PV', 'Ahead of sched', 'Behind sched'],
-              ['CPI', 'EV/AC', 'Under budget', 'Over budget'],
-              ['SPI', 'EV/PV', 'Ahead of sched', 'Behind sched'],
+              ['CV', 'EV-AC', 'Tiết kiệm chi phí', 'Vượt chi phí'],
+              ['SV', 'EV-PV', 'Vượt tiến độ', 'Chậm tiến độ'],
+              ['CPI', 'EV/AC', 'Tiết kiệm chi phí', 'Vượt chi phí'],
+              ['SPI', 'EV/PV', 'Vượt tiến độ', 'Chậm tiến độ'],
             ].map((row) => (
               <tr key={row[0]} className="border-t border-soft-gray">
                 {row.map((cell) => (
-                  <td key={cell} className="px-3 py-2 font-body text-body-sm text-midnight-ink">
+                  <td key={cell} className="px-4 py-3 font-body text-[14px] leading-relaxed text-midnight-ink">
                     {cell}
                   </td>
                 ))}

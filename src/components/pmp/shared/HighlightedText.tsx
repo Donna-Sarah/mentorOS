@@ -9,7 +9,7 @@ import {
 
 interface HighlightedTextProps {
   text: string
-  onTermClick: (term: string, entryIndex: number) => void
+  onTermClick: (term: string, entryIndex: number, rect: DOMRect) => void
   className?: string
 }
 
@@ -85,9 +85,12 @@ export default function HighlightedText({
           <button
             key={`term-${index}-${segment.value}`}
             type="button"
-            onClick={() => onTermClick(segment.value, segment.entryIndex!)}
+            onClick={(e) => {
+              const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
+              onTermClick(segment.value, segment.entryIndex!, rect)
+            }}
             style={{ display: 'inline' }}
-            className="cursor-pointer border-none bg-transparent p-0 font-inherit text-inherit text-pmp-primary underline decoration-pmp-primary decoration-dotted underline-offset-2 transition-colors hover:text-pmp-accent"
+            className="cursor-pointer border-none bg-transparent p-0 font-inherit text-inherit text-[#2563EB] underline decoration-[#2563EB] decoration-dotted underline-offset-2 transition-colors hover:text-[#7C3AED]"
           >
             {segment.value}
           </button>

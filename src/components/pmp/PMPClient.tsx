@@ -28,6 +28,8 @@ export default function PMPClient() {
   const [sampleCache, setSampleCache] = useState<SampleAnswersCache | null>(null)
   const [cachedTranslation, setCachedTranslation] = useState<string | null>(null)
 
+  const [shouldScrollToCards, setShouldScrollToCards] = useState(false)
+
   useEffect(() => {
     fetch('/data/sample-answers.json')
       .then((r) => r.json())
@@ -54,7 +56,19 @@ export default function PMPClient() {
     setElapsedSeconds(0)
     setIsAnalyzing(false)
     setCachedTranslation(null)
+    setShouldScrollToCards(true)
   }, [])
+
+  function handleSwitchMood() {
+    const newMood: PMPMood = selectedMood === 'mood1' ? 'mood2' : 'mood1'
+    setSelectedMood(newMood)
+    setUserAnswers([])
+    setMood1Result(null)
+    setMood2Result(null)
+    setMood2SelectedOption(null)
+    setElapsedSeconds(0)
+    setPhase('answer')
+  }
 
   const handleConfirm = useCallback((q: PMPQuestion) => {
     setQuestion(q)
@@ -145,6 +159,8 @@ export default function PMPClient() {
           onConfirm={handleConfirm}
           onConfirmWithMood={handleConfirmWithMood}
           onOpenGlossary={() => handleOpenGlossary()}
+          autoScrollToCards={shouldScrollToCards}
+          onScrollComplete={() => setShouldScrollToCards(false)}
         />
       )
     }
@@ -175,12 +191,7 @@ export default function PMPClient() {
       return (
         <Mood2Picker
           question={question}
-          onBack={() => {
-            setPhase('mood_select')
-            setMood2Result(null)
-            setMood2SelectedOption(null)
-            setElapsedSeconds(0)
-          }}
+          onSwitchMood={handleSwitchMood}
           onSubmit={(option, seconds, aiResult) => {
             setMood2SelectedOption(option)
             setMood2Result(aiResult)
@@ -198,11 +209,7 @@ export default function PMPClient() {
           mood="mood1"
           cachedTranslation={cachedTranslation}
           onReset={resetToInput}
-          onBack={() => {
-            setPhase('mood_select')
-            setUserAnswers([])
-            setElapsedSeconds(0)
-          }}
+          onSwitchMood={handleSwitchMood}
           onOpenGlossary={handleOpenGlossary}
           onSubmit={(answers, seconds) => handleAnswerSubmit(answers, seconds)}
         />
@@ -229,12 +236,8 @@ export default function PMPClient() {
           userAnswers={userAnswers}
           elapsedSeconds={elapsedSeconds}
           onReset={resetToInput}
-          onBack={() => {
-            setPhase('mood_select')
-            setMood1Result(null)
-            setUserAnswers([])
-            setCachedTranslation(null)
-          }}
+          onBack={handleSwitchMood}
+          onOpenGlossary={handleOpenGlossary}
           cachedTranslation={cachedTranslation}
         />
       )

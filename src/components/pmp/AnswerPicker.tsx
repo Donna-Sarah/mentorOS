@@ -3,21 +3,28 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { PMPMood, PMPQuestion, ResponseType } from '@/types/pmp'
 import { Button } from '@/components/ui/Button'
-import { GlossaryTooltip, HighlightedText, TimerBar } from '@/components/pmp/shared'
+import {
+  GlossaryTooltip,
+  HighlightedText,
+  LangToggle,
+  TimerBar,
+  formatFullQuestionText,
+  parseTranslation,
+} from '@/components/pmp/shared'
 import { cn } from '@/lib/utils/cn'
 
 interface AnswerPickerProps {
   question: PMPQuestion
   mood: PMPMood
   onSubmit: (answers: string[], seconds: number) => void
-  onBack: () => void
+  onSwitchMood: () => void
   onReset: () => void
   onOpenGlossary: (index: number) => void
   cachedTranslation?: string | null
 }
 
 const headerButtonClassName =
-  'inline-flex min-h-[32px] items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3 py-1.5 font-body text-[12px] font-semibold text-[#374151] transition-colors hover:bg-[#F9FAFB]'
+  'inline-flex min-h-[40px] items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-4 py-2 font-body text-[13px] font-semibold text-[#374151] transition-colors hover:bg-[#F9FAFB]'
 
 function RefreshIcon() {
   return (
@@ -45,27 +52,6 @@ function detectResponseType(questionText: string): ResponseType {
   return signals.some((s) => t.includes(s)) ? 'multiple' : 'single'
 }
 
-function parseTranslation(
-  text: string,
-  fallbackOptions: Record<string, string>,
-): {
-  question: string
-  options: Record<string, string>
-} {
-  const lines = text.split('\n')
-  const optionLines = lines.filter((l) => /^[A-D][.)]\s/.test(l.trim()))
-  const questionLines = lines.filter((l) => !/^[A-D][.)]\s/.test(l.trim()) && l.trim())
-  const options: Record<string, string> = {}
-  optionLines.forEach((l) => {
-    const match = l.trim().match(/^([A-D])[.)]\s(.+)/)
-    if (match) options[match[1]] = match[2]
-  })
-  return {
-    question: questionLines.join(' ').trim() || text,
-    options: Object.keys(options).length > 0 ? options : fallbackOptions,
-  }
-}
-
 function Spinner() {
   return (
     <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -83,7 +69,7 @@ export default function AnswerPicker({
   question,
   mood,
   onSubmit,
-  onBack,
+  onSwitchMood,
   onReset,
   onOpenGlossary,
   cachedTranslation = null,
@@ -92,7 +78,11 @@ export default function AnswerPicker({
   const [elapsedSeconds, setElapsedSeconds] = useState(0)
   const [responseType, setResponseType] = useState<ResponseType>('single')
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [tooltipTerm, setTooltipTerm] = useState<{ term: string; idx: number } | null>(null)
+  const [tooltipTerm, setTooltipTerm] = useState<{
+    term: string
+    idx: number
+    rect: DOMRect
+  } | null>(null)
   const [isTranslated, setIsTranslated] = useState(false)
   const [translatedText, setTranslatedText] = useState<string | null>(null)
   const [isTranslating, setIsTranslating] = useState(false)
@@ -151,12 +141,7 @@ export default function AnswerPicker({
 
     setIsTranslating(true)
     try {
-      const fullText =
-        question.text +
-        '\n' +
-        Object.entries(question.options ?? {})
-          .map(([k, v]) => `${k}. ${v}`)
-          .join('\n')
+      const fullText = formatFullQuestionText(question.text, question.options ?? {})
       const res = await fetch('/api/pmp/translate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -183,15 +168,15 @@ export default function AnswerPicker({
   }
 
   return (
-    <section className="mx-auto max-w-[640px] px-4 py-8 md:px-6">
-      <div className="mb-4 flex items-center justify-between">
+    <section className="mx-auto max-w-[640px] px-5 py-10 md:px-8 md:py-12">
+      <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <button type="button" onClick={onReset} className={headerButtonClassName}>
             <RefreshIcon />
             Câu hỏi mới
           </button>
-          <button type="button" onClick={onBack} className={headerButtonClassName}>
-            Đổi mood
+          <button type="button" onClick={onSwitchMood} className={headerButtonClassName}>
+            {mood === 'mood1' ? 'Chuyển sang Mood 2' : 'Chuyển sang Mood 1'}
           </button>
         </div>
 
@@ -206,38 +191,31 @@ export default function AnswerPicker({
         onTick={(s) => setElapsedSeconds(s)}
       />
 
-      <div className="mt-4 rounded-md bg-white p-4 shadow-card">
-        <div className="mb-3 flex items-start justify-between gap-3">
-          <div>
-            {question.tag ? (
-              <span className="font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
-                {question.tag}
-              </span>
-            ) : null}
+      <div className="mt-6 rounded-md bg-white p-6 shadow-card md:p-7">
+        {question.tag ? (
+          <div className="mb-4">
+            <span className="font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
+              {question.tag}
+            </span>
           </div>
-          <button
-            type="button"
-            onClick={() => void handleTranslate()}
-            disabled={isTranslating}
-            className={cn(
-              'inline-flex min-h-[30px] shrink-0 items-center gap-1.5 rounded-md px-3 py-1.5 font-body text-[12px] font-semibold transition-all duration-150 disabled:opacity-60',
-              isTranslated
-                ? 'border-2 border-[#7C3AED] bg-[#F5F3FF] text-[#7C3AED]'
-                : 'border-2 border-[#E5E7EB] bg-white text-[#374151] hover:border-[#7C3AED] hover:text-[#7C3AED]',
-            )}
-          >
-            {isTranslating ? '...' : isTranslated ? '🇬🇧 EN' : '🇻🇳 VI'}
-          </button>
-        </div>
+        ) : null}
 
         <HighlightedText
           text={displayContent.questionText}
-          onTermClick={(term, idx) => setTooltipTerm({ term, idx })}
-          className="font-body text-body text-midnight-ink leading-relaxed"
+          onTermClick={(term, idx, rect) => setTooltipTerm({ term, idx, rect })}
+          className="font-body text-[16px] text-midnight-ink leading-[1.75] md:text-[17px]"
         />
+
+        <div className="mt-4 flex justify-end">
+          <LangToggle
+            isVI={isTranslated}
+            onToggle={() => void handleTranslate()}
+            isLoading={isTranslating}
+          />
+        </div>
       </div>
 
-      <div className="mt-3 space-y-2">
+      <div className="mt-5 space-y-3">
         {options.map(([key, value]) => {
           const selected = selectedAnswers.includes(key)
           return (
@@ -246,7 +224,7 @@ export default function AnswerPicker({
               type="button"
               onClick={() => toggleAnswer(key)}
               className={[
-                'flex w-full min-h-touch items-start gap-3 rounded-md border-2 px-4 py-3 text-left transition-all',
+                'flex w-full min-h-[56px] items-start gap-4 rounded-md border-2 px-5 py-4 text-left transition-all',
                 selected ? 'border-pmp-primary bg-pmp-surface' : 'border-soft-gray hover:border-pmp-primary/50',
               ].join(' ')}
             >
@@ -258,10 +236,10 @@ export default function AnswerPicker({
               >
                 {responseType === 'multiple' && selected ? '✓' : key}
               </div>
-              <div className="min-w-0 flex-1 font-body text-body-sm text-midnight-ink">
+              <div className="min-w-0 flex-1 font-body text-[15px] leading-[1.65] text-midnight-ink">
                 <HighlightedText
                   text={value}
-                  onTermClick={(term, idx) => setTooltipTerm({ term, idx })}
+                  onTermClick={(term, idx, rect) => setTooltipTerm({ term, idx, rect })}
                 />
               </div>
             </button>
@@ -281,6 +259,7 @@ export default function AnswerPicker({
         <GlossaryTooltip
           term={tooltipTerm.term}
           entryIndex={tooltipTerm.idx}
+          anchorRect={tooltipTerm.rect}
           onClose={() => setTooltipTerm(null)}
           onViewFull={(idx) => {
             setTooltipTerm(null)
@@ -292,7 +271,7 @@ export default function AnswerPicker({
       <Button
         variant="product"
         gradient="bg-gradient-pmp"
-        className="mt-6 w-full"
+        className="mt-8 min-h-[52px] w-full text-[16px] font-semibold"
         disabled={!canSubmit || isSubmitting}
         onClick={() => {
           setIsSubmitting(true)
