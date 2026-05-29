@@ -1,11 +1,5 @@
-import { NextUpComingSoonClient } from '@/components/nextup/NextUpComingSoonClient'
-import type { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'NextUp — mentorOS',
-  description: 'Biết việc tiếp theo cần làm.',
-}
+import { NextUpClient } from '@/components/nextup/NextUpClient'
 
 export default function NextUpPage() {
-  return <NextUpComingSoonClient />
+  return <NextUpClient />
 }
