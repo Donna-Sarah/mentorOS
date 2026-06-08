@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import type { Mood2Result as Mood2ResultType, PMPQuestion } from '@/types/pmp'
+import type { Mood2Result as Mood2ResultType, Mood2ResultV2, PMPQuestion, TrapId } from '@/types/pmp'
+import { getTrapDisplayName } from '@/lib/pmp/taxonomy'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import {
@@ -15,6 +16,7 @@ import {
 interface Mood2ResultProps {
   question: PMPQuestion
   result: Mood2ResultType
+  resultV2?: Mood2ResultV2
   selectedOption: string
   elapsedSeconds: number
   onReset: () => void
@@ -31,28 +33,40 @@ function Spinner() {
 
 export default function Mood2Result({
   result,
+  resultV2,
   selectedOption,
   elapsedSeconds,
   onReset,
 }: Mood2ResultProps) {
-  const [displayQuestion, setDisplayQuestion] = useState(result.original_highlighted)
-  const [displayOptions, setDisplayOptions] = useState(result.options)
-  const [displaySignal, setDisplaySignal] = useState(result.pmi_signal)
-  const [displayTip, setDisplayTip] = useState(result.compression_tip)
+  const isV2 = !!resultV2
+  const v2 = resultV2
+
+  const [displayQuestion, setDisplayQuestion] = useState(
+    resultV2?.original_highlighted ?? result.original_highlighted,
+  )
+  const [displayOptions, setDisplayOptions] = useState(resultV2?.options ?? result.options)
+  const [displaySignal, setDisplaySignal] = useState(resultV2?.pmi_signal ?? result.pmi_signal)
+  const [displayTip, setDisplayTip] = useState(resultV2?.compression_tip ?? result.compression_tip)
   const [isTranslated, setIsTranslated] = useState(false)
   const [isTranslating, setIsTranslating] = useState(false)
   const [translateCache, setTranslateCache] = useState<Mood2TranslatePayload | null>(null)
 
-  const isCorrect = selectedOption === result.correct_option
+  const correctOption = isV2 && v2 ? v2.correct_option : result.correct_option
+  const isCorrect = selectedOption === correctOption
   const benchmark = 25
   const timerColor = getTimerColor(elapsedSeconds, benchmark)
 
   async function handleTranslateToggle() {
+    const sourceQuestion = isV2 && v2 ? v2.original_highlighted : result.original_highlighted
+    const sourceOptions = isV2 && v2 ? v2.options : result.options
+    const sourceSignal = isV2 && v2 ? v2.pmi_signal : result.pmi_signal
+    const sourceTip = isV2 && v2 ? v2.compression_tip : result.compression_tip
+
     if (isTranslated) {
-      setDisplayQuestion(result.original_highlighted)
-      setDisplayOptions(result.options)
-      setDisplaySignal(result.pmi_signal)
-      setDisplayTip(result.compression_tip)
+      setDisplayQuestion(sourceQuestion)
+      setDisplayOptions(sourceOptions)
+      setDisplaySignal(sourceSignal)
+      setDisplayTip(sourceTip)
       setIsTranslated(false)
       return
     }
@@ -73,10 +87,10 @@ export default function Mood2Result({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           text: JSON.stringify({
-            question: result.original_highlighted,
-            options: result.options,
-            pmi_signal: result.pmi_signal,
-            compression_tip: result.compression_tip,
+            question: sourceQuestion,
+            options: sourceOptions,
+            pmi_signal: sourceSignal,
+            compression_tip: sourceTip,
           }),
           mode: 'mood2',
         }),
@@ -102,6 +116,124 @@ export default function Mood2Result({
   }
 
   const signalSegments = displaySignal.split(' → ').filter(Boolean)
+
+  function getV2TrapLabel(trapId: TrapId | 'correct'): string {
+    if (trapId === 'correct') return 'Signal đúng'
+    return getTrapDisplayName(trapId, 'en')
+  }
+
+  function renderV2Options() {
+    if (!v2) return null
+
+    return (
+      <>
+        <div className="mt-4">
+          <p className="mb-3 font-body text-body-sm font-bold text-midnight-ink">
+            Phân tích các interpretation:
+          </p>
+
+          <div className="space-y-3">
+            {Object.entries(displayOptions).map(([key, text]) => {
+              const optionCorrect = key === v2.correct_option
+              const optionSelected = key === selectedOption
+              const trapId = v2.trap_ids[key]
+
+              const cardClass = optionCorrect
+                ? 'border-success/40 bg-success/5'
+                : optionSelected
+                  ? 'border-error/40 bg-error/5'
+                  : 'border-soft-gray bg-white-canvas'
+
+              const circleClass = optionCorrect
+                ? 'bg-success text-white-canvas'
+                : optionSelected
+                  ? 'bg-error text-white-canvas'
+                  : 'bg-soft-gray text-slate-text'
+
+              const badgeClass = optionCorrect
+                ? 'font-body text-body-sm font-semibold text-success'
+                : optionSelected
+                  ? 'font-body text-body-sm font-semibold text-error'
+                  : 'font-body text-body-sm text-ash-text'
+
+              return (
+                <div key={key} className={`rounded-md border-2 p-3 ${cardClass}`}>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <div
+                        className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full font-body text-body-sm font-bold ${circleClass}`}
+                      >
+                        {key}
+                      </div>
+                      <span className={badgeClass}>
+                        {optionCorrect
+                          ? '✓ Signal đúng'
+                          : `✗ ${getV2TrapLabel(trapId)}`}
+                      </span>
+                    </div>
+                    {optionSelected ? <Badge variant="warning">Bạn chọn</Badge> : null}
+                  </div>
+
+                  <div className="mt-2 font-body text-body-sm">{renderOptionSegments(text)}</div>
+
+                  {optionCorrect && v2.correct_parse ? (
+                    <div className="mt-3 rounded-md bg-[#F9FAFB] px-3 py-2">
+                      <div className="font-body text-caption font-bold uppercase tracking-widest text-ash-text">
+                        CORRECT PARSE
+                      </div>
+                      <p className="mt-1 font-mono text-[12px] leading-relaxed text-slate-text">
+                        {v2.correct_parse}
+                      </p>
+                    </div>
+                  ) : null}
+
+                  {!optionCorrect && optionSelected && v2.why_trap_attractive[key] ? (
+                    <p className="mt-2 font-body text-body-sm italic text-slate-text">
+                      {v2.why_trap_attractive[key]}
+                    </p>
+                  ) : null}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        <div className="mt-6 rounded-md border border-pmp-primary/20 bg-pmp-surface p-4">
+          <div className="mb-3 flex items-center gap-2">
+            <svg
+              className="h-4 w-4 text-pmp-accent"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              aria-hidden
+            >
+              <path d="M6.5 9.5a3.5 3.5 0 0 0 5 0l2-2a3.5 3.5 0 0 0-5-5L7 4" />
+              <path d="M9.5 6.5a3.5 3.5 0 0 0-5 0l-2 2a3.5 3.5 0 0 0 5 5L9 12" />
+            </svg>
+            <span className="font-body text-body-sm font-bold text-pmp-primary">PMI Signal Chain</span>
+          </div>
+
+          <p className="font-body text-body-sm leading-relaxed text-midnight-ink">
+            {signalSegments.map((segment, index) => (
+              <span key={index}>
+                {index > 0 && <span className="mx-1 text-ash-text">→</span>}
+                <span className="font-semibold text-pmp-primary">{segment.trim()}</span>
+              </span>
+            ))}
+          </p>
+        </div>
+
+        <div className="mt-4 flex items-start gap-2 rounded-md bg-amber-glow p-3">
+          <span className="mt-0.5 shrink-0 text-base" aria-hidden>
+            💡
+          </span>
+          <p className="font-body text-body-sm text-slate-text">{displayTip}</p>
+        </div>
+      </>
+    )
+  }
 
   const translateButtonClassName =
     'inline-flex min-h-[32px] items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3 py-1.5 font-body text-[12px] font-semibold text-[#374151] transition-colors hover:bg-[#F9FAFB] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9CA3AF]/30 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
@@ -171,106 +303,112 @@ export default function Mood2Result({
         </p>
       </div>
 
-      <div className="mt-4">
-        <p className="mb-3 font-body text-body-sm font-bold text-midnight-ink">
-          Phân tích các interpretation:
-        </p>
+      {isV2 ? (
+        renderV2Options()
+      ) : (
+        <>
+          <div className="mt-4">
+            <p className="mb-3 font-body text-body-sm font-bold text-midnight-ink">
+              Phân tích các interpretation:
+            </p>
 
-        <div className="space-y-3">
-          {Object.entries(displayOptions).map(([key, text]) => {
-            const optionCorrect = key === result.correct_option
-            const optionSelected = key === selectedOption
-            const trap = result.traps[key]
+            <div className="space-y-3">
+              {Object.entries(displayOptions).map(([key, text]) => {
+                const optionCorrect = key === result.correct_option
+                const optionSelected = key === selectedOption
+                const trap = result.traps[key]
 
-            const cardClass = optionCorrect
-              ? 'border-success/40 bg-success/5'
-              : optionSelected
-                ? 'border-error/40 bg-error/5'
-                : 'border-soft-gray bg-white-canvas'
+                const cardClass = optionCorrect
+                  ? 'border-success/40 bg-success/5'
+                  : optionSelected
+                    ? 'border-error/40 bg-error/5'
+                    : 'border-soft-gray bg-white-canvas'
 
-            const circleClass = optionCorrect
-              ? 'bg-success text-white-canvas'
-              : optionSelected
-                ? 'bg-error text-white-canvas'
-                : 'bg-soft-gray text-slate-text'
+                const circleClass = optionCorrect
+                  ? 'bg-success text-white-canvas'
+                  : optionSelected
+                    ? 'bg-error text-white-canvas'
+                    : 'bg-soft-gray text-slate-text'
 
-            return (
-              <div key={key} className={`rounded-md border-2 p-3 ${cardClass}`}>
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <div
-                      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full font-body text-body-sm font-bold ${circleClass}`}
-                    >
-                      {key}
+                return (
+                  <div key={key} className={`rounded-md border-2 p-3 ${cardClass}`}>
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <div
+                          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full font-body text-body-sm font-bold ${circleClass}`}
+                        >
+                          {key}
+                        </div>
+                        {optionCorrect ? (
+                          <span className="font-body text-body-sm font-semibold text-success">
+                            ✓ Signal đúng
+                          </span>
+                        ) : optionSelected ? (
+                          <span className="font-body text-body-sm font-semibold text-error">
+                            ✗ Cognitive bias
+                          </span>
+                        ) : (
+                          <span className="font-body text-body-sm text-ash-text">✗</span>
+                        )}
+                      </div>
+                      {optionSelected ? <Badge variant="warning">Bạn chọn</Badge> : null}
                     </div>
-                    {optionCorrect ? (
-                      <span className="font-body text-body-sm font-semibold text-success">
-                        ✓ Signal đúng
-                      </span>
-                    ) : optionSelected ? (
-                      <span className="font-body text-body-sm font-semibold text-error">
-                        ✗ Cognitive bias
-                      </span>
-                    ) : (
-                      <span className="font-body text-body-sm text-ash-text">✗</span>
-                    )}
+
+                    <div className="mt-2 font-body text-body-sm">{renderOptionSegments(text)}</div>
+
+                    {!optionCorrect && trap ? (
+                      <>
+                        <div className="mt-2 font-body text-caption font-bold uppercase tracking-widest text-ash-text">
+                          {trap.bias}
+                        </div>
+                        <p className="mt-1 font-body text-body-sm text-slate-text">{trap.explanation}</p>
+                      </>
+                    ) : null}
+
+                    {optionCorrect && trap ? (
+                      <p className="mt-2 font-body text-body-sm text-slate-text">{trap.explanation}</p>
+                    ) : null}
                   </div>
-                  {optionSelected && <Badge variant="warning">Bạn chọn</Badge>}
-                </div>
+                )
+              })}
+            </div>
+          </div>
 
-                <div className="mt-2 font-body text-body-sm">{renderOptionSegments(text)}</div>
+          <div className="mt-6 rounded-md border border-pmp-primary/20 bg-pmp-surface p-4">
+            <div className="mb-3 flex items-center gap-2">
+              <svg
+                className="h-4 w-4 text-pmp-accent"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                aria-hidden
+              >
+                <path d="M6.5 9.5a3.5 3.5 0 0 0 5 0l2-2a3.5 3.5 0 0 0-5-5L7 4" />
+                <path d="M9.5 6.5a3.5 3.5 0 0 0-5 0l-2 2a3.5 3.5 0 0 0 5 5L9 12" />
+              </svg>
+              <span className="font-body text-body-sm font-bold text-pmp-primary">PMI Signal Chain</span>
+            </div>
 
-                {!optionCorrect && trap && (
-                  <>
-                    <div className="mt-2 font-body text-caption font-bold uppercase tracking-widest text-ash-text">
-                      {trap.bias}
-                    </div>
-                    <p className="mt-1 font-body text-body-sm text-slate-text">{trap.explanation}</p>
-                  </>
-                )}
+            <p className="font-body text-body-sm leading-relaxed text-midnight-ink">
+              {signalSegments.map((segment, index) => (
+                <span key={index}>
+                  {index > 0 && <span className="mx-1 text-ash-text">→</span>}
+                  <span className="font-semibold text-pmp-primary">{segment.trim()}</span>
+                </span>
+              ))}
+            </p>
+          </div>
 
-                {optionCorrect && trap && (
-                  <p className="mt-2 font-body text-body-sm text-slate-text">{trap.explanation}</p>
-                )}
-              </div>
-            )
-          })}
-        </div>
-      </div>
-
-      <div className="mt-6 rounded-md border border-pmp-primary/20 bg-pmp-surface p-4">
-        <div className="mb-3 flex items-center gap-2">
-          <svg
-            className="h-4 w-4 text-pmp-accent"
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            aria-hidden
-          >
-            <path d="M6.5 9.5a3.5 3.5 0 0 0 5 0l2-2a3.5 3.5 0 0 0-5-5L7 4" />
-            <path d="M9.5 6.5a3.5 3.5 0 0 0-5 0l-2 2a3.5 3.5 0 0 0 5 5L9 12" />
-          </svg>
-          <span className="font-body text-body-sm font-bold text-pmp-primary">PMI Signal Chain</span>
-        </div>
-
-        <p className="font-body text-body-sm leading-relaxed text-midnight-ink">
-          {signalSegments.map((segment, index) => (
-            <span key={index}>
-              {index > 0 && <span className="mx-1 text-ash-text">→</span>}
-              <span className="font-semibold text-pmp-primary">{segment.trim()}</span>
+          <div className="mt-4 flex items-start gap-2 rounded-md bg-amber-glow p-3">
+            <span className="mt-0.5 shrink-0 text-base" aria-hidden>
+              💡
             </span>
-          ))}
-        </p>
-      </div>
-
-      <div className="mt-4 flex items-start gap-2 rounded-md bg-amber-glow p-3">
-        <span className="mt-0.5 shrink-0 text-base" aria-hidden>
-          💡
-        </span>
-        <p className="font-body text-body-sm text-slate-text">{displayTip}</p>
-      </div>
+            <p className="font-body text-body-sm text-slate-text">{displayTip}</p>
+          </div>
+        </>
+      )}
 
     </section>
   )

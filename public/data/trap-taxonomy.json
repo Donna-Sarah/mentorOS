@@ -1,0 +1,104 @@
+{
+  "traps": [
+    {
+      "trap_id": "premature_escalation",
+      "name_en": "Premature Escalation",
+      "name_vi": "Leo thang quá sớm",
+      "dimension": "mindset",
+      "subtypes": null,
+      "standard_explanation_vi": "Chọn escalate lên sponsor/HR/functional manager trước khi PM xử lý trực tiếp ở cấp phù hợp.",
+      "vn_context": "Văn hóa VN coi escalate là dấu hiệu PM có authority và quyết đoán — hoặc ngược lại, sợ trách nhiệm nên đẩy lên trên. PMI coi escalate sớm là failure of ownership.",
+      "core_rule_id": "resolve_lowest_level"
+    },
+    {
+      "trap_id": "action_before_analysis",
+      "name_en": "Action Before Analysis",
+      "name_vi": "Hành động trước khi hiểu nguyên nhân",
+      "dimension": "reasoning",
+      "subtypes": null,
+      "standard_explanation_vi": "Chọn giải pháp ngay khi chưa assess root cause, impact, hoặc gather thêm information.",
+      "vn_context": "Áp lực 'phải làm gì đó ngay' trong môi trường làm việc VN — đứng im bị coi là thiếu năng lực. PMI luôn ưu tiên understand trước act.",
+      "core_rule_id": "understand_before_act"
+    },
+    {
+      "trap_id": "trigger_word_error",
+      "name_en": "Trigger Word Error",
+      "name_vi": "Đọc sai logic từ khóa quyết định",
+      "dimension": "reading",
+      "subtypes": ["neglected", "conflated", "negative_logic"],
+      "standard_explanation_vi": "Bỏ qua hoặc hiểu sai trigger words FIRST/NEXT/BEST/MOST/EXCEPT — dẫn đến chọn đáp án đúng về nội dung nhưng sai về logic câu hỏi.",
+      "vn_context": "Người đọc tiếng Anh không phải ngôn ngữ mẹ đẻ thường đọc để hiểu nghĩa tổng thể, bỏ qua qualifier words. FIRST và BEST nghe giống nhau nhưng PMI dùng theo logic hoàn toàn khác.",
+      "core_rule_id": "trigger_defines_logic"
+    },
+    {
+      "trap_id": "stakeholder_appeasement",
+      "name_en": "Stakeholder Appeasement",
+      "name_vi": "Chiều stakeholder thay vì quản lý",
+      "dimension": "mindset",
+      "subtypes": null,
+      "standard_explanation_vi": "Chọn làm hài lòng stakeholder ngay lập tức thay vì assess impact, follow change control, hoặc manage expectation đúng cách.",
+      "vn_context": "Văn hóa 'khách hàng là thượng đế' và tránh conflict với người có authority — PM VN thường đồng ý trước rồi tính sau. PMI yêu cầu protect project integrity trước khi accommodate request.",
+      "core_rule_id": "protect_the_process"
+    },
+    {
+      "trap_id": "process_bypass",
+      "name_en": "Process Bypass",
+      "name_vi": "Bỏ qua quy trình chính thức",
+      "dimension": "process",
+      "subtypes": null,
+      "standard_explanation_vi": "Chọn giải quyết nhanh bằng cách bỏ qua change control, documentation, hoặc formal approval — dù kết quả cuối có vẻ đúng.",
+      "vn_context": "Môi trường làm việc VN quen với informal agreement và 'nói miệng cho nhanh'. PMI không chấp nhận kết quả đúng nếu process sai — đặc biệt với scope change và risk response.",
+      "core_rule_id": "right_process_matters"
+    },
+    {
+      "trap_id": "role_confusion",
+      "name_en": "Role Confusion",
+      "name_vi": "Nhầm quyền hạn và vai trò",
+      "dimension": "reasoning",
+      "subtypes": null,
+      "standard_explanation_vi": "Chọn PM làm thay việc của PO, Scrum Master, sponsor, functional manager, hoặc team — hoặc ngược lại, không làm việc thuộc quyền PM.",
+      "vn_context": "Ranh giới role trong môi trường VN thường mờ — PM thường kiêm nhiệm nhiều vai. Agile roles đặc biệt dễ nhầm vì Scrum Master và PM nghe có vẻ tương đương.",
+      "core_rule_id": "right_role_right_action"
+    },
+    {
+      "trap_id": "agile_command_reflex",
+      "name_en": "Agile Command Reflex",
+      "name_vi": "Chỉ đạo thay vì hỗ trợ trong Agile",
+      "dimension": "mindset",
+      "subtypes": null,
+      "standard_explanation_vi": "Trong bối cảnh Agile hoặc hybrid, chọn PM assign task trực tiếp, ép deadline, micromanage thay vì facilitate, coach, và remove impediment.",
+      "vn_context": "PM VN xuất thân từ môi trường hierarchical — 'quản lý' đồng nghĩa với 'chỉ đạo'. Servant leadership nghe abstract và passive. Câu Agile về team conflict hoặc performance thường bẫy reflex này.",
+      "core_rule_id": "enable_before_direct"
+    },
+    {
+      "trap_id": "terminology_confusion",
+      "name_en": "Terminology Confusion",
+      "name_vi": "Nhầm thuật ngữ PMI",
+      "dimension": "terminology",
+      "subtypes": null,
+      "standard_explanation_vi": "Chọn sai vì nhầm định nghĩa PMI của các thuật ngữ chuyên ngành — đặc biệt các cặp từ gần nghĩa như Risk/Issue, QA/QC, Mitigation/Contingency.",
+      "vn_context": "Tài liệu PMP tiếng Việt thường dịch không nhất quán — 'risk' và 'issue' đều dịch là 'vấn đề/rủi ro'. Người học VN ít có môi trường dùng thuật ngữ PMI trong công việc hàng ngày.",
+      "core_rule_id": "match_pmi_term"
+    },
+    {
+      "trap_id": "conflict_avoidance",
+      "name_en": "Conflict Avoidance",
+      "name_vi": "Tránh xung đột thay vì giải quyết",
+      "dimension": "mindset",
+      "subtypes": null,
+      "standard_explanation_vi": "Chọn im lặng, delegate, hoặc chờ đợi thay vì facilitate direct resolution khi có conflict trong team hoặc với stakeholder.",
+      "vn_context": "Văn hóa 'giữ hòa khí' và tránh đối đầu trực tiếp — PM VN thường không muốn 'mất lòng' ai. PMI coi việc address conflict trực tiếp và kịp thời là trách nhiệm của PM.",
+      "core_rule_id": "address_conflict_directly"
+    },
+    {
+      "trap_id": "unclear_or_mixed",
+      "name_en": "Unclear or Mixed",
+      "name_vi": "Internal only — không hiển thị user",
+      "dimension": "internal",
+      "subtypes": null,
+      "standard_explanation_vi": "Dùng khi AI không map chắc chắn vào trap nào. Không hiển thị user, chỉ log để detect taxonomy gaps.",
+      "vn_context": "",
+      "core_rule_id": null
+    }
+  ]
+}

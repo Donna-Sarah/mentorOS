@@ -92,6 +92,15 @@ export interface SampleAnswerEntry {
 
 export type SampleAnswersCache = Record<string, SampleAnswerEntry>
 
+export interface SampleAnswerV2Entry {
+  sampleIndex: number
+  tag: string
+  analysisV2: Mood1ResultV2
+  generatedAt: string
+}
+
+export type SampleAnswersV2Cache = Record<string, SampleAnswerV2Entry>
+
 export interface PMPSession {
   id?: string
   user_id?: string
@@ -119,4 +128,101 @@ export interface TimerState {
   isActive: boolean
   color: 'green' | 'amber' | 'orange' | 'red'
   message: string
+}
+
+// ============================================================
+// V2 Types — Trap Taxonomy + Core Rule Library
+// ============================================================
+
+export type TrapDimension =
+  | 'mindset'
+  | 'reasoning'
+  | 'reading'
+  | 'process'
+  | 'terminology'
+  | 'internal'
+
+export type TrapSubtype = 'neglected' | 'conflated' | 'negative_logic' | null
+
+export type TrapId =
+  | 'premature_escalation'
+  | 'action_before_analysis'
+  | 'trigger_word_error'
+  | 'stakeholder_appeasement'
+  | 'process_bypass'
+  | 'role_confusion'
+  | 'agile_command_reflex'
+  | 'terminology_confusion'
+  | 'conflict_avoidance'
+  | 'unclear_or_mixed'
+
+export type CoreRuleId =
+  | 'resolve_lowest_level'
+  | 'understand_before_act'
+  | 'trigger_defines_logic'
+  | 'first_is_sequence'
+  | 'protect_the_process'
+  | 'right_process_matters'
+  | 'right_role_right_action'
+  | 'enable_before_direct'
+  | 'match_pmi_term'
+  | 'address_conflict_directly'
+
+export interface TrapEntry {
+  trap_id: TrapId
+  name_en: string
+  name_vi: string
+  dimension: TrapDimension
+  subtypes: TrapSubtype[] | null
+  standard_explanation_vi: string
+  vn_context: string
+  core_rule_id: CoreRuleId | null
+}
+
+export interface CoreRuleEntry {
+  core_rule_id: CoreRuleId
+  trap_id: TrapId
+  trap_subtype: TrapSubtype
+  rule_en: string
+  rule_vi: string
+}
+
+export interface TrapTaxonomyFile {
+  traps: TrapEntry[]
+}
+
+export interface CoreRuleFile {
+  core_rules: CoreRuleEntry[]
+}
+
+// V2 Mood 1 AI output schema
+// AI chỉ return IDs — frontend pull text từ trap-taxonomy.json và core-rules.json
+export interface Mood1ResultV2 {
+  is_correct: boolean
+  response_type: ResponseType
+  selected_answer: string
+  correct_answer: string
+  correct_answers: string[]
+  trap_id: TrapId
+  trap_subtype: TrapSubtype
+  core_rule_id: CoreRuleId | null  // null khi trap_id = "unclear_or_mixed"
+  trigger_signal: string       // VD: "NEXT + informal resolution failed"
+  hidden_test: string          // VD: "PMI test escalation path, không phải conflict technique"
+  user_answer_reason: string   // empty string "" khi is_correct = true
+  correct_answer_reason: string
+  vn_vs_pmi_one_line: string   // 1 câu contrast duy nhất
+  contextual_note: string      // 1 câu AI generate gắn với context câu hỏi cụ thể
+}
+
+// V2 Mood 2 AI output schema
+export interface Mood2ResultV2 {
+  original_highlighted: string
+  correct_option: string
+  options: Record<string, string>
+  trap_ids: Record<string, TrapId | 'correct'>
+  trap_subtypes: Record<string, TrapSubtype>
+  correct_parse: string        // VD: "Risk gap → NEXT → complete missing artifact first"
+  why_trap_attractive: Record<string, string>  // Chỉ cho wrong options
+  pmi_signal: string
+  compression_tip: string
 }

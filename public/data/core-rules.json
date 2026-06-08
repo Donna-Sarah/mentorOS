@@ -1,0 +1,74 @@
+{
+  "core_rules": [
+    {
+      "core_rule_id": "resolve_lowest_level",
+      "trap_id": "premature_escalation",
+      "trap_subtype": null,
+      "rule_en": "Resolve at the lowest responsible level before escalating.",
+      "rule_vi": "Xử lý ở cấp thấp nhất có thể trước khi leo thang."
+    },
+    {
+      "core_rule_id": "understand_before_act",
+      "trap_id": "action_before_analysis",
+      "trap_subtype": null,
+      "rule_en": "Understand root cause before choosing action.",
+      "rule_vi": "Hiểu nguyên nhân gốc rễ trước khi chọn hành động."
+    },
+    {
+      "core_rule_id": "trigger_defines_logic",
+      "trap_id": "trigger_word_error",
+      "trap_subtype": null,
+      "rule_en": "Trigger word defines the question's logic, not the topic.",
+      "rule_vi": "Từ khóa quyết định logic câu hỏi, không phải chủ đề."
+    },
+    {
+      "core_rule_id": "first_is_sequence",
+      "trap_id": "trigger_word_error",
+      "trap_subtype": "conflated",
+      "rule_en": "FIRST = sequence. BEST = outcome. Never swap.",
+      "rule_vi": "FIRST hỏi thứ tự. BEST hỏi chất lượng. Không hoán đổi."
+    },
+    {
+      "core_rule_id": "protect_the_process",
+      "trap_id": "stakeholder_appeasement",
+      "trap_subtype": null,
+      "rule_en": "Engage stakeholders, but protect the process.",
+      "rule_vi": "Lắng nghe stakeholder, nhưng bảo vệ quy trình."
+    },
+    {
+      "core_rule_id": "right_process_matters",
+      "trap_id": "process_bypass",
+      "trap_subtype": null,
+      "rule_en": "Right outcome through wrong process is still wrong in PMI.",
+      "rule_vi": "Kết quả đúng qua quy trình sai vẫn là sai theo PMI."
+    },
+    {
+      "core_rule_id": "right_role_right_action",
+      "trap_id": "role_confusion",
+      "trap_subtype": null,
+      "rule_en": "Choose the action owned by the right role.",
+      "rule_vi": "Chọn hành động thuộc quyền của đúng vai trò."
+    },
+    {
+      "core_rule_id": "enable_before_direct",
+      "trap_id": "agile_command_reflex",
+      "trap_subtype": null,
+      "rule_en": "In Agile, enable the team before directing the team.",
+      "rule_vi": "Trong Agile, hỗ trợ team trước khi chỉ đạo team."
+    },
+    {
+      "core_rule_id": "match_pmi_term",
+      "trap_id": "terminology_confusion",
+      "trap_subtype": null,
+      "rule_en": "Match the PMI term to the situation, not the word that sounds right.",
+      "rule_vi": "Dùng đúng thuật ngữ PMI cho tình huống, không dùng từ nghe có vẻ đúng."
+    },
+    {
+      "core_rule_id": "address_conflict_directly",
+      "trap_id": "conflict_avoidance",
+      "trap_subtype": null,
+      "rule_en": "Address conflict directly before escalating or ignoring.",
+      "rule_vi": "Giải quyết xung đột trực tiếp trước khi leo thang hoặc né tránh."
+    }
+  ]
+}

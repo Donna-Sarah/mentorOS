@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import type { Mood2Result, PMPQuestion } from '@/types/pmp'
+import type { Mood2Result, Mood2ResultV2, PMPQuestion } from '@/types/pmp'
+import { mood2V2ToV1 } from '@/lib/pmp/v2-adapters'
 import { Button } from '@/components/ui/Button'
 import { TimerBar } from '@/components/pmp/shared'
 import {
@@ -12,7 +13,12 @@ import {
 
 interface Mood2PickerProps {
   question: PMPQuestion
-  onSubmit: (selectedOption: string, seconds: number, aiResult: Mood2Result) => void
+  onSubmit: (
+    selectedOption: string,
+    seconds: number,
+    aiResult: Mood2Result,
+    aiResultV2: Mood2ResultV2,
+  ) => void
   onSwitchMood: () => void
 }
 
@@ -41,6 +47,7 @@ export default function Mood2Picker({ question, onSubmit, onSwitchMood }: Mood2P
 
   const [subPhase, setSubPhase] = useState<SubPhase>('loading')
   const [aiResult, setAiResult] = useState<Mood2Result | null>(null)
+  const [aiResultV2, setAiResultV2] = useState<Mood2ResultV2 | null>(null)
   const [loadError, setLoadError] = useState<string | null>(null)
   const [selected, setSelected] = useState<string | null>(null)
   const [elapsedSeconds, setElapsedSeconds] = useState(0)
@@ -85,7 +92,7 @@ export default function Mood2Picker({ question, onSubmit, onSwitchMood }: Mood2P
       setOptionsReady(false)
 
       try {
-        const res = await fetch('/api/pmp/analyze', {
+        const res = await fetch('/api/pmp/analyze?v=2', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -94,7 +101,7 @@ export default function Mood2Picker({ question, onSubmit, onSwitchMood }: Mood2P
           }),
         })
 
-        const json = (await res.json()) as { data: Mood2Result | null; error: string | null }
+        const json = (await res.json()) as { data: Mood2ResultV2 | null; error: string | null }
 
         if (cancelled) return
 
@@ -103,7 +110,8 @@ export default function Mood2Picker({ question, onSubmit, onSwitchMood }: Mood2P
           return
         }
 
-        setAiResult(json.data)
+        setAiResultV2(json.data)
+        setAiResult(mood2V2ToV1(json.data))
         setOptionsReady(true)
         setSubPhase('picking')
       } catch {
@@ -243,9 +251,9 @@ export default function Mood2Picker({ question, onSubmit, onSwitchMood }: Mood2P
             className="mt-6 w-full"
             disabled={!selected || isSubmitting}
             onClick={() => {
-              if (!selected || !aiResult) return
+              if (!selected || !aiResult || !aiResultV2) return
               setIsSubmitting(true)
-              onSubmit(selected, elapsedSeconds, aiResult)
+              onSubmit(selected, elapsedSeconds, aiResult, aiResultV2)
             }}
           >
             {isSubmitting ? (

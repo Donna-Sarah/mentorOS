@@ -7,7 +7,20 @@ import {
   useImperativeHandle,
   useState,
 } from 'react'
-import type { Mood1Result, Mood2Result, PMPMood, PMPQuestion, SampleAnswersCache, SampleQuestion } from '@/types/pmp'
+import type {
+  Mood1Result,
+  Mood1ResultV2,
+  Mood2Result,
+  Mood2ResultV2,
+  PMPSession,
+  PMPMood,
+  PMPQuestion,
+  SampleAnswersCache,
+  SampleAnswersV2Cache,
+  SampleQuestion,
+} from '@/types/pmp'
+import { getCoreRuleText, getTrap, getTrapDisplayName } from '@/lib/pmp/taxonomy'
+import { mood1V2ToV1Stub } from '@/lib/pmp/v2-adapters'
 import { AnswerPicker, InputScreen, MoodSelectScreen } from '@/components/pmp'
 import GlossaryPanel from './GlossaryPanel'
 import EVMCalculator from './EVMCalculator'
@@ -33,6 +46,77 @@ interface PMPClientProps {
 
 const samples = samplesData as SampleQuestion[]
 
+function normAnswerKey(answers: string[] | string): string {
+  const list = Array.isArray(answers)
+    ? answers
+    : answers.split(',').map((s) => s.trim())
+  return [...list].sort().join(',')
+}
+
+function applyUserAnswersToV2Cache(
+  cached: Mood1ResultV2,
+  answers: string[],
+): Mood1ResultV2 {
+  const userCorrect = normAnswerKey(answers) === normAnswerKey(cached.correct_answers)
+
+  return {
+    ...cached,
+    selected_answer: answers[0] ?? cached.selected_answer,
+    is_correct: userCorrect,
+    user_answer_reason: userCorrect ? '' : cached.user_answer_reason,
+  }
+}
+
+async function persistSession(
+  mood: PMPMood,
+  questionText: string,
+  questionSource: PMPQuestion['source'],
+  questionTag: string | undefined,
+  sampleQuestionId: number | undefined,
+  userAnswers: string[],
+  correctAnswers: string[],
+  isCorrect: boolean,
+  timeSeconds: number,
+  v2Result: Mood1ResultV2 | Mood2ResultV2,
+): Promise<void> {
+  try {
+    const isMood1 = mood === 'mood1'
+    const m1 = isMood1 ? (v2Result as Mood1ResultV2) : null
+    const m2 = !isMood1 ? (v2Result as Mood2ResultV2) : null
+
+    const payload: Omit<PMPSession, 'id'> = {
+      question_text: questionText,
+      question_tag: questionTag,
+      question_source: questionSource,
+      sample_question_id: sampleQuestionId,
+      mood,
+      response_type: isMood1 ? m1!.response_type : 'single',
+      user_answers: userAnswers,
+      correct_answers: correctAnswers,
+      is_correct: isCorrect,
+      time_seconds: timeSeconds,
+      ai_response: v2Result as unknown as PMPSession['ai_response'],
+      trap_name: m1 ? getTrapDisplayName(m1.trap_id, 'en') : undefined,
+      trap_category: m1 ? getTrap(m1.trap_id)?.dimension : undefined,
+      trap_domain: m1 ? getTrap(m1.trap_id)?.dimension : undefined,
+      trap_approach: undefined,
+      core_rule:
+        m1 && m1.core_rule_id
+          ? getCoreRuleText(m1.core_rule_id, 'vi', m1.trap_subtype ?? undefined)
+          : undefined,
+      pmi_signal: m2 ? m2.pmi_signal : undefined,
+    }
+
+    await fetch('/api/pmp/sessions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+  } catch (error) {
+    console.warn('[PMP] Session persist failed (non-blocking):', error)
+  }
+}
+
 const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient(
   { onPhaseChange, onReturnToInput },
   ref,
@@ -41,7 +125,9 @@ const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient
   const [question, setQuestion] = useState<PMPQuestion | null>(null)
   const [selectedMood, setSelectedMood] = useState<PMPMood | null>(null)
   const [mood1Result, setMood1Result] = useState<Mood1Result | null>(null)
+  const [mood1ResultV2, setMood1ResultV2] = useState<Mood1ResultV2 | null>(null)
   const [mood2Result, setMood2Result] = useState<Mood2Result | null>(null)
+  const [mood2ResultV2, setMood2ResultV2] = useState<Mood2ResultV2 | null>(null)
   const [mood2SelectedOption, setMood2SelectedOption] = useState<string | null>(null)
   const [userAnswers, setUserAnswers] = useState<string[]>([])
   const [elapsedSeconds, setElapsedSeconds] = useState(0)
@@ -50,6 +136,7 @@ const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient
   const [glossaryScrollTo, setGlossaryScrollTo] = useState<number | null>(null)
   const [showEVM, setShowEVM] = useState(false)
   const [sampleCache, setSampleCache] = useState<SampleAnswersCache | null>(null)
+  const [sampleCacheV2, setSampleCacheV2] = useState<SampleAnswersV2Cache | null>(null)
   const [cachedTranslation, setCachedTranslation] = useState<string | null>(null)
 
   const [shouldScrollToCards, setShouldScrollToCards] = useState(false)
@@ -60,7 +147,9 @@ const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient
     setQuestion(null)
     setSelectedMood(null)
     setMood1Result(null)
+    setMood1ResultV2(null)
     setMood2Result(null)
+    setMood2ResultV2(null)
     setMood2SelectedOption(null)
     setUserAnswers([])
     setElapsedSeconds(0)
@@ -78,6 +167,15 @@ const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient
       .then((data: SampleAnswersCache) => setSampleCache(data))
       .catch(() => {
         console.log('Sample cache not available, using live API')
+      })
+
+    fetch('/data/sample-answers-v2.json')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: SampleAnswersV2Cache | null) => {
+        if (data) setSampleCacheV2(data)
+      })
+      .catch(() => {
+        console.log('V2 sample cache not available, using live API')
       })
   }, [])
 
@@ -107,7 +205,9 @@ const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient
         setQuestion(nextQuestion)
         setSelectedMood(mood)
         setMood1Result(null)
+        setMood1ResultV2(null)
         setMood2Result(null)
+        setMood2ResultV2(null)
         setMood2SelectedOption(null)
         setUserAnswers([])
         setElapsedSeconds(0)
@@ -145,7 +245,9 @@ const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient
     setSelectedMood(newMood)
     setUserAnswers([])
     setMood1Result(null)
+    setMood1ResultV2(null)
     setMood2Result(null)
+    setMood2ResultV2(null)
     setMood2SelectedOption(null)
     setElapsedSeconds(0)
     setPhase('answer')
@@ -155,7 +257,9 @@ const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient
     setQuestion(q)
     setSelectedMood(null)
     setMood1Result(null)
+    setMood1ResultV2(null)
     setMood2Result(null)
+    setMood2ResultV2(null)
     setMood2SelectedOption(null)
     setUserAnswers([])
     setElapsedSeconds(0)
@@ -168,7 +272,9 @@ const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient
       setQuestion(q)
       setSelectedMood(mood)
       setMood1Result(null)
+      setMood1ResultV2(null)
       setMood2Result(null)
+      setMood2ResultV2(null)
       setMood2SelectedOption(null)
       setUserAnswers([])
       setElapsedSeconds(0)
@@ -189,38 +295,88 @@ const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient
     setUserAnswers(answers)
     setElapsedSeconds(seconds)
 
-    if (question?.source === 'sample' && question.sampleId !== undefined && sampleCache) {
-      const cached = sampleCache[String(question.sampleId)]
-      if (cached) {
-        console.log('Using cached answer for sample', question.sampleId)
-        setMood1Result(cached.analysis)
-        setCachedTranslation(cached.translation)
+    if (!question) {
+      setIsAnalyzing(false)
+      return
+    }
+
+    const questionText = question.text
+
+    if (question.source === 'sample' && question.sampleId !== undefined && sampleCacheV2) {
+      const v2Cached = sampleCacheV2[String(question.sampleId)]?.analysisV2
+      const cacheMatchesSelection =
+        v2Cached && normAnswerKey(answers) === normAnswerKey(v2Cached.selected_answer)
+      if (v2Cached && cacheMatchesSelection) {
+        const mood1V2Result = applyUserAnswersToV2Cache(v2Cached, answers)
+        setMood1ResultV2(mood1V2Result)
+        setMood1Result(mood1V2ToV1Stub(mood1V2Result))
+
+        if (sampleCache) {
+          const cached = sampleCache[String(question.sampleId)]
+          if (cached) setCachedTranslation(cached.translation)
+        }
+
         setPhase('result')
         setIsAnalyzing(false)
+
+        void persistSession(
+          'mood1',
+          questionText,
+          question.source,
+          question.tag,
+          question.sampleId,
+          answers,
+          mood1V2Result.correct_answers,
+          mood1V2Result.is_correct,
+          seconds,
+          mood1V2Result,
+        )
         return
       }
     }
 
     try {
-      const res = await fetch('/api/pmp/analyze', {
+      const res = await fetch('/api/pmp/analyze?v=2', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           question:
-            (question?.text ?? '') +
+            questionText +
             '\n' +
-            Object.entries(question?.options ?? {})
+            Object.entries(question.options ?? {})
               .map(([k, v]) => `${k}. ${v}`)
               .join('\n'),
           mood: 'mood1',
+          selectedAnswer: [...answers].sort().join(', '),
         }),
       })
 
-      const json = (await res.json()) as { data: Mood1Result | null; error: string | null }
+      const json = (await res.json()) as { data: Mood1ResultV2 | null; error: string | null }
       if (json.error || !json.data) throw new Error(json.error ?? 'No data')
 
-      setMood1Result(json.data)
+      const mood1V2Result = json.data
+      setMood1ResultV2(mood1V2Result)
+      setMood1Result(mood1V2ToV1Stub(mood1V2Result))
+
+      if (question.source === 'sample' && question.sampleId !== undefined && sampleCache) {
+        const cached = sampleCache[String(question.sampleId)]
+        if (cached) setCachedTranslation(cached.translation)
+      }
+
       setPhase('result')
+
+      void persistSession(
+        'mood1',
+        questionText,
+        question.source,
+        question.tag,
+        question.sampleId,
+        answers,
+        mood1V2Result.correct_answers,
+        mood1V2Result.is_correct,
+        seconds,
+        mood1V2Result,
+      )
     } catch {
       setIsAnalyzing(false)
     } finally {
@@ -255,7 +411,9 @@ const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient
           onSelect={(mood) => {
             setSelectedMood(mood)
             setMood1Result(null)
+            setMood1ResultV2(null)
             setMood2Result(null)
+            setMood2ResultV2(null)
             setMood2SelectedOption(null)
             setUserAnswers([])
             setElapsedSeconds(0)
@@ -276,11 +434,27 @@ const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient
         <Mood2Picker
           question={question}
           onSwitchMood={handleSwitchMood}
-          onSubmit={(option, seconds, aiResult) => {
+          onSubmit={(option, seconds, aiResult, aiResultV2) => {
             setMood2SelectedOption(option)
             setMood2Result(aiResult)
+            setMood2ResultV2(aiResultV2)
             setElapsedSeconds(seconds)
             setPhase('result')
+
+            if (question) {
+              void persistSession(
+                'mood2',
+                question.text,
+                question.source,
+                question.tag,
+                question.sampleId,
+                [option],
+                [aiResultV2.correct_option],
+                option === aiResultV2.correct_option,
+                seconds,
+                aiResultV2,
+              )
+            }
           }}
         />
       )
@@ -300,11 +474,19 @@ const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient
       )
     }
 
-    if (phase === 'result' && question && selectedMood === 'mood2' && mood2Result && mood2SelectedOption) {
+    if (
+      phase === 'result' &&
+      question &&
+      selectedMood === 'mood2' &&
+      mood2Result &&
+      mood2ResultV2 &&
+      mood2SelectedOption
+    ) {
       return (
         <Mood2ResultScreen
           question={question}
           result={mood2Result}
+          resultV2={mood2ResultV2}
           selectedOption={mood2SelectedOption}
           elapsedSeconds={elapsedSeconds}
           onReset={resetToInput}
@@ -312,11 +494,12 @@ const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient
       )
     }
 
-    if (phase === 'result' && mood1Result && question && selectedMood === 'mood1') {
+    if (phase === 'result' && mood1Result && mood1ResultV2 && question && selectedMood === 'mood1') {
       return (
         <LessonScreen
           question={question}
           result={mood1Result}
+          resultV2={mood1ResultV2}
           userAnswers={userAnswers}
           elapsedSeconds={elapsedSeconds}
           onReset={resetToInput}

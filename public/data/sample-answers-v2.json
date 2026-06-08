@@ -1,0 +1,1022 @@
+{
+  "0": {
+    "sampleIndex": 0,
+    "tag": "👥 People · Agile · Escalation Reflex",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "C",
+      "correct_answer": "A",
+      "correct_answers": [
+        "A"
+      ],
+      "trap_id": "action_before_analysis",
+      "trap_subtype": null,
+      "core_rule_id": "understand_before_act",
+      "trigger_signal": "FIRST + performance issue reported — hỏi bước đầu tiên khi phát hiện vấn đề cá nhân",
+      "hidden_test": "PMI không test conflict resolution technique — PMI test PM phải understand root cause trước khi action",
+      "user_answer_reason": "Option C nhảy thẳng vào team forum mà chưa hiểu nguyên nhân cá nhân — PMI coi đây là premature group exposure trước khi PM có data",
+      "correct_answer_reason": "Option A là FIRST step đúng: PM phải direct conversation với individual để understand root cause trước khi escalate hoặc công khai hóa",
+      "vn_vs_pmi_one_line": "PM VN thường đưa vấn đề ra retrospective để team tự resolve — PMI coi PM phải 1-on-1 trước để protect individual và gather facts",
+      "contextual_note": "Context có senior developer report + velocity drop — nhưng PMI vẫn yêu cầu PM verify trực tiếp với đương sự trước khi dùng team forum"
+    },
+    "generatedAt": "2026-06-08T08:40:57.848Z"
+  },
+  "1": {
+    "sampleIndex": 1,
+    "tag": "👥 People · Agile · Conflict Avoidance",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "D",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "agile_command_reflex",
+      "trap_subtype": null,
+      "core_rule_id": "address_conflict_directly",
+      "trigger_signal": "FIRST + Agile team + conflict affecting work — hỏi hành động đầu tiên với conflict đã kéo dài 3 sprints",
+      "hidden_test": "PMI không test quyền tự tổ chức của Agile team — PMI test khả năng PM can thiệp khi self-organization thất bại",
+      "user_answer_reason": "User tin rằng Agile team phải tự giải quyết mọi vấn đề và PM không nên can thiệp vào dynamic nội bộ team, nhưng PMI coi conflict kéo dài 3 sprints và đang ảnh hưởng ceremonies là tín hiệu self-organization đã thất bại",
+      "correct_answer_reason": "Option B đúng vì PMI yêu cầu PM facilitate direct resolution ngay khi conflict đã kéo dài và ảnh hưởng team performance — đây là PM role trong servant leadership, không phải để team tự xử lý mãi",
+      "vn_vs_pmi_one_line": "PM VN thường nghĩ Agile team phải tự giải quyết conflict — PMI coi PM phải facilitate khi conflict kéo dài ảnh hưởng work",
+      "contextual_note": "Ba sprint = 6-9 tuần conflict chưa tự giải quyết được — đây là lúc PM phải act, không phải wait thêm"
+    },
+    "generatedAt": "2026-06-08T08:41:09.792Z"
+  },
+  "2": {
+    "sampleIndex": 2,
+    "tag": "👥 People · Agile · Servant Leadership",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "A",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "agile_command_reflex",
+      "trap_subtype": null,
+      "core_rule_id": "enable_before_direct",
+      "trigger_signal": "NEXT + Agile team feels micromanaged — hỏi immediate action để restore autonomy và velocity",
+      "hidden_test": "PMI không test productivity tactics — PMI test hiểu servant leadership principle: remove impediments by reducing control, not adding it",
+      "user_answer_reason": "Option A tăng oversight thêm khi team đã complain về micromanagement — trực tiếp làm worse root cause thay vì address nó",
+      "correct_answer_reason": "Option B step back để team tự self-organize là core Agile principle — servant leader removes impediment (over-control) while staying available for support",
+      "vn_vs_pmi_one_line": "PM VN thấy velocity thấp thì tăng kiểm soát — PMI thấy micromanagement là root cause thì giảm control để restore autonomy",
+      "contextual_note": "Team nói 'unable to make decisions independently' là signal rõ ràng về lack of empowerment — không phải skill issue mà là leadership approach issue"
+    },
+    "generatedAt": "2026-06-08T08:41:20.073Z"
+  },
+  "3": {
+    "sampleIndex": 3,
+    "tag": "👥 People · Predictive · Authority Bias",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "D",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "process_bypass",
+      "trap_subtype": null,
+      "core_rule_id": "protect_the_process",
+      "trigger_signal": "FIRST + 'No change request has been submitted' — hỏi hành động đầu tiên khi process bị bỏ qua",
+      "hidden_test": "PMI không test khả năng làm việc với sponsor — PMI test kiên định bảo vệ integrated change control process bất kể ai đề xuất",
+      "user_answer_reason": "Option D nghe hợp lý vì tham vấn team trước khi quyết định, nhưng PMI coi đây là bỏ qua governance — phải enforce process trước khi đánh giá technical feasibility",
+      "correct_answer_reason": "Option B là đúng vì PMI yêu cầu PM bảo vệ integrated change control process ngay cả khi sponsor request — enforce formal change request TRƯỚC KHI đánh giá impact hoặc feasibility",
+      "vn_vs_pmi_one_line": "PM VN thường ưu tiên relationship với sponsor và đánh giá feasibility trước — PMI coi process integrity là non-negotiable bất kể vai trò người đề xuất",
+      "contextual_note": "Sponsor authority không exempt khỏi change control process — FIRST step luôn là redirect về formal process, không phải assess feasibility"
+    },
+    "generatedAt": "2026-06-08T08:41:31.483Z"
+  },
+  "4": {
+    "sampleIndex": 4,
+    "tag": "👥 People · Predictive · Stakeholder Engagement",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "B",
+      "correct_answer": "C",
+      "correct_answers": [
+        "C"
+      ],
+      "trap_id": "premature_escalation",
+      "trap_subtype": null,
+      "core_rule_id": "resolve_lowest_level",
+      "trigger_signal": "FIRST + stakeholder disengagement issue — hỏi bước đầu tiên trong stakeholder re-engagement",
+      "hidden_test": "PMI không test authority enforcement — PMI test PM's collaborative problem-solving và stakeholder relationship management",
+      "user_answer_reason": "Option B escalate lên senior management ngay mà chưa attempt direct communication — vi phạm resolve at lowest level principle",
+      "correct_answer_reason": "Option C proactively reach out để understand concerns là FIRST step đúng — PM phải attempt direct engagement trước khi escalate",
+      "vn_vs_pmi_one_line": "PM VN thường escalate sớm để có authority backing — PMI coi PM phải exhaust direct resolution trước",
+      "contextual_note": "Critical milestone cần sign-off nhưng PMI vẫn đòi PM attempt direct dialogue trước — escalation là last resort"
+    },
+    "generatedAt": "2026-06-08T08:41:40.934Z"
+  },
+  "5": {
+    "sampleIndex": 5,
+    "tag": "⚙️ Process · Risk · Terminology Trap",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "A",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "terminology_confusion",
+      "trap_subtype": null,
+      "core_rule_id": "match_pmi_term",
+      "trigger_signal": "FIRST + risk has occurred — test hiểu risk vs issue và mitigation vs workaround",
+      "hidden_test": "PMI test người PM có nhầm lẫn giữa 'risk response plan' (dùng khi risk chưa xảy ra) vs 'issue management' (dùng khi risk đã xảy ra thành issue)",
+      "user_answer_reason": "User nghĩ mitigation strategy trong risk register vẫn áp dụng sau khi risk materialize — nhưng PMI phân biệt: mitigation = proactive cho risk, workaround = reactive cho issue",
+      "correct_answer_reason": "Khi risk đã occurred, nó trở thành issue — PMI yêu cầu create workaround (giải quyết issue thực tế) và update issue log, không phải execute mitigation plan (đã quá muộn)",
+      "vn_vs_pmi_one_line": "PM VN thường nghĩ 'có sẵn plan thì làm theo plan' — PMI coi risk occurred = issue mới, cần workaround không phải mitigation",
+      "contextual_note": "Mitigation strategy được thiết kế để ngăn risk xảy ra hoặc giảm impact trước khi nó occur — một khi đã materialized, cần workaround để xử lý hậu quả hiện tại"
+    },
+    "generatedAt": "2026-06-08T08:41:53.111Z"
+  },
+  "6": {
+    "sampleIndex": 6,
+    "tag": "⚙️ Process · Risk · Mitigation vs Contingency",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "B",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "terminology_confusion",
+      "trap_subtype": null,
+      "core_rule_id": "match_pmi_term",
+      "trigger_signal": "Risk planning context với 2 chiến lược: reduce probability vs prepare response plan — test terminology precision",
+      "hidden_test": "PMI test hiểu Mitigation = reduce probability, Contingency Reserve = prepared response plan — không phải test khả năng liệt kê strategy list chung chung",
+      "user_answer_reason": "",
+      "correct_answer_reason": "Mitigation = làm giảm xác suất hoặc tác động của risk TRƯỚC khi xảy ra; Contingency Reserve = kế hoạch dự phòng chuẩn bị SẴN nếu risk xảy ra — khớp chính xác với 2 proposals của team",
+      "vn_vs_pmi_one_line": "PM VN thường dùng thuật ngữ risk response rộng — PMI yêu cầu phân biệt chính xác Mitigation (preventive) vs Contingency (reactive)",
+      "contextual_note": "Câu hỏi này test khả năng match hành động cụ thể vào đúng PMI term, không phải nhận biết danh sách strategy chung"
+    },
+    "generatedAt": "2026-06-08T08:42:03.455Z"
+  },
+  "7": {
+    "sampleIndex": 7,
+    "tag": "⚙️ Process · Risk · Risk vs Issue",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "A",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "terminology_confusion",
+      "trap_subtype": null,
+      "core_rule_id": "match_pmi_term",
+      "trigger_signal": "has now materialized — risk đã chuyển thành reality, không còn là uncertainty",
+      "hidden_test": "PMI không test risk management technique — PMI test hiểu risk vs issue là hai artifact khác nhau",
+      "user_answer_reason": "User nghĩ risk đã xảy ra vẫn nằm trong risk register và cần update mitigation — nhầm lẫn giữa risk (future uncertainty) và issue (current problem)",
+      "correct_answer_reason": "Risk materialized = issue → phải move sang issue log và implement corrective action, không phải mitigation strategy nữa",
+      "vn_vs_pmi_one_line": "PM VN thường xử lý risk và issue trong cùng một danh sách — PMI coi risk register và issue log là hai artifact riêng biệt",
+      "contextual_note": "Khi risk register item đã materialize thì nó không còn là risk (potential future event) mà trở thành issue (present problem) — phải chuyển artifact"
+    },
+    "generatedAt": "2026-06-08T08:42:13.386Z"
+  },
+  "8": {
+    "sampleIndex": 8,
+    "tag": "⚙️ Process · Change · Scope Creep",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "D",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "process_bypass",
+      "trap_subtype": null,
+      "core_rule_id": "protect_the_process",
+      "trigger_signal": "FIRST + unauthorized scope change — hỏi hành động đầu tiên khi team member bypass change control",
+      "hidden_test": "PMI không test customer satisfaction — PMI test PM phản ứng với process violation ngay khi phát hiện",
+      "user_answer_reason": "Option D nhảy thẳng đến customer engagement trước khi assess impact — PMI coi đây là acceptance của process bypass",
+      "correct_answer_reason": "Option B là FIRST vì raise change request retroactively restore process integrity và assess impact trước khi quyết định keep/remove",
+      "vn_vs_pmi_one_line": "PM VN thường hỏi customer trước vì sợ mất lòng — PMI coi restore process integrity first là bảo vệ project baseline",
+      "contextual_note": "Situation này team member đã act — PM không thể pretend change không xảy ra nhưng phải formalize nó qua change control trước khi escalate"
+    },
+    "generatedAt": "2026-06-08T08:42:23.345Z"
+  },
+  "9": {
+    "sampleIndex": 9,
+    "tag": "⚙️ Process · Change · Gold Plating",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "A",
+      "correct_answer": "C",
+      "correct_answers": [
+        "C"
+      ],
+      "trap_id": "process_bypass",
+      "trap_subtype": null,
+      "core_rule_id": "protect_the_process",
+      "trigger_signal": "SHOULD — không có escalation trigger, developer tự đề xuất thêm scope ngoài agreement",
+      "hidden_test": "PMI không test kỹ thuật hay customer satisfaction — PMI test PM hiểu scope change đi qua formal process dù không ảnh hưởng schedule/budget",
+      "user_answer_reason": "Option A bỏ qua integrated change control: dù không impact tiến độ/ngân sách, thêm scope vẫn là scope change và phải được customer approve trước, không tự ý thêm",
+      "correct_answer_reason": "Option C đúng vì mọi scope change phải có customer approval trước, sau đó raise change request đi qua formal process — dù developer có ý tốt và không impact constraints",
+      "vn_vs_pmi_one_line": "PM VN thường cho thêm tính năng miễn phí để làm khách hài lòng — PMI coi đó là gold plating và vi phạm scope baseline",
+      "contextual_note": "Developer đề xuất extra functionality là điểm đánh lừa: PMI coi đây là scope creep dù có intention tốt, phải consult customer + change request"
+    },
+    "generatedAt": "2026-06-08T08:42:36.029Z"
+  },
+  "10": {
+    "sampleIndex": 10,
+    "tag": "📊 Process · EVM · Action Bias",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "A",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "action_before_analysis",
+      "trap_subtype": null,
+      "core_rule_id": "understand_before_act",
+      "trigger_signal": "NEXT + performance variance detected — hỏi bước tiếp theo khi phát hiện vấn đề",
+      "hidden_test": "PMI không test corrective action techniques — PMI test understand root cause trước khi action",
+      "user_answer_reason": "User chọn crash schedule vì thấy SPI = 0.75 nghiêm trọng và muốn phản ứng nhanh, nhưng PMI coi action trước khi hiểu root cause là rủi ro cao",
+      "correct_answer_reason": "PMI yêu cầu conduct root cause analysis trước khi quyết định corrective action vì both CPI và SPI unfavorable cần hiểu underlying cause để chọn đúng solution",
+      "vn_vs_pmi_one_line": "PM VN thường rush vào solution khi thấy metrics đỏ — PMI coi analyze root cause là bước bắt buộc trước mọi corrective action",
+      "contextual_note": "Khi cả cost và schedule đều variance, crash schedule có thể làm cost tệ hơn nếu root cause là resource productivity thấp chứ không phải thiếu resource"
+    },
+    "generatedAt": "2026-06-08T08:42:50.944Z"
+  },
+  "11": {
+    "sampleIndex": 11,
+    "tag": "📊 Process · EVM · Formula Application",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "B",
+      "correct_answer": "C",
+      "correct_answers": [
+        "C"
+      ],
+      "trap_id": "terminology_confusion",
+      "trap_subtype": null,
+      "core_rule_id": "match_pmi_term",
+      "trigger_signal": "ASSUMING current cost performance continues — yêu cầu dùng CPI để forecast, không phải simple variance",
+      "hidden_test": "PMI không test khả năng tính toán — PMI test hiểu khi nào dùng EAC formula nào: atypical variance vs typical variance (CPI-based)",
+      "user_answer_reason": "Option B ($550,000) dùng simple variance extrapolation: BAC + (AC - EV) = 500k + 50k. Sai vì bỏ qua trigger 'current cost performance continues' — PMI yêu cầu CPI-based EAC.",
+      "correct_answer_reason": "Option C ($625,000) dùng EAC = BAC/CPI. CPI = EV/AC = 200k/250k = 0.8. EAC = 500k/0.8 = 625k. Đúng vì áp dụng đúng formula khi cost performance hiện tại được assume continue.",
+      "vn_vs_pmi_one_line": "PM VN thường cộng trừ variance trực tiếp — PMI coi phải dùng performance index (CPI) khi assume trend tiếp tục",
+      "contextual_note": "Sponsor hỏi EAC 'assuming current cost performance continues' = yêu cầu CPI-based forecast, không phải point-in-time variance adjustment"
+    },
+    "generatedAt": "2026-06-08T08:43:02.252Z"
+  },
+  "12": {
+    "sampleIndex": 12,
+    "tag": "🏢 Business Env · Benefits Realization",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "A",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "role_confusion",
+      "trap_subtype": null,
+      "core_rule_id": "right_role_right_action",
+      "trigger_signal": "MOST responsible + benefits realization + after project closure — hỏi ai owns benefits outcome, không phải project delivery",
+      "hidden_test": "PMI không test project execution responsibility — PMI test phân biệt PM owns delivery vs Sponsor owns benefits outcome",
+      "user_answer_reason": "User nghĩ PM delivered project thành công nên chịu trách nhiệm về kết quả — nhầm lẫn delivery success với benefits realization ownership",
+      "correct_answer_reason": "Sponsor owns business case và benefits realization plan từ đầu — PM chỉ deliver outputs, Sponsor responsible for outcomes và benefits sau project closure",
+      "vn_vs_pmi_one_line": "PM VN thường bị trách khi dự án không tạo giá trị dù đã giao đúng hạn — PMI tách biệt: PM owns delivery, Sponsor owns business value",
+      "contextual_note": "Ba tháng sau closure, PM đã off project — Sponsor vẫn owns benefits vì họ owns business case và strategic alignment"
+    },
+    "generatedAt": "2026-06-08T08:43:12.903Z"
+  },
+  "13": {
+    "sampleIndex": 13,
+    "tag": "🏢 Business Env · Strategic Alignment",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "D",
+      "correct_answer": "C",
+      "correct_answers": [
+        "C"
+      ],
+      "trap_id": "action_before_analysis",
+      "trap_subtype": null,
+      "core_rule_id": "understand_before_act",
+      "trigger_signal": "FIRST + strategic misalignment discovered — hỏi bước đầu tiên khi phát hiện project không còn align với corporate strategy",
+      "hidden_test": "PMI không test khả năng ra quyết định nhanh — PMI test hiểu rằng PM phải assess impact trước, escalate đúng người có authority (sponsor), không tự quyết định vượt quyền",
+      "user_answer_reason": "Option D hấp dẫn vì có vẻ proactive và giải quyết vấn đề, nhưng PM không có authority renegotiate objectives khi có strategic shift — đây là quyết định cấp sponsor/governance board",
+      "correct_answer_reason": "Option C đúng vì FIRST = assess impact (understand situation), sau đó escalate to sponsor (người có authority quyết định project fate khi strategy thay đổi) — PM không tự quyết continue/halt/renegotiate",
+      "vn_vs_pmi_one_line": "PM VN thường tự renegotiate với customer để save project — PMI coi PM phải assess + escalate to sponsor trước khi có action gì",
+      "contextual_note": "60% complete là distractor — sunk cost không ảnh hưởng decision khi strategy đã thay đổi, authority quyết định thuộc về sponsor"
+    },
+    "generatedAt": "2026-06-08T08:43:24.980Z"
+  },
+  "14": {
+    "sampleIndex": 14,
+    "tag": "🔤 Language · EXCEPT Trap",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "C",
+      "correct_answer": "C",
+      "correct_answers": [
+        "C"
+      ],
+      "trap_id": "unclear_or_mixed",
+      "trap_subtype": null,
+      "core_rule_id": null,
+      "trigger_signal": "LEAST likely — logic đảo ngược, tìm cái KHÔNG thuộc closing process",
+      "hidden_test": "PMI test hiểu ranh giới process — closing process chỉ đóng project hiện tại, không initiate project mới",
+      "user_answer_reason": "",
+      "correct_answer_reason": "Initiate new project thuộc Initiating process group của project mới — không phải Closing của project hiện tại; các option khác đều là standard closing activities",
+      "vn_vs_pmi_one_line": "PM VN thường nghĩ gaps → immediate action — PMI tách rõ: closing đóng project này, initiating mở project khác",
+      "contextual_note": "LEAST likely đòi hỏi loại trừ 3 closing activities điển hình (resource release, lessons learned, formal acceptance) để nhận ra C nằm ngoài scope"
+    },
+    "generatedAt": "2026-06-08T08:43:34.751Z"
+  },
+  "15": {
+    "sampleIndex": 15,
+    "tag": "👥 People · Hybrid · Coaching",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "C",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "premature_escalation",
+      "trap_subtype": null,
+      "core_rule_id": "resolve_lowest_level",
+      "trigger_signal": "FIRST + junior struggling — hỏi bước đầu tiên khi phát hiện performance issue",
+      "hidden_test": "PMI không test conflict resolution technique — PMI test servant leadership và escalation path: private coaching trước khi public exposure",
+      "user_answer_reason": "User nghĩ retrospective là nơi để giải quyết individual performance issue — PMI coi đây là premature escalation làm mất tâm lý an toàn của junior member",
+      "correct_answer_reason": "PMI yêu cầu resolve lowest level: coach riêng junior member trước khi escalate lên team level — servant leader enables trước khi expose publicly",
+      "vn_vs_pmi_one_line": "PM VN thường dùng team meeting để 'nhắc nhở chung' — PMI coi private coaching là bước đầu tiên bảo vệ tâm lý người học",
+      "contextual_note": "Retrospective là nơi team cải tiến process, không phải công khai performance issue của 1 cá nhân — đó là nhiệm vụ của PM trong 1-on-1"
+    },
+    "generatedAt": "2026-06-08T08:43:45.090Z"
+  },
+  "16": {
+    "sampleIndex": 16,
+    "tag": "👥 People · Agile · Team Motivation",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "D",
+      "correct_answer": "C",
+      "correct_answers": [
+        "C"
+      ],
+      "trap_id": "premature_escalation",
+      "trap_subtype": null,
+      "core_rule_id": "resolve_lowest_level",
+      "trigger_signal": "FIRST + morale crisis từ descope không giải thích — hỏi bước đầu tiên khi team mất động lực vì lack of transparency",
+      "hidden_test": "PMI không test conflict resolution hay workload adjustment — PMI test servant leadership: tạo transparency trước khi escalate hay enforce rules",
+      "user_answer_reason": "Option D nhảy thẳng lên senior management để reinstate feature — bỏ qua việc hiểu tại sao sponsor descope và không tạo cơ hội cho sponsor giải thích cho team",
+      "correct_answer_reason": "Option C facilitate conversation giữa team và sponsor — address root cause (lack of explanation) bằng transparency, phù hợp với servant leadership và resolve at lowest level",
+      "vn_vs_pmi_one_line": "PM VN thường escalate lên trên hoặc enforce attendance trước — PMI coi facilitate understanding giữa team và sponsor là FIRST step",
+      "contextual_note": "Morale drop và missing stand-ups là symptom của broken trust — fix trust bằng transparency, không phải punishment hay escalation"
+    },
+    "generatedAt": "2026-06-08T08:43:56.202Z"
+  },
+  "17": {
+    "sampleIndex": 17,
+    "tag": "👥 People · Predictive · Conflict Resolution",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "A",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "premature_escalation",
+      "trap_subtype": null,
+      "core_rule_id": "resolve_lowest_level",
+      "trigger_signal": "NEXT + informal resolution failed — hỏi bước tiếp theo trong escalation sequence",
+      "hidden_test": "PMI không test conflict resolution technique — PMI test hiểu escalation path trong matrix structure",
+      "user_answer_reason": "User nghĩ PM có authority quyết định resource allocation giữa các functional department, nhưng trong matrix structure PM không có line authority này",
+      "correct_answer_reason": "Sau khi informal resolution thất bại, NEXT step trong escalation path là escalate lên sponsor — người có authority trên cả hai functional managers để resolve resource conflict",
+      "vn_vs_pmi_one_line": "PM VN thường tự quyết để làm nhanh — PMI coi respect authority boundary và follow escalation process",
+      "contextual_note": "Đây là functional managers dispute (peer-level conflict), PM không có authority over functional managers nên phải escalate lên sponsor"
+    },
+    "generatedAt": "2026-06-08T08:44:04.975Z"
+  },
+  "18": {
+    "sampleIndex": 18,
+    "tag": "👥 People · Predictive · Communication Plan",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "A",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "action_before_analysis",
+      "trap_subtype": null,
+      "core_rule_id": "understand_before_act",
+      "trigger_signal": "FIRST + stakeholder has incorrect assumptions — hỏi bước đầu tiên khi phát hiện miscommunication",
+      "hidden_test": "PMI không test discipline action — PMI test khả năng restore alignment và improve process",
+      "user_answer_reason": "User cho rằng cần kỷ luật team members ngay để ngăn việc share thông tin sai, nhưng PMI coi đây là premature action mà chưa hiểu root cause hay fix immediate damage",
+      "correct_answer_reason": "PMI yêu cầu address the immediate problem first: correct stakeholder's wrong assumptions, sau đó update communication plan để prevent recurrence — fix damage trước khi fix process",
+      "vn_vs_pmi_one_line": "PM VN thường discipline người sai trước — PMI coi fix relationship và update process trước",
+      "contextual_note": "Trong scenario này, stakeholder đã có incorrect assumptions — FIRST action phải là clarify truth với stakeholder, không phải punish team"
+    },
+    "generatedAt": "2026-06-08T08:44:15.295Z"
+  },
+  "19": {
+    "sampleIndex": 19,
+    "tag": "⚙️ Process · Schedule · Critical Path",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "B",
+      "correct_answer": "C",
+      "correct_answers": [
+        "C"
+      ],
+      "trap_id": "action_before_analysis",
+      "trap_subtype": null,
+      "core_rule_id": "understand_before_act",
+      "trigger_signal": "FIRST + schedule delay scenario — hỏi bước đầu tiên khi phát hiện delay",
+      "hidden_test": "PMI không test kỹ thuật schedule compression — PMI test hiểu analyze impact trước khi action",
+      "user_answer_reason": "User nhảy thẳng vào giải pháp crashing (thêm resources) mà chưa assess impact đầy đủ — đây là reflex hành động trước khi phân tích",
+      "correct_answer_reason": "Option C đúng vì FIRST cần assess impact: activity delay 5 days nhưng có 3 days float nghĩa là 2 days consumed float có thể ảnh hưởng critical path — phải analyze trước khi quyết định action",
+      "vn_vs_pmi_one_line": "PM VN thường nhảy vào fix ngay (crash/add resources) — PMI coi assess impact system-wide trước khi action",
+      "contextual_note": "Trong câu này float không đủ cover delay (3<5) nên có risk impact critical path — đó là lý do C (assess impact) là FIRST step, không phải B (crash ngay)"
+    },
+    "generatedAt": "2026-06-08T08:44:26.175Z"
+  },
+  "20": {
+    "sampleIndex": 20,
+    "tag": "⚙️ Process · Schedule · Fast Tracking",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "B",
+      "correct_answer": "A",
+      "correct_answers": [
+        "A"
+      ],
+      "trap_id": "terminology_confusion",
+      "trap_subtype": null,
+      "core_rule_id": "match_pmi_term",
+      "trigger_signal": "No FIRST/NEXT/BEST — câu hỏi test thuật ngữ: overlapping phases = fast tracking, adding resources = crashing",
+      "hidden_test": "PMI test user có map được mô tả hành động về đúng PMI term không — không test conflict resolution hay prioritization",
+      "user_answer_reason": "User nhầm resource leveling/smoothing là technique để thêm resource vào critical path — thực tế resource leveling giải quyết resource conflict bằng cách trì hoãn task, không phải compress schedule",
+      "correct_answer_reason": "Overlapping phases = fast tracking và adding resources to critical path = crashing — đây chính xác là 2 schedule compression techniques trong PMBOK",
+      "vn_vs_pmi_one_line": "PM VN thường nói 'thêm người', 'làm song song' — PMI yêu cầu dùng term crashing và fast tracking",
+      "contextual_note": "Sponsor demands finish on original date → context là schedule compression, không phải resource optimization"
+    },
+    "generatedAt": "2026-06-08T08:44:36.602Z"
+  },
+  "21": {
+    "sampleIndex": 21,
+    "tag": "⚙️ Process · Quality · QA vs QC",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "A",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "terminology_confusion",
+      "trap_subtype": null,
+      "core_rule_id": "match_pmi_term",
+      "trigger_signal": "audit of the project management processes — từ khóa 'audit' và 'processes' signal QA, không phải QC",
+      "hidden_test": "PMI test phân biệt QA (process audit) vs QC (deliverable inspection) — và hiểu QA outcome là process improvement, không phải reject deliverables",
+      "user_answer_reason": "User nhầm audit là kiểm tra deliverable (QC) nên chọn reject non-conforming — PMI coi audit processes là QA và output là corrective action để improve compliance",
+      "correct_answer_reason": "Process audit = Quality Assurance — khi phát hiện process không follow consistently, PM implement corrective actions để cải thiện process compliance, đúng QA purpose",
+      "vn_vs_pmi_one_line": "PM VN thường nghĩ audit → reject sản phẩm lỗi — PMI coi audit processes → fix process để prevent lỗi",
+      "contextual_note": "Testing procedures không follow consistently là process issue — QA fix process, không phải QC reject deliverables"
+    },
+    "generatedAt": "2026-06-08T08:44:47.793Z"
+  },
+  "22": {
+    "sampleIndex": 22,
+    "tag": "⚙️ Process · Quality · Cost of Quality",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "A",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "process_bypass",
+      "trap_subtype": null,
+      "core_rule_id": "protect_the_process",
+      "trigger_signal": "BEST argument + sponsor pressure — hỏi cách defend quyết định bằng logic nghiệp vụ, không phải quy trình hành chính",
+      "hidden_test": "PMI không test khả năng cite process documentation — PMI test khả năng dùng cost of quality logic để influence stakeholder với business rationale",
+      "user_answer_reason": "Option A dùng quy trình làm lá chắn thay vì thuyết phục sponsor bằng business value — PMI coi đây là defensive và không giải quyết concern thực sự của sponsor về cost",
+      "correct_answer_reason": "Option B dùng Cost of Quality framework (prevention/appraisal vs failure costs) để show business case — PMI muốn PM influence bằng data-driven rationale, không phải hide behind process",
+      "vn_vs_pmi_one_line": "PM VN thường cite quy trình/kế hoạch để từ chối yêu cầu thay đổi — PMI coi PM phải dùng business logic và CoQ để influence decision",
+      "contextual_note": "Sponsor đã biết có process nhưng vẫn đề xuất cut budget — cần business argument về failure cost, không phải process reminder"
+    },
+    "generatedAt": "2026-06-08T08:44:59.811Z"
+  },
+  "23": {
+    "sampleIndex": 23,
+    "tag": "⚙️ Process · Procurement · Contract Type",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "C",
+      "correct_answer": "D",
+      "correct_answers": [
+        "D"
+      ],
+      "trap_id": "terminology_confusion",
+      "trap_subtype": null,
+      "core_rule_id": "match_pmi_term",
+      "trigger_signal": "MOST appropriate + scope unclear upfront + minimize risk — PMI test hiểu risk distribution trong contract types với unclear scope",
+      "hidden_test": "PMI không test thuộc lòng contract types — PMI test hiểu BALANCE giữa flexibility (scope unclear) và control (minimize risk)",
+      "user_answer_reason": "CPFF có vẻ minimize risk vì buyer chỉ trả actual cost + fixed fee, nhưng CPFF thiếu scope control mechanism khi scope unclear upfront",
+      "correct_answer_reason": "T&M cho phép work as scope emerges NHƯNG có unit rates/hourly caps để control cost exposure — balance giữa flexibility và risk mitigation",
+      "vn_vs_pmi_one_line": "PM VN nghĩ cost-plus = buyer safe vì trả actual cost — PMI coi T&M better cho unclear scope vì có rate ceiling",
+      "contextual_note": "Với specialized technical work mà scope unclear, T&M's unit rate structure cho control mechanism mà CPFF không có"
+    },
+    "generatedAt": "2026-06-08T08:45:10.611Z"
+  },
+  "24": {
+    "sampleIndex": 24,
+    "tag": "⚙️ Process · Procurement · Vendor Management",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "C",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "action_before_analysis",
+      "trap_subtype": null,
+      "core_rule_id": "understand_before_act",
+      "trigger_signal": "FIRST + vendor delay on critical path — hỏi bước đầu tiên trong risk response sequence",
+      "hidden_test": "PMI không test escalation reflex hay contract enforcement — PMI test hiểu assess-before-act khi có disruption",
+      "user_answer_reason": "Option C escalate ngay đến sponsor mà chưa assess impact và options — violate understand-before-act principle",
+      "correct_answer_reason": "Option B đúng vì FIRST phải assess impact + evaluate options trước khi escalate hay take action — đây là professional PM behavior",
+      "vn_vs_pmi_one_line": "PM VN thường escalate ngay khi vendor fail — PMI coi phải analyze impact và options trước",
+      "contextual_note": "Critical path delay không tự động nghĩa là phải extend deadline — có thể có workaround hoặc fast-tracking options"
+    },
+    "generatedAt": "2026-06-08T08:45:20.269Z"
+  },
+  "25": {
+    "sampleIndex": 25,
+    "tag": "⚙️ Process · Agile · Definition of Done",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "B",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "unclear_or_mixed",
+      "trap_subtype": null,
+      "core_rule_id": null,
+      "trigger_signal": "FIRST + conflict at sprint review — hỏi hành động đầu tiên khi phát hiện root cause là thiếu Definition of Done",
+      "hidden_test": "PMI test khả năng nhận diện root cause (missing shared agreement) và resolve at lowest level bằng facilitation thay vì side with one party hoặc escalate",
+      "user_answer_reason": "",
+      "correct_answer_reason": "B đúng vì PM phát hiện root cause là thiếu Definition of Done — FIRST action là facilitate session để establish shared understanding, đây là resolve at lowest level và address conflict source thay vì chọn phe hoặc escalate",
+      "vn_vs_pmi_one_line": "PM VN thường chọn phe hoặc escalate ngay — PMI coi PM phải facilitate để establish missing baseline trước",
+      "contextual_note": "Sprint review conflict này expose process gap (no DoD) — facilitation để create shared agreement là foundational fix, không phải blame game"
+    },
+    "generatedAt": "2026-06-08T08:45:31.187Z"
+  },
+  "26": {
+    "sampleIndex": 26,
+    "tag": "⚙️ Process · Agile · Backlog Refinement",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "Unknown",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "action_before_analysis",
+      "trap_subtype": null,
+      "core_rule_id": "understand_before_act",
+      "trigger_signal": "BEST corrective action — không có trigger về FIRST/NEXT/EXCEPT, test khả năng chọn root cause solution thay vì symptom treatment",
+      "hidden_test": "PMI test hiểu Agile prevention practice (refinement) vs reactive fixes (shorten sprint, add phase) — test biết refinement là built-in process không phải add-on",
+      "user_answer_reason": "",
+      "correct_answer_reason": "B đúng vì backlog refinement là standard Agile practice để prevent unclear stories BEFORE sprint planning — PMI coi refinement là proactive process improvement, không phải reactive fix",
+      "vn_vs_pmi_one_line": "PM VN thường fix sau khi vấn đề xảy ra (shorten sprint, add phase) — PMI coi prevention through regular refinement là best practice",
+      "contextual_note": "Sprint velocity inconsistent vì input quality kém — PMI muốn fix ở nguồn (refinement) không phải điều chỉnh output mechanism (sprint length)"
+    },
+    "generatedAt": "2026-06-08T08:45:42.402Z"
+  },
+  "27": {
+    "sampleIndex": 27,
+    "tag": "🏢 Business Env · Compliance",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "C",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "action_before_analysis",
+      "trap_subtype": null,
+      "core_rule_id": "understand_before_act",
+      "trigger_signal": "FIRST + new regulation discovered mid-execution — hỏi immediate response khi gặp external change",
+      "hidden_test": "PMI không test compliance knowledge — PMI test hiểu change management discipline: assess impact BEFORE deciding action",
+      "user_answer_reason": "User chọn C vì nghĩ compliance issue = must stop immediately để tránh risk, nhưng PMI coi halt project là decision cần data, không phải reflex action",
+      "correct_answer_reason": "B đúng vì PMI process: assess impact first → engage stakeholders → determine response based on analysis, không assume halt là only option trước khi biết regulation ảnh hưởng như thế nào",
+      "vn_vs_pmi_one_line": "PM VN thường halt project ngay khi gặp compliance issue để safety-first — PMI coi assess impact first vì decision cần dựa trên data không phải fear",
+      "contextual_note": "Regulation mới không tự động = project failure, có thể workaround/variance/partial compliance tùy impact analysis"
+    },
+    "generatedAt": "2026-06-08T08:45:53.093Z"
+  },
+  "28": {
+    "sampleIndex": 28,
+    "tag": "🏢 Business Env · Organizational Change",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "D",
+      "correct_answer": "B",
+      "correct_answers": [
+        "B"
+      ],
+      "trap_id": "action_before_analysis",
+      "trap_subtype": null,
+      "core_rule_id": "understand_before_act",
+      "trigger_signal": "DIFFERENTLY + after delivery resistance — hỏi root cause prevention, không phải reactive fix",
+      "hidden_test": "PMI không test technical solution tweak — PMI test hiểu rằng adoption failure = missing change management từ đầu project",
+      "user_answer_reason": "Option D là reactive technical fix (simplify features) — nhưng problem không phải system phức tạp, mà là thiếu change management plan từ planning phase",
+      "correct_answer_reason": "Option B đúng vì PMI coi change management là parallel workstream với technical delivery — adoption plan phải bắt đầu từ planning, không phải sau go-live",
+      "vn_vs_pmi_one_line": "PM VN thường nghĩ resistance = system khó xài, fix bằng training hoặc simplify — PMI coi resistance = thiếu change management integration từ project start",
+      "contextual_note": "Câu hỏi cho technical solution hoạt động tốt nhưng users resist — signal rõ ràng problem không phải kỹ thuật mà là people/change dimension bị bỏ qua"
+    },
+    "generatedAt": "2026-06-08T08:46:04.525Z"
+  },
+  "29": {
+    "sampleIndex": 29,
+    "tag": "🔤 Language · NEXT vs FIRST",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "single",
+      "correct_count": 1,
+      "selected_answer": "A",
+      "correct_answer": "C",
+      "correct_answers": [
+        "C"
+      ],
+      "trap_id": "action_before_analysis",
+      "trap_subtype": null,
+      "core_rule_id": "understand_before_act",
+      "trigger_signal": "NEXT + risk assessment complete nhưng còn gap (1 risk không có plan) — hỏi bước tiếp theo trong risk management process",
+      "hidden_test": "PMI không test execution speed — PMI test completeness: PM phải complete planning (đầy đủ response plan) trước khi implement",
+      "user_answer_reason": "Option A nhảy thẳng vào implement 2 risks có plan mà bỏ qua 1 high-priority risk chưa có response — vi phạm nguyên tắc complete planning before execution của PMI",
+      "correct_answer_reason": "Option C đúng vì PMI yêu cầu PM phải có response plan cho TẤT CẢ high-priority risks trước khi implement bất kỳ plan nào — complete the planning gap first",
+      "vn_vs_pmi_one_line": "PM VN thường ưu tiên làm nhanh cái có sẵn plan — PMI coi phải complete planning cho tất cả high-priority items trước",
+      "contextual_note": "Có 2 risks ready không làm option A đúng — còn 1 high-priority risk missing plan là bắt buộc phải address trước theo PMI risk management process"
+    },
+    "generatedAt": "2026-06-08T08:46:15.674Z"
+  },
+  "30": {
+    "sampleIndex": 30,
+    "tag": "🔢 Multiple Response · People · Agile",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "multiple",
+      "correct_count": 2,
+      "selected_answer": "A,D",
+      "correct_answer": "B,C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "trap_id": "agile_command_reflex",
+      "trap_subtype": null,
+      "core_rule_id": "enable_before_direct",
+      "trigger_signal": "FIRST + transitioning to Agile — hỏi hành động ưu tiên trong transformation sequence",
+      "hidden_test": "PMI không test Agile ceremony execution — PMI test mindset shift và team empowerment foundation",
+      "user_answer_reason": "User chọn A,D vì nghĩ PM phải maintain control bằng detailed plan và task assignment — đây là traditional command-control reflex, không phải Agile enablement approach",
+      "correct_answer_reason": "B,C đúng vì PMI prioritize mindset foundation (coach values/principles) và team self-organization (working agreement/DoD) trước khi implement practices — enable understanding before imposing process",
+      "vn_vs_pmi_one_line": "PM VN thường giữ control bằng plan chi tiết và assign task cá nhân — PMI coi transition là shift mindset và empower team tự tổ chức trước",
+      "contextual_note": "Trong Agile transformation, detailed 12-month sprint plan (A) và individual task assignment (D) phá vỡ empirical approach và team autonomy — foundation là values và team agreement"
+    },
+    "generatedAt": "2026-06-08T08:46:26.438Z"
+  },
+  "31": {
+    "sampleIndex": 31,
+    "tag": "🔢 Multiple Response · Process · Risk",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "multiple",
+      "correct_count": 2,
+      "selected_answer": "A,C",
+      "correct_answer": "B,D",
+      "correct_answers": [
+        "B",
+        "D"
+      ],
+      "trap_id": "action_before_analysis",
+      "trap_subtype": null,
+      "core_rule_id": "understand_before_act",
+      "trigger_signal": "Cost overruns + schedule delays PRESENT STATE — không có 'corrective actions failed' signal — PMI test understand-before-act sequence",
+      "hidden_test": "PMI không test crisis management reflexes — PMI test systematic problem-solving: analyze root cause FIRST, then act on findings",
+      "user_answer_reason": "Option A (re-baseline) và C (crash schedule) là reactive actions không dựa trên hiểu biết nguyên nhân — PMI coi đây là 'treating symptoms, not disease'",
+      "correct_answer_reason": "B→D tạo logical sequence: root cause analysis FIRST để hiểu 'why' (B), sau đó corrective actions based on findings (D) — đây là disciplined approach PMI yêu cầu",
+      "vn_vs_pmi_one_line": "PM VN thường action ngay khi thấy vấn đề (re-baseline, thêm người) — PMI coi phải analyze root cause trước khi act",
+      "contextual_note": "Re-baseline (A) chỉ hợp lý SAU KHI đã analyze và implement corrective actions — không phải bước đầu tiên khi mới phát hiện variances"
+    },
+    "generatedAt": "2026-06-08T08:46:37.812Z"
+  },
+  "32": {
+    "sampleIndex": 32,
+    "tag": "🔢 Multiple Response · People · Conflict",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "multiple",
+      "correct_count": 2,
+      "selected_answer": "A,D",
+      "correct_answer": "B,C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "trap_id": "premature_escalation",
+      "trap_subtype": null,
+      "core_rule_id": "resolve_lowest_level",
+      "trigger_signal": "Không có trigger word FIRST/NEXT — đây là câu hỏi tình huống conflict đang diễn ra, test PM response",
+      "hidden_test": "PMI test PM có giải quyết conflict trực tiếp ở lowest level hay không — không test delegation hay HR process",
+      "user_answer_reason": "A loại engineer khỏi project là action quá nặng khi chưa thử resolve; D escalate lên HR là bypass PM responsibility — cả hai đều vi phạm resolve at lowest level",
+      "correct_answer_reason": "B+C là sequence PMI chuẩn: understand perspectives riêng trước (B), sau đó facilitate joint discussion (C) — PM owns conflict resolution trước khi escalate",
+      "vn_vs_pmi_one_line": "PM VN thường escalate lên HR hoặc remove người — PMI coi PM phải resolve conflict directly trước khi escalate",
+      "contextual_note": "Conflict đang impact morale và velocity — PMI muốn PM act ngay với understand→facilitate, không phải delegate hay remove"
+    },
+    "generatedAt": "2026-06-08T08:46:49.638Z"
+  },
+  "33": {
+    "sampleIndex": 33,
+    "tag": "🔢 Multiple Response · Process · Change Management",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "multiple",
+      "correct_count": 2,
+      "selected_answer": "A,E",
+      "correct_answer": "B,C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "trap_id": "stakeholder_appeasement",
+      "trap_subtype": null,
+      "core_rule_id": "protect_the_process",
+      "trigger_signal": "FIRST + sponsor requests scope changes — hỏi bước đầu tiên khi senior stakeholder yêu cầu thay đổi",
+      "hidden_test": "PMI không test lịch sự với sponsor — PMI test PM bảo vệ change control process bất kể ai request",
+      "user_answer_reason": "User nghĩ sponsor có quyền cao nên phải làm ngay hoặc cho team bắt đầu để không làm sponsor chờ đợi",
+      "correct_answer_reason": "PMI yêu cầu PM phải document change request chính thức (B) và assess impact đầy đủ (C) TRƯỚC KHI implement — không ai được bypass integrated change control, kể cả sponsor",
+      "vn_vs_pmi_one_line": "PM VN thường ưu tiên làm hài lòng sponsor cao cấp ngay — PMI coi process integrity không phụ thuộc title",
+      "contextual_note": "Sponsor request midway through execution là điển hình test liệu PM có đủ backbone để enforce process hay sẽ cave in vì hierarchy"
+    },
+    "generatedAt": "2026-06-08T08:47:01.393Z"
+  },
+  "34": {
+    "sampleIndex": 34,
+    "tag": "🔢 Multiple Response · Process · Quality",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "multiple",
+      "correct_count": 2,
+      "selected_answer": "B,E",
+      "correct_answer": "A,C",
+      "correct_answers": [
+        "A",
+        "C"
+      ],
+      "trap_id": "action_before_analysis",
+      "trap_subtype": null,
+      "core_rule_id": "understand_before_act",
+      "trigger_signal": "address the root cause — yêu cầu tìm nguyên nhân gốc rễ, không phải hành động vội vàng",
+      "hidden_test": "PMI không test reactive actions — PMI test analytical thinking: audit process + RCA trước khi đưa ra solution",
+      "user_answer_reason": "User chọn B (thay người) và E (hạ chuẩn metric) — cả hai là reactive actions không giải quyết root cause, chỉ treat symptom hoặc hide problem",
+      "correct_answer_reason": "A (quality audit) và C (root cause analysis) đều là analytical tools để identify WHY defects happen — đúng tinh thần PMI: understand problem before solving it",
+      "vn_vs_pmi_one_line": "PM VN thường chọn người để blame hoặc adjust standard xuống — PMI coi phải audit process và RCA để tìm system-level root cause",
+      "contextual_note": "Khi customer rejects multiple deliverables, PMI coi đây là process failure chứ không phải people failure — cần investigate process gaps trước"
+    },
+    "generatedAt": "2026-06-08T08:47:13.994Z"
+  },
+  "35": {
+    "sampleIndex": 35,
+    "tag": "🔢 Multiple Response · People · Stakeholder",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "multiple",
+      "correct_count": 2,
+      "selected_answer": "B,C",
+      "correct_answer": "B,C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "trap_id": "unclear_or_mixed",
+      "trap_subtype": null,
+      "core_rule_id": null,
+      "trigger_signal": "TWO actions + low engagement + critical milestone requiring sign-off — PMI test stakeholder engagement recovery sequence",
+      "hidden_test": "PMI không test crisis management — PMI test PM ownership trong re-engaging stakeholders through diagnosis (plan review) và direct communication (individual meetings)",
+      "user_answer_reason": "",
+      "correct_answer_reason": "B+C đúng vì PMI yêu cầu PM diagnose root cause (review engagement plan) và take direct action (individual meetings) trước khi escalate — đây là PM's direct responsibility trong stakeholder management",
+      "vn_vs_pmi_one_line": "PM VN thường escalate sớm hoặc gửi reminder — PMI coi PM phải tự investigate và re-engage trước",
+      "contextual_note": "Critical milestone cần sign-off không justify việc skip stakeholder approval (A) hay force attendance (D) — PMI coi engagement là earned, not enforced"
+    },
+    "generatedAt": "2026-06-08T08:47:23.987Z"
+  },
+  "36": {
+    "sampleIndex": 36,
+    "tag": "🔢 Multiple Response · Process · Risk",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "multiple",
+      "correct_count": 2,
+      "selected_answer": "B,C",
+      "correct_answer": "B,C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "trap_id": "unclear_or_mixed",
+      "trap_subtype": null,
+      "core_rule_id": null,
+      "trigger_signal": "TWO strategies + cannot be avoided — hỏi active risk responses cho risks unavoidable nhưng manageable",
+      "hidden_test": "PMI không test nhận diện risk categories — PMI test phân biệt active vs passive responses và biết khi nào dùng transfer vs mitigate",
+      "user_answer_reason": "",
+      "correct_answer_reason": "B (Transfer) và C (Mitigate) là 2 active strategies phù hợp với risks không thể avoid: Transfer đẩy ownership cho bên thứ 3 có expertise, Mitigate giảm P hoặc I xuống acceptable level",
+      "vn_vs_pmi_one_line": "PM VN thường nghĩ accept risk là chiến lược hợp lý khi không avoid được — PMI coi accept chỉ dùng khi đã cân nhắc hết active options (transfer/mitigate) và risk còn lại ở residual level",
+      "contextual_note": "Trong planning phase với high P-I risks, PMI expect PM chọn active strategies trước: transfer nếu có third party competent, mitigate nếu có cost-effective actions — accept chỉ cho residual risks sau khi đã response"
+    },
+    "generatedAt": "2026-06-08T08:47:36.053Z"
+  },
+  "37": {
+    "sampleIndex": 37,
+    "tag": "🔢 Multiple Response · Agile · Sprint",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "multiple",
+      "correct_count": 2,
+      "selected_answer": "A,D",
+      "correct_answer": "B,C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "trap_id": "action_before_analysis",
+      "trap_subtype": null,
+      "core_rule_id": "understand_before_act",
+      "trigger_signal": "Team completed all stories BUT PO not satisfied — gap giữa completion và acceptance → test hiểu process improvement trước khi react",
+      "hidden_test": "PMI không test blame hay skip ceremony — PMI test PM phải facilitate learning (retrospective) + prevent recurrence (clarify criteria)",
+      "user_answer_reason": "A sai vì label sprint 'unsuccessful' khi team đã complete stories là reactive mindset không có learning. D sai vì skip retrospective = bỏ qua cơ hội process improvement, vi phạm Scrum framework.",
+      "correct_answer_reason": "B đúng vì retrospective là nơi team phân tích root cause của gap giữa completion và satisfaction. C đúng vì clarify acceptance criteria trong sprint review ngăn vấn đề lặp lại ở sprint sau.",
+      "vn_vs_pmi_one_line": "PM VN thường react ngay (close sprint, skip meeting) — PMI coi mỗi issue là learning opportunity cần facilitate",
+      "contextual_note": "Gap 'completed but not satisfied' thường do unclear acceptance criteria từ đầu sprint — cần address ở cả review (future prevention) và retro (process fix)"
+    },
+    "generatedAt": "2026-06-08T08:47:47.978Z"
+  },
+  "38": {
+    "sampleIndex": 38,
+    "tag": "🔢 Multiple Response · Business Env · Compliance",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "multiple",
+      "correct_count": 2,
+      "selected_answer": "B|E",
+      "correct_answer": "B|C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "trap_id": "action_before_analysis",
+      "trap_subtype": null,
+      "core_rule_id": "understand_before_act",
+      "trigger_signal": "TWO actions + regulatory miss discovered mid-project — test hiểu change control sequence: assess impact BEFORE formalize change",
+      "hidden_test": "PMI không test panic reflex với regulatory — PMI test change management discipline: impact assessment → change request → CCB",
+      "user_answer_reason": "Option E phản ánh mindset sợ compliance risk nên halt ngay — PMI coi đây là overreaction bypass change process, chưa biết impact mà đã stop delivery",
+      "correct_answer_reason": "B+C là correct sequence: C assess impact trước để có data, B submit change request với impact analysis để CCB decide — đúng change control process",
+      "vn_vs_pmi_one_line": "PM VN thấy regulatory miss thường panic halt hoặc rush fix ngay — PMI coi phải assess impact trước rồi mới formalize change qua CCB",
+      "contextual_note": "Project 70% complete nghĩa là đã có baseline, mọi thay đổi phải qua change control, kể cả regulatory compliance — không halt tự ý"
+    },
+    "generatedAt": "2026-06-08T08:48:00.041Z"
+  },
+  "39": {
+    "sampleIndex": 39,
+    "tag": "🔢 Multiple Response · Agile · Backlog",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "multiple",
+      "correct_count": 2,
+      "selected_answer": "B,E",
+      "correct_answer": "B,C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "trap_id": "premature_escalation",
+      "trap_subtype": null,
+      "core_rule_id": "resolve_lowest_level",
+      "trigger_signal": "Product Owner wants + high business value — test khả năng self-organize của agile team trước khi escalate",
+      "hidden_test": "PMI không test approval authority — PMI test collaboration mechanism: Product Owner có quyền prioritize backlog, team assess impact",
+      "user_answer_reason": "User chọn E vì nghĩ scope change cần sponsor approval — sai vì agile team tự quản lý backlog với Product Owner, không cần escalate decisions về prioritization",
+      "correct_answer_reason": "B đúng vì Product Owner owns backlog prioritization dựa trên business value — C đúng vì team phải assess impact để inform planning, đây là collaboration không phải approval",
+      "vn_vs_pmi_one_line": "PM VN thường escalate scope change lên sponsor để 'an toàn' — PMI coi agile team tự quản lý backlog với Product Owner",
+      "contextual_note": "Câu hỏi test hiểu Product Owner role: họ có authority add/prioritize backlog items, PM chỉ facilitate assessment với team"
+    },
+    "generatedAt": "2026-06-08T08:48:10.849Z"
+  },
+  "40": {
+    "sampleIndex": 40,
+    "tag": "🔢 Multiple Response · Process · Schedule",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "multiple",
+      "correct_count": 2,
+      "selected_answer": "A,D",
+      "correct_answer": "B,C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "trap_id": "terminology_confusion",
+      "trap_subtype": null,
+      "core_rule_id": "match_pmi_term",
+      "trigger_signal": "TWO schedule compression techniques — đòi hỏi nhận diện đúng 2 kỹ thuật nén tiến độ được PMI công nhận",
+      "hidden_test": "PMI test hiểu rõ CHÍNH XÁC 2 kỹ thuật nén tiến độ: Fast Tracking và Crashing — không phải các phương án tránh vấn đề hoặc hành động sai chuẩn",
+      "user_answer_reason": "User chọn A (re-baseline) và D (remove quality checkpoints) vì nghĩ thay đổi baseline hoặc cắt bỏ bước để tiết kiệm thời gian — nhưng PMI không coi đây là schedule compression technique mà là process violation",
+      "correct_answer_reason": "B và C đúng vì PMI định nghĩa ĐÚNG 2 schedule compression techniques: Fast Tracking (overlap activities chấp nhận risk) và Crashing (thêm resources vào critical path) — là 2 cách duy nhất được PMI công nhận để nén tiến độ",
+      "vn_vs_pmi_one_line": "PM VN thường nghĩ nén tiến độ = cắt bỏ bước hoặc thay đổi kế hoạch — PMI coi schedule compression CHỈ gồm Fast Track và Crash",
+      "contextual_note": "Trong tình huống sponsor insist deadline, PMI test khả năng nhận diện đúng công cụ nén tiến độ hợp lệ thay vì các shortcut vi phạm process"
+    },
+    "generatedAt": "2026-06-08T08:48:24.096Z"
+  },
+  "41": {
+    "sampleIndex": 41,
+    "tag": "🔢 Multiple Response · People · Leadership",
+    "analysisV2": {
+      "is_correct": false,
+      "response_type": "multiple",
+      "correct_count": 2,
+      "selected_answer": "A,B",
+      "correct_answer": "B,C",
+      "correct_answers": [
+        "B",
+        "C"
+      ],
+      "trap_id": "agile_command_reflex",
+      "trap_subtype": null,
+      "core_rule_id": "enable_before_direct",
+      "trigger_signal": "Self-organizing Agile team + concerns about PM too involved — test servant leadership vs command-control mindset",
+      "hidden_test": "PMI không test kỹ thuật Agile — PMI test mindset shift từ directive PM sang enabler: remove impediments + empower within boundaries",
+      "user_answer_reason": "Option A ('continue current style for control') phản ánh command-control reflex từ traditional PM — đối nghịch với Agile servant leadership principle PMI yêu cầu",
+      "correct_answer_reason": "B + C đúng: B embodying servant leadership (remove impediments, not direct), C enabling team autonomy với guardrails (boundaries + retrospect) — đây là balanced Agile leadership PMI expect",
+      "vn_vs_pmi_one_line": "PM VN thường giữ control vì sợ mất quyền — PMI coi servant leadership + team empowerment là core Agile PM competency",
+      "contextual_note": "Team đã highly experienced + self-organizing — cần PM shift từ 'directing work' sang 'creating enabling environment' trong Agile context"
+    },
+    "generatedAt": "2026-06-08T08:48:35.948Z"
+  }
+}

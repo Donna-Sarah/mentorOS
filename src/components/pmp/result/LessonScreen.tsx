@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import type { AnswerVerdict, Mood1Result, PMPQuestion } from '@/types/pmp'
+import type { AnswerVerdict, Mood1Result, Mood1ResultV2, PMPQuestion } from '@/types/pmp'
+import { getCoreRuleText, getTrap, getTrapDisplayName } from '@/lib/pmp/taxonomy'
 import { cn } from '@/lib/utils/cn'
 import HighlightedText from '@/components/pmp/shared/HighlightedText'
 import GlossaryTooltip from '@/components/pmp/shared/GlossaryTooltip'
@@ -11,6 +12,7 @@ import { formatFullQuestionText, parseTranslation } from '@/components/pmp/share
 interface LessonScreenProps {
   question: PMPQuestion
   result: Mood1Result
+  resultV2?: Mood1ResultV2
   userAnswers: string[]
   elapsedSeconds: number
   onReset: () => void
@@ -118,9 +120,13 @@ function getTimerState(seconds: number, benchmark: number): { color: string; mes
   return { color: '#EF4444', message: 'Đang mất rất nhiều thời gian' }
 }
 
+const v2SectionLabelClass =
+  'mb-2 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]'
+
 export default function LessonScreen({
   question,
   result,
+  resultV2,
   userAnswers,
   elapsedSeconds,
   onReset,
@@ -128,6 +134,8 @@ export default function LessonScreen({
   onOpenGlossary,
   cachedTranslation = null,
 }: LessonScreenProps) {
+  const isV2 = !!resultV2
+  const v2 = resultV2
   const [isTranslated, setIsTranslated] = useState(false)
   const [translateCache, setTranslateCache] = useState<string | null>(null)
   const [isTranslating, setIsTranslating] = useState(false)
@@ -245,9 +253,11 @@ export default function LessonScreen({
 
   async function handleExportPDF() {
     if (!lessonRef.current || isExporting) return
+    // TODO: V2 PDF — Prompt 4 (dedicated full breakdown layout; currently exports rendered V2 DOM)
     setIsExporting(true)
     setExportError(null)
 
+    if (!isV2) {
     setExpanded({
       verdict: true,
       anatomy: true,
@@ -255,6 +265,7 @@ export default function LessonScreen({
       core_rule: true,
       trap: true,
     })
+    }
 
     try {
       // Wait 1 frame for expanded DOM to render (keeps download closer to the click gesture)
@@ -337,6 +348,111 @@ export default function LessonScreen({
 
   function handleTermClick(term: string, idx: number, rect: DOMRect) {
     setTooltipTerm({ term, idx, rect })
+  }
+
+  function renderV2Content() {
+    if (!v2) return null
+
+    const coreRuleText = getCoreRuleText(v2.core_rule_id, 'vi', v2.trap_subtype ?? undefined)
+    const trapEntry = getTrap(v2.trap_id)
+
+    if (v2.is_correct) {
+      return (
+        <div className="v2-lesson-content space-y-8 pt-4">
+          <div>
+            <div className={v2SectionLabelClass}>Signal bạn đã nhận ra</div>
+            <p className="mb-3 font-body text-[13px] leading-[1.7] text-[#6B7280]">{v2.trigger_signal}</p>
+            <p className="font-body text-[15px] font-semibold leading-[1.75] text-[#111111]">{v2.hidden_test}</p>
+          </div>
+
+          <div>
+            <div className={v2SectionLabelClass}>Tại sao đúng</div>
+            <p className="font-body text-[15px] leading-[1.75] text-[#374151]">{v2.correct_answer_reason}</p>
+          </div>
+
+          <div className="rounded-r-md border-l-4 border-[#F59E0B] bg-[#FFFBEB] px-4 py-3">
+            <div className={v2SectionLabelClass}>VN vs PMI</div>
+            <p className="font-body text-[15px] leading-[1.75] text-[#374151]">{v2.vn_vs_pmi_one_line}</p>
+          </div>
+
+          {v2.core_rule_id && coreRuleText ? (
+            <div className="core-rule-content py-6 text-center md:py-8">
+              <div className="mb-4 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
+                CORE RULE
+              </div>
+              <div className="mx-auto max-w-[480px] font-display text-[28px] font-medium leading-[1.35] tracking-[-0.03em] text-[#111111] md:text-[36px] print:text-[22px]">
+                {coreRuleText}
+              </div>
+            </div>
+          ) : null}
+        </div>
+      )
+    }
+
+    return (
+      <div className="v2-lesson-content space-y-8 pt-4">
+        <div>
+          <div className={v2SectionLabelClass}>Bẫy bạn đã mắc</div>
+          <p className="font-body text-[16px] font-bold text-[#111111]">
+            {getTrapDisplayName(v2.trap_id, 'en')}
+          </p>
+          {trapEntry?.standard_explanation_vi ? (
+            <p className="mt-2 font-body text-[14px] leading-[1.75] text-[#6B7280]">
+              {trapEntry.standard_explanation_vi}
+            </p>
+          ) : null}
+          {v2.contextual_note ? (
+            <p className="mt-3 font-body text-[14px] italic leading-[1.75] text-[#D97706]">
+              {v2.contextual_note}
+            </p>
+          ) : null}
+        </div>
+
+        <div>
+          <div className={v2SectionLabelClass}>Signal bạn đã bỏ qua</div>
+          <p className="mb-1 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
+            TRIGGER SIGNAL
+          </p>
+          <p className="mb-4 font-body text-[13px] leading-[1.7] text-[#6B7280]">{v2.trigger_signal}</p>
+          <p className="mb-1 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
+            PMI THỰC SỰ TEST GÌ
+          </p>
+          <p className="font-body text-[15px] font-semibold leading-[1.75] text-[#111111]">{v2.hidden_test}</p>
+        </div>
+
+        <div className="space-y-4">
+          <div>
+            <div className={v2SectionLabelClass}>Đáp án của bạn vs PMI</div>
+            <p className="mb-1 font-body text-[12px] font-semibold uppercase tracking-wide text-[#6B7280]">
+              BẠN CHỌN {v2.selected_answer}
+            </p>
+            <p className="font-body text-[14px] leading-[1.75] text-[#6B7280]">{v2.user_answer_reason}</p>
+          </div>
+          <div>
+            <p className="mb-1 font-body text-[12px] font-semibold uppercase tracking-wide text-[#374151]">
+              ĐÁP ÁN ĐÚNG {v2.correct_answer}
+            </p>
+            <p className="font-body text-[15px] leading-[1.75] text-[#374151]">{v2.correct_answer_reason}</p>
+          </div>
+        </div>
+
+        <div className="rounded-r-md border-l-4 border-[#F59E0B] bg-[#FFFBEB] px-4 py-3">
+          <div className={v2SectionLabelClass}>VN vs PMI</div>
+          <p className="font-body text-[15px] leading-[1.75] text-[#374151]">{v2.vn_vs_pmi_one_line}</p>
+        </div>
+
+        {v2.core_rule_id && coreRuleText ? (
+          <div className="core-rule-content py-6 text-center md:py-8">
+            <div className="mb-4 font-body text-[11px] font-bold uppercase tracking-widest text-[#9CA3AF]">
+              CORE RULE
+            </div>
+            <div className="mx-auto max-w-[480px] font-display text-[28px] font-medium leading-[1.35] tracking-[-0.03em] text-[#111111] md:text-[36px] print:text-[22px]">
+              {coreRuleText}
+            </div>
+          </div>
+        ) : null}
+      </div>
+    )
   }
 
   return (
@@ -547,6 +663,10 @@ export default function LessonScreen({
           </div>
         </div>
 
+        {isV2 ? (
+          renderV2Content()
+        ) : (
+          <>
         <CollapsibleSection
           title="Kết quả"
           isFirst
@@ -757,6 +877,8 @@ export default function LessonScreen({
             </div>
           </div>
         </CollapsibleSection>
+          </>
+        )}
       </div>
 
       {tooltipTerm ? (
