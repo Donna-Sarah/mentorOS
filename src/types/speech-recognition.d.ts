@@ -34,7 +34,7 @@ interface SpeechRecognitionAlternative {
   readonly transcript: string
 }
 
-declare var SpeechRecognition: {
+declare const SpeechRecognition: {
   prototype: SpeechRecognition
   new (): SpeechRecognition
 }
