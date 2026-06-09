@@ -1,5 +1,5 @@
 // Product-level types
-export type ProductId = 'pmp' | 'askbetter' | 'nextup' | 'bidmentor'
+export type ProductId = 'pmp' | 'askbetter' | 'nextup' | 'bidmentor' | 'hien-truong'
 
 export interface Product {
   id: ProductId

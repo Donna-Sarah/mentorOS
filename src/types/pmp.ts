@@ -96,6 +96,8 @@ export interface SampleAnswerV2Entry {
   sampleIndex: number
   tag: string
   analysisV2: Mood1ResultV2
+  /** Pre-generated user_answer_reason keyed by norm answer (e.g. "B" or "A,D") */
+  wrong_answer_reasons?: Record<string, string>
   generatedAt: string
 }
 

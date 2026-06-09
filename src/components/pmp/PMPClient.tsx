@@ -16,6 +16,7 @@ import type {
   PMPMood,
   PMPQuestion,
   SampleAnswersCache,
+  SampleAnswerV2Entry,
   SampleAnswersV2Cache,
   SampleQuestion,
 } from '@/types/pmp'
@@ -29,6 +30,7 @@ import { LessonScreen } from './result'
 import { Mood2Picker, Mood2Result as Mood2ResultScreen } from './mood2'
 import AnalyzingScreen from './AnalyzingScreen'
 import samplesData from '../../../public/data/samples.json'
+import sampleAnswersV2Data from '../../../public/data/sample-answers-v2.json'
 
 export type PMPPhase = 'input' | 'mood_select' | 'answer' | 'result'
 
@@ -45,6 +47,7 @@ interface PMPClientProps {
 }
 
 const samples = samplesData as SampleQuestion[]
+const sampleCacheV2 = sampleAnswersV2Data as SampleAnswersV2Cache
 
 function normAnswerKey(answers: string[] | string): string {
   const list = Array.isArray(answers)
@@ -53,18 +56,64 @@ function normAnswerKey(answers: string[] | string): string {
   return [...list].sort().join(',')
 }
 
+function formatSelectedAnswer(answers: string[]): string {
+  return answers.length === 1 ? answers[0]! : [...answers].sort().join(',')
+}
+
+function lookupWrongAnswerReason(
+  entry: SampleAnswerV2Entry,
+  answers: string[],
+): string {
+  const key = normAnswerKey(answers)
+  const reasons = entry.wrong_answer_reasons
+  if (reasons?.[key]) return reasons[key]
+
+  // Legacy cache: single pre-generated reason on analysisV2
+  if (key === normAnswerKey(entry.analysisV2.selected_answer)) {
+    return entry.analysisV2.user_answer_reason
+  }
+
+  return ''
+}
+
 function applyUserAnswersToV2Cache(
-  cached: Mood1ResultV2,
+  entry: SampleAnswerV2Entry,
   answers: string[],
 ): Mood1ResultV2 {
-  const userCorrect = normAnswerKey(answers) === normAnswerKey(cached.correct_answers)
+  const base = entry.analysisV2
+  const userCorrect = normAnswerKey(answers) === normAnswerKey(base.correct_answers)
 
   return {
-    ...cached,
-    selected_answer: answers[0] ?? cached.selected_answer,
+    ...base,
+    selected_answer: formatSelectedAnswer(answers),
     is_correct: userCorrect,
-    user_answer_reason: userCorrect ? '' : cached.user_answer_reason,
+    user_answer_reason: userCorrect ? '' : lookupWrongAnswerReason(entry, answers),
   }
+}
+
+async function fetchMood1V2Analysis(
+  questionText: string,
+  options: Record<string, string>,
+  answers: string[],
+): Promise<Mood1ResultV2> {
+  const res = await fetch('/api/pmp/analyze?v=2', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      question:
+        questionText +
+        '\n' +
+        Object.entries(options)
+          .map(([k, v]) => `${k}. ${v}`)
+          .join('\n'),
+      mood: 'mood1',
+      selectedAnswer: formatSelectedAnswer(answers),
+    }),
+  })
+
+  const json = (await res.json()) as { data: Mood1ResultV2 | null; error: string | null }
+  if (json.error || !json.data) throw new Error(json.error ?? 'No data')
+  return json.data
 }
 
 async function persistSession(
@@ -136,7 +185,6 @@ const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient
   const [glossaryScrollTo, setGlossaryScrollTo] = useState<number | null>(null)
   const [showEVM, setShowEVM] = useState(false)
   const [sampleCache, setSampleCache] = useState<SampleAnswersCache | null>(null)
-  const [sampleCacheV2, setSampleCacheV2] = useState<SampleAnswersV2Cache | null>(null)
   const [cachedTranslation, setCachedTranslation] = useState<string | null>(null)
 
   const [shouldScrollToCards, setShouldScrollToCards] = useState(false)
@@ -167,15 +215,6 @@ const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient
       .then((data: SampleAnswersCache) => setSampleCache(data))
       .catch(() => {
         console.log('Sample cache not available, using live API')
-      })
-
-    fetch('/data/sample-answers-v2.json')
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data: SampleAnswersV2Cache | null) => {
-        if (data) setSampleCacheV2(data)
-      })
-      .catch(() => {
-        console.log('V2 sample cache not available, using live API')
       })
   }, [])
 
@@ -291,70 +330,53 @@ const PMPClient = forwardRef<PMPClientHandle, PMPClientProps>(function PMPClient
   )
 
   async function handleAnswerSubmit(answers: string[], seconds: number) {
-    setIsAnalyzing(true)
     setUserAnswers(answers)
     setElapsedSeconds(seconds)
 
-    if (!question) {
-      setIsAnalyzing(false)
+    if (!question) return
+
+    const questionText = question.text
+    const v2Entry =
+      question.source === 'sample' && question.sampleId !== undefined
+        ? sampleCacheV2[String(question.sampleId)]
+        : undefined
+
+    if (v2Entry?.analysisV2) {
+      const mood1V2Result = applyUserAnswersToV2Cache(v2Entry, answers)
+      setMood1ResultV2(mood1V2Result)
+      setMood1Result(mood1V2ToV1Stub(mood1V2Result))
+
+      if (sampleCache) {
+        const cached = sampleCache[String(question.sampleId)]
+        if (cached) setCachedTranslation(cached.translation)
+      }
+
+      setPhase('result')
+
+      void persistSession(
+        'mood1',
+        questionText,
+        question.source,
+        question.tag,
+        question.sampleId,
+        answers,
+        mood1V2Result.correct_answers,
+        mood1V2Result.is_correct,
+        seconds,
+        mood1V2Result,
+      )
+
       return
     }
 
-    const questionText = question.text
-
-    if (question.source === 'sample' && question.sampleId !== undefined && sampleCacheV2) {
-      const v2Cached = sampleCacheV2[String(question.sampleId)]?.analysisV2
-      const cacheMatchesSelection =
-        v2Cached && normAnswerKey(answers) === normAnswerKey(v2Cached.selected_answer)
-      if (v2Cached && cacheMatchesSelection) {
-        const mood1V2Result = applyUserAnswersToV2Cache(v2Cached, answers)
-        setMood1ResultV2(mood1V2Result)
-        setMood1Result(mood1V2ToV1Stub(mood1V2Result))
-
-        if (sampleCache) {
-          const cached = sampleCache[String(question.sampleId)]
-          if (cached) setCachedTranslation(cached.translation)
-        }
-
-        setPhase('result')
-        setIsAnalyzing(false)
-
-        void persistSession(
-          'mood1',
-          questionText,
-          question.source,
-          question.tag,
-          question.sampleId,
-          answers,
-          mood1V2Result.correct_answers,
-          mood1V2Result.is_correct,
-          seconds,
-          mood1V2Result,
-        )
-        return
-      }
-    }
+    setIsAnalyzing(true)
 
     try {
-      const res = await fetch('/api/pmp/analyze?v=2', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          question:
-            questionText +
-            '\n' +
-            Object.entries(question.options ?? {})
-              .map(([k, v]) => `${k}. ${v}`)
-              .join('\n'),
-          mood: 'mood1',
-          selectedAnswer: [...answers].sort().join(', '),
-        }),
-      })
-
-      const json = (await res.json()) as { data: Mood1ResultV2 | null; error: string | null }
-      if (json.error || !json.data) throw new Error(json.error ?? 'No data')
-
-      const mood1V2Result = json.data
+      const mood1V2Result = await fetchMood1V2Analysis(
+        questionText,
+        question.options ?? {},
+        answers,
+      )
       setMood1ResultV2(mood1V2Result)
       setMood1Result(mood1V2ToV1Stub(mood1V2Result))
 

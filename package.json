@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "generate:answers": "node scripts/generate-sample-answers.mjs",
-    "generate:answers-v2": "node scripts/generate-sample-answers-v2.mjs"
+    "generate:answers-v2": "node scripts/generate-sample-answers-v2.mjs",
+    "generate:answers-v2-reasons": "node scripts/generate-sample-answers-v2.mjs --reasons-only"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.99.0",

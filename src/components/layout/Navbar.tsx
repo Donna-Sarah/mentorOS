@@ -102,6 +102,7 @@ export function Navbar() {
       { label: t.nav.askbetter, href: '/askbetter' },
       { label: t.nav.nextup, href: '/nextup' },
       { label: t.nav.pmp, href: '/pmp' },
+      { label: t.nav.hienTruong, href: '/hien-truong' },
       {
         label: t.nav.bidmentor,
         href: 'https://bidmentor.vercel.app',

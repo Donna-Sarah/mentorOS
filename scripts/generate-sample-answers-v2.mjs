@@ -68,10 +68,20 @@ JSON schema bắt buộc:
   "contextual_note": "1 câu ngắn gắn với context câu hỏi cụ thể, không phải giải thích chung"
 }`
 
+const PROMPT_WRONG_REASON = `Bạn là PMP AI Mentor của mentorOS. Trả về JSON thuần, KHÔNG backticks, KHÔNG preamble.
+
+NHIỆM VỤ: Giải thích ngắn gọn tại sao đáp án user chọn SAI theo PMI.
+
+JSON schema:
+{
+  "user_answer_reason": "1-2 câu tiếng Việt: tại sao option/combo user chọn không đúng theo PMI. Nói rõ option letter user chọn."
+}`
+
 const samplesPath = path.join(ROOT, 'public/data/samples.json')
 const outputPath = path.join(ROOT, 'public/data/sample-answers-v2.json')
 
 const samples = JSON.parse(fs.readFileSync(samplesPath, 'utf-8'))
+const reasonsOnly = process.argv.includes('--reasons-only')
 
 let cache = {}
 if (fs.existsSync(outputPath)) {
@@ -79,15 +89,43 @@ if (fs.existsSync(outputPath)) {
   console.log(`Resuming — ${Object.keys(cache).length} entries already cached`)
 }
 
-async function generateForSample(sample) {
-  const response = await client.messages.create({
-    model: 'claude-sonnet-4-5',
-    max_tokens: 1000,
-    system: PROMPT_M1_V2,
-    messages: [{ role: 'user', content: sample.full_text }],
-  })
+function normAnswerKey(answers) {
+  const list = Array.isArray(answers)
+    ? answers
+    : answers.split(',').map((s) => s.trim())
+  return [...list].sort().join(',')
+}
 
-  const text = response.content[0].type === 'text' ? response.content[0].text : ''
+function combinations(arr, k) {
+  if (k === 0) return [[]]
+  if (k > arr.length) return []
+  const [first, ...rest] = arr
+  const withFirst = combinations(rest, k - 1).map((c) => [first, ...c])
+  const withoutFirst = combinations(rest, k)
+  return [...withFirst, ...withoutFirst]
+}
+
+function getOptionKeys(sample) {
+  return Object.keys(sample.options ?? {}).sort()
+}
+
+function getWrongAnswerKeys(sample, analysis) {
+  const optionKeys = getOptionKeys(sample)
+  const correctKey = normAnswerKey(analysis.correct_answers)
+
+  if (analysis.response_type === 'multiple') {
+    const pickCount = analysis.correct_answers.length
+    return combinations(optionKeys, pickCount)
+      .map((combo) => normAnswerKey(combo))
+      .filter((key) => key !== correctKey)
+  }
+
+  return optionKeys
+    .filter((key) => !analysis.correct_answers.includes(key))
+    .map((key) => key)
+}
+
+function parseJsonResponse(text) {
   const clean = text
     .replace(/^```json\s*/i, '')
     .replace(/^```\s*/i, '')
@@ -96,33 +134,122 @@ async function generateForSample(sample) {
   return JSON.parse(clean)
 }
 
+async function generateBaseAnalysis(sample) {
+  const response = await client.messages.create({
+    model: 'claude-sonnet-4-5',
+    max_tokens: 1000,
+    system: PROMPT_M1_V2,
+    messages: [{ role: 'user', content: sample.full_text }],
+  })
+
+  const text = response.content[0].type === 'text' ? response.content[0].text : ''
+  return parseJsonResponse(text)
+}
+
+async function generateWrongReason(sample, analysis, wrongKey) {
+  const userContent = `${sample.full_text}
+
+User selected answer: ${wrongKey}
+
+Analyze why this answer is incorrect according to PMI. user_answer_reason must explain why THIS selected option is wrong.`
+
+  const response = await client.messages.create({
+    model: 'claude-sonnet-4-5',
+    max_tokens: 400,
+    system: PROMPT_WRONG_REASON,
+    messages: [{ role: 'user', content: userContent }],
+  })
+
+  const text = response.content[0].type === 'text' ? response.content[0].text : ''
+  const parsed = parseJsonResponse(text)
+  return parsed.user_answer_reason
+}
+
+function seedWrongReasonsFromLegacy(entry) {
+  const analysis = entry.analysisV2
+  const reasons = { ...(entry.wrong_answer_reasons ?? {}) }
+
+  if (analysis.user_answer_reason && analysis.selected_answer) {
+    const key = normAnswerKey(analysis.selected_answer)
+    if (!reasons[key]) reasons[key] = analysis.user_answer_reason
+  }
+
+  return reasons
+}
+
+async function ensureWrongReasons(sample, entry) {
+  const analysis = entry.analysisV2
+  const wrongKeys = getWrongAnswerKeys(sample, analysis)
+  const reasons = seedWrongReasonsFromLegacy(entry)
+
+  for (const wrongKey of wrongKeys) {
+    if (reasons[wrongKey]) continue
+
+    console.log(`    reason for [${wrongKey}]...`)
+    reasons[wrongKey] = await generateWrongReason(sample, analysis, wrongKey)
+    entry.wrong_answer_reasons = reasons
+    fs.writeFileSync(outputPath, JSON.stringify(cache, null, 2))
+    await new Promise((r) => setTimeout(r, 1200))
+  }
+
+  entry.wrong_answer_reasons = reasons
+  return entry
+}
+
 async function main() {
   for (let i = 0; i < samples.length; i++) {
     const key = String(i)
+    const sample = samples[i]
 
-    if (cache[key]) {
-      console.log(`[${i + 1}/${samples.length}] Skip (cached)`)
+    if (!reasonsOnly && !cache[key]) {
+      try {
+        console.log(`[${i + 1}/${samples.length}] Generating base analysis...`)
+        const analysis = await generateBaseAnalysis(sample)
+
+        cache[key] = {
+          sampleIndex: i,
+          tag: sample.tag,
+          analysisV2: analysis,
+          wrong_answer_reasons: {},
+          generatedAt: new Date().toISOString(),
+        }
+
+        fs.writeFileSync(outputPath, JSON.stringify(cache, null, 2))
+        console.log(`[${i + 1}/${samples.length}] Base done — trap: ${analysis.trap_id}`)
+        await new Promise((r) => setTimeout(r, 1500))
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err)
+        console.error(`[${i + 1}/${samples.length}] Base error:`, message)
+        continue
+      }
+    }
+
+    if (!cache[key]?.analysisV2) {
+      console.log(`[${i + 1}/${samples.length}] Skip — no base analysis`)
+      continue
+    }
+
+    const wrongKeys = getWrongAnswerKeys(sample, cache[key].analysisV2)
+    const existing = seedWrongReasonsFromLegacy(cache[key])
+    const missing = wrongKeys.filter((k) => !existing[k])
+
+    if (missing.length === 0) {
+      cache[key].wrong_answer_reasons = existing
+      console.log(`[${i + 1}/${samples.length}] Reasons complete (${wrongKeys.length} wrong keys)`)
       continue
     }
 
     try {
-      console.log(`[${i + 1}/${samples.length}] Generating...`)
-      const analysis = await generateForSample(samples[i])
-
-      cache[key] = {
-        sampleIndex: i,
-        tag: samples[i].tag,
-        analysisV2: analysis,
-        generatedAt: new Date().toISOString(),
-      }
-
+      console.log(
+        `[${i + 1}/${samples.length}] Generating ${missing.length}/${wrongKeys.length} missing wrong reasons...`,
+      )
+      cache[key].wrong_answer_reasons = existing
+      await ensureWrongReasons(sample, cache[key])
       fs.writeFileSync(outputPath, JSON.stringify(cache, null, 2))
-      console.log(`[${i + 1}/${samples.length}] Done — trap: ${analysis.trap_id}`)
-
-      await new Promise((r) => setTimeout(r, 1500))
+      console.log(`[${i + 1}/${samples.length}] Reasons done`)
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err)
-      console.error(`[${i + 1}/${samples.length}] Error:`, message)
+      console.error(`[${i + 1}/${samples.length}] Reasons error:`, message)
     }
   }
 
