@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { FileUpload } from '@/components/hien-truong/FileUpload'
 import { APPS_SCRIPT_CODE, DEFAULT_SHEETS_URL } from '@/lib/hien-truong/constants'
+import { mapAudioErrorMessage } from '@/lib/hien-truong/errors'
 import {
   extensionForMime,
   extractTextFromFile,
@@ -143,8 +144,16 @@ export function HienTruongClient(): ReactElement {
           const { text } = await extractTextFromFile(file)
           setTextInput((prev) => (prev.trim() ? `${prev.trim()}\n\n${text}` : text))
           setRecStatus({ type: 'ok', msg: ht.record_done })
-        } catch {
-          setRecStatus({ type: 'error', msg: ht.mic_failed })
+        } catch (err) {
+          const message = err instanceof Error ? err.message : ''
+          setRecStatus({
+            type: 'error',
+            msg: mapAudioErrorMessage(message, {
+              notConfigured: ht.file_audio_unavailable,
+              invalidKey: ht.file_audio_invalid_key,
+              generic: ht.mic_failed,
+            }),
+          })
         }
 
         resolve()
@@ -488,13 +497,18 @@ export function HienTruongClient(): ReactElement {
 
         <FileUpload
           label={ht.file_label}
-          hint={ht.file_hint}
-          dropHint={ht.file_drop}
+          pickImage={ht.pick_image}
+          pickAudio={ht.pick_audio}
+          imageHint={ht.image_hint}
+          audioHint={ht.audio_hint}
+          desktopDropHint={ht.desktop_drop_hint}
           loadingImage={ht.file_loading_image}
           loadingAudio={ht.file_loading_audio}
           fileTooLargeImage={ht.file_too_large_image}
           fileTooLargeAudio={ht.file_too_large_audio}
           extractError={ht.file_extract_error}
+          audioUnavailable={ht.file_audio_unavailable}
+          audioInvalidKey={ht.file_audio_invalid_key}
           fileDoneImage={ht.file_done_image}
           fileDoneAudio={ht.file_done_audio}
           disabled={isRecording || analyzing}

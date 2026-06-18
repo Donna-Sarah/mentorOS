@@ -1,22 +1,30 @@
 'use client'
 
 import { useRef, useState, type ChangeEvent, type DragEvent, type ReactElement } from 'react'
-import { cn } from '@/lib/utils/cn'
+import { Button } from '@/components/ui/Button'
+import { mapAudioErrorMessage } from '@/lib/hien-truong/errors'
 import { MAX_AUDIO_BYTES, MAX_IMAGE_BYTES } from '@/lib/hien-truong/file-types'
+import { cn } from '@/lib/utils/cn'
 import type { StatusMessage } from '@/types/hien-truong'
 
-const ACCEPT =
-  'image/jpeg,image/png,image/webp,image/gif,audio/mpeg,audio/mp4,audio/wav,audio/webm,audio/ogg,audio/x-m4a,.mp3,.m4a,.wav,.webm,.ogg,.aac'
+const IMAGE_ACCEPT = 'image/jpeg,image/png,image/webp,image/gif'
+const AUDIO_ACCEPT =
+  'audio/*,audio/mpeg,audio/mp4,audio/x-m4a,audio/wav,audio/webm,audio/ogg,.mp3,.m4a,.wav,.webm,.ogg,.aac'
 
 interface FileUploadProps {
   label: string
-  hint: string
-  dropHint: string
+  pickImage: string
+  pickAudio: string
+  imageHint: string
+  audioHint: string
+  desktopDropHint: string
   loadingImage: string
   loadingAudio: string
   fileTooLargeImage: string
   fileTooLargeAudio: string
   extractError: string
+  audioUnavailable: string
+  audioInvalidKey: string
   fileDoneImage: string
   fileDoneAudio: string
   onExtracted: (text: string) => void
@@ -26,22 +34,37 @@ interface FileUploadProps {
 
 export function FileUpload({
   label,
-  hint,
-  dropHint,
+  pickImage,
+  pickAudio,
+  imageHint,
+  audioHint,
+  desktopDropHint,
   loadingImage,
   loadingAudio,
   fileTooLargeImage,
   fileTooLargeAudio,
   extractError,
+  audioUnavailable,
+  audioInvalidKey,
   fileDoneImage,
   fileDoneAudio,
   onExtracted,
   onStatus,
   disabled = false,
 }: FileUploadProps): ReactElement {
-  const inputRef = useRef<HTMLInputElement>(null)
+  const imageInputRef = useRef<HTMLInputElement>(null)
+  const audioInputRef = useRef<HTMLInputElement>(null)
   const [isDragging, setIsDragging] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  function mapServerError(error: string | null, isAudio: boolean): string {
+    if (!isAudio) return error ?? extractError
+    return mapAudioErrorMessage(error, {
+      notConfigured: audioUnavailable,
+      invalidKey: audioInvalidKey,
+      generic: error ?? extractError,
+    })
+  }
 
   async function processFile(file: File) {
     if (file.type.startsWith('image/') && file.size > MAX_IMAGE_BYTES) {
@@ -77,7 +100,7 @@ export function FileUpload({
       }
 
       if (!response.ok || payload.error || !payload.data?.text) {
-        onStatus({ type: 'error', msg: payload.error ?? extractError })
+        onStatus({ type: 'error', msg: mapServerError(payload.error, isAudio) })
         return
       }
 
@@ -93,7 +116,13 @@ export function FileUpload({
     }
   }
 
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+  function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0]
+    event.target.value = ''
+    if (file) void processFile(file)
+  }
+
+  function handleAudioChange(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0]
     event.target.value = ''
     if (file) void processFile(file)
@@ -109,20 +138,63 @@ export function FileUpload({
 
   return (
     <div>
-      <p className="mb-2 font-body text-caption uppercase tracking-widest text-ash-text">
+      <p className="mb-3 font-body text-caption uppercase tracking-widest text-ash-text">
         {label}
       </p>
 
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+        <div>
+          <Button
+            variant="ghost"
+            className="h-auto w-full flex-col gap-1 px-4 py-4"
+            disabled={disabled || loading}
+            onClick={() => imageInputRef.current?.click()}
+          >
+            <span className="text-xl" aria-hidden>
+              📷
+            </span>
+            <span>{pickImage}</span>
+          </Button>
+          <p className="mt-1.5 text-center font-body text-caption normal-case tracking-normal text-ash-text">
+            {imageHint}
+          </p>
+          <input
+            ref={imageInputRef}
+            type="file"
+            accept={IMAGE_ACCEPT}
+            disabled={disabled || loading}
+            onChange={handleImageChange}
+            className="sr-only"
+          />
+        </div>
+
+        <div>
+          <Button
+            variant="ghost"
+            className="h-auto w-full flex-col gap-1 px-4 py-4"
+            disabled={disabled || loading}
+            onClick={() => audioInputRef.current?.click()}
+          >
+            <span className="text-xl" aria-hidden>
+              🎵
+            </span>
+            <span>{pickAudio}</span>
+          </Button>
+          <p className="mt-1.5 text-center font-body text-caption normal-case tracking-normal text-ash-text">
+            {audioHint}
+          </p>
+          <input
+            ref={audioInputRef}
+            type="file"
+            accept={AUDIO_ACCEPT}
+            disabled={disabled || loading}
+            onChange={handleAudioChange}
+            className="sr-only"
+          />
+        </div>
+      </div>
+
       <div
-        role="button"
-        tabIndex={0}
-        onClick={() => !disabled && !loading && inputRef.current?.click()}
-        onKeyDown={(event) => {
-          if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault()
-            if (!disabled && !loading) inputRef.current?.click()
-          }
-        }}
         onDragOver={(event) => {
           event.preventDefault()
           if (!disabled && !loading) setIsDragging(true)
@@ -130,30 +202,14 @@ export function FileUpload({
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
         className={cn(
-          'cursor-pointer rounded-md border border-dashed px-4 py-6 text-center transition-colors',
+          'mt-3 hidden rounded-md border border-dashed px-4 py-4 text-center md:block',
           isDragging
             ? 'border-slate-text bg-amber-glow'
-            : 'border-soft-gray bg-amber-glow/30 hover:bg-amber-glow/60',
-          (disabled || loading) && 'pointer-events-none opacity-60',
+            : 'border-soft-gray bg-amber-glow/20',
+          (disabled || loading) && 'opacity-60',
         )}
       >
-        <p className="mb-1 font-body text-body-sm text-slate-text">
-          <span className="mr-1" aria-hidden>
-            📎
-          </span>
-          {dropHint}
-        </p>
-        <p className="font-body text-caption normal-case tracking-normal text-ash-text">
-          {hint}
-        </p>
-        <input
-          ref={inputRef}
-          type="file"
-          accept={ACCEPT}
-          disabled={disabled || loading}
-          onChange={handleChange}
-          className="sr-only"
-        />
+        <p className="font-body text-body-sm text-slate-text">{desktopDropHint}</p>
       </div>
     </div>
   )

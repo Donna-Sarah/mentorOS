@@ -5,7 +5,10 @@ import { transcribeWithWhisper } from '@/lib/ai/transcribe'
 import {
   getHienTruongFileKind,
   getMaxBytesForKind,
+  guessAudioMimeType,
 } from '@/lib/hien-truong/file-types'
+
+export const runtime = 'nodejs'
 
 export async function POST(request: NextRequest) {
   try {
@@ -55,7 +58,13 @@ export async function POST(request: NextRequest) {
         prompt: PROMPT_OCR_HIEN_TRUONG,
       })
     } else {
-      const result = await transcribeWithWhisper(file)
+      const arrayBuffer = await file.arrayBuffer()
+      const result = await transcribeWithWhisper({
+        data: arrayBuffer,
+        fileName: file.name || 'recording.webm',
+        mimeType: guessAudioMimeType(file.name, file.type),
+      })
+
       if (result.error || !result.data) {
         return Response.json(
           { data: null, error: result.error ?? 'Transcription failed' },
