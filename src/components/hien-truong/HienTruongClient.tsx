@@ -10,7 +10,6 @@ import {
   extractTextFromFile,
   hasMediaRecorder,
   hasSpeechRecognition,
-  isMobileDevice,
   mapMicError,
   pickRecorderMimeType,
   shouldUseMediaRecorder,
