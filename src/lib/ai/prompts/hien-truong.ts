@@ -1,3 +1,7 @@
+export const PROMPT_OCR_HIEN_TRUONG = `Đọc toàn bộ nội dung từ ảnh hiện trường: ghi chú, biên bản, nhãn thiết bị, chữ viết tay.
+Trả về văn bản thuần tiếng Việt, giữ nguyên thông tin quan trọng (ngày, địa điểm, mô tả hiện trạng, đề xuất).
+Không giải thích, không markdown.`
+
 export function buildHienTruongSystemPrompt(today: string): string {
   return `Bạn là AI trích xuất dữ liệu kiểm tra hiện trường công nghiệp.
 Từ đoạn mô tả tiếng Việt, tách thành một hoặc nhiều mục.

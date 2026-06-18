@@ -1,5 +1,5 @@
 export const DEFAULT_SHEETS_URL =
-  'https://script.google.com/macros/s/AKfycbyjSiOzXTKIfY45_0G_wcK-PNs2yKi2DGFv5YKvUbPKku9xZXneto8nRChJu1wvgUHBKQ/exec'
+  'https://script.google.com/macros/s/AKfycbyFI268Opg1e2l3_j_3JbPzy8ov7esAYvK1WS_ddmtjdPrx2ahLYIHc1cE2V22Y0KeYYg/exec'
 
 export const APPS_SCRIPT_CODE = `function doPost(e) {
   try {
