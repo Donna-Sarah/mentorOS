@@ -61,12 +61,16 @@ export async function POST(request: NextRequest) {
     } else {
       const arrayBuffer = await file.arrayBuffer()
       const guessedMime = guessAudioMimeType(file.name, file.type)
-      const { fileName, mimeType } = resolveWhisperUploadMeta(file.name, guessedMime)
+      const resolved = resolveWhisperUploadMeta(file.name, guessedMime, arrayBuffer)
+
+      if ('error' in resolved) {
+        return Response.json({ data: null, error: resolved.error }, { status: 400 })
+      }
 
       const result = await transcribeWithWhisper({
         data: arrayBuffer,
-        fileName,
-        mimeType,
+        fileName: resolved.fileName,
+        mimeType: resolved.mimeType,
       })
 
       if (result.error || !result.data) {

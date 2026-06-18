@@ -40,6 +40,8 @@ interface FileUploadProps {
   audioUnavailable: string
   audioInvalidKey: string
   audioQuotaExceeded: string
+  audioAmrUnsupported: string
+  audioInvalidFormat: string
   fileDoneImage: string
   fileDoneAudio: string
   onExtracted: (text: string) => void
@@ -64,6 +66,8 @@ export function FileUpload({
   audioUnavailable,
   audioInvalidKey,
   audioQuotaExceeded,
+  audioAmrUnsupported,
+  audioInvalidFormat,
   fileDoneImage,
   fileDoneAudio,
   onExtracted,
@@ -81,6 +85,8 @@ export function FileUpload({
       notConfigured: audioUnavailable,
       invalidKey: audioInvalidKey,
       quotaExceeded: audioQuotaExceeded,
+      amrUnsupported: audioAmrUnsupported,
+      invalidFormat: audioInvalidFormat,
       generic: extractError,
     })
   }

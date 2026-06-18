@@ -156,6 +156,8 @@ export function HienTruongClient(): ReactElement {
               notConfigured: ht.file_audio_unavailable,
               invalidKey: ht.file_audio_invalid_key,
               quotaExceeded: ht.file_audio_quota,
+              amrUnsupported: ht.file_audio_amr,
+              invalidFormat: ht.file_audio_format,
               generic: ht.mic_failed,
             }),
           })
@@ -555,6 +557,8 @@ export function HienTruongClient(): ReactElement {
           audioUnavailable={ht.file_audio_unavailable}
           audioInvalidKey={ht.file_audio_invalid_key}
           audioQuotaExceeded={ht.file_audio_quota}
+          audioAmrUnsupported={ht.file_audio_amr}
+          audioInvalidFormat={ht.file_audio_format}
           fileDoneImage={ht.file_done_image}
           fileDoneAudio={ht.file_done_audio}
           disabled={isRecording || analyzing}

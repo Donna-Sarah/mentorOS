@@ -217,6 +217,10 @@ export const vi = {
       'API key OpenAI không hợp lệ. Kiểm tra lại OPENAI_API_KEY trên Vercel rồi Redeploy.',
     file_audio_quota:
       'Tài khoản OpenAI hết credit. Vào platform.openai.com → Billing để nạp thêm, rồi thử lại.',
+    file_audio_amr:
+      'File AMR không hỗ trợ. Trong app Ghi âm Samsung: Chia sẻ → đổi sang M4A/MP3, hoặc dùng nút ghi âm trên web.',
+    file_audio_format:
+      'Không đọc được file ghi âm này. Thử xuất lại M4A/MP3 từ Samsung, hoặc dùng nút "Nhấn để nói".',
     file_done_image: 'Đã đọc ảnh — bấm "Phân tích" để xử lý',
     file_done_audio: 'Đã chuyển ghi âm thành chữ — bấm "Phân tích" để xử lý',
     start_recording: 'Nhấn để nói',

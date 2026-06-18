@@ -219,6 +219,10 @@ export const en: Translations = {
       'Invalid OpenAI API key. Check OPENAI_API_KEY on Vercel and redeploy.',
     file_audio_quota:
       'OpenAI account is out of credits. Go to platform.openai.com → Billing to add credits.',
+    file_audio_amr:
+      'AMR files are not supported. In Samsung Voice Recorder: Share → export as M4A/MP3, or use the record button.',
+    file_audio_format:
+      'Could not read this audio file. Re-export as M4A/MP3 from Samsung, or use "Tap to speak".',
     file_done_image: 'Image read — tap Analyze to process',
     file_done_audio: 'Audio transcribed — tap Analyze to process',
     start_recording: 'Tap to speak',
