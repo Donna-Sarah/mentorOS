@@ -231,12 +231,16 @@ export const en: Translations = {
     mic_not_found: 'No microphone found on this device.',
     mic_failed: 'Could not record — try uploading an audio file below.',
     mic_mobile_hint: 'Tap to record, tap again to stop and transcribe',
+    mic_speech_hint: 'Tap to speak — free on-device speech recognition',
+    mic_whisper_hint: 'Tap to record, tap again to stop (server transcription)',
+    mic_fallback_whisper:
+      'Free speech recognition unavailable — switching to server recording...',
     mic_transcribing: 'Transcribing audio...',
     mic_no_speech: 'No speech detected — speak louder or try again',
     mic_error: 'Mic error',
     text_label: 'Or type manually',
     input_placeholder:
-      'E.g. Today 9/6, at valve XV-201 area B, small leak at flange. Tighten bolts. Assign Mr. Tuan before 20/6. Note: shut down machine before tightening.',
+      'E.g. On 18/6 re-survey the port bridge, draft a retrofit plan, deadline 20/6, assign Mr. Tuan for maintenance, budget: Minor Repairs.',
     shortcut_hint: 'Ctrl+Enter to analyze quickly',
     analyze_btn: '✦ Analyze & add to table',
     analyzing_btn: '⏳ Analyzing...',

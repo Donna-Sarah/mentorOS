@@ -1,7 +1,6 @@
-export function isMobileDevice(): boolean {
-  if (typeof navigator === 'undefined') return false
-  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
-}
+const STT_PREFERENCE_KEY = 'hien-truong:stt-preference'
+
+export type SttPreference = 'speech' | 'whisper'
 
 export function hasSpeechRecognition(): boolean {
   if (typeof window === 'undefined') return false
@@ -16,9 +15,27 @@ export function hasMediaRecorder(): boolean {
   return typeof window !== 'undefined' && typeof MediaRecorder !== 'undefined'
 }
 
-/** Android/iOS browsers often expose SpeechRecognition but it never starts. */
-export function shouldUseMediaRecorder(): boolean {
-  return isMobileDevice() && hasMediaRecorder()
+export function getSttPreference(): SttPreference {
+  if (typeof window === 'undefined') return 'speech'
+  try {
+    return localStorage.getItem(STT_PREFERENCE_KEY) === 'whisper' ? 'whisper' : 'speech'
+  } catch {
+    return 'speech'
+  }
+}
+
+export function markSttPreferenceWhisper(): void {
+  try {
+    localStorage.setItem(STT_PREFERENCE_KEY, 'whisper')
+  } catch {
+    // ignore storage errors
+  }
+}
+
+/** Skip free SpeechRecognition only when unavailable or previously failed on this device. */
+export function shouldSkipSpeechRecognition(): boolean {
+  if (!hasSpeechRecognition()) return true
+  return getSttPreference() === 'whisper'
 }
 
 export function pickRecorderMimeType(): string {
@@ -76,4 +93,15 @@ export function mapMicError(error: unknown): string {
     }
   }
   return 'generic'
+}
+
+const SPEECH_FALLBACK_ERRORS = new Set([
+  'service-not-allowed',
+  'network',
+  'audio-capture',
+  'language-not-supported',
+])
+
+export function shouldFallbackFromSpeechError(errorCode: string): boolean {
+  return SPEECH_FALLBACK_ERRORS.has(errorCode)
 }

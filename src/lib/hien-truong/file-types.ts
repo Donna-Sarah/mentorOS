@@ -40,15 +40,21 @@ export function getHienTruongFileKind(file: File): HienTruongFileKind | null {
 }
 
 export function guessAudioMimeType(fileName: string, fileType: string): string {
-  if (fileType && fileType !== 'application/octet-stream') return fileType
   const lower = fileName.toLowerCase()
-  if (lower.endsWith('.mp3')) return 'audio/mpeg'
   if (lower.endsWith('.m4a')) return 'audio/mp4'
+  if (lower.endsWith('.mp3')) return 'audio/mpeg'
   if (lower.endsWith('.wav')) return 'audio/wav'
   if (lower.endsWith('.ogg')) return 'audio/ogg'
   if (lower.endsWith('.webm')) return 'audio/webm'
   if (lower.endsWith('.aac')) return 'audio/aac'
-  return 'audio/webm'
+  if (lower.endsWith('.flac')) return 'audio/flac'
+
+  if (fileType && fileType !== 'application/octet-stream') {
+    if (fileType === 'video/mp4' || fileType === 'audio/x-m4a') return 'audio/mp4'
+    return fileType
+  }
+
+  return 'audio/mp4'
 }
 
 export function getMaxBytesForKind(kind: HienTruongFileKind): number {

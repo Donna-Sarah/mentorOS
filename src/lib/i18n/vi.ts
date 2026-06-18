@@ -229,12 +229,16 @@ export const vi = {
     mic_not_found: 'Không tìm thấy micro trên thiết bị.',
     mic_failed: 'Không ghi âm được — thử tải file ghi âm bên dưới.',
     mic_mobile_hint: 'Nhấn để ghi âm, nhấn lại để dừng và chuyển thành chữ',
+    mic_speech_hint: 'Nhấn để nói — nhận dạng giọng miễn phí trên máy',
+    mic_whisper_hint: 'Nhấn để ghi âm, nhấn lại để dừng (xử lý qua server)',
+    mic_fallback_whisper:
+      'Trình duyệt không nhận giọng miễn phí — tự chuyển sang ghi âm qua server...',
     mic_transcribing: 'Đang chuyển ghi âm thành chữ...',
     mic_no_speech: 'Không nghe thấy giọng nói — thử nói to hơn hoặc ghi lại',
     mic_error: 'Lỗi mic',
     text_label: 'Hoặc gõ thủ công',
     input_placeholder:
-      'VD: Hôm nay 9/6, tại van XV-201 khu B, phát hiện rò rỉ nhỏ tại mặt bích. Cần siết bulong. Giao anh Tuấn xử lý trước 20/6. Lưu ý cần dừng máy trước khi siết.',
+      'VD: Ngày 18/6 khảo sát lại cầu cảng, lên phương án cải tạo, deadline 20/6, giao anh Tuấn phụ trách bảo trì, dùng ngân sách Sửa chữa nhỏ.',
     shortcut_hint: 'Ctrl+Enter để phân tích nhanh',
     analyze_btn: '✦ Phân tích & thêm vào bảng',
     analyzing_btn: '⏳ Đang phân tích...',

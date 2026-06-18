@@ -7,6 +7,7 @@ import {
   getMaxBytesForKind,
   guessAudioMimeType,
 } from '@/lib/hien-truong/file-types'
+import { resolveWhisperUploadMeta } from '@/lib/hien-truong/whisper-upload'
 
 export const runtime = 'nodejs'
 
@@ -59,10 +60,13 @@ export async function POST(request: NextRequest) {
       })
     } else {
       const arrayBuffer = await file.arrayBuffer()
+      const guessedMime = guessAudioMimeType(file.name, file.type)
+      const { fileName, mimeType } = resolveWhisperUploadMeta(file.name, guessedMime)
+
       const result = await transcribeWithWhisper({
         data: arrayBuffer,
-        fileName: file.name || 'recording.webm',
-        mimeType: guessAudioMimeType(file.name, file.type),
+        fileName,
+        mimeType,
       })
 
       if (result.error || !result.data) {

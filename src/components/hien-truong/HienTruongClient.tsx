@@ -9,11 +9,14 @@ import { mapAudioErrorMessage } from '@/lib/hien-truong/errors'
 import {
   extensionForMime,
   extractTextFromFile,
+  getSttPreference,
   hasMediaRecorder,
-  hasSpeechRecognition,
   mapMicError,
+  markSttPreferenceWhisper,
   pickRecorderMimeType,
-  shouldUseMediaRecorder,
+  shouldFallbackFromSpeechError,
+  shouldSkipSpeechRecognition,
+  type SttPreference,
 } from '@/lib/hien-truong/mic'
 import { useLanguage } from '@/hooks/useLanguage'
 import { cn } from '@/lib/utils/cn'
@@ -82,10 +85,11 @@ export function HienTruongClient(): ReactElement {
   const mediaChunksRef = useRef<Blob[]>([])
   const speechStartedRef = useRef(false)
   const speechTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const [useMediaRecorder, setUseMediaRecorder] = useState(false)
+  const speechFallbackRef = useRef(false)
+  const [sttMode, setSttMode] = useState<SttPreference>('speech')
 
   useEffect(() => {
-    setUseMediaRecorder(shouldUseMediaRecorder())
+    setSttMode(getSttPreference())
   }, [])
 
   const resolveMicError = useCallback(
@@ -170,6 +174,8 @@ export function HienTruongClient(): ReactElement {
       return
     }
 
+    setSttMode('whisper')
+
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
       mediaStreamRef.current = stream
@@ -197,82 +203,118 @@ export function HienTruongClient(): ReactElement {
     }
   }, [ht, resolveMicError, stopMediaStream])
 
-  const startSpeechRecognition = useCallback(() => {
-    const SR =
-      window.SpeechRecognition ||
-      (window as Window & { webkitSpeechRecognition?: typeof SpeechRecognition })
-        .webkitSpeechRecognition
+  const fallbackToWhisper = useCallback(async () => {
+    if (speechFallbackRef.current) return
+    speechFallbackRef.current = true
+    markSttPreferenceWhisper()
+    setSttMode('whisper')
+    setRecStatus({ type: 'info', msg: ht.mic_fallback_whisper })
 
-    if (!SR) {
+    if (!hasMediaRecorder()) {
       setRecStatus({ type: 'error', msg: ht.mic_unsupported })
+      speechFallbackRef.current = false
       return
     }
 
-    const recognition = new SR()
-    recognition.lang = 'vi-VN'
-    recognition.continuous = false
-    recognition.interimResults = true
-    recognitionRef.current = recognition
-    speechStartedRef.current = false
+    await startMediaRecording()
+    speechFallbackRef.current = false
+  }, [ht, startMediaRecording])
 
-    if (speechTimerRef.current) clearTimeout(speechTimerRef.current)
-    speechTimerRef.current = setTimeout(() => {
-      if (!speechStartedRef.current) {
-        recognition.abort()
-        setIsRecording(false)
-        setRecStatus({ type: 'error', msg: ht.mic_failed })
-      }
-    }, 3000)
+  const startSpeechRecognition = useCallback(
+    (onUnavailable: () => void) => {
+      const SR =
+        window.SpeechRecognition ||
+        (window as Window & { webkitSpeechRecognition?: typeof SpeechRecognition })
+          .webkitSpeechRecognition
 
-    let finalText = ''
-
-    recognition.onstart = () => {
-      speechStartedRef.current = true
-      if (speechTimerRef.current) clearTimeout(speechTimerRef.current)
-      setIsRecording(true)
-      setRecStatus({ type: 'info', msg: ht.listening })
-    }
-
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
-      let interim = ''
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        if (event.results[i].isFinal) {
-          finalText += `${event.results[i][0].transcript} `
-        } else {
-          interim = event.results[i][0].transcript
-        }
-      }
-      setTextInput((finalText + interim).trim())
-    }
-
-    recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
-      if (speechTimerRef.current) clearTimeout(speechTimerRef.current)
-      setIsRecording(false)
-      if (event.error === 'not-allowed') {
-        setRecStatus({ type: 'error', msg: ht.mic_permission_denied })
+      if (!SR) {
+        onUnavailable()
         return
       }
-      setRecStatus({ type: 'error', msg: `${ht.mic_error}: ${event.error}` })
-    }
 
-    recognition.onend = () => {
+      setSttMode('speech')
+
+      const recognition = new SR()
+      recognition.lang = 'vi-VN'
+      recognition.continuous = false
+      recognition.interimResults = true
+      recognitionRef.current = recognition
+      speechStartedRef.current = false
+
       if (speechTimerRef.current) clearTimeout(speechTimerRef.current)
-      setIsRecording(false)
-      if (finalText.trim()) {
-        setRecStatus({ type: 'ok', msg: ht.record_done })
-      } else if (!speechStartedRef.current) {
-        setRecStatus({ type: 'error', msg: ht.mic_failed })
-      } else {
+      speechTimerRef.current = setTimeout(() => {
+        if (!speechStartedRef.current) {
+          recognition.abort()
+          setIsRecording(false)
+          onUnavailable()
+        }
+      }, 2500)
+
+      let finalText = ''
+
+      recognition.onstart = () => {
+        speechStartedRef.current = true
+        if (speechTimerRef.current) clearTimeout(speechTimerRef.current)
+        setIsRecording(true)
+        setRecStatus({ type: 'info', msg: ht.listening })
+      }
+
+      recognition.onresult = (event: SpeechRecognitionEvent) => {
+        let interim = ''
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            finalText += `${event.results[i][0].transcript} `
+          } else {
+            interim = event.results[i][0].transcript
+          }
+        }
+        setTextInput((finalText + interim).trim())
+      }
+
+      recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+        if (speechTimerRef.current) clearTimeout(speechTimerRef.current)
+        setIsRecording(false)
+
+        if (event.error === 'aborted') return
+
+        if (event.error === 'not-allowed') {
+          setRecStatus({ type: 'error', msg: ht.mic_permission_denied })
+          return
+        }
+
+        if (shouldFallbackFromSpeechError(event.error)) {
+          onUnavailable()
+          return
+        }
+
+        setRecStatus({ type: 'error', msg: `${ht.mic_error}: ${event.error}` })
+      }
+
+      recognition.onend = () => {
+        if (speechTimerRef.current) clearTimeout(speechTimerRef.current)
+        setIsRecording(false)
+
+        if (finalText.trim()) {
+          setRecStatus({ type: 'ok', msg: ht.record_done })
+          return
+        }
+
+        if (!speechStartedRef.current) {
+          onUnavailable()
+          return
+        }
+
         setRecStatus({ type: 'error', msg: ht.mic_no_speech })
       }
-    }
 
-    try {
-      recognition.start()
-    } catch {
-      setRecStatus({ type: 'error', msg: ht.mic_failed })
-    }
-  }, [ht])
+      try {
+        recognition.start()
+      } catch {
+        onUnavailable()
+      }
+    },
+    [ht],
+  )
 
   const toggleMic = useCallback(async () => {
     if (isRecording) {
@@ -284,24 +326,20 @@ export function HienTruongClient(): ReactElement {
       return
     }
 
-    if (useMediaRecorder) {
+    if (shouldSkipSpeechRecognition()) {
       await startMediaRecording()
       return
     }
 
-    if (!hasSpeechRecognition()) {
-      setRecStatus({ type: 'error', msg: ht.mic_unsupported })
-      return
-    }
-
-    startSpeechRecognition()
+    startSpeechRecognition(() => {
+      void fallbackToWhisper()
+    })
   }, [
+    fallbackToWhisper,
     finishMediaRecording,
-    ht,
     isRecording,
     startMediaRecording,
     startSpeechRecognition,
-    useMediaRecorder,
   ])
 
   const analyze = useCallback(async () => {
@@ -487,9 +525,13 @@ export function HienTruongClient(): ReactElement {
           </span>
           {isRecording ? ht.stop_recording : ht.start_recording}
         </button>
-        {useMediaRecorder && (
+        {sttMode === 'whisper' ? (
           <p className="mt-2 font-body text-caption normal-case tracking-normal text-ash-text">
-            {ht.mic_mobile_hint}
+            {ht.mic_whisper_hint}
+          </p>
+        ) : (
+          <p className="mt-2 font-body text-caption normal-case tracking-normal text-ash-text">
+            {ht.mic_speech_hint}
           </p>
         )}
         <StatusBar status={recStatus} />
