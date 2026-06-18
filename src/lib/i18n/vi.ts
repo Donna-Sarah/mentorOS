@@ -200,7 +200,11 @@ export const vi = {
     pick_image: 'Chọn ảnh',
     pick_audio: 'Chọn file ghi âm',
     image_hint: 'Chụp hoặc chọn từ thư viện · JPG, PNG · tối đa 5MB',
-    audio_hint: 'Chọn từ app Ghi âm / Tệp · MP3, M4A, WAV · tối đa 25MB',
+    audio_hint: 'MP3, M4A, WAV · tối đa 25MB',
+    audio_browse_hint:
+      'Nếu thấy Camera/Ảnh: chọn Duyệt (Browse) / Tệp / Files → thư mục Ghi âm',
+    audio_wrong_file:
+      'Đây không phải file ghi âm. Chọn Duyệt/Tệp → file .m4a hoặc .mp3 trong app Ghi âm.',
     desktop_drop_hint: 'Hoặc kéo thả file vào đây (máy tính)',
     file_loading_image: 'Đang đọc ảnh...',
     file_loading_audio: 'Đang chuyển ghi âm thành chữ...',
@@ -211,6 +215,8 @@ export const vi = {
       'Chức năng đọc ghi âm chưa được bật trên server. Admin: thêm OPENAI_API_KEY trên Vercel rồi Redeploy.',
     file_audio_invalid_key:
       'API key OpenAI không hợp lệ. Kiểm tra lại OPENAI_API_KEY trên Vercel rồi Redeploy.',
+    file_audio_quota:
+      'Tài khoản OpenAI hết credit. Vào platform.openai.com → Billing để nạp thêm, rồi thử lại.',
     file_done_image: 'Đã đọc ảnh — bấm "Phân tích" để xử lý',
     file_done_audio: 'Đã chuyển ghi âm thành chữ — bấm "Phân tích" để xử lý',
     start_recording: 'Nhấn để nói',

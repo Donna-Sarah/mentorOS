@@ -14,6 +14,7 @@ export function mapAudioErrorMessage(
   messages: {
     notConfigured: string
     invalidKey: string
+    quotaExceeded: string
     generic: string
   },
 ): string {
@@ -22,14 +23,20 @@ export function mapAudioErrorMessage(
 
   const lower = error.toLowerCase()
   if (
+    lower.includes('quota') ||
+    lower.includes('billing') ||
+    lower.includes('insufficient')
+  ) {
+    return messages.quotaExceeded
+  }
+  if (
     lower.includes('incorrect api key') ||
-    lower.includes('invalid api key') ||
-    lower.includes('api key')
+    lower.includes('invalid api key')
   ) {
     return messages.invalidKey
   }
 
-  return error
+  return error.length > 120 ? messages.generic : error
 }
 
 export function getHienTruongServiceStatus() {

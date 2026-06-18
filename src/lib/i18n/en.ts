@@ -202,7 +202,11 @@ export const en: Translations = {
     pick_image: 'Choose image',
     pick_audio: 'Choose audio file',
     image_hint: 'Camera or photo library · JPG, PNG · max 5MB',
-    audio_hint: 'From Voice Recorder / Files app · MP3, M4A, WAV · max 25MB',
+    audio_hint: 'MP3, M4A, WAV · max 25MB',
+    audio_browse_hint:
+      'If you see Camera/Photos: tap Browse / Files → Recordings folder',
+    audio_wrong_file:
+      'Not an audio file. Tap Browse/Files → pick .m4a or .mp3 from Voice Recorder.',
     desktop_drop_hint: 'Or drag and drop a file here (desktop)',
     file_loading_image: 'Reading image...',
     file_loading_audio: 'Transcribing audio...',
@@ -213,6 +217,8 @@ export const en: Translations = {
       'Audio transcription is not enabled on the server. Admin: add OPENAI_API_KEY on Vercel and redeploy.',
     file_audio_invalid_key:
       'Invalid OpenAI API key. Check OPENAI_API_KEY on Vercel and redeploy.',
+    file_audio_quota:
+      'OpenAI account is out of credits. Go to platform.openai.com → Billing to add credits.',
     file_done_image: 'Image read — tap Analyze to process',
     file_done_audio: 'Audio transcribed — tap Analyze to process',
     start_recording: 'Tap to speak',
