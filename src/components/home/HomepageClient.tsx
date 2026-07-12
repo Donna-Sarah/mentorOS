@@ -205,19 +205,20 @@ export function HomepageClient() {
 
   return (
     <>
-      <section className="bg-amber-glow py-20 md:py-28 lg:py-32 xl:py-[120px]">
-        <div className="mx-auto max-w-narrow px-page text-center">
-          <p className="mb-5 font-body text-[11px] font-bold uppercase tracking-widest text-[#6B7280] md:mb-6">
+      <section className="bg-amber-glow pt-navbar-mobile pb-24 md:pt-navbar-desktop md:pb-32 lg:pb-113">
+        <div className="mx-auto max-w-content px-page text-center">
+          <p className="mb-5 font-body text-[11px] font-bold tracking-widest text-[#6B7280] md:mb-6">
             {t.home.hero_badge}
           </p>
 
-          <h1 className="font-display text-[44px] font-bold leading-[1.05] tracking-[-0.035em] text-midnight-ink md:text-[56px] md:leading-[1.02] md:tracking-[-0.04em] lg:text-[64px] lg:leading-[0.96] xl:text-[72px] xl:leading-[0.92] xl:tracking-[-0.045em]">
-            <span className="block">{t.home.hero_title}</span>
-            <span className="block -mt-0.5 md:-mt-1 lg:-mt-2 xl:-mt-3">{t.home.hero_title_2}</span>
-            <span className="block -mt-0.5 text-sunset-orange md:-mt-1 lg:-mt-2 xl:-mt-3">{t.home.hero_title_3}</span>
+          <h1 className="text-balance font-display text-[clamp(40px,5vw,64px)] font-bold leading-[1.05] tracking-[-0.035em] text-midnight-ink">
+            {t.home.hero_title}
           </h1>
+          <p className="mt-2 text-balance font-display text-[clamp(22px,3vw,36px)] font-semibold leading-[1.2] tracking-[-0.02em] text-sunset-orange md:mt-3">
+            {t.home.hero_title_2}
+          </p>
 
-          <p className="mx-auto mt-8 max-w-reading text-center font-body text-[16px] leading-[1.75] text-[#374151] md:mt-10 md:text-[17px] md:leading-[1.85] xl:text-[18px] xl:leading-[1.7]">
+          <p className="mx-auto mt-5 max-w-reading text-center font-body text-[16px] leading-[1.75] text-slate-text md:mt-6 md:text-[17px] md:leading-[1.85] xl:text-[18px] xl:leading-[1.7]">
             {t.home.hero_sub}
           </p>
 
@@ -233,7 +234,7 @@ export function HomepageClient() {
       </section>
 
       <div className="bg-white-canvas">
-        <section className="border-b border-soft-gray py-20 md:py-24">
+        <section className="border-b border-soft-gray py-24 md:py-32 lg:py-113">
           <div className="mx-auto max-w-content px-page text-center">
             <h2 className="font-display text-[36px] font-bold tracking-[-0.03em] text-[#111111] md:text-[52px]">
               {t.home.products_title}
@@ -244,6 +245,7 @@ export function HomepageClient() {
           </div>
         </section>
 
+        <div className="flex flex-col gap-16 md:gap-24 lg:gap-32">
         {productSections.map((product, index) => {
           const isEven = index % 2 === 0
 
@@ -252,7 +254,7 @@ export function HomepageClient() {
               key={product.id}
               className="border-b border-soft-gray last:border-b-0"
             >
-              <div className="mx-auto max-w-content px-page py-16 md:py-24 lg:py-28">
+              <div className="mx-auto max-w-content px-page py-24 md:py-32 lg:py-113">
                 <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-2 md:gap-x-16 md:gap-y-12 lg:gap-x-20">
                   {isEven ? (
                     <>
@@ -278,9 +280,10 @@ export function HomepageClient() {
             </section>
           )
         })}
+        </div>
       </div>
 
-      <section className="bg-amber-glow py-20 md:py-28 lg:py-32">
+      <section className="bg-amber-glow py-24 md:py-32 lg:py-113">
         <div className="mx-auto max-w-narrow px-page text-center">
           <p className="mb-5 font-body text-[11px] font-bold uppercase tracking-widest text-sunset-orange md:mb-6">
             {t.home.philosophy_label}
@@ -294,7 +297,7 @@ export function HomepageClient() {
         </div>
       </section>
 
-      <section className="border-t border-soft-gray bg-white-canvas py-16 md:py-24 xl:py-20">
+      <section className="border-t border-soft-gray bg-white-canvas py-24 md:py-32 lg:py-113">
         <div className="mx-auto flex max-w-content flex-col items-center justify-between gap-8 px-page md:flex-row md:gap-10">
           <div className="mb-2 text-center md:mb-0 md:text-left">
             <h2 className="font-display text-[26px] font-bold tracking-[-0.02em] text-[#111111] md:text-[28px] xl:text-[32px]">

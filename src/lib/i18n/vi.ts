@@ -13,9 +13,9 @@ export const vi = {
   },
   home: {
     hero_badge: 'Hệ thống tư duy chuyên môn bằng AI',
-    hero_title: 'Suy nghĩ rõ hơn.',
-    hero_title_2: 'Học nhanh hơn.',
-    hero_title_3: 'Làm việc thông minh hơn.',
+    hero_title: 'Làm việc thông minh hơn với AI.',
+    hero_title_2: 'Suy nghĩ rõ hơn. Học nhanh hơn.',
+    hero_title_3: '',
     hero_sub:
       'mentorOS là hệ sinh thái công cụ AI giúp bạn hiểu vấn đề rõ hơn, học đúng hơn và làm việc hiệu quả hơn.',
     cta_primary: 'Dùng AskBetter miễn phí',
